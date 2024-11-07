@@ -1,0 +1,13 @@
+{
+    "name": "juan/tp-final-tienda-zapatillas",
+    "description": "los pibes",
+    "require": {
+        "filp/whoops": "^2.16",
+        "mpdf/qrcode": "^1.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Juan\\TpFinalTiendaZapatillas\\": "src/"
+        }
+    }
+}
