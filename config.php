@@ -14,8 +14,9 @@ $PROYECTO ='TpFinal-TiendaZapatillas';
 //variable que almacena el directorio del proyecto
 $ROOT = $_SERVER['DOCUMENT_ROOT']."/$PROYECTO/";
 
-include_once($ROOT.'Utils/utils.php');
+include_once($ROOT.'src/Utils/utils.php');
 
+include_once($ROOT.'vendor/autoload.php');
 
 // Variable que define la pagina de autenticacion del proyecto
 $INICIO = "Location:http://".$_SERVER['HTTP_HOST']."/$PROYECTO/vista/login/login.php";
