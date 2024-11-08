@@ -63,10 +63,10 @@ class Usuario extends BaseDatos {
                 $this->setIdUsuario($id);
                 $resp=true;
             } else {
-                $this->setUsDeshabilitado(1);
+                $this->setUsdeshabilitado(1);
             }
         } else {
-            $this->setUsDeshabilitado(1);
+            $this->setUsdeshabilitado(1);
         }
         return $resp;
     }
@@ -76,15 +76,19 @@ class Usuario extends BaseDatos {
         $resp = false;
         
         if($base->Iniciar()){
-            $consultaModifica="UPDATE usuario SET usNombre= '".$this->getUsNombre()."',usPass='".$this->getUsPass()."',usMail='".$this->getUsMail()."',usDeshabilitado='".$this->getUsDeshabilitado()."' WHERE idUsuario=".$this->getIdUsuario();
+            $consultaModifica =
+            "UPDATE usuario SET usNombre ='".$this->getUsNombre()."',
+            usPass='".$this->getUsPass()."',
+            usMail='".$this->getUsMail()."',
+            usDeshabilitado='".$this->getUsDeshabilitado()."' WHERE idUsuario=".$this->getIdUsuario();
             
             if($base->Ejecutar($consultaModifica)){
                 $resp=true;
             } else {
-                $this->setUsDeshabilitado(1);
+                $this->setUsdeshabilitado(1);
             }
         } else {
-            $this->setUsDeshabilitado(1);
+            $this->setUsdeshabilitado(1);
         }
         return $resp;
     }
@@ -129,7 +133,7 @@ class Usuario extends BaseDatos {
                 }
             }
         } else {
-            $this->setUsDeshabilitado(1);
+            $this->setUsdeshabilitado(1);
         }
         
         return $arreglo;
@@ -138,6 +142,6 @@ class Usuario extends BaseDatos {
    
 
     public function __toString(){
-        return "IdUsuario: ".$this->getIdUsuario()."\nUsNombre: ".$this->getUsNombre()."\nUsPass: ".$this->getUsPass()."\nUsMail: ".$this->getUsMail()."\nUsDeshabilitado: ".$this->getUsDeshabilitado();
+        return "IdUsuario: ".$this->getIdUsuario()."\nUsNombre: ".$this->getUsNombre()."\nUsPass: ".$this->getUsPass()."\nUsMail: ".$this->getUsMail()."\nUsDeshabilitado: ".$this->setUsdeshabilitado();
     }
 }

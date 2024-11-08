@@ -13,15 +13,12 @@ class abmmenu
             if (isset($param['idmenu'])) {
                 $where .= " and idmenu =" . $param['idmenu'];
             }
-
             if (isset($param['menombre'])) {
                 $where .= " and menombre ='" . $param['menombre'] . "'";
             }
-
             if (isset($param['medescripcion'])) {
                 $where .= " and medescripcion ='" . $param['medescripcion'] . "'";
             }
-
             if (isset($param['idpadre'])) {
                 $where .= " and idpadre =" . $param['idpadre'];
             }
@@ -36,15 +33,12 @@ class abmmenu
     private function cargarObjeto($param)
     {
         $objMenu = null;
-        if (array_key_exists('menombre', $param) && array_key_exists('medescripcion', $param) && array_key_exists('idpadre', $param)) {
+        if (array_key_exists('menombre', $param) 
+            && array_key_exists('medescripcion', $param) 
+            && array_key_exists('idpadre', $param)) {
+
             $objMenu = new menu();
-            $objMenu->setear(
-                '',
-                $param['menombre'],
-                $param['medescripcion'],
-                $param['idpadre'],
-                ''
-            );
+            $objMenu->setear('',$param['menombre'],$param['medescripcion'],$param['idpadre'],'');
         }
         return $objMenu;
     }
@@ -73,7 +67,13 @@ class abmmenu
     {
         $resp = false;
         $objMenu = new menu();
-        $objMenu->setear($param['idmenu'], $param['menombre'], $param['medescripcion'], $param['idpadre'], $param['medeshabilitado']);
+        $objMenu->setear(
+        $param['idmenu'],
+        $param['menombre'],
+        $param['medescripcion'],
+        $param['idpadre'],
+        $param['medeshabilitado']);
+
         if ($objMenu->modificar()) {
             $resp = true;
         }
@@ -104,6 +104,7 @@ class abmmenu
         return $resp;
     }
 
+
     //Hace un borrado logico del menu. 
     //En caso de que ya estuviese deshabilitado, lo vuelve a habilitar.
     public function deshabilitarMenu($param)
@@ -111,6 +112,7 @@ class abmmenu
         $resp = false;
         $objMenu = $this->cargarObjetoConClave($param);
         $listadoMenus = $objMenu->listar("idmenu=" . $param['idmenu']);
+
         if (count($listadoMenus) > 0) {
             $estadoMenu = $listadoMenus[0]->getMedeshabilitado();
             if ($estadoMenu == '0000-00-00 00:00:00') {
@@ -125,4 +127,5 @@ class abmmenu
         }
         return $resp;
     }
+
 }

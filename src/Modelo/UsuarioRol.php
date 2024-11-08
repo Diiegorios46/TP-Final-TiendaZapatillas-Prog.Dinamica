@@ -4,7 +4,7 @@ class UsuarioRol extends BaseDatos{
     private $idUsuario;
     private $idRol;
 
-    public function getIdUsuario($idUsuario){
+    public function getIdUsuario(){
         return $this->getIdUsuario;
     }
 
@@ -12,7 +12,7 @@ class UsuarioRol extends BaseDatos{
         $this->idUsuario = $idUsuario;
     }
 
-    public function getIdRol($idRol){
+    public function getIdRol(){
         return $this->idRol;
     }
 
@@ -22,7 +22,7 @@ class UsuarioRol extends BaseDatos{
 
     public function cargar($datosUsuario){
         $this->setIdUsuario($datosUsuario['idUsuario']);
-        $this->setUsNombre($datosUsuario['idRol']);
+        $this->setIdRol($datosUsuario['idRol']);
     }
 
     public function alta(){
@@ -60,7 +60,8 @@ class UsuarioRol extends BaseDatos{
         $base=new BaseDatos();
         if($base->Iniciar()){
             $consultaInsertar="INSERT INTO usuariorol(idusuario, idrol) VALUES ('".$this->getIdUsuario()."','".$this->getIdRol()."')";
-            if($base->Ejecutar($consultaModifica)){
+            
+            if($base->Ejecutar($consultaInsertar)){
                 $resp=true;
             } else {
                 $this->setUsDeshabilitado(1);
