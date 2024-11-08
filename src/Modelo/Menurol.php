@@ -4,6 +4,7 @@ class MenuRol extends BaseDatos
 {
     private $idmenu;
     private $idrol;
+    private $mensajeOperacion;
 
     public function getIdmenu()
     {
@@ -19,6 +20,11 @@ class MenuRol extends BaseDatos
 
     public function setIdrol($idrol){
         $this->idrol = $idrol;
+    }
+
+    public function setMensajeOperacion($mensajeOperacion)
+    {
+        $this->mensajeOperacion = $mensajeOperacion;
     }
 
     public function setear($idmenu, $idrol){
@@ -104,7 +110,7 @@ class MenuRol extends BaseDatos
         return $resp;
     }
 
-    public static function listar($parametro = "")
+    public function listar($parametro = "")
     {
         $arreglo = array();
         $base = new BaseDatos();

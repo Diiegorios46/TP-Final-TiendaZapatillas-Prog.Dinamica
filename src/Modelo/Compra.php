@@ -5,18 +5,14 @@ class Compra extends BaseDatos
     private $idcompra;
     private $cofecha;
     private $idusuario;
-
+    private $mensajeOperacion;
+    
     public function __construct()
     {
         $this->idcompra = "";
         $this->cofecha = "";
-<<<<<<< HEAD
         $this->idusuario = new Usuario();
         $this->mensajeoperacion = "";
-=======
-        $this->idusuario = new usuario();
-        //$this->mensajeoperacion = "";
->>>>>>> d790a3f2034ef86cec58289ad43a53e40ceea98c
     }
     
     // Getters
@@ -49,7 +45,10 @@ class Compra extends BaseDatos
     {
         $this->idusuario = $objUsuario;
     }
-
+    public function setMensajeOperacion($mensajeoperacion)
+    {
+        $this->mensajeoperacion = $mensajeoperacion;
+    }
 
     public function setear($idcompra, $cofecha, $objUsuario)
     {
@@ -63,7 +62,7 @@ class Compra extends BaseDatos
         $resp = false;
         $base = new BaseDatos();
         $sql = "SELECT * FROM compra WHERE idcompra = " . $this->getIdcompra();
-        // echo $sql;
+
         if ($base->Iniciar()) {
             $res = $base->Ejecutar($sql);
             if ($res > -1) {
@@ -92,7 +91,7 @@ class Compra extends BaseDatos
         $resp = false;
         $base = new BaseDatos();
         $sql = "INSERT INTO compra (cofecha, idusuario) 
-        VALUES ('{$this->getCofecha()}','{$this->getIdusuario()->getIdusuario()}');";
+        VALUES ('{$this->getCofecha()}','{$this->getIdusuario()->getIdusuario()}')";
 
         if ($base->Iniciar()) {
             if ($elid = $base->Ejecutar($sql)) {
@@ -131,7 +130,7 @@ class Compra extends BaseDatos
         $sql = "DELETE FROM compra WHERE idcompra=" . $this->getIdcompra();
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
-                return true;
+                $resp = true;
             } else {
                 $this->setMensajeOperacion("Compra->eliminar: " . $base->getError());
             }
@@ -141,7 +140,7 @@ class Compra extends BaseDatos
         return $resp;
     }
 
-    public static function listar($parametro = "")
+    public function listar($parametro = "")
     {
         $arreglo = array();
         $base = new BaseDatos();

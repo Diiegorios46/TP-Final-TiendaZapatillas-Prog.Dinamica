@@ -28,13 +28,14 @@ class abmUsuario{
       
     public function cargarObjeto($param){
         $obj = null;
-        if(array_key_exists('idUsuario',$param) 
+        verEstructura($param);
+        if(array_key_exists('idusuario',$param) 
            and array_key_exists('usNombre',$param) 
            and array_key_exists('usPass',$param)
            and array_key_exists('usMail',$param)){
 
             $obj = new Usuario();
-            $obj->cargar($param);
+            $obj->setear($param);
         }
 
         return $obj;
@@ -42,16 +43,16 @@ class abmUsuario{
 
     private function cargarObjetosConClave($param){
         $obj = null;
-        if(isset($param['idUsuario'])){
+        if(isset($param['idusuario'])){
             $obj = new Usuario();
-            $obj->cargar($param);
+            $obj->setear($param);
         }
         return $obj;
     }
 
     private function seteadosCamposClaves($param){
         $resp = false;
-        if(isset($param['idUsuario'])){
+        if(isset($param['idusuario'])){
             $resp = true;
         }
         return $resp;
@@ -59,7 +60,7 @@ class abmUsuario{
 
     public function alta($param) {
         $resp = false;
-        $param['idUsuario'] = null;
+        $param['idusuario'] = null;
         $param['usDeshabilitado'] = null;
         
         $elObjtTabla = $this->cargarObjeto($param);
@@ -89,6 +90,7 @@ class abmUsuario{
      */
     public function modificacion($param) {
         $resp = false;
+        verEstructura($param);
         if ($this->seteadosCamposClaves($param)){
             $elObjtTabla = $this->cargarObjeto($param);
             if ($elObjtTabla != null && $elObjtTabla->modificar()){
@@ -103,15 +105,15 @@ class abmUsuario{
         $where = " true ";
         if ($param <> NULL) {
             if (isset($param['idUsuario']))
-                $where .= " and idUsuario =" . $param['idUsuario'];
+                $where .= " and idusuario =" . $param['idusuario'];
             if (isset($param['usNombre']))
-                $where .= " and usNombre ='" . $param['usNombre'] . "'";
+                $where .= " and usnombre ='" . $param['usNombre'] . "'";
             if (isset($param['usPass']))
-                $where .= " and usPass ='" . $param['usPass'] . "'";
+                $where .= " and uspass ='" . $param['usPass'] . "'";
             if (isset($param['usMail']))
-                $where .= " and usMail ='" . $param['usMail'] . "'";
+                $where .= " and usmail ='" . $param['usMail'] . "'";
             if (isset($param['usDeshabilitado']))
-                $where .= " and usDeshabilitado ='" . $param['usDeshabilitado'] . "'";
+                $where .= " and useshabilitado ='" . $param['usDeshabilitado'] . "'";
         }
         $obj = new Usuario();
         $arreglo = $obj->listar($where);
@@ -121,30 +123,31 @@ class abmUsuario{
     public function obtenerDatos($param){
         $where = " true ";
         if ($param <> NULL) {
-            if (isset($param['idUsuario']))
-                $where .= " and idUsuario = " . $param['idUsuario'];
+            if (isset($param['idusuario']))
+                $where .= " and idusuario = " . $param['idusuario'];
             if (isset($param['usNombre']))
-                $where .= " and usNombre = '" . $param['usNombre'] . "'";
+                $where .= " and usnombre = '" . $param['usNombre'] . "'";
             if (isset($param['usPass']))
-                $where .= " and usPass = '" . $param['usPass'] . "'";
+                $where .= " and uspass = '" . $param['usPass'] . "'";
             if (isset($param['usMail']))
-                $where .= " and usMail = '" . $param['usMail'] . "'";
+                $where .= " and usmail = '" . $param['usMail'] . "'";
             if (isset($param['usDeshabilitado']))
-                $where .= " and usDeshabilitado = '" . $param['usDeshabilitado'] . "'";
+                $where .= " and usdeshabilitado = '" . $param['usDeshabilitado'] . "'";
         }
         
         $obj = new Usuario();
         
         $arreglo = $obj->listar($where);
         $result = [];
+        
         if (!empty($arreglo)) {
             foreach ($arreglo as $usuario) {
                 $result[] = [
-                'idUsuario' => $usuario->getIdUsuario(),
-                'usNombre' => $usuario->getUsNombre(),
-                'usPass' => $usuario->getUsPass(),
-                'usMail' => $usuario->getUsMail(),
-                'usDeshabilitado' => $usuario->getUsDeshabilitado()
+                'idusuario' => $usuario->getIdusuario(),
+                'usnombre' => $usuario->getUsNombre(),
+                'uspass' => $usuario->getUsPass(),
+                'usmail' => $usuario->getUsMail(),
+                'usdeshabilitado' => $usuario->getUsDeshabilitado()
                 ];
             }
         }

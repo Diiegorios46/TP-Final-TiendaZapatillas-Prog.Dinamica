@@ -3,6 +3,7 @@
 class UsuarioRol extends BaseDatos{
     private $idUsuario;
     private $idRol;
+    private $mensajeOperacion;
 
     public function getIdUsuario(){
         return $this->getIdUsuario;
@@ -23,6 +24,11 @@ class UsuarioRol extends BaseDatos{
     public function cargar($datosUsuario){
         $this->setIdUsuario($datosUsuario['idUsuario']);
         $this->setIdRol($datosUsuario['idRol']);
+    }
+
+    public function setMensajeOperacion($mensajeOperacion)
+    {
+        $this->mensajeOperacion = $mensajeOperacion;
     }
 
     public function alta(){

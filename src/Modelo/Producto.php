@@ -2,23 +2,12 @@
 
 class Producto extends BaseDatos
 {
-    /*`idproducto` bigint(20) NOT NULL,
-        `pronombre` int(11) NOT NULL,
-        `prodetalle` varchar(512) NOT NULL,
-        `procantstock` int(11) NOT NULL 
-    */
-    
-    //private $proprecio;
-    //private $prodescuento;
-    //private $procantventas;
-    //private $prodeshabilitado;
-    //private $mensajeOperacion;
-    
     private $idproducto;
     private $pronombre;
     private $procantstock;
     private $prodetalle;
-
+    private $proprecio;
+    private $mensajeOperacion;
 
     // Getters
     public function getIdproducto()
@@ -56,61 +45,30 @@ class Producto extends BaseDatos
         $this->procantstock = $procantstock;
     }
 
-    /*
-    public function getProprecio()
+    public function getProPrecio()
     {
         return $this->proprecio;
     }
-    public function getProdescuento()
-    {
-        return $this->prodescuento;
-    }
-    public function getProcantventas()
-    {
-        return $this->procantventas;
-    }
-    public function getProdeshabilitado()
-    {
-        return $this->prodeshabilitado;
-    }
-    public function getMensajeOperacion()
-    {
-        return $this->mensajeOperacion;
-    }
-    public function setProprecio($proprecio)
+
+    public function setProPrecio($proprecio)
     {
         $this->proprecio = $proprecio;
     }
 
-    public function setProdescuento($prodescuento)
-    {
-        $this->prodescuento = $prodescuento;
-    }
-    public function setProcantventas($procantventas)
-    {
-        $this->procantventas = $procantventas;
-    }
-    public function setProdeshabilitado($prodeshabilitado)
-    {
-        $this->prodeshabilitado = $prodeshabilitado;
-    }
     public function setMensajeOperacion($mensajeOperacion)
     {
         $this->mensajeOperacion = $mensajeOperacion;
     }
-    */
+
 
     // Metodos
-    public function setear($idproducto, /*$proprecio , $prodescuento*/ $pronombre, $prodetalle, /*$procantventas*/ $procantstock /*$prodeshabilitado*/)
+    public function setear($idproducto, $proprecio , $pronombre, $prodetalle,  $procantstock)
     {
         $this->setIdproducto($idproducto);
-       // $this->setProprecio($proprecio);
-        //$this->setProdescuento($prodescuento);
+        $this->setProPrecio($proprecio);
         $this->setPronombre($pronombre);
         $this->setProdetalle($prodetalle);
-        //$this->setProcantventas($procantventas);
         $this->setProcantstock($procantstock);
-        //$this->setProdeshabilitado($prodeshabilitado);
     }
 
     public function cargar()
@@ -125,7 +83,12 @@ class Producto extends BaseDatos
             if ($res > -1) {
                 if ($res > 0) {
                     $row = $base->Registro();
-                    $this->setear($row['idproducto'],/* $row['proprecio'], $row['prodescuento'],*/ $row['pronombre'], $row['prodetalle'], /*$row['procantventas'],*/ $row['procantstock'], /*$row['prodeshabilitado']*/);
+                    $this->setear(
+                        $row['idproducto'],
+                        $row['proprecio'], 
+                        $row['pronombre'], 
+                        $row['prodetalle'],  
+                        $row['procantstock']);
                     $resp = true;
                 }
             }
@@ -141,8 +104,8 @@ class Producto extends BaseDatos
         $resp = false;
         $base = new BaseDatos();
 
-        $sql = "INSERT INTO producto (idproducto , pronombre, prodetalle , procantstock) VALUES ('" . $this->getIdproducto() .",'" . $this->getPronombre() . "','" . $this->getProdetalle() . "'," . $this->getProcantstock() . ",'0000-00-00 00:00:00')";
-
+        $sql = "INSERT INTO producto (pronombre, prodetalle , procantstock, proprecio) VALUES ('".$this->getPronombre()."','".$this->getProdetalle()."',".$this->getProcantstock() . ",".$this->getProPrecio().")";
+        verEstructura($sql);
         if ($base->Iniciar()) {
             if ($base = $base->Ejecutar($sql)) {
                 $this->setIdproducto($base);
@@ -160,7 +123,10 @@ class Producto extends BaseDatos
     {
         $resp = false;
         $base = new BaseDatos();
-        $sql = "UPDATE producto SET idproducto='" . $this->getIdproducto() . "', prodescuento=" . $this->getProdescuento() . ", pronombre='" . $this->getPronombre() . "', prodetalle='" . $this->getProdetalle() . ", procantstock=" . $this->getProcantstock() . ", prodeshabilitado = '0000-00-00 00:00:00' WHERE idproducto='" . $this->getIdproducto() . "'";
+        $sql = "UPDATE producto SET 
+        idproducto = " . $this->getIdproducto() . ", pronombre = '" . $this->getPronombre() . "', prodetalle = '" . $this->getProdetalle() . "', proprecio = " . $this->getProPrecio() . ", procantstock = " . $this->getProcantstock() . " WHERE idproducto = " . $this->getIdproducto() . ";";
+        
+        verEstructura($sql);
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 $resp = true;
@@ -178,6 +144,7 @@ class Producto extends BaseDatos
         $resp = false;
         $base = new BaseDatos();
         $sql = "DELETE FROM producto WHERE idproducto='" . $this->getIdproducto() . "'";
+        
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 return true;
@@ -190,20 +157,32 @@ class Producto extends BaseDatos
         return $resp;
     }
 
-    public static function listar($parametro = "")
+    //ESTA RARO ESTO
+    public function listar($parametro = "")
     {
         $arreglo = array();
         $base = new BaseDatos();
         $sql = "SELECT * FROM producto ";
+        
         if ($parametro != "") {
             $sql .= 'WHERE ' . $parametro;
         }
+        
         $res = $base->Ejecutar($sql);
         if ($res > -1) {
             if ($res > 0) {
                 while ($row = $base->Registro()) {
                     $obj = new Producto();
-                    $obj->setear($row['idproducto'], /* $row['proprecio'] $row['prodescuento']*/, $row['pronombre'], $row['prodetalle']/*$row['procantventas']*/, $row['procantstock'], $row['prodeshabilitado']);
+                    $obj->setear(
+                        $row['idproducto'], 
+                        $row['proprecio'], 
+                        $row['prodescuento'], 
+                        $row['pronombre'], 
+                        $row['prodetalle'], 
+                        $row['procantventas'], 
+                        $row['procantstock'], 
+                        $row['prodeshabilitado']
+                    );
                     array_push($arreglo, $obj);
                 }
             }

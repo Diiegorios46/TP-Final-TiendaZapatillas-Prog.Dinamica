@@ -200,6 +200,21 @@ class BaseDatos extends PDO {
        return $cant;
        
    }
+
+   public function devuelveIDInsercion($sql){
+       $resultado=parent::query($sql);
+       if(!$resultado){
+           $this->analizarDebug();
+           $id=0;
+       }else{
+         $id =  $this->lastInsertId(); 
+         if ($id==0){
+             $id=-1;
+         }
+           
+       }
+       return $id;
+   }
    
    /**
     * Devuelve un registro retornado por la ejecucion de una consulta

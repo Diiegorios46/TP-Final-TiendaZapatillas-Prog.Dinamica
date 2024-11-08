@@ -1,15 +1,41 @@
 <?php
-class abmcompraestadotipo
+class abmCompraEstadoTipo
 {
+    public function abm($datos) {
+        $resp = false;
+
+        if ($datos['accion'] == 'editar') {
+            if ($this->modificacion($datos)) {
+                $resp = true;
+            }
+        }
+
+        if ($datos['accion'] == 'borrar') {
+            if ($this->baja($datos)) {
+                $resp = true;
+            }           
+        }
+
+        if ($datos['accion'] == 'nuevo') {
+            if ($this->alta($datos)) {
+                $resp = true;
+            }
+        }
+
+        return $resp;
+    }
     private function cargarObjeto($param)
     {
         $obj = null;
         if (
-            array_key_exists('idcompraestadotipo', $param) and array_key_exists('cetdescripcion', $param)
+            array_key_exists('idcompraestadotipo', $param) 
+            and array_key_exists('cetdescripcion', $param)
             and array_key_exists('cetdetalle', $param)
         ) {
             $obj = new compraestadotipo();
-            $obj->setear($param['idcompraestadotipo'], $param['cetdescripcion'], $param['cetdetalle']);
+            $obj->setear($param['idcompraestadotipo'],
+                         $param['cetdescripcion'],
+                         $param['cetdetalle']);
         }
         return $obj;
     }
@@ -59,7 +85,6 @@ class abmcompraestadotipo
 
     public function modificacion($param)
     {
-        //echo "Estoy en modificacion";
         $resp = false;
         if ($this->seteadosCamposClaves($param)) {
             $elObjtCompraEstadoTipo = $this->cargarObjeto($param);

@@ -1,12 +1,13 @@
 <?php
 
-class compraestado extends BaseDatos
+class Compraestado extends BaseDatos
 {
     private $idcompraestado;
     private $objCompra;
     private $objComEstTipo;
     private $cefechaini;
     private $cefechafin;
+    private $mensajeoperacion;
 
     public function __construct()
     {
@@ -18,7 +19,6 @@ class compraestado extends BaseDatos
         $this->mensajeoperacion = "";
     }
 
-    // Getters
     public function getIdcompraestado()
     {
         return $this->idcompraestado;
@@ -44,8 +44,11 @@ class compraestado extends BaseDatos
         return $this->cefechafin;
     }
 
+    public function getMensajeOperacion()
+    {
+        return $this->mensajeoperacion;
+    }
 
-    // Setters
     public function setIdcompraestado($idcompraestado)
     {
         $this->idcompraestado = $idcompraestado;
@@ -69,6 +72,11 @@ class compraestado extends BaseDatos
     public function setCefechafin($cefechafin)
     {
         $this->cefechafin = $cefechafin;
+    }
+
+    public function setMensajeOperacion($mensajeoperacion)
+    {
+        $this->mensajeoperacion = $mensajeoperacion;
     }
 
 
@@ -120,7 +128,13 @@ class compraestado extends BaseDatos
     {
         $resp = false;
         $base = new BaseDatos();
-        $sql = "INSERT INTO compraestado (idcompra, idcompraestadotipo, cefechaini, cefechafin) VALUES ({$this->getObjCompra()->getIdcompra()},{$this->getObjCompraEstadoTipo()->getIdcompraestadotipo()},'{$this->getCefechaini()}','{$this->getCefechafin()}');";
+        $idCompra = $this->getObjCompra() ? $this->getObjCompra()->getIdcompra() : 'NULL';
+
+        $idCompraEstadoTipo = $this->getObjCompraEstadoTipo() ? $this->getObjCompraEstadoTipo()->getIdcompraestadotipo() : 'NULL';
+        $sql = 
+        "INSERT INTO compraestado (idcompra, idcompraestadotipo, cefechaini, cefechafin) 
+         VALUES 
+         ({$idCompra},{$idCompraEstadoTipo},'{$this->getCefechaini()}','{$this->getCefechafin()}');";
 
         if ($base->Iniciar()) {
             if ($base = $base->Ejecutar($sql)) {
@@ -139,7 +153,13 @@ class compraestado extends BaseDatos
     {
         $resp = false;
         $base = new BaseDatos();
-        $sql = "UPDATE compraestado SET idcompra={$this->getObjCompra()->getIdcompra()}, idcompraestadotipo={$this->getObjCompraEstadoTipo()->getIdcompraestadotipo()}, cefechaini='{$this->getCefechaini()}', cefechafin='{$this->getCefechafin()}' WHERE idcompraestado={$this->getIdcompraestado()}";
+        $idCompra = $this->getObjCompra() ? $this->getObjCompra()->getIdcompra() : 'NULL';
+        $idCompraEstadoTipo = $this->getObjCompraEstadoTipo() ? $this->getObjCompraEstadoTipo()->getIdcompraestadotipo() : 'NULL';
+        
+        $sql = "UPDATE compraestado SET idcompra={$idCompra}, 
+        idcompraestadotipo={$idCompraEstadoTipo},
+        cefechaini='{$this->getCefechaini()}',
+        cefechafin='{$this->getCefechafin()}' WHERE idcompraestado = {$this->getIdcompraestado()}";
 
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
@@ -161,7 +181,7 @@ class compraestado extends BaseDatos
 
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
-                return true;
+                $resp = true;
             } else {
                 $this->setMensajeOperacion("CompraEstado->eliminar: " . $base->getError());
             }
@@ -171,7 +191,7 @@ class compraestado extends BaseDatos
         return $resp;
     }
 
-    public static function listar($parametro = "")
+    public function listar($parametro = "")
     {
         $arreglo = array();
         $base = new BaseDatos();
@@ -191,19 +211,20 @@ class compraestado extends BaseDatos
                         $objCompra = new compra();
                         $objCompra->setIdcompra($row['idcompra']);
                         $objCompra->cargar();
-                        // print_r($objCompra);
                     }
                     $objCompraEstadoTipo = null;
                     if ($row['idcompraestadotipo'] != null) {
                         $objCompraEstadoTipo = new compraestadotipo();
                         $objCompraEstadoTipo->setIdcompraestadotipo($row['idcompraestadotipo']);
-                        // print_r($objCompraEstadoTipo);
                         $objCompraEstadoTipo->cargar();
-                        // print_r($objCompraEstadoTipo);
                     }
 
-                    $obj->setear($row['idcompraestado'], $objCompra, $objCompraEstadoTipo, $row['cefechaini'], $row['cefechafin']);
-                    // print_r($obj);
+                    $obj->setear($row['idcompraestado'], 
+                                 $objCompra, 
+                                 $objCompraEstadoTipo, 
+                                 $row['cefechaini'], 
+                                 $row['cefechafin']);
+
                     array_push($arreglo, $obj);
                 }
             }

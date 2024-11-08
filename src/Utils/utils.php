@@ -25,7 +25,7 @@ function verEstructura($e){
 
 spl_autoload_register(function ($class_name){
     $directorys = [
-        $_SESSION['ROOT'].'scr/Modelo/',
+        $_SESSION['ROOT'].'src/Modelo/',
         $_SESSION['ROOT'].'src/Modelo/conector/',
         $_SESSION['ROOT'].'src/Control/',
     ];

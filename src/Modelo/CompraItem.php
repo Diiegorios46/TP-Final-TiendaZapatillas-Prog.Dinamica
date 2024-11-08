@@ -1,4 +1,9 @@
 <?php
+/*`idcompraitem` bigint(20) UNSIGNED NOT NULL,
+  `idproducto` bigint(20) NOT NULL,
+  `idcompra` bigint(20) NOT NULL,
+  `cicantidad` int(11) NOT NULL 
+*/
 
 class CompraItem extends BaseDatos
 {
@@ -6,11 +11,8 @@ class CompraItem extends BaseDatos
     private $objProducto;
     private $objCompra;
     private $cicantidad;
-    /**`idcompraitem` bigint(20) UNSIGNED NOT NULL,
-  `idproducto` bigint(20) NOT NULL,
-  `idcompra` bigint(20) NOT NULL,
-  `cicantidad` int(11) NOT NULL */
-
+    private $mensajeOperacion;
+    
     public function getIdcompraitem()
     {
         return $this->idcompraitem;
@@ -50,10 +52,18 @@ class CompraItem extends BaseDatos
     {
         $this->cicantidad = $cicantidad;
     }
-
-    // Metodos
-    public function setear($idcompraitem, $objProducto, $objCompra, $cicantidad)
+    public function setMensajeOperacion($mensajeoperacion)
     {
+        $this->mensajeoperacion = $mensajeoperacion;
+    }
+
+
+    public function setMedeshabilitado($medeshabilitado)
+    {
+        $this->medeshabilitado = $medeshabilitado;
+    }
+    
+    public function setear($idcompraitem, $objProducto, $objCompra, $cicantidad){
         $this->setIdcompraitem($idcompraitem);
         $this->setObjProducto($objProducto);
         $this->setObjCompra($objCompra);
@@ -99,7 +109,11 @@ class CompraItem extends BaseDatos
     {
         $resp = false;
         $base = new BaseDatos();
-        $sql = "INSERT INTO compraitem (idproducto, idcompra, cicantidad) VALUES ('{$this->getObjProducto()->getIdproducto()}',{$this->getObjCompra()->getIdcompra()},'{$this->getCicantidad()}');";
+        $sql = "INSERT INTO compraitem (idproducto, idcompra, cicantidad) 
+        VALUES ('{$this->getObjProducto()->getIdproducto()}',
+               {$this->getObjCompra()->getIdcompra()},
+               '{$this->getCicantidad()}');";
+        
         if ($base->Iniciar()) {
             if ($base = $base->Ejecutar($sql)) {
                 $this->setIdcompraitem($base);
@@ -147,15 +161,16 @@ class CompraItem extends BaseDatos
         return $resp;
     }
 
-    public static function listar($parametro = "")
+    public function listar($parametro = "")
     {
         $arreglo = array();
         $base = new BaseDatos();
-        $sql = "SELECT * FROM compraitem ";
+        $sql = "SELECT * FROM compraitem";
+
         if ($parametro != "") {
             $sql .= 'WHERE ' . $parametro;
         }
-        // echo $sql;
+
         $res = $base->Ejecutar($sql);
         if ($res > -1) {
             if ($res > 0) {
@@ -176,7 +191,10 @@ class CompraItem extends BaseDatos
                         $objCompra->cargar();
                     }
 
-                    $obj->setear($row['idcompraitem'], $objProducto, $objCompra, $row['cicantidad']);
+                    $obj->setear($row['idcompraitem'],
+                                $objProducto,
+                                $objCompra,
+                                $row['cicantidad']);
                     array_push($arreglo, $obj);
                 }
             }
@@ -187,7 +205,8 @@ class CompraItem extends BaseDatos
         return $arreglo;
     }
 
-    public static function contar($parametro = "")
+    /*
+    public function contar($parametro = "")
     {
         $arreglo = array();
         $base = new BaseDatos();
@@ -208,4 +227,6 @@ class CompraItem extends BaseDatos
 
         return $arreglo;
     }
+    */
+
 }

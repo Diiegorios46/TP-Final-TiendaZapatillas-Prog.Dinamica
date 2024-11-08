@@ -1,9 +1,32 @@
 <?php
-class abmcompraestado
+class abmCompraEstado
 {
+    public function abm($datos) {
+        $resp = false;
+
+        if ($datos['accion'] == 'editar') {
+            if ($this->modificacion($datos)) {
+                $resp = true;
+            }
+        }
+
+        if ($datos['accion'] == 'borrar') {
+            if ($this->baja($datos)) {
+                $resp = true;
+            }           
+        }
+
+        if ($datos['accion'] == 'nuevo') {
+            if ($this->alta($datos)) {
+                $resp = true;
+            }
+        }
+
+        return $resp;
+    }
     private function cargarObjeto($param){
         $obj = null;
-        if (isset('idcompra', $param)) {
+        if (array_key_exists('idcompra', $param)) {
             //creo objeto estadotipos
             $objCompra = new compra();
             $objCompra->setIdCompra($param['idcompra']);

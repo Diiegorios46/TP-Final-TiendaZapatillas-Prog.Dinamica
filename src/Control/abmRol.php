@@ -1,5 +1,4 @@
 <?php
-
 class abmRol{
 
         // Espera como parámetro un arreglo asociativo donde las claves coinciden con los nombres de las variables instancias del objeto
@@ -34,11 +33,12 @@ class abmRol{
          */
         private function cargarObjeto($param) {
             $obj = null;
-            if (array_key_exists('idRol', $param) && array_key_exists('rolDescripcion', $param)) {
+
+            if (array_key_exists('idrol', $param) && array_key_exists('rodescripcion', $param)) {
                 $obj = new Rol();
-                $obj->cargar($param['idRol'], $param['rolDescripcion']);
-               
+                $obj->setear($param);
             }
+
             return $obj;
         }
     
@@ -50,9 +50,9 @@ class abmRol{
         private function cargarObjetoConClave($param) {
             $obj = null;
             
-            if (isset($param['idRol'])) {
+            if (isset($param['idrol'])) {
                 $obj = new Rol();
-                $obj->cargar($param['idRol'], null, null, null);
+                $obj->setear($param);
             }
             return $obj;
         }
@@ -64,8 +64,10 @@ class abmRol{
          */
         private function seteadosCamposClaves($param) {
             $resp = false;
-            if (isset($param['idRol']))
+
+            if (isset($param['idrol']))
                 $resp = true;
+
             return $resp;
         }
     
@@ -76,7 +78,6 @@ class abmRol{
          */
         public function alta($param) {
             $resp = false;
-            //$param['patente'] = null; // Asumiendo que se autogenera o se maneja de otra manera
             $elObjtTabla = $this->cargarObjeto($param);
             if ($elObjtTabla != null && $elObjtTabla->insertar()) {
                 $resp = true;
@@ -109,7 +110,6 @@ class abmRol{
     
         public function modificacion($param) {
             $resp = false;
-
             if ($this->seteadosCamposClaves($param)) {
                 $elObjtTabla = $this->cargarObjeto($param);
                 if ($elObjtTabla != null && $elObjtTabla->modificar()) {
@@ -127,16 +127,18 @@ class abmRol{
          */
         public function buscar($param) {
             $where = " true ";
+
             if ($param <> NULL) {
                 if (isset($param['idRol']))
                     $where .= " and idRol ='" . $param['idRol'] . "'";
                 if (isset($param['rolDescripcion']))
-                    $where .= " and rolDescripcion ='" . $param['rolDescripcion'] . "'";
+                    $where .= " and rodescripcion ='" . $param['roDescripcion'] . "'";
             }
             
             $obj = new Rol();
             $arreglo = $obj->listar($where);
             return $arreglo;
+
         }
     
         
@@ -147,18 +149,20 @@ class abmRol{
                 if (isset($param['idRol']))
                     $where .= " and idRol ='" . $param['idRol'] . "'";
                 if (isset($param['rolDescripcion']))
-                    $where .= " and rolDescripcion ='" . $param['rolDescripcion'] . "'";
+                    $where .= " and rodescripcion ='" . $param['roDescripcion'] . "'";
             }
 
             $obj = new Rol();
             $arreglo = $obj->listar($where);
+            
             $result = [];
+
             if (!empty($arreglo)) {
                 foreach ($arreglo as $rol) {
                     $result[] = ["idRol" => $rol->getIdRol(),
-                                 "rolDescripcion" => $rol->getRolDescripcion()];
+                                 "roDescripcion" => $rol->getRolDescripcion()]; 
                 }
             }
             return $result;
-        }    
+        }
 }

@@ -7,6 +7,7 @@ class Menu extends BaseDatos
     private $medescripcion;
     private $idpadre;
     private $medeshabilitado;
+    private $mensajeOperacion;
     
     public function getIdmenu()
     {
@@ -57,6 +58,10 @@ class Menu extends BaseDatos
     {
         $this->medeshabilitado = $medeshabilitado;
     }
+    public function setMensajeOperacion($mensajeoperacion)
+    {
+        $this->mensajeoperacion = $mensajeoperacion;
+    }
 
 
     public function setear($idmenu, $menombre, $medescripcion, $idpadre, $medeshabilitado)
@@ -98,37 +103,39 @@ class Menu extends BaseDatos
     }
 
     public function insertar()
-    {
-        $resp = false;
-        $base = new BaseDatos();
-        $sql = 
-        "INSERT INTO menu (menombre, medescripcion, idpadre, medeshabilitado) 
-        VALUES 
-        ('" . $this->getMenombre()."','".$this->getMedescripcion()."',".$this->getIdpadre().",'0000-00-00 00:00:00');";
-        
-        if ($base->Iniciar()) {
-            if ($elid = $base->Ejecutar($sql)) {
-                $this->setIdmenu($elid);
-                $resp = true;
-            } else {
-                $this->setMensajeOperacion("Menu->insertar: " . $base->getError());
-            }
+{
+    $resp = false;
+    $base = new BaseDatos();
+    
+    $idpadre = $this->getIdpadre() ? "'" . $this->getIdpadre() . "'" : "NULL";
+    
+    $sql = "INSERT INTO menu (idmenu, menombre, medescripcion, idpadre, medeshabilitado) VALUES  (" . $this->getIdmenu() . ", '" . $this->getMenombre() . "', '" . $this->getMedescripcion() . "', " . $idpadre . ", '0000-00-00 00:00:00')";
+
+    verEstructura($sql);
+    
+    if ($base->Iniciar()) {
+        if ($elid = $base->Ejecutar($sql)) {
+            $this->setIdmenu($elid);
+            $resp = true;
         } else {
             $this->setMensajeOperacion("Menu->insertar: " . $base->getError());
         }
-
-        return $resp;
+    } else {
+        $this->setMensajeOperacion("Menu->insertar: " . $base->getError());
     }
+
+    return $resp;
+}
 
     public function modificar()
     {
         $resp = false;
         $base = new BaseDatos();
-        $sql = "UPDATE menu SET menombre= '" . $this->getMenombre() . "',
-                medescripcion= '" . $this->getMedescripcion() . "',
-                idpadre= " . $this->getIdpadre() . ",
-                medeshabilitado= '" . $this->getMedeshabilitado() . "' WHERE idmenu=" . $this->getIdmenu();
+        $idpadre = $this->getIdpadre() ? "'" . $this->getIdpadre() . "'" : "NULL";
         
+        $sql = "UPDATE menu SET menombre= '" . $this->getMenombre() . "', medescripcion= '" . $this->getMedescripcion() . "', idpadre= " . $idpadre . ", medeshabilitado= '" . $this->getMedeshabilitado() . "' WHERE idmenu=" . $this->getIdmenu();
+        
+                verEstructura($sql);
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 $resp = true;
@@ -141,8 +148,8 @@ class Menu extends BaseDatos
         return $resp;
     }
 
-    /*
-    public function estado($param = "")
+  
+     /* public function estado($param = "")
     {
         $resp = false;
         $base = new BaseDatos();
@@ -158,13 +165,14 @@ class Menu extends BaseDatos
             $this->setmensajeoperacion("Menu->estado: " . $base->getError());
         }
         return $resp;
-    }
-    */
+    } */
+  
 
     public function eliminar()
     {
         $resp = false;
         $base = new BaseDatos();
+        $idpadre = $this->getIdpadre() ? "'" . $this->getIdpadre() . "'" : "NULL";
         $sql = "DELETE FROM menu WHERE idmenu=" . $this->getIdmenu();
 
         if ($base->Iniciar()) {
@@ -179,7 +187,7 @@ class Menu extends BaseDatos
         return $resp;
     }
 
-    public static function listar($parametro = "")
+    public function listar($parametro = "")
     {
         $arreglo = array();
         $base = new BaseDatos();
@@ -195,7 +203,13 @@ class Menu extends BaseDatos
             if ($res > 0) {
                 while ($row = $base->Registro()) {
                     $obj = new menu();
-                    $obj->setear($row['idmenu'], $row['menombre'], $row['medescripcion'], $row['idpadre'], $row['medeshabilitado']);
+                    
+                    $obj->setear($row['idmenu'],
+                    $row['menombre'],
+                    $row['medescripcion'],
+                    $row['idpadre'],
+                    $row['medeshabilitado']);
+
                     array_push($arreglo, $obj);
                 }
             }
@@ -204,4 +218,6 @@ class Menu extends BaseDatos
         }
         return $arreglo;
     }
+
+
 }
