@@ -1,8 +1,7 @@
 <?php
 
 //agregar el QR
-
-include_once '../estructura/header.php';
+include_once './estructura/cabecera.php';
 
 use Whoops\Run;
 use Whoops\Handler\PrettyPageHandler;

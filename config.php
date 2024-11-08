@@ -7,7 +7,6 @@ session_start();
 /////////////////////////////
 // CONFIGURACION APP//
 /////////////////////////////
-
 //cambie la ruta porque estaba una que no era la ruta de la carpeta 
 $PROYECTO ='TpFinal-TiendaZapatillas';
 

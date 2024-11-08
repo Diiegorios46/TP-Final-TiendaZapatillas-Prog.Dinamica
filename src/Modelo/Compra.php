@@ -10,7 +10,7 @@ class Compra extends BaseDatos
     {
         $this->idcompra = "";
         $this->cofecha = "";
-        $this->idusuario = new usuario();
+        $this->idusuario = new Usuario();
         $this->mensajeoperacion = "";
     }
     
