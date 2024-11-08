@@ -149,9 +149,10 @@ class abmUsuarioRol{
             $obj = new Rol();
             $arreglo = $obj->listar($where);
             $result = [];
+            
             if (!empty($arreglo)) {
                 foreach ($arreglo as $rol) {
-                    $result[] = ["idRol" => $rol->getRol(),
+                    $result[] = ["idRol" => $rol->getIdRol(),
                                  "rolDescripcion" => $rol->getRolDescripcion()];
                 }
             }

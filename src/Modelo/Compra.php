@@ -11,7 +11,7 @@ class Compra extends BaseDatos
         $this->idcompra = "";
         $this->cofecha = "";
         $this->idusuario = new usuario();
-        $this->mensajeoperacion = "";
+        //$this->mensajeoperacion = "";
     }
     
     // Getters
@@ -86,8 +86,9 @@ class Compra extends BaseDatos
     {
         $resp = false;
         $base = new BaseDatos();
-        $sql = "INSERT INTO compra (cofecha, idusuario) VALUES ('{$this->getCofecha()}','{$this->getIdusuario()->getIdusuario()}');";
-        // echo $sql;
+        $sql = "INSERT INTO compra (cofecha, idusuario) 
+        VALUES ('{$this->getCofecha()}','{$this->getIdusuario()->getIdusuario()}');";
+
         if ($base->Iniciar()) {
             if ($elid = $base->Ejecutar($sql)) {
                 $this->setIdcompra($elid);
@@ -140,6 +141,7 @@ class Compra extends BaseDatos
         $arreglo = array();
         $base = new BaseDatos();
         $sql = "SELECT * FROM compra ";
+        
         if ($parametro != "") {
             $sql .= 'WHERE ' . $parametro;
         }

@@ -11,15 +11,15 @@ class Rol extends BaseDatos{
         $this->idRol = $idRol;
     }
     public function getRolDescripcion(){
-        return $this->idRol;
+        return $this->rolDescripcion;
     }
     public function setRolDescripcion($rolDescripcion){
         $this->rolDescripcion = $rolDescripcion;
     }
 
     public function setear($datosUsuario){
-        $this->setIdUsuario($datosUsuario['idRol']);
-        $this->setUsNombre($datosUsuario['rolDescripcion']);
+        $this->setIdRol($datosUsuario['idRol']);
+        $this->setRolDescripcion($datosUsuario['rolDescripcion']);
     }
 
     public function cargar()
@@ -47,17 +47,20 @@ class Rol extends BaseDatos{
 
     public function alta(){
         $base=new BaseDatos();
-        $consultaInsertar = "INSERT INTO Rol(idRol, rolDescripcion) VALUES ('".$this->getIdRol()."','".$this->getRolDescripcion()."')";
+        $consultaInsertar = 
+        "INSERT INTO Rol(idRol, rolDescripcion) 
+        VALUES ('".$this->getIdRol()."','".$this->getRolDescripcion()."')";
+        
         $resp= false;
         if($base->Iniciar()){
             if($base->Ejecutar($consultaInsertar)){
-                $this->setIdUsuario($base->devuelveIDInsercion());
+                $this->setIdRol($base->devuelveIDInsercion());
                 $resp=true;
             } else {
-                $this->setUsDeshabilitado(1);
+            $this->setMensajeOperacion("Producto->listar: " . $base->getError());
             }
         } else {
-            $this->setUsDeshabilitado(1);
+            $this->setMensajeOperacion("Producto->listar: " . $base->getError());
         }
         return $resp;
     }
@@ -79,14 +82,17 @@ class Rol extends BaseDatos{
         $resp = false;
         $base=new BaseDatos();
         if($base->Iniciar()){
-            $consultaModifica="UPDATE Rol SET idRol='".$this->getIdRol()."',rolDescripcion='".$this->setRolDescripcion()."' WHERE idRol=".$this->getIdRol();
+            $consultaModifica =
+            "UPDATE Rol SET idRol ='".$this->getIdRol()."',
+            rolDescripcion ='".$this->getRolDescripcion()."' WHERE idRol =".$this->getIdRol();
+            
             if($base->Ejecutar($consultaModifica)){
                 $resp=true;
             } else {
-                $this->setUsDeshabilitado(1);
+            $this->setMensajeOperacion("Producto->listar: " . $base->getError());
             }
         } else {
-            $this->setUsDeshabilitado(1);
+            $this->setMensajeOperacion("Producto->listar: " . $base->getError());
         }
         return $resp;
     }

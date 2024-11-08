@@ -5,17 +5,15 @@ class MenuRol extends BaseDatos
     private $idmenu;
     private $idrol;
 
-    // Getters
     public function getIdmenu()
     {
         return $this->idmenu;
     }
 
-    public function setIdmenu($idrol){
-        $this->idrol = $idrol;
+    public function setIdmenu($idmenu){
+        $this->idmenu = $idmenu;
     }
-    public function getIdrol()
-    {
+    public function getIdrol(){
         return $this->idrol;
     }
 
@@ -23,9 +21,7 @@ class MenuRol extends BaseDatos
         $this->idrol = $idrol;
     }
 
-    // Metodos
-    public function setear($idmenu, $idrol)
-    {
+    public function setear($idmenu, $idrol){
         $this->setIdmenu($idmenu);
         $this->setIdrol($idrol);
     }
@@ -47,7 +43,7 @@ class MenuRol extends BaseDatos
                 }
             }
         } else {
-            $this->setMensajeOperacion("Producto->listar: " . $base->getError());
+            $this->setMensajeOperacion("menurol->listar: " . $base->getError());
         }
 
         return $resp;
@@ -58,17 +54,18 @@ class MenuRol extends BaseDatos
         $resp = false;
         $base = new BaseDatos();
 
-        $sql = "INSERT INTO producto (idproducto, proprecio, prodescuento, pronombre, prodetalle, procantventas, procantstock, prodeshabilitado) VALUES ('" . $this->getIdproducto() . "'," . $this->getProprecio() . "," . $this->getProdescuento() . ",'" . $this->getPronombre() . "','" . $this->getProdetalle() . "'," . $this->getProcantventas() . "," . $this->getProcantstock() . ",'0000-00-00 00:00:00')";
+        $sql = "INSERT INTO menurol (idmenu, proprecio, prodescuento, pronombre, prodetalle, procantventas, procantstock, prodeshabilitado) 
+        VALUES ('" . $this->getIdmenu() . "'," . $this->getProprecio() . "," . $this->getProdescuento() . ",'" . $this->getPronombre() . "','" . $this->getProdetalle() . "'," . $this->getProcantventas() . "," . $this->getProcantstock() . ",'0000-00-00 00:00:00')";
 
         if ($base->Iniciar()) {
             if ($base = $base->Ejecutar($sql)) {
-                $this->setIdproducto($base);
+                $this->setIdmenurol($base);
                 $resp = true;
             } else {
-                $this->setMensajeOperacion("Producto->insertar: " . $base->getError());
+                $this->setMensajeOperacion("menurol->insertar: " . $base->getError());
             }
         } else {
-            $this->setMensajeOperacion("Producto->insertar: " . $base->getError());
+            $this->setMensajeOperacion("menurol->insertar: " . $base->getError());
         }
         return $resp;
     }
@@ -77,15 +74,15 @@ class MenuRol extends BaseDatos
     {
         $resp = false;
         $base = new BaseDatos();
-        $sql = "UPDATE producto SET idproducto='" . $this->getIdproducto() . "', proprecio=" . $this->getProprecio() . ", prodescuento=" . $this->getProdescuento() . ", pronombre='" . $this->getPronombre() . "', prodetalle='" . $this->getProdetalle() . "', procantventas=" . $this->getProcantventas() . ", procantstock=" . $this->getProcantstock() . ", prodeshabilitado = '0000-00-00 00:00:00' WHERE idproducto='" . $this->getIdproducto() . "'";
+        $sql = "UPDATE menurol SET idmenurol='" . $this->getIdmenurol() . "', proprecio=" . $this->getProprecio() . ", prodescuento=" . $this->getProdescuento() . ", pronombre='" . $this->getPronombre() . "', prodetalle='" . $this->getProdetalle() . "', procantventas=" . $this->getProcantventas() . ", procantstock=" . $this->getProcantstock() . ", prodeshabilitado = '0000-00-00 00:00:00' WHERE idmenurol='" . $this->getIdmenurol() . "'";
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 $resp = true;
             } else {
-                $this->setMensajeOperacion("Producto->modificar: " . $base->getError());
+                $this->setMensajeOperacion("menurol->modificar: " . $base->getError());
             }
         } else {
-            $this->setMensajeOperacion("Producto->modificar: " . $base->getError());
+            $this->setMensajeOperacion("menurol->modificar: " . $base->getError());
         }
         return $resp;
     }
@@ -94,15 +91,15 @@ class MenuRol extends BaseDatos
     {
         $resp = false;
         $base = new BaseDatos();
-        $sql = "DELETE FROM producto WHERE idproducto='" . $this->getIdproducto() . "'";
+        $sql = "DELETE FROM menurol WHERE idmenurol='" . $this->getIdmenurol() . "'";
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 return true;
             } else {
-                $this->setMensajeOperacion("Producto->eliminar: " . $base->getError());
+                $this->setMensajeOperacion("menurol->eliminar: " . $base->getError());
             }
         } else {
-            $this->setMensajeOperacion("Producto->eliminar: " . $base->getError());
+            $this->setMensajeOperacion("menurol->eliminar: " . $base->getError());
         }
         return $resp;
     }
@@ -111,7 +108,7 @@ class MenuRol extends BaseDatos
     {
         $arreglo = array();
         $base = new BaseDatos();
-        $sql = "SELECT * FROM producto ";
+        $sql = "SELECT * FROM menurol ";
         if ($parametro != "") {
             $sql .= 'WHERE ' . $parametro;
         }
@@ -120,13 +117,13 @@ class MenuRol extends BaseDatos
             if ($res > 0) {
                 while ($row = $base->Registro()) {
                     // print_r($row);
-                    $obj = new Producto();
-                    $obj->setear($row['idproducto'], $row['proprecio'], $row['prodescuento'], $row['pronombre'], $row['prodetalle'], $row['procantventas'], $row['procantstock'], $row['prodeshabilitado']);
+                    $obj = new menurol();
+                    $obj->setear($row['idmenurol'], $row['proprecio'], $row['prodescuento'], $row['pronombre'], $row['prodetalle'], $row['procantventas'], $row['procantstock'], $row['prodeshabilitado']);
                     array_push($arreglo, $obj);
                 }
             }
         } else {
-            $this->setMensajeOperacion("Producto->listar: " . $base->getError());
+            $this->setMensajeOperacion("menurol->listar: " . $base->getError());
         }
 
         return $arreglo;
@@ -137,15 +134,15 @@ class MenuRol extends BaseDatos
     {
         $resp = false;
         $base = new BaseDatos();
-        $sql = "UPDATE producto SET prodeshabilitado= '" . $param . "' WHERE idproducto='" . $this->getIdproducto() . "'";
+        $sql = "UPDATE menurol SET prodeshabilitado= '" . $param . "' WHERE idmenurol='" . $this->getIdmenurol() . "'";
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 $resp = true;
             } else {
-                $this->setMensajeOperacion("Producto->estado: " . $base->getError());
+                $this->setMensajeOperacion("menurol->estado: " . $base->getError());
             }
         } else {
-            $this->setMensajeOperacion("Producto->estado: " . $base->getError());
+            $this->setMensajeOperacion("menurol->estado: " . $base->getError());
         }
         return $resp;
     }

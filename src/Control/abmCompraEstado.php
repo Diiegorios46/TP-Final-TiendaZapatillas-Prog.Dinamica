@@ -1,8 +1,7 @@
 <?php
 class abmcompraestado
 {
-    private function cargarObjeto($param)
-    {
+    private function cargarObjeto($param){
         $obj = null;
         if (isset('idcompra', $param)) {
             //creo objeto estadotipos
@@ -95,19 +94,15 @@ class abmcompraestado
             if (isset($param['idcompraestado'])) {
                 $where .= " and idcompraestado =" . $param['idcompraestado'];
             }
-
             if (isset($param['idcompra'])) {
                 $where .= " and idcompra =" . $param['idcompra'];
             }
-
             if (isset($param['idcompraestadotipo'])) {
                 $where .= " and idcompraestadotipo ='" . $param['idcompraestadotipo'] . "'";
             }
-
             if (isset($param['cefechaini'])) {
                 $where .= " and cefechaini ='" . $param['cefechaini'] . "'";
             }
-
             if (isset($param['cefechafin'])) {
                 $where .= " and cefechafin ='" . $param['cefechafin'] . "'";
             }

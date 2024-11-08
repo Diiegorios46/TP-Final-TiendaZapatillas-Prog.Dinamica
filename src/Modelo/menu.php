@@ -33,14 +33,12 @@ class Menu extends BaseDatos
         return $this->medeshabilitado;
     }
 
-
-    //MODIFICADORES
     public function setIdmenu($idmenu)
     {
         $this->idmenu = $idmenu;
     }
 
-    public function seMenombre($menombre)
+    public function setMenombre($menombre)
     {
         $this->menombre = $menombre;
     }
@@ -64,7 +62,7 @@ class Menu extends BaseDatos
     public function setear($idmenu, $menombre, $medescripcion, $idpadre, $medeshabilitado)
     {
         $this->setIdmenu($idmenu);
-        $this->seMenombre($menombre);
+        $this->setMenombre($menombre);
         $this->setMedescripcion($medescripcion);
         $this->setIdpadre($idpadre);
         $this->setMedeshabilitado($medeshabilitado);
@@ -81,7 +79,14 @@ class Menu extends BaseDatos
             if ($res > -1) {
                 if ($res > 0) {
                     $row = $base->Registro();
-                    $this->setear($row['idmenu'], $row['menombre'], $row['medescripcion'], $row['idpadre'], $row['medeshabilitado']);
+                    $this->setear(
+                        $row['idmenu'],
+                        $row['menombre'],
+                        $row['medescripcion'],
+                        $row['idpadre'],
+                        $row['medeshabilitado']);
+
+                    $resp = true;
                 }
             }
 
@@ -96,7 +101,10 @@ class Menu extends BaseDatos
     {
         $resp = false;
         $base = new BaseDatos();
-        $sql = "INSERT INTO menu (menombre, medescripcion, idpadre, medeshabilitado) VALUES ('" . $this->getMenombre() . "','" . $this->getMedescripcion() . "'," . $this->getIdpadre() . ",'0000-00-00 00:00:00');";
+        $sql = 
+        "INSERT INTO menu (menombre, medescripcion, idpadre, medeshabilitado) 
+        VALUES 
+        ('" . $this->getMenombre()."','".$this->getMedescripcion()."',".$this->getIdpadre().",'0000-00-00 00:00:00');";
         
         if ($base->Iniciar()) {
             if ($elid = $base->Ejecutar($sql)) {
@@ -116,16 +124,19 @@ class Menu extends BaseDatos
     {
         $resp = false;
         $base = new BaseDatos();
-        $sql = "UPDATE menu SET menombre= '" . $this->getMenombre() . "', medescripcion= '" . $this->getMedescripcion() . "', idpadre= " . $this->getIdpadre() . ", medeshabilitado= '" . $this->getMedeshabilitado() . "' WHERE idmenu=" . $this->getIdmenu();
+        $sql = "UPDATE menu SET menombre= '" . $this->getMenombre() . "',
+                medescripcion= '" . $this->getMedescripcion() . "',
+                idpadre= " . $this->getIdpadre() . ",
+                medeshabilitado= '" . $this->getMedeshabilitado() . "' WHERE idmenu=" . $this->getIdmenu();
         
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 $resp = true;
             } else {
-                $this->setmensajeoperacion("Menu->modificar: " . $base->getError());
+                $this->setMensajeOperacion("Menu->modificar: " . $base->getError());
             }
         } else {
-            $this->setmensajeoperacion("Menu->modificar: " . $base->getError());
+            $this->setMensajeOperacion("Menu->modificar: " . $base->getError());
         }
         return $resp;
     }
@@ -155,6 +166,7 @@ class Menu extends BaseDatos
         $resp = false;
         $base = new BaseDatos();
         $sql = "DELETE FROM menu WHERE idmenu=" . $this->getIdmenu();
+
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 $resp = true;

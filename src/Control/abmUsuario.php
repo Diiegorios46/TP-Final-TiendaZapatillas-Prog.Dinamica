@@ -28,7 +28,11 @@ class abmUsuario{
       
     public function cargarObjeto($param){
         $obj = null;
-        if(array_key_exists('idUsuario',$param) and array_key_exists('usNombre',$param) and array_key_exists('usPass',$param)and array_key_exists('usMail',$param)){
+        if(array_key_exists('idUsuario',$param) 
+           and array_key_exists('usNombre',$param) 
+           and array_key_exists('usPass',$param)
+           and array_key_exists('usMail',$param)){
+
             $obj = new Usuario();
             $obj->cargar($param);
         }
