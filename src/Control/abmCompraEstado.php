@@ -26,30 +26,9 @@ class abmCompraEstado
     }
     private function cargarObjeto($param){
         $obj = null;
-        if (array_key_exists('idcompra', $param)) {
-            //creo objeto estadotipos
-            $objCompra = new compra();
-            $objCompra->setIdCompra($param['idcompra']);
-            $objCompra->cargar();
-
-
-            //creo objeto usuario
-            $objCompraEstadoTipo = new compraestadotipo();
-            $objCompraEstadoTipo->setIdCompraEstadoTipo($param['idcompraestadotipo']);
-            $objCompraEstadoTipo->cargar();
-
-            $cefechaini = '0000-00-00 00:00:00';
-            if (array_key_exists('cefechaini', $param)) {
-                $cefechaini = $param['cefechaini'];
-            }
-
-            $cefechafin = '0000-00-00 00:00:00';
-            if (array_key_exists('cefechafin', $param)) {
-                $cefechafin = $param['cefechafin'];
-            }
-            //agregarle los otros objetos
-            $obj = new compraestado();
-            $obj->setear($param['idcompraestado'], $objCompra, $objCompraEstadoTipo, $cefechaini, $cefechafin);
+        if (array_key_exists('idcompra', $param) and array_key_exists('idcompraestado', $param) and array_key_exists('idcompraestadotipo', $param)){
+            $obj = new CompraEstado();
+            $obj->setear($param);
         }
         return $obj;
     }
@@ -58,8 +37,8 @@ class abmCompraEstado
     {
         $obj = null;
         if (isset($param['idcompraestado'])) {
-            $obj = new compraestado();
-            $obj->setear($param['idcompraestado'], null, null, null, null);
+            $obj = new CompraEstado();
+            $obj->setear($param);
         }
         return $obj;
     }

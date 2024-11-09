@@ -1,37 +1,27 @@
 <?php
 
-class Compraestado extends BaseDatos
+class CompraEstado extends BaseDatos
 {
     private $idcompraestado;
-    private $objCompra;
-    private $objComEstTipo;
+    private $idcompra;
+    private $idcomesttipo;
     private $cefechaini;
     private $cefechafin;
     private $mensajeoperacion;
-
-    public function __construct()
-    {
-        $this->idcompraestado = "";
-        $this->objCompra = new compra();
-        $this->objComEstTipo = new compraestadotipo();
-        $this->cefechaini = "";
-        $this->cefechafin = "";
-        $this->mensajeoperacion = "";
-    }
 
     public function getIdcompraestado()
     {
         return $this->idcompraestado;
     }
 
-    public function getObjCompra()
+    public function getIdcompra()
     {
-        return $this->objCompra;
+        return $this->idcompra;
     }
 
-    public function getObjCompraEstadoTipo()
+    public function getIdcompraEstadoTipo()
     {
-        return $this->objComEstTipo;
+        return $this->idcomesttipo;
     }
 
     public function getCefechaini()
@@ -54,14 +44,14 @@ class Compraestado extends BaseDatos
         $this->idcompraestado = $idcompraestado;
     }
 
-    public function setObjCompra($objCompra)
+    public function setIdcompra($idcompra)
     {
-        $this->objCompra = $objCompra;
+        $this->idcompra = $idcompra;
     }
 
-    public function setObjCompraEstadoTipo($objComEstTipo)
+    public function setIdcompraestadotipo($idcomesttipo)
     {
-        $this->objComEstTipo = $objComEstTipo;
+        $this->idcomesttipo = $idcomesttipo;
     }
 
     public function setCefechaini($cefechaini)
@@ -80,61 +70,26 @@ class Compraestado extends BaseDatos
     }
 
 
-    public function setear($idcompraestado, $objCompra, $objCompraEstadoTipo, $cefechaini, $cefechafin)
+    public function setear($param)
     {
-        $this->setIdcompraestado($idcompraestado);
-        $this->setObjCompra($objCompra);
-        $this->setObjCompraEstadoTipo($objCompraEstadoTipo);
-        $this->setCefechaini($cefechaini);
-        $this->setCefechafin($cefechafin);
-
-    }
-
-    public function cargar()
-    {
-        $resp = false;
-        $base = new BaseDatos();
-        $sql = "SELECT * FROM compraestado WHERE idcompraestado = " . $this->getIdcompraestado();
-        if ($base->Iniciar()) {
-            $res = $base->Ejecutar($sql);
-            if ($res > -1) {
-                if ($res > 0) {
-                    $row = $base->Registro();
-
-                    $objCompra = null;
-                    if ($row['idcompra'] != null) {
-                        $objCompra = new compra();
-                        $objCompra->setIdcompra($row['idcompra']);
-                        $objCompra->cargar();
-                    }
-                    $objCompraEstadoTipo = null;
-                    if ($row['idcompraestadotipo'] != null) {
-                        $objCompraEstadoTipo = new compraestadotipo();
-                        $objCompraEstadoTipo->setIdcompraestadotipo($row['idcompraestadotipo']);
-                        $objCompraEstadoTipo->cargar();
-                    }
-
-                    $this->setear($row['idcompraestado'], $objCompra, $objCompraEstadoTipo, $row['cefechaini'], $row['cefechafin']);
-                    $resp = true;
-                }
-            }
-        } else {
-            $this->setMensajeOperacion("CompraEstado->listar: " . $base->getError());
-        }
-        return $resp;
+        verEstructura($param);
+        $this->setIdcompraestado($param["idcompraestado"]);
+        $this->setIdcompra($param["idcompra"]);
+        $this->setIdCompraestadotipo($param["idcompraestadotipo"]);
+        $this->setCefechaini($param["cefechaini"]);
+        $this->setCefechafin($param["cefechafin"]);
     }
 
     public function insertar()
     {
         $resp = false;
         $base = new BaseDatos();
-        $idCompra = $this->getObjCompra() ? $this->getObjCompra()->getIdcompra() : 'NULL';
 
-        $idCompraEstadoTipo = $this->getObjCompraEstadoTipo() ? $this->getObjCompraEstadoTipo()->getIdcompraestadotipo() : 'NULL';
-        $sql = 
-        "INSERT INTO compraestado (idcompra, idcompraestadotipo, cefechaini, cefechafin) 
-         VALUES 
-         ({$idCompra},{$idCompraEstadoTipo},'{$this->getCefechaini()}','{$this->getCefechafin()}');";
+        $idCompra = $this->getIdcompra() ? $this->getIdcompra() : 'NULL';
+        $idCompraEstadoTipo = $this->getIdcompraEstadoTipo() ? $this->getIdcompraestadotipo() : 'NULL';
+        
+        $sql =  "INSERT INTO compraestado (idcompra, idcompraestadotipo, cefechaini, cefechafin)  VALUES   ({$idCompra},{$idCompraEstadoTipo},'{$this->getCefechaini()}','{$this->getCefechafin()}');";
+        verEstructura($sql);
 
         if ($base->Iniciar()) {
             if ($base = $base->Ejecutar($sql)) {
@@ -153,8 +108,8 @@ class Compraestado extends BaseDatos
     {
         $resp = false;
         $base = new BaseDatos();
-        $idCompra = $this->getObjCompra() ? $this->getObjCompra()->getIdcompra() : 'NULL';
-        $idCompraEstadoTipo = $this->getObjCompraEstadoTipo() ? $this->getObjCompraEstadoTipo()->getIdcompraestadotipo() : 'NULL';
+        $idCompra = $this->getIdcompra() ? $this->getIdcompra() : 'NULL';
+        $idCompraEstadoTipo = $this->getIdcompraEstadoTipo() ? $this->getIdcompraestadotipo() : 'NULL';
         
         $sql = "UPDATE compraestado SET idcompra={$idCompra}, 
         idcompraestadotipo={$idCompraEstadoTipo},

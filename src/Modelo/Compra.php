@@ -5,13 +5,12 @@ class Compra extends BaseDatos
     private $idcompra;
     private $cofecha;
     private $idusuario;
-    private $mensajeOperacion;
-    
+
     public function __construct()
     {
         $this->idcompra = "";
         $this->cofecha = "";
-        $this->idusuario = new Usuario();
+        $this->idusuario = "";
         $this->mensajeoperacion = "";
     }
     
@@ -45,16 +44,16 @@ class Compra extends BaseDatos
     {
         $this->idusuario = $objUsuario;
     }
-    public function setMensajeOperacion($mensajeoperacion)
-    {
-        $this->mensajeoperacion = $mensajeoperacion;
+
+    public function setMensajeOperacion($setMensajeOperacion){
+        return $setMensajeOperacion = $setMensajeOperacion;
     }
 
-    public function setear($idcompra, $cofecha, $objUsuario)
+    public function setear($param)
     {
-        $this->setIdcompra($idcompra);
-        $this->setCofecha($cofecha);
-        $this->setIdusuario($objUsuario);
+        $this->setIdcompra($param['idcompra']);
+        $this->setCofecha($param['cofecha']);
+        $this->setIdusuario($param['idusuario']);
     }
 
     public function cargar()
@@ -62,7 +61,7 @@ class Compra extends BaseDatos
         $resp = false;
         $base = new BaseDatos();
         $sql = "SELECT * FROM compra WHERE idcompra = " . $this->getIdcompra();
-
+        // echo $sql;
         if ($base->Iniciar()) {
             $res = $base->Ejecutar($sql);
             if ($res > -1) {
@@ -90,9 +89,9 @@ class Compra extends BaseDatos
     {
         $resp = false;
         $base = new BaseDatos();
-        $sql = "INSERT INTO compra (cofecha, idusuario) 
-        VALUES ('{$this->getCofecha()}','{$this->getIdusuario()->getIdusuario()}')";
-
+        $id = $this->getIdcompra() ? $this->getIdcompra() : 'NULL';
+        $sql = "INSERT INTO compra (idcompra, cofecha, idusuario) VALUES ({$id},'{$this->getCofecha()}',{$this->getIdusuario()});";
+        
         if ($base->Iniciar()) {
             if ($elid = $base->Ejecutar($sql)) {
                 $this->setIdcompra($elid);
@@ -110,7 +109,11 @@ class Compra extends BaseDatos
     {
         $resp = false;
         $base = new BaseDatos();
-        $sql = "UPDATE compra SET idcompra='{$this->getIdcompra()}', cofecha='{$this->getCofecha()}', idusuario='{$this->getIdusuario()->getIdusuario()}' WHERE idcompra='{$this->getIdcompra()}'";
+        $id = $this->getIdcompra() ? $this->getIdcompra() : 'NULL';
+        
+        $sql = "UPDATE compra SET cofecha='{$this->getCofecha()}', idusuario='{$this->getIdusuario()}' WHERE idcompra='{$this->getIdcompra()}'";
+        verEstructura($sql);
+        
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 $resp = true;
@@ -130,7 +133,7 @@ class Compra extends BaseDatos
         $sql = "DELETE FROM compra WHERE idcompra=" . $this->getIdcompra();
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
-                $resp = true;
+                return true;
             } else {
                 $this->setMensajeOperacion("Compra->eliminar: " . $base->getError());
             }

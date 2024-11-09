@@ -129,14 +129,17 @@ class abmRol{
             $where = " true ";
 
             if ($param <> NULL) {
-                if (isset($param['idRol']))
-                    $where .= " and idRol ='" . $param['idRol'] . "'";
-                if (isset($param['rolDescripcion']))
-                    $where .= " and rodescripcion ='" . $param['roDescripcion'] . "'";
+                if (isset($param['idrol']))
+                    $where .= " and idrol = " . $param['idrol'] . "";
+                if (isset($param['rodescripcion']))
+                    $where .= " and rodescripcion ='" . $param['rodescripcion'] . "'";
             }
             
             $obj = new Rol();
             $arreglo = $obj->listar($where);
+            echo '<h1> HASTA ACA TODO BIEN 222222222</h1>';
+            verEstructura($arreglo);
+            echo '<h1> ----------------------------</h1>';
             return $arreglo;
 
         }
@@ -146,10 +149,10 @@ class abmRol{
         public function obtenerDatos($param){
             $where = " true ";
             if ($param <> NULL) {
-                if (isset($param['idRol']))
-                    $where .= " and idRol ='" . $param['idRol'] . "'";
-                if (isset($param['rolDescripcion']))
-                    $where .= " and rodescripcion ='" . $param['roDescripcion'] . "'";
+                if (isset($param['idrol']))
+                    $where .= " and idRol ='" . $param['idrol'] . "'";
+                if (isset($param['roldescripcion']))
+                    $where .= " and rodescripcion ='" . $param['rodescripcion'] . "'";
             }
 
             $obj = new Rol();
@@ -159,8 +162,8 @@ class abmRol{
 
             if (!empty($arreglo)) {
                 foreach ($arreglo as $rol) {
-                    $result[] = ["idRol" => $rol->getIdRol(),
-                                 "roDescripcion" => $rol->getRolDescripcion()]; 
+                    $result[] = ["idrol" => $rol->getIdRol(),
+                                 "roldescripcion" => $rol->getRolDescripcion()]; 
                 }
             }
             return $result;

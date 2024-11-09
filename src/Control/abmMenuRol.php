@@ -48,14 +48,14 @@ class abmMenuRol
     public function modificacion($param)
     {
         $resp = false;
-        $objMenuRol = new menuRol();
+        $objMenuRol = new MenuRol();
         $abmRol = new abmRol();
         $abmMenu = new abmMenu();
 
-        $listaRol = $abmRol->buscar(['idrol' => $param['idrol']]);
-        $listaMenu = $abmMenu->buscar(['idmenu' => $param['idmenu']]);
+        $listaRol = $abmRol->obtenerDatos($param);
+        $listaMenu = $abmMenu->obtenerDatos($param);
 
-        $objMenuRol->setear($listaMenu[0], $listaRol[0]);
+        $objMenuRol->setear($listaRol[0]['idrol'], $listaMenu[0]['idmenu']);
 
         if ($objMenuRol->modificar()) {
             $resp = true;
@@ -67,14 +67,14 @@ class abmMenuRol
     public function baja($param)
     {
         $resp = false;
-        $objMenuRol = new menuRol();
+        $objMenuRol = new MenuRol();
         $abmMenu = new abmMenu();
         $abmRol = new abmRol();
 
-        $listaMenu = $abmMenu->buscar(['idmenu' => $param['idmenu']]);
-        $objRol = $abmRol->buscar(['idrol' => $param['idrol']]);
+        $listaMenu = $abmMenu->obtenerDatos($param);
+        $objRol = $abmRol->obtenerDatos($param);
 
-        $objMenuRol->setear($listaMenu[0], $objRol[0]);
+        $objMenuRol->setear($objRol[0]['idrol'], $listaMenu[0]['idmenu']);
 
         if ($objMenuRol->eliminar()) {
             $resp = true;
@@ -86,14 +86,14 @@ class abmMenuRol
     public function alta($param)
     {
         $resp = false;
-        $objMenuRol = new menuRol();
+        $objMenuRol = new MenuRol();
         $abmMenu = new abmMenu();
         $abmRol = new abmRol();
 
-        $listaMenu = $abmMenu->buscar(['idmenu' => $param['idmenu']]);
-        $objRol = $abmRol->buscar(['idrol' => $param['idrol']]);
-
-        $objMenuRol->setear($listaMenu[0], $objRol[0]);
+        $listaMenu = $abmMenu->obtenerDatos($param);
+        $objRol = $abmRol->obtenerDatos($param);
+                
+        $objMenuRol->setear($listaMenu[0]['idmenu'], $objRol[0]['idrol']);
 
         if ($objMenuRol->insertar()) {
             $resp = true;

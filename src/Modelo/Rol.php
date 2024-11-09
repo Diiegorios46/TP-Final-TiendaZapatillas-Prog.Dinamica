@@ -24,7 +24,7 @@ class Rol extends BaseDatos{
 
     public function setear($datosUsuario){
         $this->setIdRol($datosUsuario['idrol']);
-        $this->setRoDescripcion($datosUsuario['rodescripcion']);
+        $this->setRoDescripcion($datosUsuario['idusuario']);
     }
 
    
@@ -128,14 +128,12 @@ class Rol extends BaseDatos{
             $sql .= 'WHERE ' . $parametro;
         }
 
-        $sql .= " ORDER BY idrol";
-
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 $arreglo = array();
                 while ($row2 = $base->Registro()) {
                     $obj = new Rol();
-                    $obj->setear($row2['idrol'], $row2['rodescripcion']);
+                    $obj->setear($row2);
                     array_push($arreglo, $obj);
                 }
             } else {
@@ -144,13 +142,12 @@ class Rol extends BaseDatos{
         } else {
             $this->setMensajeOperacion("Rol->listar: " . $base->getError());
         }
-
         return $arreglo;
     }
 
 
     public function __toString(){
-        return "IdRol: ".$this->getIdRol()."\nRoDescripcion: ".$this->getRoDescripcion();
+        return "IdRol: ".$this->getIdRol()."\nRoDescripcion: ".$this->getRolDescripcion();
     }
 
 }

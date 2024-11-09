@@ -29,15 +29,8 @@ class abmCompra
     {
         $obj = null;
         if (array_key_exists('idusuario', $param) && array_key_exists('idcompra', $param)) {
-
-            //creo objeto estadotipos
-            $objUsuario = new usuario();
-            $objUsuario->setIdUsuario($param['idusuario']);
-            $objUsuario->cargar();
-
-            //agregarle los otros objetos
-            $obj = new compra();
-            $obj->setear($param['idcompra'], NULL, $objUsuario);
+            $obj = new Compra();
+            $obj->setear($param);
         }
         return $obj;
     }
@@ -46,8 +39,8 @@ class abmCompra
     {
         $obj = null;
         if (isset($param['idcompra'])) {
-            $obj = new compra();
-            $obj->setear($param['idcompra'], null, null);
+            $obj = new Compra();
+            $obj->setear($param);
         }
         return $obj;
     }
@@ -64,6 +57,7 @@ class abmCompra
     {
         $resp = false;
         $param['idcompra'] = null;
+        
         $elObjtArchivoE = $this->cargarObjeto($param);
         if ($elObjtArchivoE != null and $elObjtArchivoE->insertar()) {
             $resp = true;

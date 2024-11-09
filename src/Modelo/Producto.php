@@ -105,7 +105,7 @@ class Producto extends BaseDatos
         $base = new BaseDatos();
 
         $sql = "INSERT INTO producto (pronombre, prodetalle , procantstock, proprecio) VALUES ('".$this->getPronombre()."','".$this->getProdetalle()."',".$this->getProcantstock() . ",".$this->getProPrecio().")";
-        verEstructura($sql);
+
         if ($base->Iniciar()) {
             if ($base = $base->Ejecutar($sql)) {
                 $this->setIdproducto($base);

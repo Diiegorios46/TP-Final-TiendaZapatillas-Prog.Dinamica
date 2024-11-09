@@ -31,7 +31,9 @@ class abmMenu
      */
     public function buscar($param)
     {
-        $where = " true ";
+        $objMenu = new Menu();
+        $where = "true";
+        
         if ($param != null) {
             if (isset($param['idmenu'])) {
                 $where .= " and idmenu =" . $param['idmenu'];
@@ -49,7 +51,8 @@ class abmMenu
                 $where .= " and medeshabilitado ='" . $param['medeshabilitado'] . "'";
             }
         }
-        $arreglo = menu::listar($where);
+        $arreglo = $objMenu->listar($where);
+        
         return $arreglo;
     }
 

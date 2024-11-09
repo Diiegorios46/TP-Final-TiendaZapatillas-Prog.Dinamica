@@ -34,9 +34,9 @@ class abmUsuarioRol{
          */
         private function cargarObjeto($param) {
             $obj = null;
-            if (array_key_exists('idRol', $param) && array_key_exists('rolDescripcion', $param)) {
-                $obj = new Rol();
-                $obj->cargar($param['idRol'], $param['rolDescripcion']);
+            if (array_key_exists('idrol', $param) && array_key_exists('idusuario', $param)) {
+                $obj = new UsuarioRol();
+                $obj->setear($param);
                
             }
             return $obj;
@@ -49,9 +49,9 @@ class abmUsuarioRol{
          */
         private function cargarObjetoConClave($param) {
             $obj = null;
-            if (isset($param['idRol'])) {
-                $obj = new Rol();
-                $obj->cargar($param['idRol'], null, null, null);
+            if (isset($param['idrol'])) {
+                $obj = new UsuarioRol();
+                $obj->setear($param);
             }
             return $obj;
         }
@@ -63,7 +63,7 @@ class abmUsuarioRol{
          */
         private function seteadosCamposClaves($param) {
             $resp = false;
-            if (isset($param['idRol']))
+            if (isset($param['idrol']))
                 $resp = true;
             return $resp;
         }
@@ -107,7 +107,7 @@ class abmUsuarioRol{
     
         public function modificacion($param) {
             $resp = false;
-
+            verEstructura($param);
             if ($this->seteadosCamposClaves($param)) {
                 $elObjtTabla = $this->cargarObjeto($param);
                 if ($elObjtTabla != null && $elObjtTabla->modificar()) {
@@ -126,13 +126,13 @@ class abmUsuarioRol{
         public function buscar($param) {
             $where = " true ";
             if ($param <> NULL) {
-                if (isset($param['idRol']))
-                    $where .= " and idRol ='" . $param['idRol'] . "'";
-                if (isset($param['rolDescripcion']))
-                    $where .= " and rolDescripcion ='" . $param['rolDescripcion'] . "'";
+                if (isset($param['idrol']))
+                    $where .= " and idrol ='" . $param['idrol'] . "'";
+                if (isset($param['idusuario']))
+                    $where .= " and idusuario ='" . $param['idusuario'] . "'";
             }
             
-            $obj = new Rol();
+            $obj = new UsuarioRol();
             $arreglo = $obj->listar($where);
             return $arreglo;
         }
@@ -140,20 +140,20 @@ class abmUsuarioRol{
         public function obtenerDatos($param){
             $where = " true ";
             if ($param <> NULL) {
-                if (isset($param['idRol']))
-                    $where .= " and idRol ='" . $param['idRol'] . "'";
-                if (isset($param['rolDescripcion']))
-                    $where .= " and rolDescripcion ='" . $param['rolDescripcion'] . "'";
+                if (isset($param['idrol']))
+                    $where .= " and idrol ='" . $param['idrol'] . "'";
+                if (isset($param['idusuario']))
+                    $where .= " and idusuario ='" . $param['idusuario'] . "'";
             }
 
-            $obj = new Rol();
+            $obj = new UsuarioRol();
             $arreglo = $obj->listar($where);
             $result = [];
             
             if (!empty($arreglo)) {
                 foreach ($arreglo as $rol) {
-                    $result[] = ["idRol" => $rol->getIdRol(),
-                                 "rolDescripcion" => $rol->getRolDescripcion()];
+                    $result[] = ["idrol" => $rol->getIdRol(),
+                                 "idusuario" => $rol->getUsuario()];
                 }
             }
             return $result;

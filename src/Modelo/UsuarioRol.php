@@ -6,7 +6,7 @@ class UsuarioRol extends BaseDatos{
     private $mensajeOperacion;
 
     public function getIdUsuario(){
-        return $this->getIdUsuario;
+        return $this->idUsuario;
     }
 
     public function setIdUsuario($idUsuario){
@@ -21,59 +21,65 @@ class UsuarioRol extends BaseDatos{
         $this->idRol = $idRol;
     }
 
-    public function cargar($datosUsuario){
-        $this->setIdUsuario($datosUsuario['idUsuario']);
-        $this->setIdRol($datosUsuario['idRol']);
-    }
-
+    
     public function setMensajeOperacion($mensajeOperacion)
     {
         $this->mensajeOperacion = $mensajeOperacion;
     }
-
-    public function alta(){
-        $base=new BaseDatos();
-        $consultaInsertar="INSERT INTO rol(idUsuario, idRol) VALUES ('".$this->getIdUsuario()."','".$this->getIdRol()."')";
-        $resp= false;
-        if($base->Iniciar()){
-            if($base->Ejecutar($consultaInsertar)){
-                $this->setIdUsuario($base->devuelveIDInsercion());
-                $resp=true;
-            } else {
-                $this->setUsDeshabilitado(1);
-            }
-        } else {
-            $this->setUsDeshabilitado(1);
-        }
-        return $resp;
-    }
-
     
-    public function baja($param) {
+    public function setear($datosUsuario){
+        verEstructura($datosUsuario);
+        $this->setIdUsuario($datosUsuario['idusuario']);
+        $this->setIdRol($datosUsuario['idrol']);
+    }
+    
+    public function insertar(){
         $resp = false;
-        if ($this->seteadosCamposClaves($param)) {
-            $elObjtTabla = $this->cargarObjetoConClave($param);
-            if ($elObjtTabla != null && $elObjtTabla->eliminar()) {
+        $base = new BaseDatos();
+        $sql = "INSERT INTO usuariorol (idusuario, idrol) VALUES (".$this->getIdUsuario().", ".$this->getIdRol().")";
+        verEstructura($sql);
+        if ($base->Iniciar()) {
+            if ($base->Ejecutar($sql)) {
                 $resp = true;
+            } else {
+                $this->setMensajeOperacion("UsuarioRol->insertar: " . $base->getError());
             }
+        } else {
+            $this->setMensajeOperacion("UsuarioRol->insertar: " . $base->getError());
         }
-
         return $resp;
     }
 
-    public function modificacion(){
+    public function modificar(){
         $resp = false;
-        $base=new BaseDatos();
-        if($base->Iniciar()){
-            $consultaInsertar="INSERT INTO usuariorol(idusuario, idrol) VALUES ('".$this->getIdUsuario()."','".$this->getIdRol()."')";
-            
-            if($base->Ejecutar($consultaInsertar)){
-                $resp=true;
+        $base = new BaseDatos();
+        $sql = "UPDATE usuariorol SET idrol = ".$this->getIdRol()." WHERE idusuario = ".$this->getIdUsuario();
+        if ($base->Iniciar()) {
+            if ($base->Ejecutar($sql)) {
+                $resp = true;
             } else {
-                $this->setUsDeshabilitado(1);
+                $this->setMensajeOperacion("UsuarioRol->modificar: " . $base->getError());
             }
         } else {
-            $this->setUsDeshabilitado(1);
+            $this->setMensajeOperacion("UsuarioRol->modificar: " . $base->getError());
+        }
+        return $resp;
+    }
+
+    public function eliminar(){
+        $resp = false;
+        $base = new BaseDatos();
+        $sql = "DELETE FROM usuariorol WHERE idusuario = ".$this->getIdUsuario()." AND idrol = ".$this->getIdRol();
+
+
+        if ($base->Iniciar()) {
+            if ($base->Ejecutar($sql)) {
+                $resp = true;
+            } else {
+                $this->setMensajeOperacion("UsuarioRol->eliminar: " . $base->getError());
+            }
+        } else {
+            $this->setMensajeOperacion("UsuarioRol->eliminar: " . $base->getError());
         }
         return $resp;
     }
@@ -108,6 +114,6 @@ class UsuarioRol extends BaseDatos{
 
 
     public function __toString(){
-        return "IdUsuario: ".$this->getIdUsuario()."\nidRol: ".$this->getIdRol();
+        return "idusuario: ".$this->getIdUsuario()."\idrol: ".$this->getIdRol();
     }
 }

@@ -6,8 +6,7 @@ class Usuario extends BaseDatos {
     private $uspass;
     private $usmail;
     private $usdeshabilitado;
-    private $mensajeOperacion;
-    
+
     public function getIdusuario() {
         return $this->idusuario;
     }
@@ -45,12 +44,6 @@ class Usuario extends BaseDatos {
         $this->usdeshabilitado = $usdeshabilitado;
     }
 
-    public function setMensajeOperacion($mensajeOperacion)
-    {
-        $this->mensajeOperacion = $mensajeOperacion;
-    }
-
-
     public function setear($idusuario, $usnombre, $uspass,$usmail,$usdeshabilitado) {
         $this->setIdusuario($idusuario);
         $this->setUsnombre($usnombre);
@@ -87,7 +80,7 @@ class Usuario extends BaseDatos {
             "UPDATE usuario SET usNombre ='".$this->getUsNombre()."',
             usPass='".$this->getUsPass()."',
             usMail='".$this->getUsMail()."',
-            usDeshabilitado='".$this->getUsDeshabilitado()."' WHERE idusuario=".$this->getIdUsuario();
+            usDeshabilitado='".$this->getUsDeshabilitado()."' WHERE idUsuario=".$this->getIdUsuario();
             
             if($base->Ejecutar($consultaModifica)){
                 $resp=true;
@@ -103,7 +96,7 @@ class Usuario extends BaseDatos {
     public function eliminar($param) {
         $resp = false;
         $base=new BaseDatos();
-        $sql="UPDATE usuario SET usDeshabilitado = '".$this->getUsDeshabilitado()."' WHERE idusuario=".$this->getIdUsuario();
+        $sql="UPDATE usuario SET usDeshabilitado = '".$this->getUsDeshabilitado()."' WHERE idUsuario=".$this->getIdUsuario();
 
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
@@ -144,10 +137,6 @@ class Usuario extends BaseDatos {
         }
         
         return $arreglo;
-    }
-
-    public function cargar($param){
-        $this->setear($param['idusuario'], $param['usNombre'], $param['usPass'], $param['usMail'], $param['usDeshabilitado']);
     }
 
    

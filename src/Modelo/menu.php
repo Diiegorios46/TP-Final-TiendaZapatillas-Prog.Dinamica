@@ -173,8 +173,10 @@ class Menu extends BaseDatos
         $resp = false;
         $base = new BaseDatos();
         $idpadre = $this->getIdpadre() ? "'" . $this->getIdpadre() . "'" : "NULL";
-        $sql = "DELETE FROM menu WHERE idmenu=" . $this->getIdmenu();
 
+        $sql = "DELETE FROM menu WHERE idmenu=" . $this->getIdmenu();
+        verEstructura($sql);
+        
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 $resp = true;
@@ -205,11 +207,10 @@ class Menu extends BaseDatos
                     $obj = new menu();
                     
                     $obj->setear($row['idmenu'],
-                    $row['menombre'],
-                    $row['medescripcion'],
-                    $row['idpadre'],
-                    $row['medeshabilitado']);
-
+                                $row['menombre'],
+                                $row['medescripcion'],
+                                $row['idpadre'],
+                                $row['medeshabilitado']);
                     array_push($arreglo, $obj);
                 }
             }

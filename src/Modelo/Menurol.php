@@ -27,7 +27,7 @@ class MenuRol extends BaseDatos
         $this->mensajeOperacion = $mensajeOperacion;
     }
 
-    public function setear($idmenu, $idrol){
+    public function setear($idrol, $idmenu){
         $this->setIdmenu($idmenu);
         $this->setIdrol($idrol);
     }
@@ -79,8 +79,8 @@ class MenuRol extends BaseDatos
     {
         $resp = false;
         $base = new BaseDatos();
-        $sql = "UPDATE menurol SET idmenu='" . $this->getIdmenu() . "', idrol =" . $this->getIdrol() ."'";
- 
+        $sql = "UPDATE menurol SET idrol= " . $this->getIdrol() . " where idmenu =" . $this->getIdmenu() ."";
+        
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 $resp = true;

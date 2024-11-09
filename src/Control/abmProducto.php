@@ -30,9 +30,9 @@ class abmProducto
         $obj = null;
         verEstructura($param);
         if (
-            array_key_exists('idproducto', $param) and array_key_exists('prodetalle', $param) and array_key_exists('proprecio', $param)
+            array_key_exists('idproducto', $param) and array_key_exists('pronombre', $param) and array_key_exists('proprecio', $param)
         ) {
-            $obj = new producto();
+            $obj = new Producto();
             $obj->setear($param['idproducto'], $param['proprecio'],$param['pronombre'] ,$param['prodetalle'],  $param['procantstock']);
             return $obj;
         }
@@ -43,8 +43,8 @@ class abmProducto
         $obj = null;
 
         if (isset($param['idproducto'])) {
-            $obj = new producto();
-            $obj->setear($param['idproducto'], null, null, null, null, null);
+            $obj = new Producto();
+            $obj->setear($param);
         }
         return $obj;
     }
@@ -62,7 +62,6 @@ class abmProducto
         $resp = false;
 
         $elObjtProducto = $this->cargarObjeto($param);
-        verEstructura($param);
         if ($elObjtProducto != null and $elObjtProducto->insertar()) {
             $resp = true;
         }

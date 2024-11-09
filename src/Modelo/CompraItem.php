@@ -8,8 +8,8 @@
 class CompraItem extends BaseDatos
 {
     private $idcompraitem;
-    private $objProducto;
-    private $objCompra;
+    private $idproducto;
+    private $idCompra;
     private $cicantidad;
     private $mensajeOperacion;
     
@@ -18,14 +18,14 @@ class CompraItem extends BaseDatos
         return $this->idcompraitem;
     }
 
-    public function getObjProducto()
+    public function getIdproducto()
     {
-        return $this->objProducto;
+        return $this->idproducto;
     }
 
-    public function getObjCompra()
+    public function getIdCompra()
     {
-        return $this->objCompra;
+        return $this->idCompra;
     }
 
     public function getCicantidad()
@@ -38,14 +38,14 @@ class CompraItem extends BaseDatos
         $this->idcompraitem = $idcompraitem;
     }
 
-    public function setObjProducto($objProducto)
+    public function setIdproducto($idproducto)
     {
-        $this->objProducto = $objProducto;
+        $this->idproducto = $idproducto;
     }
 
-    public function setObjCompra($objCompra)
+    public function setIdCompra($idCompra)
     {
-        $this->objCompra = $objCompra;
+        $this->idCompra = $idCompra;
     }
 
     public function setCicantidad($cicantidad)
@@ -63,11 +63,12 @@ class CompraItem extends BaseDatos
         $this->medeshabilitado = $medeshabilitado;
     }
     
-    public function setear($idcompraitem, $objProducto, $objCompra, $cicantidad){
-        $this->setIdcompraitem($idcompraitem);
-        $this->setObjProducto($objProducto);
-        $this->setObjCompra($objCompra);
-        $this->setCicantidad($cicantidad);
+    public function setear($param){
+        verEstructura($param);
+        $this->setIdcompraitem($param['idcompraitem']);
+        $this->setIdproducto($param['idproducto']);
+        $this->setIdCompra($param['idcompra']);
+        $this->setCicantidad($param['cicantidad']);
     }
 
     public function cargar()
@@ -82,20 +83,21 @@ class CompraItem extends BaseDatos
                 if ($res > 0) {
                     $row = $base->Registro();
 
-                    $objProducto = NULL;
-                    if ($row['objProducto'] != null) {
-                        $objProducto = new producto();
-                        $objProducto->setIdproducto($row['idproducto']);
-                        $objProducto->cargar();
+                    $idProducto = NULL;
+                    if ($row['idproducto'] != null) {
+                        $idProducto = new producto();
+                        $idProducto->setIdproducto($row['idproducto']);
+                        $idProducto->cargar();
                     }
+
                     $objCompra = NULL;
-                    if ($row['objCompra'] != null) {
+                    if ($row['idcompra'] != null) {
                         $objCompra = new compra();
                         $objCompra->setIdcompra($row['idcompra']);
                         $objCompra->cargar();
                     }
 
-                    $this->setear($row['idcompraitem'], $objProducto, $objCompra, $row['cicantidad']);
+                    $this->setear($row['idcompraitem'], $idProducto, $objCompra, $row['cicantidad']);
                     $resp = true;
                 }
             }
@@ -109,11 +111,9 @@ class CompraItem extends BaseDatos
     {
         $resp = false;
         $base = new BaseDatos();
-        $sql = "INSERT INTO compraitem (idproducto, idcompra, cicantidad) 
-        VALUES ('{$this->getObjProducto()->getIdproducto()}',
-               {$this->getObjCompra()->getIdcompra()},
-               '{$this->getCicantidad()}');";
         
+        $sql = "INSERT INTO compraitem (idproducto, idcompra, cicantidad) VALUES ('{$this->getIdproducto()}',{$this->getIdcompra()},'{$this->getCicantidad()}');";
+
         if ($base->Iniciar()) {
             if ($base = $base->Ejecutar($sql)) {
                 $this->setIdcompraitem($base);
@@ -131,7 +131,10 @@ class CompraItem extends BaseDatos
     {
         $resp = false;
         $base = new BaseDatos();
-        $sql = "UPDATE compraitem SET idcompraitem={$this->getIdcompraitem()}, idproducto='{$this->getObjProducto()->getIdproducto()}', idcompra={$this->getObjCompra()->getIdcompra()}, cicantidad={$this->getCicantidad()} WHERE idcompraitem={$this->getIdcompraitem()}";
+        
+        $sql = "UPDATE compraitem SET idproducto='{$this->getIdproducto()}', idcompra={$this->getIdcompra()}, cicantidad={$this->getCicantidad()} WHERE idcompraitem={$this->getIdcompraitem()}";
+        verEstructura($sql);
+        
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 $resp = true;
@@ -178,11 +181,11 @@ class CompraItem extends BaseDatos
                 while ($row = $base->Registro()) {
                     $obj = new CompraItem();
 
-                    $objProducto = NULL;
+                    $idProducto = NULL;
                     if ($row['idproducto'] != null) {
-                        $objProducto = new producto();
-                        $objProducto->setIdproducto($row['idproducto']);
-                        $objProducto->cargar();
+                        $idProducto = new producto();
+                        $idProducto->setIdproducto($row['idproducto']);
+                        $idProducto->cargar();
                     }
                     $objCompra = NULL;
                     if ($row['idcompra'] != null) {
@@ -192,7 +195,7 @@ class CompraItem extends BaseDatos
                     }
 
                     $obj->setear($row['idcompraitem'],
-                                $objProducto,
+                                $idProducto,
                                 $objCompra,
                                 $row['cicantidad']);
                     array_push($arreglo, $obj);
