@@ -28,6 +28,7 @@ class abmMenuRol
     public function buscar($param)
     {
         $where = " true ";
+        $objMenuRol = new menuRol();
 
         if ($param != null) {
             if (isset($param['idmenu'])) {
@@ -39,7 +40,7 @@ class abmMenuRol
             }
         }
 
-        $arreglo = menurol::listar($where);
+        $arreglo = $objMenuRol->listar($where);
 
         return $arreglo;
     }
@@ -47,26 +48,32 @@ class abmMenuRol
     public function modificacion($param)
     {
         $resp = false;
-        $objMenuRol = new menurol();
-        $abmRol = new abmrol();
+        $objMenuRol = new menuRol();
+        $abmRol = new abmRol();
+        $abmMenu = new abmMenu();
+
         $listaRol = $abmRol->buscar(['idrol' => $param['idrol']]);
-        $abmMenu = new abmmenu();
         $listaMenu = $abmMenu->buscar(['idmenu' => $param['idmenu']]);
+
         $objMenuRol->setear($listaMenu[0], $listaRol[0]);
+
         if ($objMenuRol->modificar()) {
             $resp = true;
         }
+
         return $resp;
     }
 
     public function baja($param)
     {
         $resp = false;
-        $objMenuRol = new menurol();
-        $abmMenu = new abmmenu();
+        $objMenuRol = new menuRol();
+        $abmMenu = new abmMenu();
+        $abmRol = new abmRol();
+
         $listaMenu = $abmMenu->buscar(['idmenu' => $param['idmenu']]);
-        $abmRol = new abmrol();
         $objRol = $abmRol->buscar(['idrol' => $param['idrol']]);
+
         $objMenuRol->setear($listaMenu[0], $objRol[0]);
 
         if ($objMenuRol->eliminar()) {
@@ -79,11 +86,13 @@ class abmMenuRol
     public function alta($param)
     {
         $resp = false;
-        $objMenuRol = new menurol();
-        $abmMenu = new abmmenu();
+        $objMenuRol = new menuRol();
+        $abmMenu = new abmMenu();
+        $abmRol = new abmRol();
+
         $listaMenu = $abmMenu->buscar(['idmenu' => $param['idmenu']]);
-        $abmRol = new abmrol();
         $objRol = $abmRol->buscar(['idrol' => $param['idrol']]);
+
         $objMenuRol->setear($listaMenu[0], $objRol[0]);
 
         if ($objMenuRol->insertar()) {

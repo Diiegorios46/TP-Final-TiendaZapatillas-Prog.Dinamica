@@ -127,6 +127,7 @@ class abmMenu
     {
         $resp = false;
         $objMenu = $this->cargarObjeto($param);
+        verEstructura($param);
 
         if ($objMenu->insertar()) {
             $resp = true;
