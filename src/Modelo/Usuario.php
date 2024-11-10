@@ -54,7 +54,7 @@ class Usuario extends BaseDatos {
 
     public function insertar(){
         $base=new BaseDatos();
-        $consultaInsertar="INSERT INTO usuario(usNombre, usPass, usMail, usDeshabilitado) VALUES 
+        $consultaInsertar="INSERT INTO usuario(usnombre, uspass, usmail, usdeshabilitado) VALUES 
         ('".$this->getUsNombre()."','".$this->getUsPass()."','".$this->getUsMail()."','".$this->getUsDeshabilitado()."')";
         
         $resp= false;

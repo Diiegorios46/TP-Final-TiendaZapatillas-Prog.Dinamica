@@ -47,12 +47,10 @@
         $arrayDatos['usdeshabilitado'] ='0000-00-00 00:00:00';
 
         $resultado = $obj->buscar($arrayDatos);
-        echo "resultado";
-        verEstructura($resultado);
         //no va a andar si la base de datos no tiene nada
         if(!empty($resultado) && count($resultado) > 0){
             $usuario = $resultado[0];
-            $_SESSION['idUsuario'] = $usuario->getIdUsuario();
+            $_SESSION['idusuario'] = $usuario->getIdUsuario();
             $boolean = true;
         } else {
             $this->cerrar();

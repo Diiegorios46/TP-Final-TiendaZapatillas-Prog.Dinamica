@@ -30,9 +30,9 @@ class abmUsuario{
         $obj = null;
         verEstructura($param);
         if(array_key_exists('idusuario',$param) 
-           and array_key_exists('usNombre',$param) 
-           and array_key_exists('usPass',$param)
-           and array_key_exists('usMail',$param)){
+           and array_key_exists('usnombre',$param) 
+           and array_key_exists('uspass',$param)
+           and array_key_exists('usmail',$param)){
 
             $obj = new Usuario();
             $obj->setear($param);

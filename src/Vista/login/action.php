@@ -4,6 +4,8 @@ include '../../../config.php';
 
 $session = new Session();
 
+verEstructura($_POST);
+
 $usuario = $_POST['usuario'];
 $clave = $_POST['clave'];
 

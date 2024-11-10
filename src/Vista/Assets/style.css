@@ -1,0 +1,114 @@
+body{
+    padding: 0;
+    margin: 0;
+}
+
+.bg-naranja {
+    background: #FF5722;
+}
+
+.bg-negro {
+    background: #212121;
+}
+
+.objet-fit {
+    object-fit: cover;
+}
+
+.w100-h55 {
+    width: 100px;
+    height: 55px;
+}
+
+.hover-zoom img {
+    transition: transform 0.3s ease;
+}
+
+.hover-zoom img:hover {
+    transform: scale(1.2);
+
+}
+
+.gap {
+    gap: 20px;
+}
+
+.w-50 {
+    width: 50%;
+}
+
+.btn-enviar {
+    display: inline-block;
+    width: 100%;
+    padding:
+        10px;
+    background-color:
+        #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px
+}
+
+.ml-2 {
+    margin-left: 15%;
+}
+
+.mr-2 {
+    margin-right: 15%;
+}
+
+.fancy-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.w-70 {
+    width: 70%;
+}
+
+.w-32 {
+    width: 32%;
+}
+
+.bg-form {
+    background-color: #f0f0f0;
+}
+
+.w-5 {
+    width: 5%;
+}
+
+.img-input-usuario {
+    width: 100%;
+    padding: 10px 40px 10px 10px;
+    font-size: 16px;
+    border-radius: 4px;
+    background: url('../Assets/imgs/usuario.png') no-repeat right 10px center;
+    background-color: #ffff;
+    background-size: 20px 20px;
+    transition: border-color 0.3s,
+}
+
+
+.img-input-contraseña{
+    width: 100%;
+    padding: 10px 40px 10px 10px;
+    font-size: 16px;
+    border-radius: 4px;
+    background: url('../Assets/imgs/candado.png') no-repeat right 10px center;
+    background-color: #ffff;
+    background-size: 20px 20px;
+    transition: border-color 0.3s,
+}
+
+.rouded-modify{
+    border-radius: 5%;
+}
