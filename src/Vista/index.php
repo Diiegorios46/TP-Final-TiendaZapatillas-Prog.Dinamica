@@ -76,7 +76,7 @@ echo "<link rel='stylesheet' href='./Assets/style.css'>";
 
                         <div class="card d-flex w-100 p-3 shadow-sm ">
                             <div class="card-img w-100">
-                                <img src="./img/imgZapatilla-auto.webp" alt="" class="w-100 h-100">
+                                <img src="./Assets/imgs/imgZapatilla-auto.webp" alt="" class="w-100 h-100">
                             </div>
                             <div class="card-marca">Marca</div>
                             <div class="card-infoZapatillas">Nombre zapatilla - Modelo Nombre zapa</div>
@@ -95,7 +95,7 @@ echo "<link rel='stylesheet' href='./Assets/style.css'>";
 
                         <div class="card d-flex w-100 p-3 shadow-sm">
                             <div class="card-img w-100">
-                                <img src="./img/imgZapatilla-auto.webp" alt="" class="w-100 h-100">
+                                <img src="./Assets/imgs/imgZapatilla-auto.webp" alt="" class="w-100 h-100">
                             </div>
                             <div class="card-marca">Marca</div>
                             <div class="card-infoZapatillas">Nombre zapatilla - Modelo Nombre zapa</div>
@@ -113,7 +113,7 @@ echo "<link rel='stylesheet' href='./Assets/style.css'>";
 
                         <div class="card d-flex w-100 p-3 shadow-sm">
                             <div class="card-img w-100">
-                                <img src="./img/imgZapatilla-auto.webp" alt="" class="w-100 h-100">
+                                <img src="./Assets/imgs/imgZapatilla-auto.webp" alt="" class="w-100 h-100">
                             </div>
                             <div class="card-marca">Marca</div>
                             <div class="card-infoZapatillas">Nombre zapatilla - Modelo Nombre zapa</div>
@@ -131,82 +131,7 @@ echo "<link rel='stylesheet' href='./Assets/style.css'>";
 
                         <div class="card d-flex w-100 p-3 shadow-sm">
                             <div class="card-img w-100">
-                                <img src="./img/imgZapatilla-auto.webp" alt="" class="w-100 h-100">
-                            </div>
-                            <div class="card-marca">Marca</div>
-                            <div class="card-infoZapatillas">Nombre zapatilla - Modelo Nombre zapa</div>
-                            <div class="card-precioMasDescuento">
-                                <span>$999.999,00</span>
-                                <span>10% off</span>
-                            </div>
-                            <div class="card-button text-center pt-3">
-                                <button class="btn btn-dark p-2">Agregar al carrito</button>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="row mt-4 mb-4">
-                    <div class="col w-25 h-100">
-
-                        <div class="card d-flex w-100 p-3 shadow-sm">
-                            <div class="card-img w-100">
-                                <img src="./img/imgZapatilla-auto.webp" alt="" class="w-100 h-100">
-                            </div>
-                            <div class="card-marca">Marca</div>
-                            <div class="card-infoZapatillas">Nombre zapatilla - Modelo Nombre zapa</div>
-                            <div class="card-precioMasDescuento">
-                                <span>$999.999,00</span>
-                                <span>10% off</span>
-                            </div>
-                            <div class="card-button text-center pt-3">
-                                <button class="btn btn-dark p-2">Agregar al carrito</button>
-                            </div>
-                        </div>
-
-
-                    </div>
-                    <div class="col w-25 h-100">
-
-                        <div class="card d-flex w-100 p-3 shadow-sm">
-                            <div class="card-img w-100">
-                                <img src="./img/imgZapatilla-auto.webp" alt="" class="w-100 h-100">
-                            </div>
-                            <div class="card-marca">Marca</div>
-                            <div class="card-infoZapatillas">Nombre zapatilla - Modelo Nombre zapa</div>
-                            <div class="card-precioMasDescuento">
-                                <span>$999.999,00</span>
-                                <span>10% off</span>
-                            </div>
-                            <div class="card-button text-center pt-3">
-                                <button class="btn btn-dark p-2">Agregar al carrito</button>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="col w-25 h-100">
-
-                        <div class="card d-flex w-100 p-3 shadow-sm">
-                            <div class="card-img w-100">
-                                <img src="./img/imgZapatilla-auto.webp" alt="" class="w-100 h-100">
-                            </div>
-                            <div class="card-marca">Marca</div>
-                            <div class="card-infoZapatillas">Nombre zapatilla - Modelo Nombre zapa</div>
-                            <div class="card-precioMasDescuento">
-                                <span>$999.999,00</span>
-                                <span>10% off</span>
-                            </div>
-                            <div class="card-button text-center pt-3">
-                                <button class="btn btn-dark p-2">Agregar al carrito</button>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="col w-25 h-100">
-
-                        <div class="card d-flex w-100 p-3 shadow-sm">
-                            <div class="card-img w-100">
-                                <img src="./img/imgZapatilla-auto.webp" alt="" class="w-100 h-100">
+                                <img src="./Assets/imgs/imgZapatilla-auto.webp" alt="" class="w-100 h-100">
                             </div>
                             <div class="card-marca">Marca</div>
                             <div class="card-infoZapatillas">Nombre zapatilla - Modelo Nombre zapa</div>
@@ -226,7 +151,7 @@ echo "<link rel='stylesheet' href='./Assets/style.css'>";
 
                         <div class="card d-flex w-100 p-3 shadow-sm">
                             <div class="card-img w-100">
-                                <img src="./img/imgZapatilla-auto.webp" alt="" class="w-100 h-100">
+                                <img src="./Assets/imgs/imgZapatilla-auto.webp" alt="" class="w-100 h-100">
                             </div>
                             <div class="card-marca">Marca</div>
                             <div class="card-infoZapatillas">Nombre zapatilla - Modelo Nombre zapa</div>
@@ -245,7 +170,7 @@ echo "<link rel='stylesheet' href='./Assets/style.css'>";
 
                         <div class="card d-flex w-100 p-3 shadow-sm">
                             <div class="card-img w-100">
-                                <img src="./img/imgZapatilla-auto.webp" alt="" class="w-100 h-100">
+                                <img src="./Assets/imgs/imgZapatilla-auto.webp" alt="" class="w-100 h-100">
                             </div>
                             <div class="card-marca">Marca</div>
                             <div class="card-infoZapatillas">Nombre zapatilla - Modelo Nombre zapa</div>
@@ -263,7 +188,7 @@ echo "<link rel='stylesheet' href='./Assets/style.css'>";
 
                         <div class="card d-flex w-100 p-3 shadow-sm">
                             <div class="card-img w-100">
-                                <img src="./img/imgZapatilla-auto.webp" alt="" class="w-100 h-100">
+                                <img src="./Assets/imgs/imgZapatilla-auto.webp" alt="" class="w-100 h-100">
                             </div>
                             <div class="card-marca">Marca</div>
                             <div class="card-infoZapatillas">Nombre zapatilla - Modelo Nombre zapa</div>
@@ -281,7 +206,7 @@ echo "<link rel='stylesheet' href='./Assets/style.css'>";
 
                         <div class="card d-flex w-100 p-3 shadow-sm">
                             <div class="card-img w-100">
-                                <img src="./img/imgZapatilla-auto.webp" alt="" class="w-100 h-100">
+                                <img src="./Assets/imgs/imgZapatilla-auto.webp" alt="" class="w-100 h-100">
                             </div>
                             <div class="card-marca">Marca</div>
                             <div class="card-infoZapatillas">Nombre zapatilla - Modelo Nombre zapa</div>
@@ -301,7 +226,7 @@ echo "<link rel='stylesheet' href='./Assets/style.css'>";
 
                         <div class="card d-flex w-100 p-3 shadow-sm">
                             <div class="card-img w-100">
-                                <img src="./img/imgZapatilla-auto.webp" alt="" class="w-100 h-100">
+                                <img src="./Assets/imgs/imgZapatilla-auto.webp" alt="" class="w-100 h-100">
                             </div>
                             <div class="card-marca">Marca</div>
                             <div class="card-infoZapatillas">Nombre zapatilla - Modelo Nombre zapa</div>
@@ -320,7 +245,7 @@ echo "<link rel='stylesheet' href='./Assets/style.css'>";
 
                         <div class="card d-flex w-100 p-3 shadow-sm">
                             <div class="card-img w-100">
-                                <img src="./img/imgZapatilla-auto.webp" alt="" class="w-100 h-100">
+                                <img src="./Assets/imgs/imgZapatilla-auto.webp" alt="" class="w-100 h-100">
                             </div>
                             <div class="card-marca">Marca</div>
                             <div class="card-infoZapatillas">Nombre zapatilla - Modelo Nombre zapa</div>
@@ -338,7 +263,7 @@ echo "<link rel='stylesheet' href='./Assets/style.css'>";
 
                         <div class="card d-flex w-100 p-3 shadow-sm">
                             <div class="card-img w-100">
-                                <img src="./img/imgZapatilla-auto.webp" alt="" class="w-100 h-100">
+                                <img src="./Assets/imgs/imgZapatilla-auto.webp" alt="" class="w-100 h-100">
                             </div>
                             <div class="card-marca">Marca</div>
                             <div class="card-infoZapatillas">Nombre zapatilla - Modelo Nombre zapa</div>
@@ -356,7 +281,82 @@ echo "<link rel='stylesheet' href='./Assets/style.css'>";
 
                         <div class="card d-flex w-100 p-3 shadow-sm">
                             <div class="card-img w-100">
-                                <img src="./img/imgZapatilla-auto.webp" alt="" class="w-100 h-100">
+                                <img src="./Assets/imgs/imgZapatilla-auto.webp" alt="" class="w-100 h-100">
+                            </div>
+                            <div class="card-marca">Marca</div>
+                            <div class="card-infoZapatillas">Nombre zapatilla - Modelo Nombre zapa</div>
+                            <div class="card-precioMasDescuento">
+                                <span>$999.999,00</span>
+                                <span>10% off</span>
+                            </div>
+                            <div class="card-button text-center pt-3">
+                                <button class="btn btn-dark p-2">Agregar al carrito</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row mt-4 mb-4">
+                    <div class="col w-25 h-100">
+
+                        <div class="card d-flex w-100 p-3 shadow-sm">
+                            <div class="card-img w-100">
+                                <img src="./Assets/imgs/imgZapatilla-auto.webp" alt="" class="w-100 h-100">
+                            </div>
+                            <div class="card-marca">Marca</div>
+                            <div class="card-infoZapatillas">Nombre zapatilla - Modelo Nombre zapa</div>
+                            <div class="card-precioMasDescuento">
+                                <span>$999.999,00</span>
+                                <span>10% off</span>
+                            </div>
+                            <div class="card-button text-center pt-3">
+                                <button class="btn btn-dark p-2">Agregar al carrito</button>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="col w-25 h-100">
+
+                        <div class="card d-flex w-100 p-3 shadow-sm">
+                            <div class="card-img w-100">
+                                <img src="./Assets/imgs/imgZapatilla-auto.webp" alt="" class="w-100 h-100">
+                            </div>
+                            <div class="card-marca">Marca</div>
+                            <div class="card-infoZapatillas">Nombre zapatilla - Modelo Nombre zapa</div>
+                            <div class="card-precioMasDescuento">
+                                <span>$999.999,00</span>
+                                <span>10% off</span>
+                            </div>
+                            <div class="card-button text-center pt-3">
+                                <button class="btn btn-dark p-2">Agregar al carrito</button>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col w-25 h-100">
+
+                        <div class="card d-flex w-100 p-3 shadow-sm">
+                            <div class="card-img w-100">
+                                <img src="./Assets/imgs/imgZapatilla-auto.webp" alt="" class="w-100 h-100">
+                            </div>
+                            <div class="card-marca">Marca</div>
+                            <div class="card-infoZapatillas">Nombre zapatilla - Modelo Nombre zapa</div>
+                            <div class="card-precioMasDescuento">
+                                <span>$999.999,00</span>
+                                <span>10% off</span>
+                            </div>
+                            <div class="card-button text-center pt-3">
+                                <button class="btn btn-dark p-2">Agregar al carrito</button>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col w-25 h-100">
+
+                        <div class="card d-flex w-100 p-3 shadow-sm">
+                            <div class="card-img w-100">
+                                <img src="./Assets/imgs/imgZapatilla-auto.webp" alt="" class="w-100 h-100">
                             </div>
                             <div class="card-marca">Marca</div>
                             <div class="card-infoZapatillas">Nombre zapatilla - Modelo Nombre zapa</div>

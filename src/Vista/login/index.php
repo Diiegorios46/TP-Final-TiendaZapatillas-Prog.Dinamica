@@ -1,6 +1,9 @@
 <?php
 include '../estructura/cabecera.php';
+include '../../../config.php';
+
 $session = new Session();
+
 ?>
 
 <body>
