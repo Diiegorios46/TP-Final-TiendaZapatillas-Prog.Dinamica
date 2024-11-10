@@ -4,10 +4,10 @@ include '../../config.php';
 echo "<link rel='stylesheet' href='./Assets/style.css'>";
 
 
-// $session = new Session();
-// if($session->validar()){
-//     header('Location: ./home/index.php');
-// }
+$session = new Session();
+if($session->validar()){
+    header('Location: ./home/index.php');
+}
 
 ?>
 <body>

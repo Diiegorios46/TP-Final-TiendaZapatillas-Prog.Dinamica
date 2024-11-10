@@ -45,6 +45,7 @@
         $arrayDatos['usnombre'] = $nombreidUsuario;
         $arrayDatos['uspass'] = $psw;
         $arrayDatos['usdeshabilitado'] ='0000-00-00 00:00:00';
+        verEstructura($arrayDatos);
 
         $resultado = $obj->buscar($arrayDatos);
         //no va a andar si la base de datos no tiene nada

@@ -13,7 +13,7 @@ $session = new Session();
             <div class="text-center fs-2 pt-4 pb-4">
                 <span>Login</span>
             </div>
-            <form class="w-100 d-flex flex-column">
+            <form class="w-100 d-flex flex-column" action='./action.php'>
                 <div class="mt-4 ml-2 mb-2 mr-2">
                     <input type="text" name="" id="" class="fancy-input rounded-pill img-input-usuario" placeholder="Usuario">
                 </div>
