@@ -14,7 +14,7 @@
         <nav class="container-fluid fs-3 bg-naranja p-4">
             <div class="container-sm d-flex justify-content-between">
                 <div class="w100-h55">
-                    <a href="../../index.php"><img src="../../../../TpFinal-TiendaZapatillas/src/Vista/Assets/imgs/th.jpg" alt="" class="h-100 w-100 objet-fit rounded"></a>    
+                    <a href="../index.php"><img src="../../../../TpFinal-TiendaZapatillas/src/Vista/Assets/imgs/th.jpg" alt="" class="h-100 w-100 objet-fit rounded"></a>    
                 </div>
                 <div class="d-flex">
                     <div>
