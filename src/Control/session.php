@@ -42,14 +42,15 @@
     public function iniciar($nombreidUsuario ,$psw){
         $boolean = false;
         $obj = new abmUsuario();
-        $arrayDatos['usNombre'] = $nombreidUsuario;
+        $arrayDatos['usnombre'] = $nombreidUsuario;
         $arrayDatos['uspass'] = $psw;
-        $arrayDatos['usDeshabilitado'] ='0000-00-00 00:00:00';
+        $arrayDatos['usdeshabilitado'] ='0000-00-00 00:00:00';
 
         $resultado = $obj->buscar($arrayDatos);
-
+        echo "resultado";
+        verEstructura($resultado);
         //no va a andar si la base de datos no tiene nada
-        if(count($resultado) > 0){
+        if(!empty($resultado) && count($resultado) > 0){
             $usuario = $resultado[0];
             $_SESSION['idUsuario'] = $usuario->getIdUsuario();
             $boolean = true;

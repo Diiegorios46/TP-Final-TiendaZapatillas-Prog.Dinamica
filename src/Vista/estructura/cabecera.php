@@ -1,5 +1,5 @@
 <?php 
-include "../../config.php";
+include "../../../config.php";
 
 // use Whoops\Run;
 // use Whoops\Handler\PrettyPageHandler;

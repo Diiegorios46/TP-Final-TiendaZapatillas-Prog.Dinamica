@@ -103,19 +103,21 @@ class abmUsuario{
 
     public function buscar($param) {
         $where = " true ";
+        verEstructura($param);
         if ($param <> NULL) {
-            if (isset($param['idUsuario']))
+            if (isset($param['idusuario']))
                 $where .= " and idusuario =" . $param['idusuario'];
-            if (isset($param['usNombre']))
-                $where .= " and usnombre ='" . $param['usNombre'] . "'";
-            if (isset($param['usPass']))
-                $where .= " and uspass ='" . $param['usPass'] . "'";
-            if (isset($param['usMail']))
-                $where .= " and usmail ='" . $param['usMail'] . "'";
-            if (isset($param['usDeshabilitado']))
-                $where .= " and useshabilitado ='" . $param['usDeshabilitado'] . "'";
+            if (isset($param['usnombre']))
+                $where .= " and usnombre ='" . $param['usnombre'] . "'";
+            if (isset($param['uspass']))
+                $where .= " and uspass ='" . $param['uspass'] . "'";
+            if (isset($param['usmail']))
+                $where .= " and usmail ='" . $param['usmail'] . "'";
+            if (isset($param['usdeshabilitado']))
+                $where .= " and usdeshabilitado ='" . $param['usdeshabilitado'] . "'";
         }
         $obj = new Usuario();
+        verEstructura($where);
         $arreglo = $obj->listar($where);
         return $arreglo;
     }
@@ -125,14 +127,14 @@ class abmUsuario{
         if ($param <> NULL) {
             if (isset($param['idusuario']))
                 $where .= " and idusuario = " . $param['idusuario'];
-            if (isset($param['usNombre']))
-                $where .= " and usnombre = '" . $param['usNombre'] . "'";
-            if (isset($param['usPass']))
-                $where .= " and uspass = '" . $param['usPass'] . "'";
-            if (isset($param['usMail']))
-                $where .= " and usmail = '" . $param['usMail'] . "'";
-            if (isset($param['usDeshabilitado']))
-                $where .= " and usdeshabilitado = '" . $param['usDeshabilitado'] . "'";
+            if (isset($param['usnombre']))
+                $where .= " and usnombre = '" . $param['usnombre'] . "'";
+            if (isset($param['uspass']))
+                $where .= " and uspass = '" . $param['uspass'] . "'";
+            if (isset($param['usmail']))
+                $where .= " and usmail = '" . $param['usmail'] . "'";
+            if (isset($param['usdeshabilitado']))
+                $where .= " and usdeshabilitado = '" . $param['usdeshabilitado'] . "'";
         }
         
         $obj = new Usuario();

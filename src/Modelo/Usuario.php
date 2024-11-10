@@ -44,12 +44,12 @@ class Usuario extends BaseDatos {
         $this->usdeshabilitado = $usdeshabilitado;
     }
 
-    public function setear($idusuario, $usnombre, $uspass,$usmail,$usdeshabilitado) {
-        $this->setIdusuario($idusuario);
-        $this->setUsnombre($usnombre);
-        $this->setUspass($uspass);
-        $this->setUsmail($usmail);
-        $this->setUsdeshabilitado($usdeshabilitado);
+    public function setear($param) {
+        $this->setIdusuario($param['idusuario']);
+        $this->setUsnombre($param['usnombre']);
+        $this->setUspass($param['uspass']);
+        $this->setUsmail($param['usmail']);
+        $this->setUsdeshabilitado($param['usdeshabilitado']);
     }
 
     public function insertar(){
@@ -122,7 +122,7 @@ class Usuario extends BaseDatos {
         }
 
         $res = $base->Ejecutar($sql);
-
+        verEstructura($sql);
         if($res>-1){
             if($res>0){
                 $arreglo = array();
