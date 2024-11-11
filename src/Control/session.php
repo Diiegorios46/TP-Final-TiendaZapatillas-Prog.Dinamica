@@ -39,14 +39,14 @@
     }
         
     // Actualiza las variables de sesion con los valores ingresados.
-    public function iniciar($nombreidUsuario ,$psw){
+    public function iniciar($mail ,$psw){
         $boolean = false;
         $obj = new abmUsuario();
-        $arrayDatos['usnombre'] = $nombreidUsuario;
+        $arrayDatos['usmail'] = $mail;
         $arrayDatos['uspass'] = $psw;
         $arrayDatos['usdeshabilitado'] ='0000-00-00 00:00:00';
+        echo '///////////////////////////////////////';
         verEstructura($arrayDatos);
-
         $resultado = $obj->buscar($arrayDatos);
         //no va a andar si la base de datos no tiene nada
         if(!empty($resultado) && count($resultado) > 0){

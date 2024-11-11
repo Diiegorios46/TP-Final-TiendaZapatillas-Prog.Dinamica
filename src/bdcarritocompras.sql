@@ -236,8 +236,12 @@ ALTER TABLE `rol`
 -- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  ADD PRIMARY KEY (`idusuario`),
-  ADD UNIQUE KEY `idusuario` (`idusuario`);
+  DROP PRIMARY KEY,
+   ADD PRIMARY KEY(
+     `idusuario`,
+     `usmail`
+   ),
+   ADD UNIQUE(`usmail`);
 
 --
 -- Indices de la tabla `usuariorol`

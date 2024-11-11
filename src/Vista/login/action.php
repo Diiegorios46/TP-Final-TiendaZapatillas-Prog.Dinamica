@@ -4,12 +4,10 @@ include '../../../config.php';
 
 $session = new Session();
 
-verEstructura($_POST);
+$mail = $_POST['usmail'];
+$clave = $_POST['uspass'];
 
-$usuario = $_POST['usuario'];
-$clave = $_POST['clave'];
-
-if($session->iniciar($usuario, $clave)){
+if($session->iniciar($mail, $clave)){
     header('Location: ../home/index.php');
 } else {
     header('Location: ../login/index.php?error=1');

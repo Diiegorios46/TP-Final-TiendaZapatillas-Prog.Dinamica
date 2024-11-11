@@ -103,7 +103,6 @@ class abmUsuario{
 
     public function buscar($param) {
         $where = " true ";
-        verEstructura($param);
         if ($param <> NULL) {
             if (isset($param['idusuario']))
                 $where .= " and idusuario =" . $param['idusuario'];
@@ -117,7 +116,6 @@ class abmUsuario{
                 $where .= " and usdeshabilitado ='" . $param['usdeshabilitado'] . "'";
         }
         $obj = new Usuario();
-        verEstructura($where);
         $arreglo = $obj->listar($where);
         return $arreglo;
     }

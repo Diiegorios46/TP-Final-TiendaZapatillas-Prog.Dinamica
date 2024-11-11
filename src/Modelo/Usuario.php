@@ -120,9 +120,8 @@ class Usuario extends BaseDatos {
         if ($param != "") {
             $sql .= ' WHERE '.$param;
         }
-
-        $res = $base->Ejecutar($sql);
         verEstructura($sql);
+        $res = $base->Ejecutar($sql);
         if($res>-1){
             if($res>0){
                 $arreglo = array();

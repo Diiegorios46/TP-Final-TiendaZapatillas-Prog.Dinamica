@@ -8,6 +8,7 @@
             <div class="text-center fs-2 pt-4 pb-4">
                 <span>Registrar</span>
             </div>
+
             <form class="w-100 d-flex flex-column" action="./action.php" id="loginForm" method="POST">
                 <div class="mt-4 ml-2 mb-2 mr-2">
                     <input type="text" name="usnombre" class="fancy-input rounded-pill img-input-usuario" id="usnombre" placeholder="Nombre de usuario" required>
@@ -25,7 +26,7 @@
                     <span>¿Ya estas registrado?<a href="../login/index.php"> Login</a></span>
                 </div>
             </form>
-            
+
         </section>
 
     </main>

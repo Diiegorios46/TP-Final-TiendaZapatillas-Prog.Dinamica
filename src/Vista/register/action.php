@@ -2,14 +2,23 @@
 
 include '../../../config.php';
 
-$datos = data_submitted();
-$abmUsuario = new abmUsuario();
 $session = new Session();
-$datos['accion'] = 'nuevo';
+$abmUsuario = new abmUsuario();
 
-if($abmUsuario->alta($datos)){
-    $session->iniciar($datos['usnombre'], $datos['uspass']);
-    header('Location: ../login/action.php');
-}else{
-    header('Location: ./index.php?error=1');
+$datos = data_submitted();
+$datos['accion'] = 'nuevo';
+$mail['usmail'] = $datos['usmail'];
+
+verEstructura($datos);
+
+if($abmUsuario->buscar($mail)){
+    echo '<h1>El correo ya esta registrado en la base de datos</h1>';
+} else {
+    echo '<h1>El usuario es nuevo asi que lo vamos a registrar</h1>';
+   try {
+    $abmUsuario->alta($_POST);
+    echo '<h1>Usuario registrado con exitoooo</h1>';
+   } catch (Exception $e) {
+       echo 'Error al registrar usuario';
+   }
 }
