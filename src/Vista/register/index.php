@@ -5,6 +5,18 @@
     <main class="container w-32 h-100 mt-5 pt-5">
 
         <section class="login-container bg-form rouded-modify shadow">
+            <?php
+            if(isset($_GET['error'])){
+                switch ($_GET['error']) {
+                    case 1:
+                        echo '<div class="alert alert-danger" role="alert">El correo ya esta registrado</div>';
+                        break;
+                    default:
+                        echo '<div class="alert alert-danger" role="alert">Error al registrar usuario</div>';
+                        break;
+                }
+            }
+            ?>
             <div class="text-center fs-2 pt-4 pb-4">
                 <span>Registrar</span>
             </div>
@@ -17,7 +29,7 @@
                     <input type="password" name="uspass" class="fancy-input rounded-pill img-input-contraseña" id="uspass" placeholder="Contraseña" required>
                 </div>
                 <div class="mt-4 ml-2 mb-5 mr-2">
-                    <input type="email" name="usmail" class="fancy-input rounded-pill" id="usmail" placeholder="Correo" required>
+                    <input type="email" name="usmail" class="fancy-input rounded-pill" id="usmail" placeholder="Correo Electronico" required>
                 </div>
                 <div class="d-flex w-70 align-self-center mb-2 pb-4">
                      <input type="submit" class="btn-enviar rounded-pill" value="Enviar">
@@ -33,22 +45,13 @@
 </body>
 </html>
 
-<?php
-if(isset($_GET['error'])){
-    echo '<h2>Usuario o clave incorrectos</h2>';
-}
-
-?>
-
-<?php
-/*
-<!-- // CREATE TABLE `usuario` (
+ <!-- // CREATE TABLE `usuario` (
 //   `idusuario` bigint(20) NOT NULL,
 //   `usnombre` varchar(50) NOT NULL,
 //   `uspass` varchar(50) NOT NULL,
 //   `usmail` varchar(50) NOT NULL,
 //   `usdeshabilitado` timestamp NULL DEFAULT NULL
-// ) ENGINE=InnoDB DEFAULT CHARSET=latin1; -->
+// ) ENGINE=InnoDB DEFAULT CHARSET=latin1; 
 
 <form action="./action.php" method="POST" id="loginForm" >
     <label for="usnombre">Ingrese su nombre</label>
@@ -59,7 +62,7 @@ if(isset($_GET['error'])){
     <input type="email" name="usmail" id="usmail" placeholder="Correo" required>
     <input type="submit" value="Registrarse">
 </form>
-<!---<script>
+<script>
         $(document).ready(function() {
             $('#loginForm').on('submit', function(e) {  
             var password = $('#uspass').val();
@@ -71,8 +74,4 @@ if(isset($_GET['error'])){
 
                     });
                 });
-            </script> --->
-*/
-?>
-
-
+            </script> - -->

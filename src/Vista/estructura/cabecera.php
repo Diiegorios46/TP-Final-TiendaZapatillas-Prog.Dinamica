@@ -1,13 +1,15 @@
+<?php
+include '../../../config.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <title></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>    
-    <link rel="stylesheet" href="../Assets/style.css">
+    <link rel="stylesheet" href="../Assets/style.css?<?php echo time(); ?>">
 </head>
 
 <header class="container-fluid m-0 p-0">
@@ -18,8 +20,8 @@
                 </div>
                 <div class="d-flex">
                     <div>
-                        <button class="btn btn-dark"><a href="../../../../TpFinal-TiendaZapatillas/src/Vista/login/index.php">Iniciar Sesion</a></button>
-                        <button class="btn btn-dark"><a href="../../../../TpFinal-TiendaZapatillas/src/Vista/register/index.php">Registrarse</a></button>
+                        <a href="../../../../TpFinal-TiendaZapatillas/src/Vista/login/index.php"><button class="btn btn-dark">Iniciar Sesion</button></a>
+                        <a href="../../../../TpFinal-TiendaZapatillas/src/Vista/register/index.php"><button class="btn btn-dark">Registrarse</button></a>
                     </div>
                     
                     <div class="w-h">

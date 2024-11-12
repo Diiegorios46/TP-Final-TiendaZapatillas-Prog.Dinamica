@@ -1,6 +1,5 @@
 <?php
 include '../estructura/cabecera.php';
-include '../../../config.php';
 
 $session = new Session();
 ?>
@@ -10,8 +9,13 @@ $session = new Session();
         <?php
         if(isset($_GET['error'])){
             echo '<div class="alert alert-danger" role="alert">
-            Usuario o contraseña incorrectos
-          </div>';
+            correo o contraseña incorrectos
+            </div>';
+        }
+        if(isset($_GET['registro'])){
+            echo '<div class="alert alert-success" role="alert">
+            Registro exitoso
+            </div>';
         }
         ?>
         <section class="login-container bg-form rouded-modify shadow">
@@ -19,14 +23,11 @@ $session = new Session();
                 <span>Login</span>
             </div>
             <form class="w-100 d-flex flex-column" action='./action.php' method="post">
-                <div class="mt-4 ml-2 mb-2 mr-2">
-                    <input type="text" name="usnombre" id="usnombre" class="fancy-input rounded-pill img-input-usuario" placeholder="Usuario">
+                <div class="mt-3 ml-2 mb-2 mr-2">
+                    <input type="mail" name="usmail" id="usmail" class="fancy-input rounded-pill" placeholder="Correo Electronico">
                 </div>
-                <div class="mt-4 ml-2 mb-2 mr-2">
+                <div class="mt-3 ml-2 mb-2 mr-2">
                     <input type="text" name="uspass" id="uspass" class="fancy-input rounded-pill img-input-contraseña" placeholder="Contraseña">
-                </div>
-                <div class="mt-4 ml-2 mb-5 mr-2">
-                    <input type="mail" name="usmail" id="usmail" class="fancy-input rounded-pill" placeholder="Mail">
                 </div>
                 <div class="d-flex w-70 align-self-center mb-2">
                     <input type="submit" name="btnenviar" id="btnenviar" class="btn-enviar rounded-pill" value="Enviar">

@@ -2,6 +2,14 @@
 
 include '../estructura/cabecera.php';
 
-echo "<h1>ESTAS EN EL HOME</h1>";
+$session = new Session();
+$usuario = $session->getUsuario();
 
-echo "<a href='./logout/action.php'>Cerrar sesion</a>";
+echo "<h1>ESTAS EN EL HOME</h1>";
+if(isset($usuario['usnombre'])){
+    echo "<h2>Bienvenido ".$usuario['usnombre']." 🫡</h2>";
+}else{
+    header("Location: ../login/index.php");
+}
+
+echo "<a href='./action.php'>Cerrar sesion</a>";

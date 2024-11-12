@@ -12,13 +12,12 @@ $mail['usmail'] = $datos['usmail'];
 verEstructura($datos);
 
 if($abmUsuario->buscar($mail)){
-    echo '<h1>El correo ya esta registrado en la base de datos</h1>';
+    header('Location: ./index.php?error=1'); // El correo ya esta registrado en la base de datos
 } else {
-    echo '<h1>El usuario es nuevo asi que lo vamos a registrar</h1>';
    try {
     $abmUsuario->alta($_POST);
-    echo '<h1>Usuario registrado con exitoooo</h1>';
+    header('Location: ../login/index.php?registro=1'); // Usuario registrado con exito
    } catch (Exception $e) {
-       echo 'Error al registrar usuario';
+    header('Location: ./index.php?error=2'); // Error al registrar usuario
    }
 }

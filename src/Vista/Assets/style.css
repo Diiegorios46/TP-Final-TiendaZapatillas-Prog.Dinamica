@@ -91,7 +91,7 @@ body{
     padding: 10px 40px 10px 10px;
     font-size: 16px;
     border-radius: 4px;
-    background: url('../Assets/imgs/usuario.png') no-repeat right 10px center;
+    background: url('./imgs/usuario.png') no-repeat right 10px center;
     background-color: #ffff;
     background-size: 20px 20px;
     transition: border-color 0.3s,
@@ -103,7 +103,7 @@ body{
     padding: 10px 40px 10px 10px;
     font-size: 16px;
     border-radius: 4px;
-    background: url('../Assets/imgs/candado.png') no-repeat right 10px center;
+    background: url('./imgs/candado.png') no-repeat right 10px center;
     background-color: #ffff;
     background-size: 20px 20px;
     transition: border-color 0.3s,

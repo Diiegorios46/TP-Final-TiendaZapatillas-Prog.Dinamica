@@ -13,8 +13,8 @@
         $usuario = null;
         if($this->validar()){
             $obj = new abmUsuario();
-            $param['idUsuario'] = $_SESSION['idUsuario'];
-            $resultado = $obj->buscar($param);
+            $param['idusuario'] = $_SESSION['idusuario'];
+            $resultado = $obj->obtenerDatos($param);
 
             if(count($resultado) > 0){
                 $usuario = $resultado[0];
@@ -28,7 +28,7 @@
         $list_rol = null;
         if($this->validar()){
             $obj = new abmUsuario();
-             $param['idUsuario'] = $_SESSION['idUsuario'];
+             $param['idusuario'] = $_SESSION['idusuario'];
              $resultado = $obj->darRoles($param);
              
             if(count($resultado) > 0){
