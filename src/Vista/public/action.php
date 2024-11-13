@@ -1,13 +1,19 @@
 <?php
-include '../../../config.php';
- $bd = new BaseDatos();
+include '../estructura/cabecera.php';
+$bd = new BaseDatos();
 
- $datos = data_submitted();
+$datos = data_submitted();
+$producto = new abmProducto();
 
- if (isset($datos['submit'])) {
+echo "<div class='container-fluid shadow'>";
+echo "<div class='container-sm d-flex gap border border-dark '>";
+if (isset($datos['submit'])) {
+   foreach ($datos['image']['tmp_name'] as $imagen) {
+      echo '<img src="data:image/jpeg;base64,' . base64_encode(file_get_contents($imagen)) . '" />';
+      $codigoImagen[] = base64_encode(file_get_contents($imagen));
+   }
+}
 
-    $nose = file_get_contents($datos['image']['tmp_name'][0]);
-    $nose = base64_encode($nose);
-    echo $nose;
- }
+echo "</div>";
+echo "</div>";
 ?>
