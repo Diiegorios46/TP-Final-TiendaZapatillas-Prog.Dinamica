@@ -28,12 +28,12 @@ class abmProducto
     private function cargarObjeto($param)
     {
         $obj = null;
-        verEstructura($param);
+        // verEstructura($param);
         if (
             array_key_exists('idproducto', $param) and array_key_exists('pronombre', $param) and array_key_exists('proprecio', $param)
         ) {
             $obj = new Producto();
-            $obj->setear($param['idproducto'], $param['proprecio'],$param['pronombre'] ,$param['prodetalle'],  $param['procantstock']);
+            $obj->setear($param);
             return $obj;
         }
     }

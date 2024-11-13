@@ -166,8 +166,9 @@ class Producto extends BaseDatos
         $this->setProimagen3($proimagen3);
         $proimagen4 = ($this->getProimagen4() !==  null)  ? $this->getProimagen4() : null;
         $this->setProimagen4($proimagen4);
-        
-        $sql = "INSERT INTO producto (pronombre, prodetalle, procantstock, proprecio, promarca, proimagen1, proimagen2, proimagen3, proimagen4) VALUES ('".$this->getPronombre()."', '".$this->getProdetalle()."',".$this->getProcantstock().",".$this->getProPrecio().",".$this->getProMarca().",'".$this->getProimagen1()."','".$this->getProimagen2()."','".$this->getProimagen3()."','".$this->getProimagen4()."')";
+
+        $sql = "INSERT INTO producto (pronombre, prodetalle, procantstock, proprecio, promarca, proimagen1, proimagen2, proimagen3, proimagen4) VALUES ('".$this->getPronombre()."', '".$this->getProdetalle()."',".$this->getProcantstock().",".$this->getProPrecio().",'".$this->getProMarca()."','".$this->getProimagen1()."','".$this->getProimagen2()."','".$this->getProimagen3()."','".$this->getProimagen4()."')";
+        verEstructura($sql);
 
         if ($base->Iniciar()) {
             if ($base = $base->Ejecutar($sql)) {

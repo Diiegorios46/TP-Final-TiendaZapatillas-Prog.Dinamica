@@ -28,8 +28,8 @@ $datos = data_submitted();
     <label for="prodetalle">Detalle del producto</label>
     <input type="text" name="prodetalle" id="prodetalle" required>
     <br>
-    <label for="pronombre">cantidad de stock</label>
-    <input type="number" name="pronombre" id="pronombre" required>
+    <label for="procantstock">Cantidad de stock</label>
+    <input type="number" name="procantstock" id="procantstock" required>
     <br>
     <label for="image">Choose image(s) to upload:</label>
     <input type="file" name="image[]" id="image" multiple required>
