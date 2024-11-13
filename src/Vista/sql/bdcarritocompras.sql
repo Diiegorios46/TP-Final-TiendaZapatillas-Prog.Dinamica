@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-11-2024 a las 18:39:43
--- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+-- Tiempo de generación: 13-11-2024 a las 22:51:06
+-- Versión del servidor: 10.4.28-MariaDB
+-- Versión de PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -97,13 +97,6 @@ CREATE TABLE `compraitem` (
   `cicantidad` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
---
--- Volcado de datos para la tabla `compraitem`
---
-
-INSERT INTO `compraitem` (`idcompraitem`, `idproducto`, `idcompra`, `cicantidad`) VALUES
-(7, 2, 3, 16);
-
 -- --------------------------------------------------------
 
 --
@@ -162,15 +155,15 @@ CREATE TABLE `producto` (
   `proimagen1` mediumblob NOT NULL,
   `proimagen2` mediumblob DEFAULT NULL,
   `proimagen3` mediumblob DEFAULT NULL,
-  `proimagen4` mediumblob DEFAULT NULL
+  `proimagen4` mediumblob DEFAULT NULL,
+  `promarca` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Volcado de datos para la tabla `producto`
 --
 
-INSERT INTO `producto` (`idproducto`, `pronombre`, `prodetalle`, `procantstock`, `proprecio`, `proimagen1`, `proimagen2`, `proimagen3`, `proimagen4`) VALUES
-(2, 'yeezy 750', 'Zapatillas deportivas de alta calidad', 50, 120, '', '', '', '');
+
 
 -- --------------------------------------------------------
 
@@ -349,7 +342,7 @@ ALTER TABLE `menu`
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `idproducto` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idproducto` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `rol`

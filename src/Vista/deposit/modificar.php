@@ -21,7 +21,7 @@ $listaProductos = $abmProducto->obtenerDatos(null);
                 echo '</div><div class="row mt-4 mb-4">'; 
             }
         ?>
-            <div class="col w-25 h-100 border border-dark">
+            <div class="col w-25 h-100">
                 <div class="card d-flex w-100 h-100 p-3 shadow-sm">
                     <div class="card-img w-100">
                         <img src="data:image/jpg;base64,<?php echo $producto['proimagen1']; ?>" alt="Producto" class="img-fluid w-100 h-100">
