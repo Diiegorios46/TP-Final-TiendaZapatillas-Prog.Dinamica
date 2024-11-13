@@ -31,6 +31,32 @@ class Producto extends BaseDatos
     {
         return $this->procantstock;
     }
+    
+    public function getProPrecio()
+    {
+        return $this->proprecio;
+    }
+
+    public function getProimagen1()
+    {
+        return $this->proimagen1;
+    }
+
+    public function getProimagen2()
+    {
+        return $this->proimagen2;
+    }
+
+    public function getProimagen3()
+    {
+        return $this->proimagen3;
+    }
+
+    public function getProimagen4()
+    {
+        return $this->proimagen4;
+    }
+    
     //SETTERS
     public function setIdproducto($idproducto)
     {
@@ -49,14 +75,29 @@ class Producto extends BaseDatos
         $this->procantstock = $procantstock;
     }
 
-    public function getProPrecio()
-    {
-        return $this->proprecio;
-    }
-
     public function setProPrecio($proprecio)
     {
         $this->proprecio = $proprecio;
+    }
+
+    public function setProimagen1($proimagen1)
+    {
+        $this->proimagen1 = $proimagen1;
+    }
+
+    public function setProimagen2($proimagen2)
+    {
+        $this->proimagen2 = $proimagen2;
+    }
+
+    public function setProimagen3($proimagen3)
+    {
+        $this->proimagen3 = $proimagen3;
+    }
+
+    public function setProimagen4($proimagen4)
+    {
+        $this->proimagen4 = $proimagen4;
     }
 
     public function setMensajeOperacion($mensajeOperacion)
@@ -66,13 +107,17 @@ class Producto extends BaseDatos
 
 
     // Metodos
-    public function setear($idproducto, $proprecio , $pronombre, $prodetalle,  $procantstock)
+    public function setear($param)
     {
-        $this->setIdproducto($idproducto);
-        $this->setProPrecio($proprecio);
-        $this->setPronombre($pronombre);
-        $this->setProdetalle($prodetalle);
-        $this->setProcantstock($procantstock);
+        $this->setIdproducto($param['idproducto']);
+        $this->setProPrecio($param['proprecio']);
+        $this->setPronombre($param['pronombre']);
+        $this->setProdetalle($param['prodetalle']);
+        $this->setProcantstock($param['procantstock']);
+        $this->setProimagen1($param['proimagen1']);
+        $this->setProimagen2($param['proimagen2']);
+        $this->setProimagen3($param['proimagen3']);
+        $this->setProimagen4($param['proimagen4']);
     }
 
     public function cargar()
@@ -87,12 +132,7 @@ class Producto extends BaseDatos
             if ($res > -1) {
                 if ($res > 0) {
                     $row = $base->Registro();
-                    $this->setear(
-                        $row['idproducto'],
-                        $row['proprecio'], 
-                        $row['pronombre'], 
-                        $row['prodetalle'],  
-                        $row['procantstock']);
+                    $this->setear($row);
                     $resp = true;
                 }
             }
@@ -108,7 +148,7 @@ class Producto extends BaseDatos
         $resp = false;
         $base = new BaseDatos();
 
-        $sql = "INSERT INTO producto (pronombre, prodetalle , procantstock, proprecio) VALUES ('".$this->getPronombre()."','".$this->getProdetalle()."',".$this->getProcantstock() . ",".$this->getProPrecio().")";
+        $sql = "INSERT INTO producto (pronombre, prodetalle, procantstock, proprecio, proimagen1, proimagen2, proimagen3, proimagen4) VALUES ('".$this->getPronombre()."','".$this->getProdetalle()."',".$this->getProcantstock().",".$this->getProPrecio().",'".$this->getProimagen1()."','".$this->getProimagen2()."','".$this->getProimagen3()."','".$this->getProimagen4()."')";
 
         if ($base->Iniciar()) {
             if ($base = $base->Ejecutar($sql)) {
