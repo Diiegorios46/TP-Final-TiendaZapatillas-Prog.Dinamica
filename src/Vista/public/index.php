@@ -262,7 +262,7 @@ if($session->validar()){
                                 <span class="align-self-center fs-6">${item.cantidad}unidades</span>
                             </div>
                             <div class="align-self-center">
-                                <button type="button" class="btn btn-dark">
+                                <button type="button" class="btn btn-dark onclick="sacarDelcarrito(this)">
                                     <i class="bi bi-x"></i>
                                 </button>
                             </div>

@@ -7,6 +7,10 @@ class Producto extends BaseDatos
     private $procantstock;
     private $prodetalle;
     private $proprecio;
+    private $proimagen1;
+    private $proimagen2;
+    private $proimagen3;
+    private $proimagen4;
     private $mensajeOperacion;
 
     // Getters
