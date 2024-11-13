@@ -248,12 +248,12 @@ if($session->validar()){
 
                 carrito.forEach(item => {
                     modal.innerHTML += `
-                        <div class="border border-dark d-flex flex-row justify-content-around">
+                        <div class="border border-dark d-flex flex-row justify-content-around card">
                             <div class="w-25">
                                 <img src="${item.img}" alt="" class="w-100 h-100">
                             </div>
-                            <div class="d-flex">
-                                <p class="align-self-center mb-0 fs-6">${item.nombre}</p>
+                            <div class="card-infoZapatillas d-flex">
+                                <p class="nombre-zapatilla align-self-center mb-0 fs-6">${item.nombre}</p>
                             </div>
                             <div class="d-flex">
                                 <span class="align-self-center fs-6">${item.precio}</span>
@@ -262,10 +262,13 @@ if($session->validar()){
                                 <span class="align-self-center fs-6">${item.cantidad}unidades</span>
                             </div>
                             <div class="align-self-center">
-                                <button type="button" class="btn btn-dark onclick="sacarDelcarrito(this)">
+                                <button type="button" class="btn btn-dark" onclick="sacarDelcarrito(this)">
                                     <i class="bi bi-x"></i>
                                 </button>
                             </div>
+                        </div>
+                        <div class="card-compra d-flex flex-row w-100 justify-content-center mr-5 mb-2 pr-1">
+                            <button class="btn btn-dark btn-comprar">Pagar</button>
                         </div>
                     `;
                 });
