@@ -13,3 +13,5 @@ if(isset($usuario['usnombre'])){
 }
 
 echo "<a href='./action.php'>Cerrar sesion</a>";
+
+
