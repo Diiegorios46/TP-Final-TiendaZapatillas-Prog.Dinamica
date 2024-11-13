@@ -51,24 +51,8 @@ include '../../../config.php';
                 </div>
             </div>
         </nav>
-        <nav class="container-fluid bg-negro p-3">
-            <div class="container-sm d-flex justify-content-between bg-negro">
-                <div class="bg-light w-25 h-25 m-2 hover-zoom">
-                    <img src="../Assets/imgs/nike.jpg" alt="" class="h-100 w-100 objet-fit">
-                </div>
-                <div class="bg-light w-25 h-25 m-2 hover-zoom">
-                    <img src="../Assets/imgs/adidas.png" alt="" class="h-100 w-100 objet-fit">
-                </div>
-                <div class="bg-light w-25 h-25 m-2 hover-zoom">
-                    <img src="../Assets/imgs/vans.jpg" alt="" class="h-100 w-100 objet-fit">
-                </div>
-                <div class="bg-light w-25 h-25 m-2 hover-zoom">
-                    <img src="../Assets/imgs/ds.jpg" alt="" class="h-100 w-100 objet-fit">
-                </div>
-                <div class="bg-light w-25 h-25 m-2 hover-zoom">
-                    <img src="../Assets/imgs/tooper.jpg" alt="" class="h-100 w-100 objet-fit">
-                </div>
-            </div>
+        <nav class="container-fluid bg-negro p-4">
+        
         </nav>
 
     </header>

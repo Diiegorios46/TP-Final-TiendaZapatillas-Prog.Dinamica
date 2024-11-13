@@ -118,7 +118,7 @@ class abmProducto
         $sql = "SELECT * FROM producto";
 
         if ($param != "") {
-            $sql .= 'WHERE ' . $param;
+            $sql .= ' WHERE ' . $param;
         }
 
         $res = $base->Ejecutar($sql);
@@ -131,9 +131,9 @@ class abmProducto
                     $objProducto = NULL;
                     if ($row['idproducto'] != null) {
                         $objProducto = new producto();
-                        $objProducto->setear($row['idproducto'], $row['prodescripcion'], $row['prodetalle'], $row['proprecio']);
+                        $objProducto->setear($row);
                     }
-                    $obj->setear($row['idproducto'], $row['prodescripcion'], $row['prodetalle'], $row['proprecio']);
+                    $obj->setear($row);
                     
                     array_push($arreglo, $obj);
                 }
@@ -156,21 +156,16 @@ class abmProducto
         return $resp;
     }
 
-    public function cargar($idproducto)
+    public function cargar()
     {
         $resp = false;
         $base = new BaseDatos();
-        $sql = "SELECT * FROM producto WHERE idproducto = " . $idproducto;
+        $sql = "SELECT * FROM producto WHERE idproducto = " . $this->getidproducto();
 
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 if ($row2 = $base->Registro()) {
-                    $this->setear($row2['idproducto'],
-                                  $row2['prodescripcion'],
-                                  $row2['prodetalle'],
-                                  $row2['proprecio'],
-                                  $row2['prostock'],
-                                  $row2['proimagen']);
+                    $this->setear($row2);
                     $resp = true;
                 }
             } else {
@@ -182,7 +177,40 @@ class abmProducto
         return $resp;
     }
 
-
-
-    
+     public function obtenerDatos($param){
+        $where = " true ";
+        if ($param <> NULL) {
+            if (isset($param['idproducto']))
+                $where .= " and idproducto = " . $param['idproducto'];
+            if (isset($param['prodescripcion']))
+                $where .= " and prodescripcion = '" . $param['prodescripcion'] . "'";
+            if (isset($param['prodetalle']))
+                $where .= " and prodetalle = '" . $param['prodetalle'] . "'";
+            if (isset($param['proprecio']))
+                $where .= " and proprecio = " . $param['proprecio'];
+        }
+        
+        $obj = new Producto();
+        
+        $arreglo = $obj->listar($where);
+        $result = [];
+        
+        if (!empty($arreglo)) {
+            foreach ($arreglo as $producto) {
+                $result[] = [
+                    'idproducto' => $producto->getIdproducto(),
+                    'pronombre' => $producto->getPronombre(),
+                    'prodetalle' => $producto->getProdetalle(),
+                    'procantstock' => $producto->getProcantstock(),
+                    'promarca' => $producto->getPromarca(),
+                    'proprecio' => $producto->getProprecio(),
+                    'proimagen1' => $producto->getProimagen1(), 
+                    'proimagen2' => $producto->getProimagen2(),
+                    'proimagen3' => $producto->getProimagen3(),
+                    'proimagen4' => $producto->getProimagen4(),
+                ];
+            }
+        }
+        return $result;
+    }
 }

@@ -153,3 +153,220 @@ body{
     position: absolute;
     bottom: 0;
 }
+/**/
+.deposito-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+/* Título del contenedor */
+.deposito-menu h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Estilos para los enlaces */
+.link-agregar,
+.link-modificar {
+    text-decoration: none;
+}
+
+/* Estilos generales para los botones */
+button {
+    padding: 12px 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Estilos para el botón "Subir un producto" */
+.btn-subir-producto {
+    background-color: #3498db;
+    color: white;
+}
+
+.btn-subir-producto:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+}
+
+.btn-subir-producto:active {
+    background-color: #1f6a8b;
+}
+
+/* Estilos para el botón "Modificar productos" */
+.btn-modificar-producto {
+    background-color: #2ecc71;
+    color: white;
+}
+
+.btn-modificar-producto:hover {
+    background-color: #27ae60;
+    transform: translateY(-2px);
+}
+
+.btn-modificar-producto:active {
+    background-color: #1e8449;
+}
+.upload-title {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.upload-form {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-label {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #444;
+    margin-bottom: 8px;
+}
+
+.form-input, .form-select, .form-file {
+    padding: 12px 15px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.form-input:focus, .form-select:focus, .form-file:focus {
+    border-color: #3498db;
+    outline: none;
+}
+
+.form-select {
+    background-color: #fff;
+}
+
+.form-file {
+    padding: 6px 12px;
+    border: none;
+    cursor: pointer;
+}
+
+.form-submit {
+    padding: 12px 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #3498db;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    grid-column: span 2;
+    align-self: center;
+}
+
+.form-submit:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+}
+
+.form-submit:active {
+    background-color: #1f6a8b;
+}
+
+.form-file:hover {
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .upload-form {
+        padding: 20px;
+        max-width: 100%;
+        grid-template-columns: 1fr;
+    }
+
+    .form-input, .form-select, .form-file, .form-submit {
+        font-size: 1rem;
+    }
+
+    .form-label {
+        font-size: 1rem;
+    }
+}
+/** index del deposito */
+.deposito-title {
+    display: block;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.deposito-menu {
+    display: flex;
+    flex-direction: row; 
+    justify-content: center; 
+    height: 100%;
+    gap: 20px; 
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.deposito-link-agregar, .deposito-link-modificar {
+    text-decoration: none;
+}
+
+.deposito-btn-subir-producto, .deposito-btn-modificar-producto {
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #3498db;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 150px;
+    text-align: center;
+}
+
+.deposito-btn-subir-producto:hover, .deposito-btn-modificar-producto:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+}
+
+.deposito-btn-subir-producto:active, .deposito-btn-modificar-producto:active {
+    background-color: #1f6a8b;
+}
+
+@media (max-width: 768px) {
+    .deposito-menu {
+        flex-direction: column; 
+        gap: 15px;
+    }
+
+    .deposito-btn-subir-producto, .deposito-btn-modificar-producto {
+        width: 100%;
+    }
+}

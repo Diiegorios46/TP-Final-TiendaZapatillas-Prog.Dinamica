@@ -168,7 +168,6 @@ class Producto extends BaseDatos
         $this->setProimagen4($proimagen4);
 
         $sql = "INSERT INTO producto (pronombre, prodetalle, procantstock, proprecio, promarca, proimagen1, proimagen2, proimagen3, proimagen4) VALUES ('".$this->getPronombre()."', '".$this->getProdetalle()."',".$this->getProcantstock().",".$this->getProPrecio().",'".$this->getProMarca()."','".$this->getProimagen1()."','".$this->getProimagen2()."','".$this->getProimagen3()."','".$this->getProimagen4()."')";
-        verEstructura($sql);
 
         if ($base->Iniciar()) {
             if ($base = $base->Ejecutar($sql)) {
@@ -198,7 +197,6 @@ class Producto extends BaseDatos
         $this->setProimagen4($proimagen4);
 
         $sql = "UPDATE producto SET pronombre = '" . $this->getPronombre() . "',  prodetalle = '" . $this->getProdetalle() . "',  proprecio = " . $this->getProPrecio() . ",  procantstock = " . $this->getProcantstock() . ", promarca = " . $this->getPromarca() . ", proimagen1 = '" . $this->getProimagen1() . "',  proimagen2 = '" . $this->getProimagen2() . "',  proimagen3 = '" . $this->getProimagen3() . "',  proimagen4 = '" . $this->getProimagen4() . "'  WHERE idproducto = " . $this->getIdproducto() . ";";
-        verEstructura($sql);
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 $resp = true;
@@ -244,27 +242,13 @@ class Producto extends BaseDatos
             if ($res > 0) {
                 while ($row = $base->Registro()) {
                     $obj = new Producto();
-                    $obj->setear(
-                        $row['idproducto'], 
-                        $row['proprecio'], 
-                        $row['prodescuento'], 
-                        $row['pronombre'], 
-                        $row['prodetalle'], 
-                        $row['procantventas'], 
-                        $row['procantstock'], 
-                        $row['prodeshabilitado'],
-                        $row['proimagen1'],
-                        $row['proimagen2'],
-                        $row['proimagen3'],
-                        $row['proimagen4']
-                    );
+                    $obj->setear($row);
                     array_push($arreglo, $obj);
                 }
             }
         } else {
             $this->setMensajeOperacion("Producto->listar: " . $base->getError());
         }
-
         return $arreglo;
     }
 

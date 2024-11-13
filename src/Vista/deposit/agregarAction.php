@@ -20,10 +20,11 @@ if (isset($datos['submit'])) {
         $i++;
     }
     if ($producto->abm($datos)) {
-        header('Location: ./index.php');
+        header('Location: ./agregar.php?success=true');
     } else {
-        header('Location: ../../home/index.php');
+        header('Location: ../../home/agregar.php?success=false');
     }
 }
 ob_end_flush();
+
 ?>
