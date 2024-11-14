@@ -19,7 +19,7 @@ include '../../../config.php';
                 <div class="w100-h55">
                     <a href="../../../../TpFinal-TiendaZapatillas/src/Vista/home/index.php"><img src="../Assets/imgs/th.jpg" alt="" class="h-100 w-100 objet-fit rounded"></a>
                 </div>
-                <div class="d-flex w-8 gap">
+                <div class="d-flex w-10 gap">
 
                     <div class="dropdown">
                         <i class="bi bi-person-circle dropdown-toggle icono-persona" id="dropdownMenuButton"style="font-size: 2rem;" data-bs-toggle="dropdown" aria-expanded="false"></i>

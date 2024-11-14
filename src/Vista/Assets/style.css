@@ -3,6 +3,12 @@ body{
     margin: 0;
 }
 
+#btnDeposito > button {
+    background-color: #29945e;
+    margin-right:10px ;
+    margin-bottom: 5px;
+}
+
 .bg-naranja {
     background: #FF5722;
 }

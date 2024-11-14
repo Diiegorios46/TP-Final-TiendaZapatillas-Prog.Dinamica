@@ -1,4 +1,7 @@
-<?php include '../estructura/cabeceraSegura.php'; ?>
+<?php include '../estructura/cabeceraSegura.php'; 
+    
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
