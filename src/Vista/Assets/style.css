@@ -456,3 +456,37 @@ section.container-sm.d-flex.gap {
 .card-button .btn:active {
     background-color: #1f6a8b;
 }
+
+.w-15{
+    width: 15%;
+}
+.min-height-50{
+    min-height: 50vh !important;
+}
+
+.mr-20 {
+    margin-right: 20%;
+}
+
+.card-pago{
+    background-color: #343a40; /* Color gris oscuro */
+    border: 1px solid #23272b; /* Borde gris más oscuro */
+    color: #ffffff; /* Texto blanco para alto contraste */
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.input-compra{
+    background-color: #343a40; /* Color gris oscuro */
+
+    width: 100%;
+}
+
+.mr-1{
+    margin-right: 5%;
+}
+
+.w-80 {
+    width: 80%;
+}
+
