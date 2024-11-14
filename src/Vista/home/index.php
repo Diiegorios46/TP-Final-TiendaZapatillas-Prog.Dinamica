@@ -1,6 +1,12 @@
-<?php include '../estructura/cabeceraSegura.php'; 
-    
-
+<?php
+    include '../../../config.php';
+    if($session->validar()){
+        $session->cerrar();
+        include '../estructura/cabeceraSegura.php';
+    } else {
+        $session->cerrar();
+        include '../estructura/cabecera.php';
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,7 +20,7 @@
 
 <body>
     <main class="container-fluid">
-    <section class="ccontainer-sm d-flex flex-row">
+    <section class="container-sm d-flex flex-row">
       <div class="w-25 min-vh-100 margin-right-2 shadow">
                 <div class="mt-4">
                     <div class="accordion" id="accordionExample">
@@ -89,7 +95,7 @@
                             $.ajax({
                                 url: 'action.php',
                                 type: 'GET',
-                                dataType: 'json', // Asegúrate de que la respuesta se trate como JSON
+                                dataType: 'json', 
                                 beforeSend: function () {
                                     $('#prueba').html('Cargando...');
                                 },

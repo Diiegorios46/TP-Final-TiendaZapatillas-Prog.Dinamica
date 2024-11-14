@@ -1,4 +1,4 @@
-<?php
+<?php 
 include '../../../config.php';
 ?>
 <!DOCTYPE html>
@@ -25,8 +25,9 @@ include '../../../config.php';
                         <a href="../deposit/index.php" id='btnDeposito'><button>Deposito</button></a>
                         <i class="bi bi-person-circle dropdown-toggle icono-persona" id="dropdownMenuButton"style="font-size: 2rem;" data-bs-toggle="dropdown" aria-expanded="false"></i>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="../login/index.php">Iniciar Sesion</a></li>
+                            <li><a class="dropdown-item" href="../login/index.php">Iniciar Sesion.</a></li>
                             <li><a class="dropdown-item" href="../register/index.php">Registrate</a></li>
+                            <li><a href="../home/logout.php">Cerrar</a></li>
                         </ul>
                     </div>
 

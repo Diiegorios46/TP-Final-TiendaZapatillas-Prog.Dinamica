@@ -87,7 +87,7 @@ echo "</h1>";
                     <input type="number" name="" id="" placeholder="XXX" value="" class="w-32">
                 </div>
                 <button class="btn btn-primary w-100" onclick="pago()">Pay</button>
-            </div>
+            </div> 
 
         </div>
 
@@ -95,9 +95,10 @@ echo "</h1>";
     
     <script>
         
-        /**HAY QUE HACER UNA PAGINA ACTION PARA DARLE EL ALTA*/
+        /** crear el finalizar compra en action.php */
+        /* */
         function pago(){
-            window.location.href = '../public/index.php'
+            window.location.href = '../buy/action.php'
         }
 
     </script>

@@ -15,7 +15,7 @@ class abmUsuarioRol{
             if ($datos['accion'] == 'borrar') {
                 if ($this->baja($datos)) {
                     $resp = true;
-                }           
+                }
             }
 
             if ($datos['accion'] == 'nuevo') {
@@ -143,7 +143,7 @@ class abmUsuarioRol{
                 if (isset($param['idrol']))
                     $where .= " and idrol ='" . $param['idrol'] . "'";
                 if (isset($param['idusuario']))
-                    $where .= " and idusuario ='" . $param['idusuario'] . "'";
+                    $where .= " and idusuario =" . $param['idusuario'] . "";
             }
 
             $obj = new UsuarioRol();
@@ -153,10 +153,9 @@ class abmUsuarioRol{
             if (!empty($arreglo)) {
                 foreach ($arreglo as $rol) {
                     $result[] = ["idrol" => $rol->getIdRol(),
-                                 "idusuario" => $rol->getUsuario()];
+                                 "idusuario" => $rol->getIdUsuario()];
                 }
             }
             return $result;
         }    
-        
 }

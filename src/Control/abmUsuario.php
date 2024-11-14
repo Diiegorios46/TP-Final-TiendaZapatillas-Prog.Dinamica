@@ -60,12 +60,24 @@ class abmUsuario{
 
     public function alta($param) {
         $resp = false;
+        $abmUsuario = new abmUsuario();
+        $abmUsuarioRol = new abmUsuarioRol();
+        
         $param['idusuario'] = null;
-        $param['usDeshabilitado'] = null;
+        $param['usdeshabilitado'] = null;
+        $param['idrol'] = 3;
         
         $elObjtTabla = $this->cargarObjeto($param);
         if ($elObjtTabla != null && $elObjtTabla->insertar()) {
-            $resp = true;
+            $param['idusuario'] = $elObjtTabla->getIdusuario();
+            if (!$abmUsuarioRol->alta($param)) {
+                $this->abm($param);
+                $param['accion'] = 'borrar';
+            } else {
+                $_SESSION['idusuario'] = $param['idusuario'];
+                $resp = true;
+            }
+            
         }
         
         return $resp;
@@ -73,7 +85,7 @@ class abmUsuario{
 
     public function baja($param) {
         $resp = false;
-        $param['usDeshabilitado'] = date('Y-m-d') . " " . date('H:i:s');
+        $param['usdeshabilitado'] = date('Y-m-d') . " " . date('H:i:s');
 
         $elObjtTabla = $this->cargarObjetosConClave($param);
         if ($elObjtTabla != null && $elObjtTabla->eliminar($param)) {

@@ -2,6 +2,6 @@
 include '../../../config.php';
 $session = new Session();
 
-$session->cerrar();
+$session->destruir();
 
 header('Location: ../login/index.php');

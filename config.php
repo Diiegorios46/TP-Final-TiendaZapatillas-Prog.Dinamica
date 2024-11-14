@@ -4,6 +4,7 @@ header ("Cache-Control: no-cache,must-revalidate");
 
 //arregla el problema del root undefined
 session_start();
+
 /////////////////////////////
 // CONFIGURACION APP//
 /////////////////////////////
@@ -24,5 +25,6 @@ $INICIO = "Location:http://".$_SERVER['HTTP_HOST']."/$PROYECTO/vista/login/login
 $PRINCIPAL = "Location:http://".$_SERVER['HTTP_HOST']."/$PROYECTO/principal.php";
 
 $_SESSION['ROOT'] = $ROOT;
+$session = new Session();
 
 ?>

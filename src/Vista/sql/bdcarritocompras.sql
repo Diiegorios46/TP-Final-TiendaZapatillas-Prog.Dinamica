@@ -182,12 +182,7 @@ CREATE TABLE `rol` (
 
 INSERT INTO `rol` (`idrol`, `rodescripcion`) VALUES
 (1, 'administrador'),
-(2, 'editor'),
-(3, 'usuario'),
-(42, ''),
-(43, '4'),
-(44, '4'),
-(45, '4');
+(2, 'usuario');
 
 -- --------------------------------------------------------
 
