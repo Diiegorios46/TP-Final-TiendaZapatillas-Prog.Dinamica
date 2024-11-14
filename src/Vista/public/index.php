@@ -267,9 +267,9 @@ if($session->validar()){
                                 </button>
                             </div>
                         </div>
-                        <div class="card-compra d-flex flex-row w-100 justify-content-center mr-5 mb-2 pr-1">
-                            <button class="btn btn-dark btn-comprar">Pagar</button>
-                        </div>
+                        <form method='post' action='../buy/finalizaCompra.php' class="card-compra d-flex flex-row w-100 justify-content-center mr-5 mb-2 pr-1">
+                            <button type='submit' name='idproducto' value='{$id}' class="btn btn-dark btn-comprar">Pagar</button>
+                        </form>
                     `;
                 });
             }
