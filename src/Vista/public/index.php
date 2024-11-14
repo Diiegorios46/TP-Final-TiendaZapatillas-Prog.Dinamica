@@ -2,14 +2,14 @@
 include '../estructura/cabecera.php';
 $session = new Session();
 if($session->validar()){
-    header('Location: ./home/index.php');
+    header('Location: ../home/index.php');
 }
 
 ?>
 <body>
 <main class="container-fluid">
-        <section class="container-sm d-flex gap">
-            <div class="w-25 min-vh-100 border border-dark ">
+        <section class="container-sm d-flex flex-row">
+            <div class="w-25 min-vh-100 margin-right-2 shadow">
                 <div class="mt-4">
                     <div class="accordion" id="accordionExample">
                         <div class="accordion-item">
@@ -74,7 +74,7 @@ if($session->validar()){
             </div>
             <div class="w-75 justify-content-center align-content-start">
                 <div class="row mt-4 mb-4">
-                    <div class="col w-25 h-100">
+                    <div class="col w-25 h-100 p-l-r-5">
 
                         <div class="card d-flex w-100 p-3 shadow-sm ">
                             <div class="card-img w-100">
@@ -93,7 +93,7 @@ if($session->validar()){
                         </div>
 
                     </div>
-                    <div class="col w-25 h-100">
+                    <div class="col w-25 h-100 p-l-r-5">
 
                         <div class="card d-flex w-100 p-3 shadow-sm">
                             <div class="card-img w-100">
@@ -113,7 +113,7 @@ if($session->validar()){
 
                     </div>
 
-                    <div class="col w-25 h-100">
+                    <div class="col w-25 h-100 p-l-r-5">
 
                         <div class="card d-flex w-100 p-3 shadow-sm">
                             <div class="card-img w-100">
@@ -133,7 +133,7 @@ if($session->validar()){
 
                     </div>
 
-                    <div class="col w-25 h-100">
+                    <div class="col w-25 h-100 p-l-r-5">
 
                         <div class="card d-flex w-100 p-3 shadow-sm">
                             <div class="card-img w-100">
@@ -160,7 +160,6 @@ if($session->validar()){
     </main>
 
     <script>
-
         var carrito = [];
         var modales = document.getElementsByClassName('offcanvas-body');
 
@@ -181,7 +180,7 @@ if($session->validar()){
                     modal.innerHTML += `
                         <div class="border border-dark d-flex flex-row justify-content-around card">
                             <div class="w-25">
-                                <img src="${item.img}" alt="" class="w-100 h-100">
+                                <img src="${item.img}" alt="" class="w-100 h-100">  
                             </div>
                             <div class="card-infoZapatillas d-flex">
                                 <p class="nombre-zapatilla align-self-center mb-0 fs-6">${item.nombre}</p>
@@ -198,13 +197,13 @@ if($session->validar()){
                                 </button>
                             </div>
                         </div>
-                        <div class="card-compra d-flex flex-row w-100 justify-content-center mr-5 mb-2 pr-1">
-                            <button><a href="../buy/finalizaCompra.php" class="btn btn-dark btn-comprar">Pagar</a></button>
-                        </div>
+                        <form method='post' action='../buy/finalizaCompra.php' class="card-compra d-flex flex-row w-100 justify-content-center mr-5 mb-2 pr-1">
+                            <button type='submit' name='idproducto' value='' class="btn btn-dark btn-comprar">Pagar</button>
+                        </form>
                     `; 
                 }); 
                 }else{ 
-                    modal.innerHTML = "<p>El carrito está vacío</p>"; 
+                    modal.innerHTML = "<p>El carrito esta vacio</p>"; 
                 } 
             }else { 
                     console.log(`Producto no encontrado: ${nombre}`); 
@@ -267,13 +266,14 @@ if($session->validar()){
                                 </button>
                             </div>
                         </div>
-                        <div class="card-compra d-flex flex-row w-100 justify-content-center mr-5 mb-2 pr-1">
-                            <button class="btn btn-dark btn-comprar">Pagar</button>
-                        </div>
+                        <form method='post' action='../buy/finalizaCompra.php' class="card-compra d-flex flex-row w-100 justify-content-center mr-5 mb-2 pr-1">
+                            <button type='submit' name='idproducto' value='' class="btn btn-dark btn-comprar">Pagar</button>
+                        </form>
                     `;
                 });
             }
         }
+
     </script>
 </body>
 </html>
