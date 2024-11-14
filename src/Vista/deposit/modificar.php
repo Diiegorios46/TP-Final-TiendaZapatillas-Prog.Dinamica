@@ -1,54 +1,68 @@
 <?php
 include '../estructura/cabecera.php';
 
-$abmProducto = new abmProducto();
-$listaProductos = $abmProducto->obtenerDatos(null);
+//$datos = data_submitted();
+$producto = new abmProducto();
+$listaProductos = $producto->obtenerDatos(null);
+$datos = data_submitted();
 
-$card = ""; // Inicializar la variable
+echo "<h1>";
+echo $datos['idproducto'];
+echo "</h1>";
 
-// Añadir contenedor de fila
-$card .= "<div class='row mt-4 mb-4'>";
+if (isset($_SESSION['idproducto'])) {
+    $idproducto = $_SESSION['idproducto'];  
+} else {
+    echo "Producto no encontrado."; 
+}
 
 foreach ($listaProductos as $i => $producto) {
-    // Comienza una nueva fila si el índice es múltiplo de 4 y no es el primer elemento
-    if ($i % 4 == 0 && $i != 0) {
-        $card .= "</div><div class='row mt-4 mb-4'>";
+    if ($producto['idproducto'] == $idproducto) {
+        break;
     }
-    
-    $id = $_SESSION["idproducto"] = $producto["idproducto"];
-    $card .= "<div class='col-3'>
-                <div class='card d-flex w-100 h-100 p-3 shadow-sm'>
-                    <div class='card-img w-100'>
-                        <img src='data:image/jpg;base64,{$producto['proimagen1']}' alt='Producto' class='img-fluid w-100 h-100'>
-                    </div>
-                    <div class='card-marca'>Marca: {$producto['promarca']}</div>
-                    <div class='card-infoZapatillas data-nombre'>Producto: {$producto['pronombre']}</div>
-                    <div class='card-precioMasDescuento'>
-                        <span class='data-precio'>\${$producto['proprecio']}</span>
-                        <span>10% off</span>
-                    </div>
-                    <div class='card-button text-center pt-3'>
-                        <form method='post' action='./modificarAction.php'>
-                            <button type='submit' name='idproducto' value='{$id}'>Modificar</button>
-                        </form>
-                    </div>
-                </div>
-              </div>";
 }
 
-// Cerrar cualquier fila abierta
-if ($i % 4 != 0) {
-    $card .= "</div>";
-}
 ?>
-
 <div class="container-sm border border-dark">
     <div>
-        <h1 class="deposito-title">Modificar productos</h1>
+        <h1 class="deposito-title">Modificar producto</h1>
     </div>
-    <section class="container-sm d-flex gap">
-        <div class="w-100 justify-content-center align-content-start">
-            <?php echo $card; ?>
+
+    <form action="modificarAction.php" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="idproducto" value="<?php echo $producto['idproducto']; ?>">
+
+        <div class="mb-3">
+            <label for="pronombre" class="form-label">Nombre del Producto</label>
+            <label for="pronombre" class="form-label"></label>
+            <input type="text" class="form-control" id="pronombre" name="pronombre" value="" placeholder="<?php echo $producto['pronombre']; ?>"required>
         </div>
-    </section>
+
+        <div class="mb-3">
+            <label for="proprecio" class="form-label">Precio</label>
+            <input type="number" class="form-control" id="proprecio" name="proprecio"  placeholder="<?php echo $producto['proprecio']; ?>" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="promarca" class="form-label">Marca</label>
+            <input type="text" class="form-control" id="promarca" name="promarca"  placeholder="<?php echo $producto['promarca']; ?>" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="prodetalle" class="form-label">Detalle</label>
+            <textarea class="form-control" id="prodetalle" name="prodetalle" rows="3"  placeholder="<?php echo $producto['prodetalle']; ?>" required></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="procantstock" class="form-label">Cantidad en Stock</label>
+            <input type="number" class="form-control" id="procantstock" name="procantstock"  placeholder="<?php echo $producto['procantstock']; ?>" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="proimagen1" class="form-label">Imagen (opcional)</label>
+            <input type="file" class="form-control" id="proimagen1" name="proimagen1">
+            <small>Deja este campo vacío si no deseas cambiar la imagen.</small>
+        </div>
+
+        <button type="submit" class="btn btn-dark">Actualizar Producto</button>
+    </form>
 </div>

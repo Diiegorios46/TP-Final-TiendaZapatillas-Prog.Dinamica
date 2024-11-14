@@ -9,7 +9,7 @@ $datos = data_submitted();
 <?php
   if (isset($_GET['success']) && $_GET['success']) {
     echo '<p class="upload-success">Producto subido correctamente.</p>';
-  } else if ($_GET['success'] == false) {
+  } else if (isset($_GET['success']) && !$_GET['success']) {
     echo '<p class="upload-error">Error al subir el producto.</p>';
   }
 ?>

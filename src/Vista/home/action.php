@@ -1,7 +1,9 @@
 <?php
+
 include '../../../config.php';
-$session = new Session();
 
-$session->cerrar();
+$abmProducots = new abmProducto();
 
-header('Location: ../login/index.php');
+$productos = $abmProducots->obtenerDatos(null);
+//verEstructura($productos);
+echo json_encode($productos);
