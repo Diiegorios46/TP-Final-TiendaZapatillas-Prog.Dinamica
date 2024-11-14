@@ -14,6 +14,7 @@ foreach ($listaProductos as $i => $producto) {
     if ($i % 4 == 0 && $i != 0) {
         $card .= "</div><div class='row mt-4 mb-4'>";
     }
+    
     $id = $_SESSION["idproducto"] = $producto["idproducto"];
     $card .= "<div class='col-3'>
                 <div class='card d-flex w-100 h-100 p-3 shadow-sm'>

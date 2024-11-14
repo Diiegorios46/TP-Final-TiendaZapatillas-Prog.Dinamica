@@ -199,7 +199,7 @@ if($session->validar()){
                             </div>
                         </div>
                         <div class="card-compra d-flex flex-row w-100 justify-content-center mr-5 mb-2 pr-1">
-                            <button class="btn btn-dark btn-comprar">Pagar</button>
+                            <button><a href="../buy/finalizaCompra.php" class="btn btn-dark btn-comprar">Pagar</a></button>
                         </div>
                     `; 
                 }); 

@@ -18,15 +18,15 @@ include '../../../config.php';
         <nav class="container-fluid fs-3 bg-naranja p-4">
             <div class="container-sm d-flex justify-content-between">
                 <div class="w100-h55">
-                    <img src="../Assets/imgs/th.jpg" alt="" class="h-100 w-100 objet-fit rounded">
+                    <a href="../../../../TpFinal-TiendaZapatillas/src/Vista/home/index.php"><img src="../Assets/imgs/th.jpg" alt="" class="h-100 w-100 objet-fit rounded"></a>
                 </div>
                 <div class="d-flex w-8 gap">
 
                     <div class="dropdown">
                         <i class="bi bi-person-circle dropdown-toggle icono-persona" id="dropdownMenuButton"style="font-size: 2rem;" data-bs-toggle="dropdown" aria-expanded="false"></i>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="">Iniciar Sesion</a></li>
-                            <li><a class="dropdown-item" href="">Registrate</a></li>
+                            <li><a class="dropdown-item" href="../login/index.php">Iniciar Sesion</a></li>
+                            <li><a class="dropdown-item" href="../register/index.php">Registrate</a></li>
                         </ul>
                     </div>
 
