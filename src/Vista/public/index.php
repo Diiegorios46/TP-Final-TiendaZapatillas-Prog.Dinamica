@@ -8,8 +8,8 @@ if($session->validar()){
 ?>
 <body>
 <main class="container-fluid">
-        <section class="container-sm d-flex gap">
-            <div class="w-25 min-vh-100 border border-dark ">
+        <section class="container-sm d-flex flex-row">
+            <div class="w-25 min-vh-100 margin-right-2 shadow">
                 <div class="mt-4">
                     <div class="accordion" id="accordionExample">
                         <div class="accordion-item">
@@ -74,7 +74,7 @@ if($session->validar()){
             </div>
             <div class="w-75 justify-content-center align-content-start">
                 <div class="row mt-4 mb-4">
-                    <div class="col w-25 h-100">
+                    <div class="col w-25 h-100 p-l-r-5">
 
                         <div class="card d-flex w-100 p-3 shadow-sm ">
                             <div class="card-img w-100">
@@ -93,7 +93,7 @@ if($session->validar()){
                         </div>
 
                     </div>
-                    <div class="col w-25 h-100">
+                    <div class="col w-25 h-100 p-l-r-5">
 
                         <div class="card d-flex w-100 p-3 shadow-sm">
                             <div class="card-img w-100">
@@ -113,7 +113,7 @@ if($session->validar()){
 
                     </div>
 
-                    <div class="col w-25 h-100">
+                    <div class="col w-25 h-100 p-l-r-5">
 
                         <div class="card d-flex w-100 p-3 shadow-sm">
                             <div class="card-img w-100">
@@ -133,7 +133,7 @@ if($session->validar()){
 
                     </div>
 
-                    <div class="col w-25 h-100">
+                    <div class="col w-25 h-100 p-l-r-5">
 
                         <div class="card d-flex w-100 p-3 shadow-sm">
                             <div class="card-img w-100">
