@@ -22,21 +22,15 @@ include '../../../config.php';
                 </div>
                 <?php 
                     $session = new Session();
-                    $rol = $session->getRol();
                     if($session->validar()){
                         echo "<h1> Bienvenido ".$session->getUsuario()['usnombre']."!! 🫡🫡</h1";
+                    } else {
+                        header('Location: ../login/index.php');
                     }
-            
                 ?>
                 <div class="d-flex w-10 gap">
                     <div class="dropdown">
-                        <?php
-                            if($rol == 1 || $rol == 2){
-                                echo '<a href="../deposit/index.php" id="btnDeposito"><button>Deposito</button></a>';
-                            } else {
-                                echo '<a href="#" id="btnDeposito"><button>Perfil</button></a>';
-                            }
-                        ?>
+                        <a href="../menu/index.php"><button class="btn bg-success">configuracion</button></a>
                         <i class="bi bi-person-circle dropdown-toggle icono-persona" id="dropdownMenuButton"style="font-size: 2rem;" data-bs-toggle="dropdown" aria-expanded="false"></i>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="../login/index.php">Iniciar Sesion.</a></li>

@@ -138,7 +138,6 @@ class abmMenu
         return $resp;
     }
 
-
     //Hace un borrado logico del menu. 
     //En caso de que ya estuviese deshabilitado, lo vuelve a habilitar.
     public function deshabilitarMenu($param)

@@ -128,19 +128,6 @@ class Menu extends BaseDatos
 }
 
 
-public function obtenerMenu($rol){
-    if ($rol == 1){
-        $menu = 1;
-    }  
-    else if($rol == 2){
-        
-    }
-    else if($rol == 3){
-        $menu = 3;
-    }
-    
-    return $menu;
-}
 
     public function modificar()
     {
