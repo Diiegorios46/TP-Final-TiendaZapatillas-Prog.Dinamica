@@ -18,7 +18,7 @@
     <body>
         <main class="container-fluid">
             <section class="container-sm d-flex flex-row shadow">
-                <div class="w-25 min-vh-100 margin-right-2 shadow">
+                <div class="w-25 min-vh-100 margin-right-2 shadow mr-2porciento">
                     <div class="mt-4">
                         <div class="accordion" id="accordionExample">
                             <div class="accordion-item">

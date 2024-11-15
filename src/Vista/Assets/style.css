@@ -63,6 +63,11 @@ body{
     margin-left: 15%;
 }
 
+.mr-2porciento{
+    margin-right: 2%;
+}
+
+
 .mr-2 {
     margin-right: 15%;
 }
@@ -410,8 +415,7 @@ section.container-sm.d-flex.gap {
 .card-img img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    object-position: center;
+    object-fit: fill;
 }
 
 .card-marca, .card-infoZapatillas, .card-precioMasDescuento {
