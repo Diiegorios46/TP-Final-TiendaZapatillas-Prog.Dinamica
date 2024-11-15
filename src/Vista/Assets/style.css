@@ -490,3 +490,6 @@ section.container-sm.d-flex.gap {
     width: 80%;
 }
 
+.hidden {
+    display: none;
+}

@@ -18,7 +18,7 @@
     </head>
     <body>
         <main class="container-fluid">
-            <section class="container-sm d-flex flex-row">
+            <section class="container-sm d-flex flex-row shadow">
                 <div class="w-25 min-vh-100 margin-right-2 shadow">
                     <div class="mt-4">
                         <div class="accordion" id="accordionExample">
@@ -112,6 +112,9 @@
                                                 <span class="data-precio">${producto.proprecio}</span>
                                                 <span>10% off</span>
                                             </div>
+                                            <div class="hidden">
+                                                <span class="data-idproducto">${producto.idproducto}</span>
+                                            </div>
                                             <div class="card-button text-center pt-3">
                                                 <button class="btn btn-dark p-2 agregarCarrito" id="myButton" onclick="agregarAlCarrito(this)">Agregar al carrito</button>
                                             </div>
@@ -139,6 +142,9 @@
 
         var card = button.closest('.card');
         var nombre = card.querySelector('.card-infoZapatillas').textContent.trim();
+        var id = card.querySelector('.hidden').textContent.trim();
+
+        console.log(id);
         let productEliminar = carrito.findIndex(producto => producto.nombre === nombre);
 
         if (productEliminar !== -1) {
@@ -163,6 +169,9 @@
                             <div class="d-flex">
                                 <span class="align-self-center fs-6">${item.cantidad}unidades</span>
                             </div>
+                            <div class="d-flex">
+                                <span class="align-self-center fs-6">${item.id}unidades</span>
+                            </div>
                             <div class="align-self-center">
                                 <button type="button" class="btn btn-dark" onclick="sacarDelcarrito(this)">
                                     <i class="bi bi-x"></i>
@@ -186,9 +195,11 @@
             var card = button.closest('.card');
             var nombreZapatilla = card.querySelector('.card-infoZapatillas').textContent;
             var precioZapatilla = card.querySelector('.data-precio').textContent;
+            var id = card.querySelector('.hidden').textContent.trim();
             var imgSrc = card.querySelector('.card-img img').src;
 
             let zapatilla = {
+                id : id,
                 nombre: nombreZapatilla,
                 precio: precioZapatilla,
                 cantidad: 1,
@@ -213,8 +224,6 @@
             let modales = document.getElementsByClassName('offcanvas-body');
             if (modales.length > 0) {
                 let modal = modales[0];  
-                console.log(modal);
-
                 modal.innerHTML = '';
 
                 carrito.forEach(item => {
@@ -227,15 +236,18 @@
                                 <p class="nombre-zapatilla align-self-center mb-0 fs-6">${item.nombre}</p>
                             </div>
                             <div class="d-flex">
-                                <span class="align-self-center fs-6">${item.precio}</span>
+                                <span class="align-self-center fs-6">$${item.precio}</span>
                             </div>
                             <div class="d-flex">
-                                <span class="align-self-center fs-6">${item.cantidad}unidades</span>
+                                <span class="align-self-center fs-6">${item.cantidad}</span>
                             </div>
                             <div class="align-self-center">
                                 <button type="button" class="btn btn-dark" onclick="sacarDelcarrito(this)">
                                     <i class="bi bi-x"></i>
                                 </button>
+                            </div>
+                            <div class="hidden">
+                                <span class="align-self-center fs-6">${item.id}</span>
                             </div>
                         </div>
                         <form method='post' action='../buy/finalizaCompra.php' class="card-compra d-flex flex-row w-100 justify-content-center mr-5 mb-2 pr-1">
@@ -243,6 +255,19 @@
                         </form>
                     `;
                 });
+
+                modal.innerHTML += `
+                <form method='post' action='../buy/finalizaCompra.php' class="card-compra d-flex flex-row w-100 justify-content-center mr-5 mb-2 pr-1">
+                    ${carrito.map((item, index) => `
+                        <input type='hidden' name='productos[${index}][idproducto]' value='${item.id}'>
+                        <input type='hidden' name='productos[${index}][nombre]' value='${item.nombre}'>
+                        <input type='hidden' name='productos[${index}][precio]' value='${item.precio}'>
+                        <input type='hidden' name='productos[${index}][cantidad]' value='${item.cantidad}'>
+                        <input type='hidden' name='productos[${index}][img]' value='${item.img}'>
+                    `).join('')}
+                    <button type='submit' class="btn btn-dark btn-comprar">Pagar</button>
+                </form>
+            `;
             }
         }
 

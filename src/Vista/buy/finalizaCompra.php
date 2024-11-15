@@ -3,10 +3,7 @@ include '../estructura/cabecera.php';
 /*ACA VA EL COSO PARA LA COMPRA , CAMBPOS DE PAGO FICTICIOS*/
 
 $datos = data_submitted();
-
-echo "<h1>";
-echo $datos['idproducto'];
-echo "</h1>";
+verEstructura($datos);
 ?>
 
 <main class="container-sm min-height-50">

@@ -27,7 +27,7 @@ $session = new Session();
                     <input type="mail" name="usmail" id="usmail" class="fancy-input rounded-pill" placeholder="Correo Electronico">
                 </div>
                 <div class="mt-3 ml-2 mb-2 mr-2">
-                    <input type="text" name="uspass" id="uspass" class="fancy-input rounded-pill img-input-contraseña" placeholder="Contraseña">
+                    <input type="password" name="uspass" id="uspass" class="fancy-input rounded-pill img-input-contraseña" placeholder="Contraseña">
                 </div>
                 <div class="d-flex w-70 align-self-center mb-2">
                     <input type="submit" name="btnenviar" id="btnenviar" class="btn-enviar rounded-pill" value="Enviar">

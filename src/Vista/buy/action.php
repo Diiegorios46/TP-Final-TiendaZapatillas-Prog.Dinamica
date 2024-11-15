@@ -2,8 +2,6 @@
 include_once '../estructura/cabecera.php';
  new Compra();
 
-$abm
-
-
+$datos = data_submitted();
+verEstructura($datos['productos']);
 ?>
-
