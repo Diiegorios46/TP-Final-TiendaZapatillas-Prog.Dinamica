@@ -8,10 +8,10 @@
         if($this->validar()){
             $obj = new abmUsuario();
             $param['idusuario'] = $_SESSION['idusuario'];
-            $resultado = $obj->obtenerDatos($param);
-
+            $resultado = $obj->obtenerDatos($param)[0];
             if(count($resultado) > 0){
-                $usuario = $resultado[0];
+                
+                $usuario = $resultado;
             }
         }
         return $usuario;
@@ -25,8 +25,6 @@
         $arrayDatos['usmail'] = $mail;
         $arrayDatos['uspass'] = $psw;
         $arrayDatos['usdeshabilitado'] ='0000-00-00 00:00:00';
-        echo '///////////////////////////////////////';
-        verEstructura($arrayDatos);
         $resultado = $obj->buscar($arrayDatos);
         //no va a andar si la base de datos no tiene nada
         if(!empty($resultado) && count($resultado) > 0){

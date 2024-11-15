@@ -9,5 +9,5 @@ $clave = $_POST['uspass'];
 if($session->iniciar($mail, $clave)){
     header('Location: ../home/index.php');
 } else {
-    header('Location: ../login/index.php?error=1');
+   header('Location: ../login/index.php?error=1');
 }

@@ -1,7 +1,7 @@
 <?php 
-include_once '../estructura/cabecera.php';
- new Compra();
+include_once '../../../config.php';
 
 $datos = data_submitted();
-verEstructura($datos['productos']);
+$datos['accion'] = 'compra';
+echo json_encode($datos);
 ?>

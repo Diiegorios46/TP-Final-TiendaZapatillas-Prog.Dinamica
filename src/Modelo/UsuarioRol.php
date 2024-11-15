@@ -92,7 +92,6 @@ class UsuarioRol extends BaseDatos{
             $sql .= ' WHERE '.$param;
         }
 
-        verEstructura($sql);
         $res = $base->Ejecutar($sql);
 
         if($res>-1){
