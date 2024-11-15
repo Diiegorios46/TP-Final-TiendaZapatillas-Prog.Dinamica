@@ -79,12 +79,12 @@ $datos = data_submitted();
         <h3>Resumen de Compra</h3>
         
         <div class="d-flex justify-content-between mt-3">
-            <span>Total:</span>
-            <div id="total">
+            <span class="fs-5">Total:</span>
+            <div id="total" class="fs-5">
             </div>
         </div>
-        <div class="d-flex justify-content-between mt-3">
-            <button>Confirmar </button>
+        <div class="d-flex justify-content-center mt-3">
+            <button class="btn btn-primary">Confirmar</button>
              </div>
     </div>
 </div>
