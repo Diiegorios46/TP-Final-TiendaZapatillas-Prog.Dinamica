@@ -456,6 +456,15 @@ section.container-sm.d-flex.gap {
     transform: translateY(-2px);
 }
 
+.imagen{
+    transition: transform 0.3s ease-in-out;
+}
+
+.imagen:hover{
+    transform: scale(1.1);
+}
+
+
 .card-button .btn:active {
     background-color: #1f6a8b;
 }
@@ -496,3 +505,4 @@ section.container-sm.d-flex.gap {
 .hidden {
     display: none;
 }
+
