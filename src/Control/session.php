@@ -37,6 +37,10 @@
 
         return $boolean;
     }
+
+    public function setearUnDato($dato){
+        $_SESSION[$dato['nombreDato']] = $dato['dato'];
+    }
     
     
     // validar(). Valida si la sesion actual tiene idUsuario y password  validos. Devuelve true o false.
