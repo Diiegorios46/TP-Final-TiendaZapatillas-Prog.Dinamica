@@ -66,8 +66,4 @@ include '../../../config.php';
                 </div>
             </div>
         </nav>
-        <nav class="container-fluid bg-negro p-4">
-        
-        </nav>
-
     </header>

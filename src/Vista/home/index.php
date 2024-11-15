@@ -16,6 +16,14 @@
         <title>Home</title>
     </head>
     <body>
+        <nav class="container-fluid bg-negro p-4">
+            <div class="container-sm d-flex gap">
+                <div class="w-25"><img src="../Assets/imgs/adidas.png" alt="" class="w-100 h-100 bg-light imagen"></div>
+                <div class="w-25"><img src="../Assets/imgs/nike.jpg" alt="" class="w-100 h-100 imagen"></div>
+                <div class="w-25"><img src="../Assets/imgs/vans.jpg" alt="" class="w-100 h-100 imagen"></div>
+                <div class="w-25"><img src="../Assets/imgs/tooper.jpg" alt="" class="w-100 h-100 imagen"></div>
+            </div>
+        </nav>
         <main class="container-fluid">
             <section class="container-fill d-flex flex-row shadow">
                 <div class="w-25 min-vh-100 margin-right-2 shadow mr-2porciento">
