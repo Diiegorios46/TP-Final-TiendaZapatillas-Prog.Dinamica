@@ -121,19 +121,35 @@
                     success: function(result) {
 
                     $('.deposito-menu').html(''); 
-                        result.forEach(function(producto) {
-                            let productoHtml = `
-                                <div class="producto">
-                                    <h2>${producto.pronombre}</h2>
-                                    <p>Detalle: ${producto.prodetalle}</p>
-                                    <p>Stock: ${producto.procantstock}</p>
-                                    <p>Marca: ${producto.promarca}</p>
-                                    <form method='post' action='./modificarAction.php'>
-                                        <button type='submit' name='idproducto' value='${producto.promarca}' class="btn btn-primary">Modificar</button>
-                                    </form>
-                                </div>
+                    let row;
+                        result.forEach(function(producto ,index) {
+                            if (index % 4 === 0) {
+                                    row = $('<div class="row mt-4 mb-4"></div>');
+                                    $('#menuDinamico').append(row);
+                                }
+
+                            let zapatilla = `
+                                    <div class="col-3">
+                                        <div class="card d-flex w-100 h-100 p-3 shadow-sm">
+                                            <div class="card-img w-100">
+                                                <img src="${producto.proimagen1}" alt="" class="w-100 h-100 img-card">
+                                            </div>
+                                            <div class="card-marca">${producto.promarca}</div>
+                                            <div class="card-infoZapatillas data-nombre">${producto.pronombre}</div>
+                                            <div class="card-precioMasDescuento">
+                                                <span class="data-precio">${producto.proprecio}</span>
+                                                <span>10% off</span>
+                                            </div>
+                                            <div class="hidden">
+                                                <span class="data-idproducto">${producto.idproducto}</span>
+                                            </div>
+                                            <div class="card-button text-center pt-3">
+                                                <button class="btn btn-dark p-2 agregarCarrito" id="myButton" onclick="agregarAlCarrito(this)">Agregar al carrito</button>
+                                            </div>
+                                        </div>
+                                    </div>
                             `;
-                            $('.deposito-menu').append(productoHtml);
+                            row.append(zapatilla);
                         });
                     },
                     error: function(xhr, status, error) {
