@@ -124,7 +124,7 @@ class Producto extends BaseDatos
         $this->setpromarca($param['promarca']);
         $this->setProdetalle($param['prodetalle']);
         $this->setProcantstock($param['procantstock']);
-        $this->setProimagen1(isset($param['proimagen1']) ? $param['proimagen1'] : null);
+        $this->setProimagen1($param['proimagen1']);
         $this->setProimagen2(isset($param['proimagen2']) ? $param['proimagen2'] : null);
         $this->setProimagen3(isset($param['proimagen3']) ? $param['proimagen3'] : null);
         $this->setProimagen4(isset($param['proimagen4']) ? $param['proimagen4'] : null);
@@ -168,7 +168,6 @@ class Producto extends BaseDatos
         $this->setProimagen4($proimagen4);
 
         $sql = "INSERT INTO producto (pronombre, prodetalle, procantstock, proprecio, promarca, proimagen1, proimagen2, proimagen3, proimagen4) VALUES ('".$this->getPronombre()."', '".$this->getProdetalle()."',".$this->getProcantstock().",".$this->getProPrecio().",'".$this->getProMarca()."','".$this->getProimagen1()."','".$this->getProimagen2()."','".$this->getProimagen3()."','".$this->getProimagen4()."')";
-
         if ($base->Iniciar()) {
             if ($base = $base->Ejecutar($sql)) {
                 $this->setIdproducto($base);
@@ -186,9 +185,7 @@ class Producto extends BaseDatos
     {
         $resp = false;
         $base = new BaseDatos();
-
-        $proimagen1 = ($this->getProimagen1() !==  null)  ? $this->getProimagen1() : null;
-        $this->setProimagen1($proimagen1);
+        
         $proimagen2 = ($this->getProimagen2() !==  null)  ? $this->getProimagen2() : null;
         $this->setProimagen2($proimagen2);
         $proimagen3 = ($this->getProimagen3() !==  null)  ? $this->getProimagen3() : null;
@@ -196,8 +193,9 @@ class Producto extends BaseDatos
         $proimagen4 = ($this->getProimagen4() !==  null)  ? $this->getProimagen4() : null;
         $this->setProimagen4($proimagen4);
 
-        $sql = "UPDATE producto SET pronombre = '" . $this->getPronombre() . "',  prodetalle = '" . $this->getProdetalle() . "',  proprecio = " . $this->getProPrecio() . ",  procantstock = " . $this->getProcantstock() . ", promarca = " . $this->getPromarca() . ", proimagen1 = '" . $this->getProimagen1() . "',  proimagen2 = '" . $this->getProimagen2() . "',  proimagen3 = '" . $this->getProimagen3() . "',  proimagen4 = '" . $this->getProimagen4() . "'  WHERE idproducto = " . $this->getIdproducto() . ";";
-        if ($base->Iniciar()) {
+        $sql = "UPDATE producto SET pronombre = '" . $this->getPronombre() . "',  prodetalle = '" . $this->getProdetalle() . "',  proprecio = " . $this->getProPrecio() . ",  procantstock = " . $this->getProcantstock() . ", promarca = '" . $this->getPromarca() . "', proimagen1 = '" . $this->getProimagen1() . "',  proimagen2 = '" . $this->getProimagen2() . "',  proimagen3 = '" . $this->getProimagen3() . "',  proimagen4 = '" . $this->getProimagen4() . "'  WHERE idproducto = " . $this->getIdproducto() . ";";
+        
+        if($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 $resp = true;
             } else {
@@ -236,6 +234,7 @@ class Producto extends BaseDatos
         if ($parametro != "") {
             $sql .= 'WHERE ' . $parametro;
         }
+        
         $res = $base->Ejecutar($sql);
         if ($res > -1) {
             if ($res > 0) {

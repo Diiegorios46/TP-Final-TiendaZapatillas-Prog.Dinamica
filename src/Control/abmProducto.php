@@ -79,6 +79,8 @@ class abmProducto
 
     public function modificacion($param)
     {
+        echo "modificacion";
+        verEstructura($param);
         $resp = false;
         if ($this->seteadosCamposClaves($param)) {
             $elObjtProducto = $this->cargarObjeto($param);
@@ -95,18 +97,19 @@ class abmProducto
         if ($param != null) {
             if (isset($param['idproducto']))
                 $where .= " and idproducto = " . $param['idproducto'];
-            if (isset($param['prodescripcion']))
-                $where .= " and prodescripcion = '" . $param['prodescripcion'] . "'";
             if (isset($param['prodetalle']))
                 $where .= " and prodetalle = '" . $param['prodetalle'] . "'";
             if (isset($param['proprecio']))
                 $where .= " and proprecio = " . $param['proprecio'];
+            if (isset($param['promarca']))
+                $where .= " and promarca = '" . $param['promarca'] . "'";
+
         }
-        $arreglo = producto::listar($where);
+        $obj = new Producto();
+        $arreglo = $obj->listar($where);
         return $arreglo;
     }
 
-    //REVISAR ESTA ATROCIDAD
     public function listar($param = "")
     {
         $arreglo = array();
@@ -122,15 +125,8 @@ class abmProducto
             if ($res > 0) {
 
                 while ($row = $base->Registro()) {
-                    $obj = new producto();
-
-                    $objProducto = NULL;
-                    if ($row['idproducto'] != null) {
-                        $objProducto = new producto();
-                        $objProducto->setear($row);
-                    }
+                    $obj = new Producto();
                     $obj->setear($row);
-                    
                     array_push($arreglo, $obj);
                 }
             }
