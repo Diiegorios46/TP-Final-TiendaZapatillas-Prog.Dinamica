@@ -92,7 +92,7 @@
                         success: function(result) {
                             try {
                                 if (result) {
-                                    console.log('PERFECTO');
+                                    console.log(result);
                                 } else {
                                     console.log('Error: ' + result.errorMsg);
                                 }
