@@ -116,9 +116,15 @@ class MenuRol extends BaseDatos
         $arreglo = array();
         $base = new BaseDatos();
         $sql = "SELECT * FROM menurol ";
+        
+
+        
         if ($parametro != "") {
             $sql .= 'WHERE ' . $parametro;
         }
+        
+       
+
         $res = $base->Ejecutar($sql);
         if ($res > -1) {
             if ($res > 0) {
@@ -131,7 +137,7 @@ class MenuRol extends BaseDatos
         } else {
             $this->setMensajeOperacion("menurol->listar: " . $base->getError());
         }
-
+        
         return $arreglo;
     }
 

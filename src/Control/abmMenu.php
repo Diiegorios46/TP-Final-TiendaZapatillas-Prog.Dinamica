@@ -191,6 +191,7 @@ class abmMenu
         return $result;
     
     }
+
     function menuUsuario ($rol) {
         
     }

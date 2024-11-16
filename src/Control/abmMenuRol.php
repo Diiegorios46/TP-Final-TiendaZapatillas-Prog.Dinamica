@@ -100,4 +100,32 @@ class abmMenuRol
         }
         return $resp;
     }
+    
+    function obtenerDatos($param){
+
+    $where = " true ";
+    if ($param <> NULL) {
+        if (isset($param['idmenu']))
+            $where .= " and idmenu = " . $param['idmenu'];
+        if (isset($param['idrol']))
+            $where .= " and idrol = " . $param['idrol'];
+        }
+        $obj = new MenuRol();
+        $arreglo = $obj->listar($where);
+
+       // echo $where;
+
+        $result = [];
+        if (!empty($arreglo)) {
+            foreach ($arreglo as $menuRol) {
+                $result[] = [
+                    'idmenu' => $menuRol->getIdmenu(),
+                    'idrol' => $menuRol->getIdrol()
+                ];
+            }
+        }
+        return $result;
+    }
+    
+
 }

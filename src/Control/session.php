@@ -9,6 +9,7 @@
             $obj = new abmUsuario();
             $param['idusuario'] = $_SESSION['idusuario'];
             $resultado = $obj->obtenerDatos($param)[0];
+            
             if(count($resultado) > 0){
                 
                 $usuario = $resultado;
