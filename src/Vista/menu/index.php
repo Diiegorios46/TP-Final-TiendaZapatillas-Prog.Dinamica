@@ -7,6 +7,9 @@
         <div class="deposito-menu" id="menuDinamico">
             <!--viene el codigo de jquery-->
         </div>
+        <div class="grid">
+
+        </div>
     </div>
 
 
@@ -121,11 +124,12 @@
                     success: function(result) {
 
                     $('.deposito-menu').html(''); 
+                    $('.grid').html(''); 
                     let row;
                         result.forEach(function(producto ,index) {
                             if (index % 4 === 0) {
                                     row = $('<div class="row mt-4 mb-4"></div>');
-                                    $('#menuDinamico').append(row);
+                                    $('.grid').append(row);
                                 }
 
                             let zapatilla = `
