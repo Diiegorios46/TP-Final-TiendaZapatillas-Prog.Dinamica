@@ -102,7 +102,6 @@ class abmMenuRol
     }
     
     function obtenerDatos($param){
-
     $where = " true ";
     if ($param <> NULL) {
         if (isset($param['idmenu']))

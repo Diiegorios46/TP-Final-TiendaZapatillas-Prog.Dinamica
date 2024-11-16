@@ -64,13 +64,13 @@ class Menu extends BaseDatos
     }
 
 
-    public function setear($idmenu, $menombre, $medescripcion, $idpadre, $medeshabilitado)
+    public function setear($param)
     {
-        $this->setIdmenu($idmenu);
-        $this->setMenombre($menombre);
-        $this->setMedescripcion($medescripcion);
-        $this->setIdpadre($idpadre);
-        $this->setMedeshabilitado($medeshabilitado);
+        $this->setIdmenu($param['idmenu']);
+        $this->setMenombre($param['menombre']);
+        $this->setMedescripcion($param['medescripcion']);
+        $this->setIdpadre($param['idpadre']);
+        $this->setMedeshabilitado($param['medeshabilitado']);
     }
 
     public function cargar()
@@ -200,19 +200,14 @@ class Menu extends BaseDatos
         if ($parametro != "") {
             $sql .= 'WHERE ' . $parametro;
         }
-
         $res = $base->Ejecutar($sql);
 
+        $i = 0;
         if ($res > -1) {
             if ($res > 0) {
                 while ($row = $base->Registro()) {
-                    $obj = new menu();
-                    
-                    $obj->setear($row['idmenu'],
-                                $row['menombre'],
-                                $row['medescripcion'],
-                                $row['idpadre'],
-                                $row['medeshabilitado']);
+                    $obj = new Menu();
+                    $obj->setear($row);
                     array_push($arreglo, $obj);
                 }
             }

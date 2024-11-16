@@ -123,13 +123,12 @@ class MenuRol extends BaseDatos
             $sql .= 'WHERE ' . $parametro;
         }
         
-       
 
         $res = $base->Ejecutar($sql);
         if ($res > -1) {
             if ($res > 0) {
                 while ($row = $base->Registro()) {
-                    $obj = new menurol();
+                    $obj = new Menurol();
                     $obj->setear($row['idmenu'], $row['idrol']);
                     array_push($arreglo, $obj);
                 }

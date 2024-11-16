@@ -69,7 +69,6 @@ $datos = data_submitted();
         });
         
     });
-
   
 </script>    
         </div>
