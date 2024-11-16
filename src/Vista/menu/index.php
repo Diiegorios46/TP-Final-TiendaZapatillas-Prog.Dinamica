@@ -82,16 +82,20 @@
 
                 $('#fm').on('submit', function(e) {
                     e.preventDefault(); // Evita el envío por defecto del formulario
-                    $(this).form('submit', {
+                    $.ajax({
                         url: url,
+                        type: 'POST',
+                        data: new FormData(this),
+                        processData: false,
+                        contentType: false,
                         dataType: 'json',
-                        onSubmit: function() {
-                            console.log('Enviando datos al servidor...');
-                            return $(this).form('validate');
-                        },
                         success: function(result) {
                             try {
-                                console.log('hola');
+                                if (result) {
+                                    console.log('PERFECTO');
+                                } else {
+                                    console.log('Error: ' + result.errorMsg);
+                                }
                             } catch (e) {
                                 console.log('Error al parsear la respuesta del servidor.');
                             }
