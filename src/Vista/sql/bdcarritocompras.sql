@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-11-2024 a las 23:01:28
--- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+-- Tiempo de generación: 16-11-2024 a las 02:29:46
+-- Versión del servidor: 10.4.28-MariaDB
+-- Versión de PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -93,24 +93,29 @@ CREATE TABLE `menu` (
   `menombre` varchar(50) NOT NULL COMMENT 'Nombre del item del menu',
   `medescripcion` varchar(124) NOT NULL COMMENT 'Descripcion mas detallada del item del menu',
   `idpadre` bigint(20) DEFAULT NULL COMMENT 'Referencia al id del menu que es subitem',
-  `medeshabilitado` timestamp NULL DEFAULT current_timestamp() COMMENT 'Fecha en la que el menu fue deshabilitado por ultima vez',
-  `configuracionperfil` tinyint(1) NOT NULL COMMENT 'En este menu el usuario sea cual sea puede modificar sus datos personales no sensibles ',
-  `verpaquete` tinyint(1) DEFAULT NULL COMMENT 'este menu le permite al deposito visualizar los paquetes pedidos por un cliente',
-  `agregarproducto` tinyint(1) DEFAULT NULL COMMENT 'este menu le permite a un empleado agregar un producto a la gallery',
-  `modificarproducto` tinyint(1) DEFAULT NULL COMMENT 'este menu le permite al empleado modificar un producto',
-  `altausuario` tinyint(1) DEFAULT NULL,
-  `bajausuario` tinyint(1) DEFAULT NULL,
-  `modificarusuario` tinyint(1) DEFAULT NULL
+  `medeshabilitado` timestamp NULL DEFAULT current_timestamp() COMMENT 'Fecha en la que el menu fue deshabilitado por ultima vez'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Volcado de datos para la tabla `menu`
 --
 
-INSERT INTO `menu` (`idmenu`, `menombre`, `medescripcion`, `idpadre`, `medeshabilitado`, `configuracionperfil`, `verpaquete`, `agregarproducto`, `modificarproducto`, `altausuario`, `bajausuario`, `modificarusuario`) VALUES
-(7, 'nuevo', 'kkkkk', NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(8, 'nuevo', 'kkkkk', NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(11, 'nuevo', 'kkkkk', NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `menu` (`idmenu`, `menombre`, `medescripcion`, `idpadre`, `medeshabilitado`) VALUES
+(1, 'Admin', 'Administrador', NULL, '0000-00-00 00:00:00'),
+(2, 'Deposito', 'Deposito', NULL, '0000-00-00 00:00:00'),
+(3, 'Cliente', 'Cliente', NULL, '0000-00-00 00:00:00'),
+(4, 'configuracionusuario', '-', 3, '0000-00-00 00:00:00'),
+(5, 'configuracionusuario', '-', 2, '0000-00-00 00:00:00'),
+(19, 'verpaquete', 'Ver los paquetes disponibles para admin', 1, '0000-00-00 00:00:00'),
+(20, 'agregarproducto', 'Agregar productos nuevos para admin', 1, '0000-00-00 00:00:00'),
+(21, 'modificarproducto', 'Modificar productos existentes para admin', 1, '0000-00-00 00:00:00'),
+(22, 'verpaquete', 'Ver los paquetes disponibles para deposito', 2, '0000-00-00 00:00:00'),
+(23, 'agregarproducto', 'Agregar productos nuevos para deposito', 2, '0000-00-00 00:00:00'),
+(24, 'modificarproducto', 'Modificar productos existentes para deposito', 2, '0000-00-00 00:00:00'),
+(25, 'AltaUsuario', 'Dar de alta a un nuevo usuario', 1, '0000-00-00 00:00:00'),
+(26, 'BajaUsuario', 'Dar de baja a un usuario existente', 1, '0000-00-00 00:00:00'),
+(27, 'ModificarUsuario', 'Modificar los datos de un usuario', 1, '0000-00-00 00:00:00'),
+(28, 'ConfiguracionUsuario', 'Configurar los datos de usuario', 1, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -128,7 +133,7 @@ CREATE TABLE `menurol` (
 --
 
 INSERT INTO `menurol` (`idmenu`, `idrol`) VALUES
-(11, 3);
+(2, 2);
 
 -- --------------------------------------------------------
 
@@ -358,7 +363,7 @@ ALTER TABLE `compraitem`
 -- AUTO_INCREMENT de la tabla `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `idmenu` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `idmenu` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`
