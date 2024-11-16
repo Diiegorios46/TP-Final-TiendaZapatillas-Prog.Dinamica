@@ -91,7 +91,7 @@
 
                 $('#fm').on('submit', function(e) {
                     
-                    e.preventDefault(); // Evita el envío por defecto del formulario
+                    e.preventDefault(); 
                     $.ajax({
                         url: url,
                         type: 'POST',
@@ -102,8 +102,6 @@
                         success: function(result) {
                             try {
                                 if (result) {
-                                    console.log(result);
-                                    console.log('todo bien locooo');
                                     $('#mensajeOperacion').addClass('alert alert-success alert-dismissible fade show text-center').html('Producto agregado exitosamente.');    
                                     } else {console.log('Error: ' + result.errorMsg);
                                 }
@@ -171,49 +169,7 @@
                 
                 break;
             case 4:
-                url = 'listarUsuarios.php';
-
-                $.ajax({
-                url: url,
-                type: 'GET',
-                dataType: 'json',
-                success: function(result) {
-
-                $('.deposito-menu').html(''); 
-                $('.grid').html(''); 
-                    result.forEach(function(producto ,index) {
-
-                        let usuario = `
-                                <div class="col-3">
-                                    <div class="card d-flex w-100 h-100 p-3 shadow-sm">
-                                        <div class="card-img w-100">
-                                            <img src="${producto.proimagen1}" alt="" class="w-100 h-100 img-card">
-                                        </div>
-                                        <div class="card-marca">${producto.promarca}</div>
-                                        <div class="card-infoZapatillas data-nombre">${producto.pronombre}</div>
-                                        <div class="card-precioMasDescuento">
-                                            <span class="data-precio">${producto.proprecio}</span>
-                                            <span>10% off</span>
-                                        </div>
-                                        <div class="hidden">
-                                            <span class="data-idproducto">${producto.idproducto}</span>
-                                        </div>
-                                        <div class="card-button text-center pt-3">
-                                            <button class="btn btn-dark p-2 agregarCarrito" id="myButton" onclick="modificarUsuario(${})">Modificar Producto</button>
-                                        </div>
-                                    </div>
-                                </div>
-                        `;
-                        $('.grid').append(usuario);
-                    });
-                },
-                error: function(xhr, status, error) {
-                    console.log('Error al cargar los datos del menú dinámico.');
-                    console.log('Error: ' + error);
-                }
-              
-            })
-
+                url = 'url_4.php';
                 break;
             case 5:
                 url = 'url_5.php';
@@ -231,8 +187,10 @@
     }
 
 
-    function modificar(producto) {
+    function modificar(producto){
+
         $('.grid').html('');
+
         $('.deposito-menu').html(`
             <form class="upload-form" id="form" novalidate method="post">
                 <div class="form-group">
@@ -275,6 +233,7 @@
                 </div>
                 <input type="submit" value="Subir imagen" name="submit" class="form-submit" required>
             </form>`);
+
             url = './modificarAction.php';
             
             $('#form').on('submit', function(e) {
