@@ -93,6 +93,7 @@
                             try {
                                 if (result) {
                                     console.log(result);
+                                    console.log('todo bien locooo');
                                 } else {
                                     console.log('Error: ' + result.errorMsg);
                                 }
@@ -102,6 +103,7 @@
                         },
                         error: function(xhr, status, error) {
                             console.log('Error al cargar los datos del menú dinámico.');
+                            console.log('Error: ' + error);
                         }
                     });
                 });

@@ -28,10 +28,7 @@ class abmProducto
     private function cargarObjeto($param)
     {
         $obj = null;
-        // verEstructura($param);
-        if (
-            array_key_exists('idproducto', $param) and array_key_exists('pronombre', $param) and array_key_exists('proprecio', $param)
-        ) {
+        if (array_key_exists('idproducto', $param) and array_key_exists('pronombre', $param) and array_key_exists('proprecio', $param)) {
             $obj = new Producto();
             $obj->setear($param);
             return $obj;
@@ -60,7 +57,6 @@ class abmProducto
     public function alta($param)
     {
         $resp = false;
-
         $elObjtProducto = $this->cargarObjeto($param);
         if ($elObjtProducto != null and $elObjtProducto->insertar()) {
             $resp = true;
