@@ -2,11 +2,13 @@
     <?php include '../estructura/cabeceraSegura.php' ?>
 
     <div class="container-sm">  
+        <div id='mensajeOperacion'></div>
         <h1 class="deposito-title">Menu</h1>
         <div class="deposito-menu" id="menuDinamico">
             <!--viene el codigo de jquery-->
         </div>
     </div>
+
 
     <script>
     $(document).ready(function() {
@@ -33,7 +35,6 @@
                 }
             });
         }
-
         mostrarMenues();
     });
 
@@ -81,6 +82,7 @@
                     </form>`);
 
                 $('#fm').on('submit', function(e) {
+                    
                     e.preventDefault(); // Evita el envío por defecto del formulario
                     $.ajax({
                         url: url,
@@ -94,8 +96,8 @@
                                 if (result) {
                                     console.log(result);
                                     console.log('todo bien locooo');
-                                } else {
-                                    console.log('Error: ' + result.errorMsg);
+                                    $('#mensajeOperacion').addClass('alert alert-success alert-dismissible fade show text-center').html('Producto agregado exitosamente.');    
+                                    } else {console.log('Error: ' + result.errorMsg);
                                 }
                             } catch (e) {
                                 console.log('Error al parsear la respuesta del servidor.');
@@ -107,9 +109,24 @@
                         }
                     });
                 });
+                
                 break;
             case 3:
-                url = 'url_3.php';
+                url = '../deposit/modificarDeposito.php';
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(result) {
+                        
+                        console.log(result);
+                    },
+                    error: function(xhr, status, error) {
+                        console.log('Error al cargar los datos del menú dinámico.');
+                        console.log('Error: ' + error);
+                    }
+                })
+                
                 break;
             case 4:
                 url = 'url_4.php';
