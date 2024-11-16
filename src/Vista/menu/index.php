@@ -112,14 +112,29 @@
                 
                 break;
             case 3:
-                url = '../deposit/modificarDeposito.php';
+                url = './listarDeposito.php';
+
                 $.ajax({
                     url: url,
                     type: 'GET',
                     dataType: 'json',
                     success: function(result) {
-                        
-                        console.log(result);
+
+                    $('.deposito-menu').html(''); 
+                        result.forEach(function(producto) {
+                            let productoHtml = `
+                                <div class="producto">
+                                    <h2>${producto.pronombre}</h2>
+                                    <p>Detalle: ${producto.prodetalle}</p>
+                                    <p>Stock: ${producto.procantstock}</p>
+                                    <p>Marca: ${producto.promarca}</p>
+                                    <form method='post' action='./modificarAction.php'>
+                                        <button type='submit' name='idproducto' value='${producto.promarca}' class="btn btn-primary">Modificar</button>
+                                    </form>
+                                </div>
+                            `;
+                            $('.deposito-menu').append(productoHtml);
+                        });
                     },
                     error: function(xhr, status, error) {
                         console.log('Error al cargar los datos del menú dinámico.');
@@ -146,3 +161,6 @@
         }
     }
 </script>
+
+
+
