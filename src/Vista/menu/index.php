@@ -10,24 +10,22 @@
         <div class="deposito-menu" id="menuDinamico">
             <!--viene el codigo de jquery-->
         </div>
-        <div class="grid">
-
-        </div>
+        <div class="grid"></div>
+        
     </div>
 
 
     <script>
     $(document).ready(function() {
+
+
         function mostrarMenues() {
             $.ajax({
                 url: 'actionMenu.php',
                 type: 'GET',
                 dataType: 'json',
                 success: function(response) {
-                    
                     $('.deposito-menu').html('');
-
-                    console.log(response);
                     if (response.error) {
                         $('.deposito-menu').html('Error al cargar los datos.');
                     } else {
@@ -35,7 +33,6 @@
                         response.forEach(menu => {
                             let menuHtml = `<button type="button" class="deposito-btn-subir-producto" onclick="obtenerMenu(${i})">${menu}</button>`;
                             $('.deposito-menu').append(menuHtml);
-                            console.log(menu);
                             i++;
                         });
                     }
@@ -45,7 +42,6 @@
                 }
             });
         }
-        
         mostrarMenues();
     });
 
@@ -56,11 +52,6 @@
                 url = 'url_1.php';
                 break;
             case 2:
-                
-                
-                
-                break;
-            case 3:
                 url = './agregarAction.php';
                 $('.deposito-menu').html(`
                     <form class="upload-form" id="fm" novalidate method="post">
@@ -124,9 +115,8 @@
                     });
                 });
                 
-                
                 break;
-            case 4:
+            case 3:
                 url = './listarDeposito.php';
 
                 $.ajax({
@@ -175,6 +165,33 @@
                     }
                   
                 })
+                
+                break;
+            case 4:
+                url = './actionAltaUsuario.php';
+                $('.deposito-menu').html(``)
+                $('.grid').html(`
+                    <div class="container mt-5">
+                        <h2>Formulario de Registro</h2>
+                        <form class="" id="fm" novalidate method="post">
+                            <div class="form-group">
+                                <label for="nombre">Nombre</label>
+                                <input type="text" name="usnombre" class="form-control" id="nombre" placeholder="Ingresa tu nombre" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="contraseña">Contraseña</label>
+                                <input type="password" name="uspass" class="form-control" id="contraseña" placeholder="Ingresa tu contraseña" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="correo">Correo Electrónico</label>
+                                <input type="email" name="usmail" class="form-control" id="correo" placeholder="Ingresa tu correo electrónico" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Enviar</button>
+                        </form>
+                </div>
+                `)
+
+
                 break;
             case 5:
                 url = 'url_5.php';
@@ -197,9 +214,7 @@
         $('.grid').html('');
 
         $('.deposito-menu').html(`
-
             <form class="upload-form" id="form" novalidate method="post">
-
                 <div class="form-group">
                     <label for="pronombre" class="form-label">Nombre del producto</label>
                     <input type="text" name="pronombre" id="pronombre" class="form-input" value="${producto.pronombre}" required>
@@ -207,7 +222,7 @@
                 
                 <div class="form-group">
                     <label for="proprecio" class="form-label">Precio del producto</label>
-                    <input type="number" name="proprecio" id="proprecio" class="form-input" value="${producto.proprecio}" required>
+                    <input type="number" name="proprecio" id="proprecio" class="form-input" value="${parseInt(producto.proprecio,10).toFixed(2)}" required>
                 </div>
                 
                 <div class="form-group">
@@ -231,10 +246,6 @@
                     <input type="number" name="procantstock" id="procantstock" class="form-input" value="${parseInt(producto.procantstock,10)}" required>
                 </div>
 
-                <div class="form-group hidden">
-                    <input type="number" name="idproducto" value="${producto.idproducto}" required>
-                </div>
-
                 <div class="form-group">
                     <label for="image" class="form-label">Seleccione las imagenes para cambiar:</label>
                     <div class="form-group w-50">
@@ -242,36 +253,25 @@
                     </div>
                     <input type="file" name="image[]" id="image" class="form-file" multiple required>
                 </div>
-                
                 <input type="submit" value="Subir imagen" name="submit" class="form-submit" required>
-
             </form>`);
 
             url = './modificarAction.php';
             
-          $('#form').on('submit', function(e) {
+            $('#form').on('submit', function(e) {
                 e.preventDefault(); 
                 $.ajax({
-                    url: url, // Cambia esto a la ruta correcta
+                    url: url,
                     type: 'POST',
                     data: new FormData(this),
                     processData: false,
                     contentType: false,
 
-                    success: function(response) {
-                        try {
-                            if (response) {
-                                $('#mensajeOperacion').addClass('alert alert-success alert-dismissible fade show text-center').html('Producto modificado con éxito.');
-                            } else {
-                                console.log('Error: ' + response.errorMsg);
-                            }
-                        } catch (e) {
-                            console.log('Error al parsear la respuesta del servidor.');
-                        }
+                    success: function(texto) {
+                        console.log(texto);
+                        $('#mensajeOperacion').addClass('alert alert-success alert-dismissible fade show text-center').html('Producto modificado exitosamente.');
                     },
-                    
                     error: function(xhr, status, error) {
-                        console.log('Error en la solicitud AJAX.');
                         console.log('Error: ' + error);
                     }
                 });
@@ -280,6 +280,10 @@
             }
             
 </script>
+
+
+
+
 
 
 
