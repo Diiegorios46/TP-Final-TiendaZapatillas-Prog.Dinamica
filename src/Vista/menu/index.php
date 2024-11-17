@@ -270,56 +270,55 @@
                 });      
 
                 break;
-                
-            case 6:
-                //MODIFICAR USUARIO ADMIN CORREGIR PORQUE SOLO ADMIN TIENE ESE ORDEN , PERO LO DEJO ASI PARA QUE SEPAMOS LOS CODIGOS
+                case 6:
+                    //MODIFICAR USUARIO ADMIN CORREGIR PORQUE SOLO ADMIN TIENE ESE ORDEN , PERO LO DEJO ASI PARA QUE SEPAMOS LOS CODIGOS
 
-                url = './listarUsuarios.php'; 
-                
-                $.ajax({ 
-                    url: url, 
-                    type: 'GET', 
-                    dataType: 'json', 
-                    success: function(result) { 
+                    url = './listarUsuarios.php'; 
+                    
+                    $.ajax({
+                        url: './listarUsuarios.php',
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(result) {
+                            $('.deposito-menu').html('');
+                            $('.grid').html('');
 
-                        $('.deposito-menu').html(''); 
-                        $('.grid').html(''); 
+                            let row;
+                            result.forEach(function(usuario, index ) {
+                                    let usuarioStr = JSON.stringify(usuario).replace(/"/g, '&quot;');
 
-                        let row;
+                                    if (index % 4 === 0) {
+                                        row = $('<div class="row mt-4 mb-4"></div>');
+                                        $('.grid').append(row);
+                                    }
+                                    let usuarioHtml = `
+                                        <div class="col-3">
+                                            <div class="card m-2 p-2 shadow-sm">
+                                                <div class="card-body">
+                                                    <form>
+                                                        <h5 class="card-title">${usuario.usnombre}</h5>
+                                                        <p class="card-text">Contraseña: ${usuario.uspass}</p>
+                                                        <p class="card-text">Correo: ${usuario.usmail}</p>
+                                                        <p class="card-text">Rol: ${usuario.rodescripcion}</p>
+                                                        <button class="btn btn-light"><a onclick="modificarUsuario(${usuarioStr})">Modificar</a></button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    `;
+                                    row.append(usuarioHtml);
+    
+                            });
+                        },
+                        error: function(xhr, status, error) {
+                            console.log('Error al cargar los datos del menú dinámico.');
+                            console.log('Error: ' + error);
+                        }
+                    });
 
-                        result.forEach(function(usuario, index) {
-                            let usuarioStr = JSON.stringify(usuario).replace(/"/g, '&quot;');
                             
-                            if (index % 4 === 0) {
-                                    row = $('<div class="row mt-4 mb-4"></div>');
-                                    $('.grid').append(row);
-                            }
-
-                            let usuarioHtml = `
-                                    <div class="col-3">
-                                        <div class="card m-2 p-2 shadow-sm"> 
-                                            <div class="card-body"> 
-                                            <form    >
-                                                <h5 class="card-title">${usuario.usnombre}</h5> 
-                                                <p class="card-text">Contraseña: ${usuario.uspass}</p> 
-                                                <p class="card-text">Correo: ${usuario.usmail}</p> 
-                                                <button class="btn btn-danger"><a href"./" onclick="modificarUsuario(${usuarioStr})">Modificar</a></button> 
-                                            </form>    
-                                            </div> 
-                                        </div> 
-                                    </div>
-                            `;
-                            row.append(usuarioHtml);
-                        });
-                    }, 
-                    error: function(xhr, status, error) { 
-                        console.log('Error al cargar los datos del menú dinámico.'); 
-                        console.log('Error: ' + error); 
-                    } 
-                });      
-                
-                break;
-            case 7:
+                    break;   
+                     case 7:
             //COFIG USUARIO ADMIN CORREGIR PORQUE SOLO ADMIN TIENE ESE ORDEN , PERO LO DEJO ASI PARA QUE SEPAMOS LOS CODIGOS
                 url = './actionlistarDatosUsuario.php';
 
@@ -471,6 +470,10 @@
                         <label for="usmail" class="form-label">Correo del usuario</label>
                         <input type="text" name="usmail" id="usmail" class="form-input" value="${objUsuario.usmail}" required>
                         
+                    </div> 
+                      <div class="form-group">
+                        <label for="rodescripcion" class="form-label">Rol</label>
+                        <input type="text" name="rodescripcion" id="rodescripcion" class="form-input" value="${objUsuario.rodescripcion}" required>
                     </div> 
                     <input type="submit" value="Modificar usuario" name="submit" class="form-submit" required>
                 </form>`

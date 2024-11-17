@@ -24,7 +24,7 @@ class Rol extends BaseDatos{
 
     public function setear($datosUsuario){
         $this->setIdRol($datosUsuario['idrol']);
-        $this->setRoDescripcion($datosUsuario['idusuario']);
+        $this->setRoDescripcion($datosUsuario['rodescripcion']);
     }
 
    
