@@ -151,7 +151,7 @@
                                                 <span class="data-idproducto">${producto.idproducto}</span>
                                             </div>
                                             <div class="card-button text-center pt-3">
-                                                <button class="btn btn-dark p-2 agregarCarrito" id="myButton" onclick="modificar(${productoStr})">Modificar Producto</button>
+                                                <button class="btn btn-dark p-2 agregarCarrito" id="myButton" onclick="modificarProducto(${productoStr})">Modificar Producto</button>
                                             </div>
                                         </div>
                                     </div>
@@ -219,10 +219,54 @@
 
                 break;
             case 5:
-                url = 'url_5.php';
+                url = './listarUsuarios.php';
+
                 break;
+                
             case 6:
-                url = 'url_6.php';
+                url = './listarUsuarios.php'; 
+                $.ajax({ 
+                    url: url, 
+                    type: 'GET', 
+                    dataType: 'json', 
+                    success: function(result) { 
+
+                        $('.deposito-menu').html(''); 
+                        $('.grid').html(''); 
+
+                        let row;
+
+                        result.forEach(function(usuario, index) {
+                            let usuarioStr = JSON.stringify(usuario).replace(/"/g, '&quot;');
+                            
+                            if (index % 4 === 0) {
+                                    row = $('<div class="row mt-4 mb-4"></div>');
+                                    $('.grid').append(row);
+                            }
+
+                            let usuarioHtml = `
+                                    <div class="col-3">
+                                        <div class="card m-2 p-2 shadow-sm"> 
+                                            <div class="card-body"> 
+                                            <form    >
+                                                <h5 class="card-title">${usuario.usnombre}</h5> 
+                                                <p class="card-text">Contraseña: ${usuario.uspass}</p> 
+                                                <p class="card-text">Correo: ${usuario.usmail}</p> 
+                                                <button class="btn btn-danger"><a href"./" onclick="modificarUsuario(${usuarioStr})">Modificar</a></button> 
+                                            </form>    
+                                            </div> 
+                                        </div> 
+                                    </div>
+                            `;
+                            row.append(usuarioHtml);
+                        });
+                    }, 
+                    error: function(xhr, status, error) { 
+                        console.log('Error al cargar los datos del menú dinámico.'); 
+                        console.log('Error: ' + error); 
+                    } 
+                });      
+                
                 break;
             case 7:
                 url = 'url_7.php';
@@ -233,9 +277,7 @@
         }
     }
 
-
-    function modificar(producto){
-
+    function modificarProducto(producto){
         $('.grid').html('');
 
         $('.deposito-menu').html(`
@@ -302,7 +344,55 @@
                 });
             });
                  
-            }
+        }
+
+        function modificarUsuario(objUsuario){
+            $('.grid').html('');
+
+            $('.deposito-menu').html(`
+                <form class="upload-form" id="formularioUsuario" novalidate method="post">
+                    <div class="form-group">
+                        <label for="usnombre" class="form-label">Nombre del usuario</label>
+                        <input type="text" name="usnombre" id="usnombre" class="form-input" value="${objUsuario.usnombre}" required>
+                    </div>
+                    <div class="form-group hidden">
+                        <label for="usid" class="form-label">ID del usuario</label>
+                        <input type="text" name="idusuario" id="idusuario" class="form-input" value="${objUsuario.idusuario}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="uspass" class="form-label">Contraseña del usuario</label>
+                        <input type="text" name="uspass" id="uspass" class="form-input" value="${objUsuario.uspass}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="usmail" class="form-label">Correo del usuario</label>
+                        <input type="text" name="usmail" id="usmail" class="form-input" value="${objUsuario.usmail}" required>
+                    </div> 
+                    <input type="submit" value="Modificar usuario" name="submit" class="form-submit" required>
+                </form>`
+            );
+
+            url = './actionModificarUsuario.php';
+
+            $('#formularioUsuario').on('submit', function(e) {
+                e.preventDefault(); 
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: new FormData(this),
+                    processData: false,
+                    contentType: false,
+
+                    success: function(texto) {
+                        console.log(texto);
+                        $('#mensajeOperacion').addClass('alert alert-success alert-dismissible fade show text-center').html('Usuario modificado exitosamente.');
+                    },
+                    error: function(xhr, status, error) {
+                        console.log('Error: ' + error);
+                    }
+                });
+            });
+
+        }
             
 </script>
 
