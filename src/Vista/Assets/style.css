@@ -506,3 +506,15 @@ section.container-sm.d-flex.gap {
     display: none;
 }
 
+.deposito-btn-subir-producto{
+    box-shadow: 0 0px 18px rgba(0, 0, 0, 0.1);
+    width: auto;
+   
+
+}
+.deposito-menu {
+    width: auto;
+    padding: 20px;
+    background-color: #f5f5f5;
+   
+}

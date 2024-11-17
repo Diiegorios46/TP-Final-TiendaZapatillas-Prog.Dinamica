@@ -1,4 +1,3 @@
-
     <?php include '../estructura/cabeceraSegura.php' ?>
 
     <div class="container-sm">  
@@ -49,9 +48,12 @@
         var url;
         switch(indice) {
             case 1:
-                url = 'url_1.php';
+
+
                 break;
             case 2:
+                //AGREGAR PRODUCTO ADMIN CORREGIR PORQUE SOLO ADMIN TIENE ESE ORDEN , PERO LO DEJO ASI PARA QUE SEPAMOS LOS CODIGOS
+
                 url = './agregarAction.php';
                 $('.deposito-menu').html(`
                     <form class="upload-form" id="fm" novalidate method="post">
@@ -117,6 +119,7 @@
                 
                 break;
             case 3:
+                //MODIFICAR PRODUCTO ADMIN CORREGIR PORQUE SOLO ADMIN TIENE ESE ORDEN , PERO LO DEJO ASI PARA QUE SEPAMOS LOS CODIGOS
                 url = './listarDeposito.php';
 
                 $.ajax({
@@ -168,7 +171,7 @@
                 
                 break;
             case 4:
-
+                //ALTA USUARIO ADMIN CORREGIR PORQUE SOLO ADMIN TIENE ESE ORDEN , PERO LO DEJO ASI PARA QUE SEPAMOS LOS CODIGOS
                 url = './actionAltaUsuario.php';
                 
                 $('.deposito-menu').html(`
@@ -219,12 +222,60 @@
 
                 break;
             case 5:
+                //BAJA USUARIO ADMIN CORREGIR PORQUE SOLO ADMIN TIENE ESE ORDEN , PERO LO DEJO ASI PARA QUE SEPAMOS LOS CODIGOS
+
                 url = './listarUsuarios.php';
+
+                $.ajax({ 
+                    url: url, 
+                    type: 'GET', 
+                    dataType: 'json', 
+                    success: function(result) { 
+
+                        $('.deposito-menu').html(''); 
+                        $('.grid').html(''); 
+
+                        let row;
+
+                        result.forEach(function(usuario, index) {
+                            let usuarioStr = JSON.stringify(usuario).replace(/"/g, '&quot;');
+                            
+                            if (index % 4 === 0) {
+                                    row = $('<div class="row mt-4 mb-4"></div>');
+                                    $('.grid').append(row);
+                            }
+
+                            let usuarioHtml = `
+                                    <div class="col-3">
+                                        <div class="card m-2 p-2 shadow-sm"> 
+                                            <div class="card-body"> 
+                                            <form class="" id="formularioBorrado" novalidate method="post">
+                                                <h5 class="card-title">${usuario.usnombre}</h5> 
+                                                <p class="card-text">Contraseña: ${usuario.uspass}</p> 
+                                                <p class="card-text">Correo: ${usuario.usmail}</p> 
+                                                <p class="card-text">${usuario.usdeshabilitado == '0000-00-00 00:00:00' ? 'Habilitado' : 'Deshabilitado'}</p> 
+                                                <button class="btn btn-danger"><a onclick="borradoLogicaUsuario(${usuarioStr})">Dar de Baja</a></button> 
+                                            </form>    
+                                            </div> 
+                                        </div> 
+                                    </div>
+                            `;
+                            row.append(usuarioHtml);
+                        });
+                    }, 
+                    error: function(xhr, status, error) { 
+                        console.log('Error al cargar los datos del menú dinámico.'); 
+                        console.log('Error: ' + error); 
+                    } 
+                });      
 
                 break;
                 
             case 6:
+                //MODIFICAR USUARIO ADMIN CORREGIR PORQUE SOLO ADMIN TIENE ESE ORDEN , PERO LO DEJO ASI PARA QUE SEPAMOS LOS CODIGOS
+
                 url = './listarUsuarios.php'; 
+                
                 $.ajax({ 
                     url: url, 
                     type: 'GET', 
@@ -269,8 +320,61 @@
                 
                 break;
             case 7:
-                url = 'url_7.php';
-                break;
+            //COFIG USUARIO ADMIN CORREGIR PORQUE SOLO ADMIN TIENE ESE ORDEN , PERO LO DEJO ASI PARA QUE SEPAMOS LOS CODIGOS
+                url = './actionlistarDatosUsuario.php';
+
+            $.ajax({
+                url: url,
+                type: 'GET',
+                dataType: 'json',
+                success: function(result) {
+                    $('.deposito-menu').html('');
+                    $('.grid').html('');
+
+                    let userInfo = `
+                        <form class="upload-form" id="formularioUs" novalidate method="post" action="./actionConfigurarPerfil.php">
+                            <div class="form-group">
+                                <label for="usnombre" class="form-label">Nombre del usuario</label>
+                                <input type="text" name="usnombre" id="usnombre" class="form-input" value="${result.usnombre}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="usmail" class="form-label">Correo del usuario</label>
+                                <input type="email" name="usmail" id="usmail" class="form-input" value="${result.usmail}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="uspass" class="form-label">Contraseña del usuario</label>
+                                <input type="password" name="uspass" id="uspass" class="form-input" value="${result.uspass}" required>
+                            </div>
+                            <input type="submit" value="Actualizar Perfil" name="submit" class="form-submit">
+                        </form>
+                    `;
+                    $('.deposito-menu').append(userInfo);
+
+                        $('#formularioUs').on('submit', function(e) {
+                            e.preventDefault();
+                            $.ajax({
+                                url: './actionConfigurarPerfil.php',
+                                type: 'POST',
+                                data: new FormData(this),
+                                processData: false,
+                                contentType: false,
+                                success: function(texto) {
+                                    $('#mensajeOperacion').addClass('alert alert-success alert-dismissible fade show text-center').html('Perfil editado exitosamente.');
+                                },
+                                error: function(xhr, status, error) {
+                                    console.log('Error: ' + error);
+                                }
+                            });
+                        });
+                },
+                error: function(xhr, status, error) {
+                    console.log('Error al cargar los datos del menú dinámico.');
+                    console.log('Error: ' + error);
+                }
+            });
+
+
+            break;
             default:
                 console.log('Índice fuera de rango: ' + indice);
                 return;
@@ -366,6 +470,7 @@
                     <div class="form-group">
                         <label for="usmail" class="form-label">Correo del usuario</label>
                         <input type="text" name="usmail" id="usmail" class="form-input" value="${objUsuario.usmail}" required>
+                        
                     </div> 
                     <input type="submit" value="Modificar usuario" name="submit" class="form-submit" required>
                 </form>`
@@ -383,8 +488,9 @@
                     contentType: false,
 
                     success: function(texto) {
-                        console.log(texto);
+
                         $('#mensajeOperacion').addClass('alert alert-success alert-dismissible fade show text-center').html('Usuario modificado exitosamente.');
+
                     },
                     error: function(xhr, status, error) {
                         console.log('Error: ' + error);
@@ -392,6 +498,55 @@
                 });
             });
 
+        }
+
+        function borradoLogicaUsuario(objUsuario){
+
+            $('.grid').html('');
+
+            $('.deposito-menu').html(`
+                <form class="upload-form" id="formularioUsuario" novalidate method="post">
+                    <div class="form-group">
+                        <label for="usnombre" class="form-label">Nombre del usuario</label>
+                        <input type="text" name="usnombre" id="usnombre" class="form-input" value="${objUsuario.usnombre}" readonly required>
+                    </div>
+                    <div class="form-group hidden">
+                        <label for="usid" class="form-label">ID del usuario</label>
+                        <input type="text" name="idusuario" id="idusuario" class="form-input" value="${objUsuario.idusuario}" readonly required>
+                    </div>
+                    <div class="form-group">
+                        <label for="usmail" class="form-label">Correo del usuario</label>
+                        <input type="text" name="usmail" id="usmail" class="form-input" value="${objUsuario.usmail}" readonly required>
+                        <input type="text" name="usmail" id="usmail" class="form-input" value="${objUsuario.usdeshabilitado == '0000-00-00 00:00:00' ? 'Habilitado' : 'Deshabilitado'}" readonly required>
+                    </div> 
+                     <div class="form-group">                
+                        
+                     <p>¿Estas seguro de que quieres eliminar ? 😲😒</p>
+                    <input type="submit" value="Confirmar Baja" name="submit" class="form-submit" required>
+                </form>`
+            );
+            
+            url = './actionBajaUsuario.php';
+            
+            $('#formularioUsuario').on('submit', function(e) {
+                e.preventDefault(); 
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: new FormData(this),
+                    processData: false,
+                    contentType: false,
+                    
+                    success: function(texto) {
+
+                        $('#mensajeOperacion').addClass('alert alert-success alert-dismissible fade show text-center').html('Usuario deshabilitado exitosamente.');
+
+                    },
+                    error: function(xhr, status, error) {
+                        console.log('Error: ' + error);
+                    }
+                });
+            });
         }
             
 </script>

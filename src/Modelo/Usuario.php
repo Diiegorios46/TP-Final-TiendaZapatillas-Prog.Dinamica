@@ -96,7 +96,7 @@ class Usuario extends BaseDatos {
     public function eliminar($param) {
         $resp = false;
         $base=new BaseDatos();
-        $sql="UPDATE usuario SET usDeshabilitado = '".$this->getUsDeshabilitado()."' WHERE idUsuario=".$this->getIdUsuario();
+        $sql="UPDATE usuario SET usdeshabilitado = '".$this->getUsDeshabilitado()."' WHERE idusuario=".$this->getIdUsuario();
 
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
