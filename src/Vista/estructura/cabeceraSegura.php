@@ -25,8 +25,8 @@ include '../../../config.php';
                     <a href="../../../../TpFinal-TiendaZapatillas/src/Vista/home/index.php"><img src="../Assets/imgs/th.jpg" alt="" class="h-100 w-100 objet-fit rounded"></a>
                 </div>
                
-                <div class="d-flex w-10 gap">
-                    <div class="dropdown">
+                <div class="d-flex w-10 gap align-self-center">
+                    <div class="dropdown d-flex gap align-items-center">
                         <a href="../menu/index.php" class="btn-link text-reset">
                             <i class="bi bi-gear w-100"></i>
                         </a>

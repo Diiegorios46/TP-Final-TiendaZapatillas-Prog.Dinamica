@@ -4,7 +4,7 @@
 
         <div id='mensajeOperacion'></div>
 
-        <h1 class="deposito-title">Menu</h1>
+        <h1 class="deposito-title pt-4">Menu</h1>
         
         <div class="deposito-menu" id="menuDinamico">
             <!--viene el codigo de jquery-->
@@ -16,7 +16,6 @@
 
     <script>
     $(document).ready(function() {
-
         function mostrarMenues() {
             $.ajax({
                 url: 'actionMenu.php',
@@ -29,33 +28,37 @@
                         $('.deposito-menu').html('Error al cargar los datos.');
                     } else {
                         var i = 1;
+                        let menuHtml = "<div class='d-flex flex-column'>"; // Definir menuHtml
+                        
                         response.forEach(menu => {
                             switch(menu) {
                                 case 'verpaquete':
-                                    menu = "<span>Ver Paquete(s).<span>";
+                                    menu = "<span>Ver Paquete(s).</span>";
                                     break;
                                 case 'agregarproducto':
-                                    menu = "<span>Agregar un Producto.<span>";
+                                    menu = "<span>Agregar un Producto.</span>";
                                     break;
                                 case 'modificarproducto':
-                                    menu = "<span>Modificar un Producto.<span>";
+                                    menu = "<span>Modificar un Producto.</span>";
                                     break;
                                 case 'altausuario':
-                                    menu = "<span> Agregar un Usuario.<span>";
+                                    menu = "<span>Agregar un Usuario.</span>";
                                     break;
                                 case 'bajausuario':
-                                    menu = "<span>Deshabilitar Usuario.<span>";
+                                    menu = "<span>Borrar Usuario.</span>";
                                     break;
                                 case 'modificarusuario':
-                                    menu = "<span>Modificar un Usuario.<span>";
+                                    menu = "<span>Modificar un Usuario.</span>";
                                     break;
                                 case 'configuracionusuario': 
-                                    menu = "<span>Configuracion de Usuario.<span>";
-                                    break;          
-                            }    let menuHtml = `<button type="button" class="deposito-btn-subir-producto" onclick="obtenerMenu(${i})">${menu}</button>`;
-                            $('.deposito-menu').append(menuHtml);
+                                    menu = "<span>Configuracion de Usuario.</span>";
+                                    break;
+                            }
+                            menuHtml += `<button type="button" class="deposito-btn-subir-producto mb-2" onclick="obtenerMenu(${i})">${menu}</button>`;
                             i++;
                         });
+                        menuHtml += "</div>";
+                        $('.deposito-menu').append(menuHtml);
                     }
                 },
                 error: function(xhr, status, error) {
@@ -268,13 +271,13 @@
                             }
 
                             let usuarioHtml = `
-                                    <div class="col-3">
+                                    <div class="col-3 text-center">
                                         <div class="card m-2 p-2 shadow-sm"> 
                                             <div class="card-body"> 
                                             <form class="" id="formularioBorrado" novalidate method="post">
-                                                <h5 class="card-title">${usuario.usnombre}</h5> 
-                                                <p class="card-text">Contraseña: ${usuario.uspass}</p> 
-                                                <p class="card-text">Correo: ${usuario.usmail}</p> 
+                                                <h5 class="card-title">Nombre :${usuario.usnombre}</h5> 
+                                                <h5 class="card-text">Contraseña: ${usuario.uspass}</h5> 
+                                                <h5 class="card-text">Correo: ${usuario.usmail}</h5> 
                                                 <p class="card-text">${usuario.usdeshabilitado == '0000-00-00 00:00:00' ? 'Habilitado' : 'Deshabilitado'}</p> 
                                                 <button class="btn btn-danger"><a onclick="borradoLogicaUsuario(${usuarioStr})">Dar de Baja</a></button> 
                                             </form>    

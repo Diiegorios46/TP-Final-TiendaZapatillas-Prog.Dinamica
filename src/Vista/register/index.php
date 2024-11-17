@@ -2,7 +2,7 @@
  include_once '../estructura/cabecera.php';
 ?>
 
-    <main class="container w-32 h-100 mt-5 pt-5">
+    <main class="container w-32 h-100 mt-4">
 
         <section class="login-container bg-form rouded-modify shadow">
             <?php
@@ -28,7 +28,7 @@
                 <div class="mt-4 ml-2 mb-2 mr-2">
                     <input type="password" name="uspass" class="fancy-input rounded-pill img-input-contraseña" id="uspass" placeholder="Contraseña" required>
                 </div>
-                <div class="mt-4 ml-2 mb-5 mr-2">
+                <div class="mt-4 ml-2 mb-4 mr-2">
                     <input type="email" name="usmail" class="fancy-input rounded-pill" id="usmail" placeholder="Correo Electronico" required>
                 </div>
                 <div class="d-flex w-70 align-self-center mb-2 pb-4">

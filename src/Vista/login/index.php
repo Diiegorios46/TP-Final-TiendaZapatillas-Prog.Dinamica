@@ -26,7 +26,7 @@ $session = new Session();
                 <div class="mt-3 ml-2 mb-2 mr-2">
                     <input type="mail" name="usmail" id="usmail" class="fancy-input rounded-pill" placeholder="Correo Electronico">
                 </div>
-                <div class="mt-3 ml-2 mb-2 mr-2">
+                <div class="mt-3 ml-2 mb-4 mr-2">
                     <input type="password" name="uspass" id="uspass" class="fancy-input rounded-pill img-input-contraseña" placeholder="Contraseña">
                 </div>
                 <div class="d-flex w-70 align-self-center mb-2">
