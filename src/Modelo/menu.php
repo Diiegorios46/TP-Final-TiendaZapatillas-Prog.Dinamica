@@ -111,7 +111,6 @@ class Menu extends BaseDatos
     
     $sql = "INSERT INTO menu (idmenu, menombre, medescripcion, idpadre, medeshabilitado) VALUES  (" . $this->getIdmenu() . ", '" . $this->getMenombre() . "', '" . $this->getMedescripcion() . "', " . $idpadre . ", '0000-00-00 00:00:00')";
 
-    verEstructura($sql);
     
     if ($base->Iniciar()) {
         if ($elid = $base->Ejecutar($sql)) {
@@ -137,7 +136,6 @@ class Menu extends BaseDatos
         
         $sql = "UPDATE menu SET menombre= '" . $this->getMenombre() . "', medescripcion= '" . $this->getMedescripcion() . "', idpadre= " . $idpadre . ", medeshabilitado= '" . $this->getMedeshabilitado() . "' WHERE idmenu=" . $this->getIdmenu();
         
-                verEstructura($sql);
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 $resp = true;
@@ -168,6 +166,7 @@ class Menu extends BaseDatos
         }
         return $resp;
     } */
+   
   
 
     public function eliminar()
@@ -177,7 +176,6 @@ class Menu extends BaseDatos
         $idpadre = $this->getIdpadre() ? "'" . $this->getIdpadre() . "'" : "NULL";
 
         $sql = "DELETE FROM menu WHERE idmenu=" . $this->getIdmenu();
-        verEstructura($sql);
         
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
@@ -191,31 +189,29 @@ class Menu extends BaseDatos
         return $resp;
     }
 
-    public function listar($parametro = "")
-    {
+    public function listar($parametro = ""){
         $arreglo = array();
         $base = new BaseDatos();
         $sql = "SELECT * FROM menu ";
 
         if ($parametro != "") {
-            $sql .= 'WHERE ' . $parametro;
+            $sql .= 'WHERE ' . $parametro . ' ';
         }
-        $res = $base->Ejecutar($sql);
+        $sql .= "ORDER BY idpadre";
 
+        $res = $base->Ejecutar($sql);
         $i = 0;
         if ($res > -1) {
-            if ($res > 0) {
-                while ($row = $base->Registro()) {
-                    $obj = new Menu();
-                    $obj->setear($row);
-                    array_push($arreglo, $obj);
+                if ($res > 0) {
+                    while ($row = $base->Registro()){ 
+                        $obj = new Menu();
+                        $obj->setear($row);
+                        array_push($arreglo, $obj);
+                    }
                 }
+            } else {
+                $this->setMensajeOperacion("Menu->listar: " . $base->getError());
             }
-        } else {
-            $this->setMensajeOperacion("Menu->listar: " . $base->getError());
+            return $arreglo;
         }
-        return $arreglo;
     }
-
-
-}

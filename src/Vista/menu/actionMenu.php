@@ -1,6 +1,6 @@
 <?php
 include '../../../config.php';
-header('Content-Type: application/json');
+//header('Content-Type: application/json');
 
 $abmMenu = new abmMenu();
 $abmUsuarioRol = new abmUsuarioRol();
@@ -16,14 +16,12 @@ if($session->activa()){
     $param = ["idusuario" => $idUsuario , "idrol" => $idrol];
     $objUsuarioRol = $abmUsuarioRol->obtenerDatos($param)[0];
     $objMenurol = $abmMenuRol->obtenerDatos(["idrol" => $objUsuarioRol['idrol']]);
-
-
     $objMenuOpciones = $abmMenu->obtenerDatos(["idpadre" => $objMenurol[0]['idmenu']]);
     $nombreMenus = [];
         for($i=0;$i < count($objMenuOpciones); $i++){
+            
             $nombreMenus[] = $objMenuOpciones[$i]['menombre'];
         }
-    
     echo json_encode($nombreMenus);
 }else {
     echo json_encode("ERROR");

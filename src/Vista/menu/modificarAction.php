@@ -1,23 +1,25 @@
 <?php
 include '../../../config.php';
-header('Content-Type: application/json');
 
 $datos = data_submitted();
 $datos['accion'] = 'editar';
 
-foreach ($datos['image']['tmp_name'] as $key => $tmp_name) {
-    $datos['proimagen' . ($key + 1)] = base64_encode(file_get_contents($tmp_name));
+if (isset($datos['image']) && !empty($datos['image']['tmp_name'])) {
+    foreach ($datos['image']['tmp_name'] as $key => $tmp_name) {
+        $datos['proimagen' . ($key + 1)] = base64_encode(file_get_contents($tmp_name));
+    }
+    unset($datos['image']);
 }
 
-unset($datos['image']);
-
 $abmProducto = new abmProducto();
+verEstructura($datos);
 
 try {
-    
-    $datos['idproducto'] = $abmProducto->obtenerDatos($datos)[0]['idproducto'];
-    $abmProducto->abm($datos);
-    echo json_encode('Producto modificado con éxito');
-} catch (Exception $e) {
-    //echo json_encode('Error al agregar el producto');
-}   
+    if($abmProducto->abm($datos)){
+        echo json_encode("Producto modificado con éxito");
+     } else {
+        echo json_encode("Error al modificar el producto");
+    }
+ } catch (Exception $e) {
+ }
+?>
