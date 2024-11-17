@@ -158,13 +158,13 @@ class Producto extends BaseDatos
         $resp = false;
         $base = new BaseDatos();
         
-        $proimagen1 = ($this->getProimagen1() !==  null)  ? $this->getProimagen1() : null;
+        $proimagen1 = ($this->getProimagen1() !==  null)  ? $this->getProimagen1() : "NULL";
         $this->setProimagen1($proimagen1);
-        $proimagen2 = ($this->getProimagen2() !==  null)  ? $this->getProimagen2() : null;
+        $proimagen2 = ($this->getProimagen2() !==  null)  ? $this->getProimagen2() :  "NULL";
         $this->setProimagen2($proimagen2);
-        $proimagen3 = ($this->getProimagen3() !==  null)  ? $this->getProimagen3() : null;
+        $proimagen3 = ($this->getProimagen3() !==  null)  ? $this->getProimagen3() : "NULL";
         $this->setProimagen3($proimagen3);
-        $proimagen4 = ($this->getProimagen4() !==  null)  ? $this->getProimagen4() : null;
+        $proimagen4 = ($this->getProimagen4() !==  null)  ? $this->getProimagen4() :  "NULL";
         $this->setProimagen4($proimagen4);
 
         $sql = "INSERT INTO producto (pronombre, prodetalle, procantstock, proprecio, promarca, proimagen1, proimagen2, proimagen3, proimagen4) VALUES ('".$this->getPronombre()."', '".$this->getProdetalle()."',".$this->getProcantstock().",".$this->getProPrecio().",'".$this->getProMarca()."','".$this->getProimagen1()."','".$this->getProimagen2()."','".$this->getProimagen3()."','".$this->getProimagen4()."')";
@@ -186,14 +186,15 @@ class Producto extends BaseDatos
         $resp = false;
         $base = new BaseDatos();
         
-        $proimagen2 = ($this->getProimagen2() !==  null)  ? $this->getProimagen2() : null;
+        $proimagen2 = ($this->getProimagen2() !==  null)  ? $this->getProimagen2() : "NULL";
         $this->setProimagen2($proimagen2);
-        $proimagen3 = ($this->getProimagen3() !==  null)  ? $this->getProimagen3() : null;
+        $proimagen3 = ($this->getProimagen3() !==  null)  ? $this->getProimagen3() : "NULL";
         $this->setProimagen3($proimagen3);
-        $proimagen4 = ($this->getProimagen4() !==  null)  ? $this->getProimagen4() : null;
+        $proimagen4 = ($this->getProimagen4() !==  null)  ? $this->getProimagen4() : "NULL";
         $this->setProimagen4($proimagen4);
 
-        $sql = "UPDATE producto SET pronombre = '" . $this->getPronombre() . "',  prodetalle = '" . $this->getProdetalle() . "',  proprecio = " . $this->getProPrecio() . ",  procantstock = " . $this->getProcantstock() . ", promarca = '" . $this->getPromarca() . "', proimagen1 = '" . $this->getProimagen1() . "',  proimagen2 = '" . $this->getProimagen2() . "',  proimagen3 = '" . $this->getProimagen3() . "',  proimagen4 = '" . $this->getProimagen4() . "'  WHERE idproducto = " . $this->getIdproducto() . ";";
+        $sql = "UPDATE producto SET pronombre = '" . $this->getPronombre() . "', prodetalle = '" . $this->getProdetalle() . "', proprecio = " . $this->getProPrecio() . ", procantstock = " . $this->getProcantstock() . ", promarca = '" . $this->getPromarca() . "', proimagen1 = '" . $this->getProimagen1() . "', proimagen2 = '" . $this->getProimagen2() . "', proimagen3 = '" . $this->getProimagen3() . "', proimagen4 = '" . $this->getProimagen4() . "' WHERE idproducto = " . $this->getIdproducto() . ";";
+        // $sql = "UPDATE producto SET pronombre = '6', prodetalle = '6', proprecio = 6, procantstock = 6, promarca = 'nike', proimagen1 = 'UklGRvB4AABXRUJQVlA4IOR4AADQCQKdASogAyADPm02l0ikI' WHERE idproducto = 16;";
         
         if($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
@@ -227,21 +228,20 @@ class Producto extends BaseDatos
 
     public function listar($parametro = "")
     {
-        $arreglo = array();
+        $arreglo = [];
         $base = new BaseDatos();
         $sql = "SELECT * FROM producto ";
         
         if ($parametro != "") {
             $sql .= 'WHERE ' . $parametro;
         }
-        
         $res = $base->Ejecutar($sql);
         if ($res > -1) {
             if ($res > 0) {
                 while ($row = $base->Registro()) {
                     $obj = new Producto();
                     $obj->setear($row);
-                    array_push($arreglo, $obj);
+                    $arreglo[] = $obj;
                 }
             }
         } else {

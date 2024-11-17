@@ -200,7 +200,7 @@
                 
                 <div class="form-group">
                     <label for="proprecio" class="form-label">Precio del producto</label>
-                    <input type="number" name="proprecio" id="proprecio" class="form-input" value="${producto.proprecio}" required>
+                    <input type="number" name="proprecio" id="proprecio" class="form-input" value="${parseInt(producto.proprecio,10).toFixed(2)}" required>
                 </div>
                 
                 <div class="form-group">
@@ -221,7 +221,7 @@
                 
                 <div class="form-group">
                     <label for="procantstock" class="form-label">Cantidad de stock</label>
-                    <input type="number" name="procantstock" id="procantstock" class="form-input" value="${producto.procantstock}" required>
+                    <input type="number" name="procantstock" id="procantstock" class="form-input" value="${parseInt(producto.procantstock,10)}" required>
                 </div>
 
                 <div class="form-group">
@@ -237,32 +237,23 @@
             url = './modificarAction.php';
             
             $('#form').on('submit', function(e) {
-                    e.preventDefault(); 
-                    $.ajax({
-                        url: url,
-                        type: 'POST',
-                        data: new FormData(this),
-                        processData: false,
-                        contentType: false,
-                        dataType: 'json',
+                e.preventDefault(); 
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: new FormData(this),
+                    processData: false,
+                    contentType: false,
 
-                        success: function(result){
-                            try {
-                                if (result) {
-                                    console.log(result);
-                                    $('#mensajeOperacion').addClass('alert alert-success alert-dismissible fade show text-center').html('Producto agregado exitosamente.');    
-                                }
-                            } catch (e) {
-                                console.log('Error al parsear la respuesta del servidor.');
-                            }
-                        },
-                        
-                        error: function(xhr, status, error) {
-                            console.log('Error al cargar los datos del menú dinámico.');
-                            console.log('Error: ' + error);
-                        }
-                    });
-            });     
+                    success: function(texto) {
+                        console.log(texto);
+                        $('#mensajeOperacion').addClass('alert alert-success alert-dismissible fade show text-center').html('Producto modificado exitosamente.');
+                    },
+                    error: function(xhr, status, error) {
+                        console.log('Error: ' + error);
+                    }
+                });
+            });
                  
             }
             

@@ -79,8 +79,6 @@ class abmProducto
 
     public function modificacion($param)
     {
-        echo "modificacion";
-        verEstructura($param);
         $resp = false;
         if ($this->seteadosCamposClaves($param)) {
             $elObjtProducto = $this->cargarObjeto($param);

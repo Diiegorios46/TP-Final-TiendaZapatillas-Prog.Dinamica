@@ -14,16 +14,10 @@ unset($datos['image']);
 $abmProducto = new abmProducto();
 
 try {
-    if($abmProducto->buscar($datos)) {
-        $datos['idproducto'] = $abmProducto->obtenerDatos($datos)[0]['idproducto'];
-        $abmProducto->abm($datos);
-        echo json_encode('Producto modificado con exito');
-    } else {
-        echo json_encode('No se encontro el producto');
-    }
+    
+    $datos['idproducto'] = $abmProducto->obtenerDatos($datos)[0]['idproducto'];
+    $abmProducto->abm($datos);
+    echo json_encode('Producto modificado con éxito');
 } catch (Exception $e) {
-    echo json_encode('Error al agregar el producto');
-}
-
-echo json_encode($datos);
-?>
+    //echo json_encode('Error al agregar el producto');
+}   
