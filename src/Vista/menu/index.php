@@ -168,12 +168,13 @@
                 
                 break;
             case 4:
+
                 url = './actionAltaUsuario.php';
-                $('.deposito-menu').html(``)
-                $('.grid').html(`
+                
+                $('.deposito-menu').html(`
                     <div class="container mt-5">
                         <h2>Formulario de Registro</h2>
-                        <form class="" id="fm" novalidate method="post">
+                        <form class="" id="formulario" novalidate method="post">
                             <div class="form-group">
                                 <label for="nombre">Nombre</label>
                                 <input type="text" name="usnombre" class="form-control" id="nombre" placeholder="Ingresa tu nombre" required>
@@ -188,9 +189,33 @@
                             </div>
                             <button type="submit" class="btn btn-primary">Enviar</button>
                         </form>
-                </div>
-                `)
+                </div>`);
 
+                $('#formulario').on('submit', function(e) {
+                    e.preventDefault(); 
+                    $.ajax({
+                        url: url,
+                        type: 'POST',
+                        data: new FormData(this),
+                        processData: false,
+                        contentType: false,
+                        dataType: 'json',
+                        success: function(result) {
+                            try {
+                                if (result) {
+                                    $('#mensajeOperacion').addClass('alert alert-success alert-dismissible fade show text-center').html('Se agrego un usuario correctamente.');    
+                                    } else {console.log('Error: ' + result.errorMsg);
+                                }
+                            } catch (e) {
+                                console.log('Error al parsear la respuesta del servidor.');
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.log('Error al cargar los datos del menú dinámico.');
+                            console.log('Error: ' + error);
+                        }
+                    });
+                });
 
                 break;
             case 5:
