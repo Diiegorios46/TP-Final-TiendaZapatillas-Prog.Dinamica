@@ -73,10 +73,63 @@
         var url;
         switch(indice) {
             case 1:
-
-
+                //COFIG USUARIO ADMIN CORREGIR PORQUE SOLO ADMIN TIENE ESE ORDEN , PERO LO DEJO ASI PARA QUE SEPAMOS LOS CODIGOS
+                    url = './actionlistarDatosUsuario.php';
+    
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(result) {
+                        $('.deposito-menu').html('');
+                        $('.grid').html('');
+    
+                        let userInfo = `
+                            <form class="upload-form" id="formularioUs" novalidate method="post" action="./actionConfigurarPerfil.php">
+                                <div class="form-group">
+                                    <label for="usnombre" class="form-label">Nombre del usuario</label>
+                                    <input type="text" name="usnombre" id="usnombre" class="form-input" value="${result.usnombre}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="usmail" class="form-label">Correo del usuario</label>
+                                    <input type="email" name="usmail" id="usmail" class="form-input" value="${result.usmail}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="uspass" class="form-label">Contraseña del usuario</label>
+                                    <input type="password" name="uspass" id="uspass" class="form-input" value="${result.uspass}" required>
+                                </div>
+                                <input type="submit" value="Actualizar Perfil" name="submit" class="form-submit">
+                            </form>
+                        `;
+                        $('.deposito-menu').append(userInfo);
+    
+                            $('#formularioUs').on('submit', function(e) {
+                                e.preventDefault();
+                                $.ajax({
+                                    url: './actionConfigurarPerfil.php',
+                                    type: 'POST',
+                                    data: new FormData(this),
+                                    processData: false,
+                                    contentType: false,
+                                    success: function(texto) {
+                                        $('#mensajeOperacion').addClass('alert alert-success alert-dismissible fade show text-center').html('Perfil editado exitosamente.');
+                                    },
+                                    error: function(xhr, status, error) {
+                                        console.log('Error: ' + error);
+                                    }
+                                });
+                            });
+                    },
+                    error: function(xhr, status, error) {
+                        console.log('Error al cargar los datos del menú dinámico.');
+                        console.log('Error: ' + error);
+                    }
+                });
                 break;
             case 2:
+                
+                break;
+            case 3:
                 //AGREGAR PRODUCTO ADMIN CORREGIR PORQUE SOLO ADMIN TIENE ESE ORDEN , PERO LO DEJO ASI PARA QUE SEPAMOS LOS CODIGOS
 
                 url = './agregarAction.php';
@@ -143,7 +196,7 @@
                 });
                 
                 break;
-            case 3:
+            case 4:
                 //MODIFICAR PRODUCTO ADMIN CORREGIR PORQUE SOLO ADMIN TIENE ESE ORDEN , PERO LO DEJO ASI PARA QUE SEPAMOS LOS CODIGOS
                 url = './listarDeposito.php';
 
@@ -193,9 +246,9 @@
                     }
                   
                 })
-                
+
                 break;
-            case 4:
+            case 5:
                 //ALTA USUARIO ADMIN CORREGIR PORQUE SOLO ADMIN TIENE ESE ORDEN , PERO LO DEJO ASI PARA QUE SEPAMOS LOS CODIGOS
                 url = './actionAltaUsuario.php';
                 
@@ -246,7 +299,7 @@
                 });
 
                 break;
-            case 5:
+                case 6:
                 //BAJA USUARIO ADMIN CORREGIR PORQUE SOLO ADMIN TIENE ESE ORDEN , PERO LO DEJO ASI PARA QUE SEPAMOS LOS CODIGOS
 
                 url = './listarUsuarios.php';
@@ -266,8 +319,8 @@
                             let usuarioStr = JSON.stringify(usuario).replace(/"/g, '&quot;');
                             
                             if (index % 4 === 0) {
-                                    row = $('<div class="row mt-4 mb-4"></div>');
-                                    $('.grid').append(row);
+                                row = $('<div class="row mt-4 mb-4"></div>');
+                                $('.grid').append(row);
                             }
 
                             let usuarioHtml = `
@@ -294,8 +347,9 @@
                     } 
                 });      
 
-                break;
-                case 6:
+                            
+                    break;   
+                     case 7:
                     //MODIFICAR USUARIO ADMIN CORREGIR PORQUE SOLO ADMIN TIENE ESE ORDEN , PERO LO DEJO ASI PARA QUE SEPAMOS LOS CODIGOS
 
                     url = './listarUsuarios.php'; 
@@ -340,64 +394,6 @@
                             console.log('Error: ' + error);
                         }
                     });
-
-                            
-                    break;   
-                     case 7:
-            //COFIG USUARIO ADMIN CORREGIR PORQUE SOLO ADMIN TIENE ESE ORDEN , PERO LO DEJO ASI PARA QUE SEPAMOS LOS CODIGOS
-                url = './actionlistarDatosUsuario.php';
-
-            $.ajax({
-                url: url,
-                type: 'GET',
-                dataType: 'json',
-                success: function(result) {
-                    $('.deposito-menu').html('');
-                    $('.grid').html('');
-
-                    let userInfo = `
-                        <form class="upload-form" id="formularioUs" novalidate method="post" action="./actionConfigurarPerfil.php">
-                            <div class="form-group">
-                                <label for="usnombre" class="form-label">Nombre del usuario</label>
-                                <input type="text" name="usnombre" id="usnombre" class="form-input" value="${result.usnombre}" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="usmail" class="form-label">Correo del usuario</label>
-                                <input type="email" name="usmail" id="usmail" class="form-input" value="${result.usmail}" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="uspass" class="form-label">Contraseña del usuario</label>
-                                <input type="password" name="uspass" id="uspass" class="form-input" value="${result.uspass}" required>
-                            </div>
-                            <input type="submit" value="Actualizar Perfil" name="submit" class="form-submit">
-                        </form>
-                    `;
-                    $('.deposito-menu').append(userInfo);
-
-                        $('#formularioUs').on('submit', function(e) {
-                            e.preventDefault();
-                            $.ajax({
-                                url: './actionConfigurarPerfil.php',
-                                type: 'POST',
-                                data: new FormData(this),
-                                processData: false,
-                                contentType: false,
-                                success: function(texto) {
-                                    $('#mensajeOperacion').addClass('alert alert-success alert-dismissible fade show text-center').html('Perfil editado exitosamente.');
-                                },
-                                error: function(xhr, status, error) {
-                                    console.log('Error: ' + error);
-                                }
-                            });
-                        });
-                },
-                error: function(xhr, status, error) {
-                    console.log('Error al cargar los datos del menú dinámico.');
-                    console.log('Error: ' + error);
-                }
-            });
-
-
             break;
             default:
                 console.log('Índice fuera de rango: ' + indice);

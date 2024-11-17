@@ -74,7 +74,6 @@ class abmUsuario{
                 $this->abm($param);
                 $param['accion'] = 'borrar';
             } else {
-                $_SESSION['idusuario'] = $param['idusuario'];
                 $resp = true;
             }
             

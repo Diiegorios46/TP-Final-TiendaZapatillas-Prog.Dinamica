@@ -39,7 +39,6 @@ class UsuarioRol extends BaseDatos{
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 $resp = true;
-                $_SESSION['idusuario'] = $this->getIdUsuario();
             } else {
                 $this->setMensajeOperacion("UsuarioRol->insertar: " . $base->getError());
             }

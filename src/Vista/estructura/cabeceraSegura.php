@@ -42,9 +42,7 @@ include '../../../config.php';
                         </i>
 
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="../login/index.php">Iniciar Sesion.</a></li>
-                            <li><a class="dropdown-item" href="../register/index.php">Registrate</a></li>
-                            <li><a class="dropdown-item" href="../home/logout.php">Cerrar</a></li>
+                            <li><a class="dropdown-item" href="../home/logout.php">Cerrar Sesion</a></li>
                         </ul>
                     </div>
 
