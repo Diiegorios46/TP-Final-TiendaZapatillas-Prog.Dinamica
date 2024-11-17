@@ -17,7 +17,6 @@
     <script>
     $(document).ready(function() {
 
-
         function mostrarMenues() {
             $.ajax({
                 url: 'actionMenu.php',
@@ -25,12 +24,35 @@
                 dataType: 'json',
                 success: function(response) {
                     $('.deposito-menu').html('');
+                    
                     if (response.error) {
                         $('.deposito-menu').html('Error al cargar los datos.');
                     } else {
                         var i = 1;
                         response.forEach(menu => {
-                            let menuHtml = `<button type="button" class="deposito-btn-subir-producto" onclick="obtenerMenu(${i})">${menu}</button>`;
+                            switch(menu) {
+                                case 'verpaquete':
+                                    menu = "<span>Ver Paquete(s).<span>";
+                                    break;
+                                case 'agregarproducto':
+                                    menu = "<span>Agregar un Producto.<span>";
+                                    break;
+                                case 'modificarproducto':
+                                    menu = "<span>Modificar un Producto.<span>";
+                                    break;
+                                case 'altausuario':
+                                    menu = "<span> Agregar un Usuario.<span>";
+                                    break;
+                                case 'bajausuario':
+                                    menu = "<span>Deshabilitar Usuario.<span>";
+                                    break;
+                                case 'modificarusuario':
+                                    menu = "<span>Modificar un Usuario.<span>";
+                                    break;
+                                case 'configuracionusuario': 
+                                    menu = "<span>Configuracion de Usuario.<span>";
+                                    break;          
+                            }    let menuHtml = `<button type="button" class="deposito-btn-subir-producto" onclick="obtenerMenu(${i})">${menu}</button>`;
                             $('.deposito-menu').append(menuHtml);
                             i++;
                         });
@@ -520,12 +542,13 @@
                     <div class="form-group">
                         <label for="usmail" class="form-label">Correo del usuario</label>
                         <input type="text" name="usmail" id="usmail" class="form-input" value="${objUsuario.usmail}" readonly required>
+                    </div>
+                    <div class="form-group"> 
+                         <label for="usmail" class="form-label">Estado</label>
                         <input type="text" name="usmail" id="usmail" class="form-input" value="${objUsuario.usdeshabilitado == '0000-00-00 00:00:00' ? 'Habilitado' : 'Deshabilitado'}" readonly required>
-                    </div> 
-                     <div class="form-group">                
-                        
-                     <p>¿Estas seguro de que quieres eliminar ? 😲😒</p>
-                    <input type="submit" value="Confirmar Baja" name="submit" class="form-submit" required>
+                        <p>¿Estas seguro de que quieres eliminar ? 😲😒</p>
+                        <input type="submit" value="Confirmar Baja" name="submit" class="form-submit" required>
+                    </div>                 
                 </form>`
             );
             

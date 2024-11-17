@@ -24,22 +24,27 @@ include '../../../config.php';
                 <div class="w100-h55">
                     <a href="../../../../TpFinal-TiendaZapatillas/src/Vista/home/index.php"><img src="../Assets/imgs/th.jpg" alt="" class="h-100 w-100 objet-fit rounded"></a>
                 </div>
-                <?php 
-                    $session = new Session();
-                    if($session->validar()){
-                        echo "<h1> Bienvenido ".$session->getUsuario()['usnombre']."!! 🫡🫡</h1";
-                    } else {
-                        header('Location: ../login/index.php');
-                    }
-                ?>
+               
                 <div class="d-flex w-10 gap">
                     <div class="dropdown">
-                        <a href="../menu/index.php"><button class="btn bg-success">configuracion</button></a>
-                        <i class="bi bi-person-circle dropdown-toggle icono-persona" id="dropdownMenuButton"style="font-size: 2rem;" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                        <a href="../menu/index.php" class="btn-link text-reset">
+                            <i class="bi bi-gear w-100"></i>
+                        </a>
+                        
+                        
+                        <i class="bi bi-person-circle dropdown-toggle icono-persona" id="dropdownMenuButton"style="font-size: 2rem;" data-bs-toggle="dropdown" aria-expanded="false">                        <?php 
+                            $session = new Session();
+                            if($session->validar()){
+                               echo "<span>". strtoupper($session->getUsuario()['usnombre']) ."</span>";
+                            } else {
+                                header('Location: ../login/index.php');
+                            }?>
+                        </i>
+
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="../login/index.php">Iniciar Sesion.</a></li>
                             <li><a class="dropdown-item" href="../register/index.php">Registrate</a></li>
-                            <li><a href="../home/logout.php">Cerrar</a></li>
+                            <li><a class="dropdown-item" href="../home/logout.php">Cerrar</a></li>
                         </ul>
                     </div>
 
