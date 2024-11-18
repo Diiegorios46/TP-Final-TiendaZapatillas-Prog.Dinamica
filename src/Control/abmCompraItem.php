@@ -84,7 +84,6 @@ class abmCompraItem{
         $resp = false;
 
         $elObjtCompraItem = $this->cargarObjeto($param);
-        verEstructura($elObjtCompraItem);
         if ($elObjtCompraItem != null and $elObjtCompraItem->insertar()) {
             $resp = true;
         }

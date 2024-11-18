@@ -20,15 +20,15 @@ class Compra extends BaseDatos
         return $this->idcompra;
     }
     
+    public function getIdusuario()
+    {
+        return $this->idusuario;
+    }
     public function getCofecha()
     {
         return $this->cofecha;
     }
     
-    public function getIdusuario()
-    {
-        return $this->idusuario;
-    }
 
     public function setIdcompra($idcompra)
     {
@@ -89,8 +89,7 @@ class Compra extends BaseDatos
     {
         $resp = false;
         $base = new BaseDatos();
-        $id = $this->getIdcompra() ? $this->getIdcompra() : 'NULL';
-        $sql = "INSERT INTO compra (idcompra, cofecha, idusuario) VALUES ({$id},'{$this->getCofecha()}',{$this->getIdusuario()});";
+        $sql = "INSERT INTO compra (idcompra, cofecha, idusuario) VALUES ({$this->getIdcompra()},'{$this->getCofecha()}',{$this->getIdusuario()});";
         
         if ($base->Iniciar()) {
             if ($elid = $base->Ejecutar($sql)) {
@@ -158,15 +157,7 @@ class Compra extends BaseDatos
 
                 while ($row = $base->Registro()) {
                     $obj = new Compra();
-
-                    $objUsuario = NULL;
-                    if ($row['idusuario'] != null) {
-                        $objUsuario = new usuario();
-                        $objUsuario->setIdusuario($row['idusuario']);
-                        $objUsuario->cargar();
-                    }
-
-                    $obj->setear($row['idcompra'], $row['cofecha'], $objUsuario);
+                    $obj->setear($row);
                     array_push($arreglo, $obj);
                 }
             }

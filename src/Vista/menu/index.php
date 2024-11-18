@@ -127,7 +127,20 @@
                 });
                 break;
             case 2:
-                
+                url = "./actionVerPaquetes.php";
+
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    success: function(result) {
+                        console.log(result);
+                    },
+                    error: function(xhr, status, error) {
+                        console.log('Error al cargar los datos del menú dinámico.');
+                        console.log('Error: ' + error);
+                    }
+                })
+
                 break;
             case 3:
                 //AGREGAR PRODUCTO ADMIN CORREGIR PORQUE SOLO ADMIN TIENE ESE ORDEN , PERO LO DEJO ASI PARA QUE SEPAMOS LOS CODIGOS

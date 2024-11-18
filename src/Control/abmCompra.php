@@ -57,9 +57,16 @@ class abmCompra
     {
         $resp = false;
         $param['idcompra'] = null;
+        $param['cefechaini'] = null;
+        $param['idcompraestadotipo'] = 1;
+        $param['cefechafin'] = null;
         
         $elObjtArchivoE = $this->cargarObjeto($param);
         if ($elObjtArchivoE != null and $elObjtArchivoE->insertar()) {
+            $param['idcompra'] = $elObjtArchivoE->getIdcompra();
+            $param['accion'] = 'nuevo';
+            $objCompraEstado = new abmCompraEstado();
+            $objCompraEstado->abm($param);
             $resp = true;
         }
         return $resp;
@@ -104,5 +111,55 @@ class abmCompra
         $arreglo = Compra::listar($where);
 
         return $arreglo;
+    }
+
+    // public function obtenerDatos($param){
+    //         $where = " true ";
+    //         if ($param <> NULL) {
+    //             if (isset($param['idrol']))
+    //                 $where .= " and idrol ='" . $param['idrol'] . "'";
+    //             if (isset($param['idusuario']))
+    //                 $where .= " and idusuario =" . $param['idusuario'] . "";
+    //         }
+
+    //         $obj = new UsuarioRol();
+    //         $arreglo = $obj->listar($where);
+    //         $result = [];
+            
+    //         if (!empty($arreglo)) {
+    //             foreach ($arreglo as $rol) {
+    //                 $result[] = ["idrol" => $rol->getIdRol(),
+    //                              "idusuario" => $rol->getIdUsuario()];
+    //             }
+    //         }
+    //         return $result;
+    //     }    
+
+
+    public function obtenerDatos($param) {
+        $where = " true ";
+        if ($param <> NULL) {
+            if (isset($param['idcompra']))
+                $where .= " and idcompra =" . $param['idcompra'];
+            if (isset($param['idusuario']))
+                $where .= " and idusuario ='" . $param['idusuario'] . "'";
+            if (isset($param['cofecha']))
+                $where .= " and cofecha ='" . $param['cofecha'] . "'";
+        }
+
+        $obj = new Compra();
+        $arreglo = $obj->listar($where);
+        $result = [];
+
+        if (!empty($arreglo)) {
+            foreach ($arreglo as $compra) {
+                $result[] = [
+                    "idcompra" => $compra->getIdcompra(),
+                    "idusuario" => $compra->getIdusuario(),
+                    "cofecha" => $compra->getCofecha()
+                ];
+            }
+        }
+        return $result;
     }
 }

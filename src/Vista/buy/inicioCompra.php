@@ -1,10 +1,10 @@
 <?php 
-include '../estructura/cabecera.php';
+include '../estructura/cabeceraSegura.php';
 /*ACA VA EL COSO PARA LA COMPRA , CAMBPOS DE PAGO FICTICIOS*/
 
 $datos = data_submitted();
 ?>
-
+<div id='mensajeOperacion'></div>
 <main class="container-sm min-height-50">
 
     <section class="m-5 d-flex flex-row">
@@ -83,8 +83,8 @@ $datos = data_submitted();
             </div>
         </div>
         <div class="d-flex justify-content-center mt-3">
-            <button class="btn btn-primary">Confirmar</button>
-             </div>
+            <button class="btn btn-primary" onclick="pago()">Confirmar</button>
+        </div>
     </div>
 </div>
 
@@ -93,9 +93,33 @@ $datos = data_submitted();
     <script>
         
         /** crear el finalizar compra en action.php */
-        /* */
         function pago(){
-            window.location.href = '../buy/action.php'
+            $.ajax({
+                url: './actionIniciarCompra.php',
+                type: 'get',
+                beforeSend: function(){
+                    console.log('enviando');
+                },
+                success: function(response){
+                    console.log(response);
+                    $.ajax({
+                        url: './actionMandarCorreo.php',
+                        type: 'get',
+                        beforeSend: function(){
+                            console.log('enviando');
+                        },
+                        success: function(response){
+                            $('#mensajeOperacion').addClass('alert alert-success alert-dismissible fade show text-center').html('Se envio exitosamente.');
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('Error en la solicitud AJAX:', status, error);
+                        }
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error en la solicitud AJAX:', status, error);
+                }
+            });
         }
 
     </script>

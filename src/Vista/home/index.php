@@ -7,6 +7,9 @@
         $session->cerrar();
         include '../estructura/cabecera.php';
     }
+    if (isset($_GET['seccion']) && $_GET['seccion'] == 'iniciarCompra'){
+        echo 'inicioCompra';
+    }
     ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -185,7 +188,7 @@
                                 </button>
                             </div>
                         </div>
-                        <form method='post' action='../buy/finalizaCompra.php' class="card-compra d-flex flex-row w-100 justify-content-center mr-5 mb-2 pr-1">
+                        <form method='post' action='../buy/inicioCompra.php' class="card-compra d-flex flex-row w-100 justify-content-center mr-5 mb-2 pr-1">
                             <button type='submit' name='idproducto' value='' class="btn btn-dark btn-comprar">Pagar</button>
                         </form>
                     `; 
@@ -257,14 +260,14 @@
                                 <span class="align-self-center fs-6">${item.id}</span>
                             </div>
                         </div>
-                        <form method='post' action='../buy/finalizaCompra.php' class="card-compra d-flex flex-row w-100 justify-content-center mr-5 mb-2 pr-1">
+                        <form method='post' action='../buy/inicioCompra.php' class="card-compra d-flex flex-row w-100 justify-content-center mr-5 mb-2 pr-1">
                             <button type='submit' name='idproducto' value='' class="btn btn-dark btn-comprar">Pagar</button>
                         </form>
                     `;
                 });
 
                 modal.innerHTML += `
-                <form method='post' action='../buy/finalizaCompra.php' class="card-compra d-flex flex-row w-100 justify-content-center mr-5 mb-2 pr-1">
+                <form method='post' action='../buy/inicioCompra.php' class="card-compra d-flex flex-row w-100 justify-content-center mr-5 mb-2 pr-1">
                     ${carrito.map((item, index) => `
                         <input type='hidden' name='productos[${index}][idproducto]' value='${item.id}'>
                         <input type='hidden' name='productos[${index}][nombre]' value='${item.nombre}'>

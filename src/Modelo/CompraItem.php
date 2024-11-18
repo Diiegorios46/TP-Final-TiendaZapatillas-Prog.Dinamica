@@ -64,7 +64,6 @@ class CompraItem extends BaseDatos
     }
     
     public function setear($param){
-        verEstructura($param);
         $this->setIdcompraitem($param['idcompraitem']);
         $this->setIdproducto($param['idproducto']);
         $this->setIdCompra($param['idcompra']);
@@ -133,7 +132,6 @@ class CompraItem extends BaseDatos
         $base = new BaseDatos();
         
         $sql = "UPDATE compraitem SET idproducto='{$this->getIdproducto()}', idcompra={$this->getIdcompra()}, cicantidad={$this->getCicantidad()} WHERE idcompraitem={$this->getIdcompraitem()}";
-        verEstructura($sql);
         
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
