@@ -18,7 +18,7 @@ $datos = data_submitted();
             type: 'get',
             dataType: 'json',
             beforeSend: function(){
-                console.log('enviando');
+                console.log('trayendo datos');
             },
             success: function(response){
                 //console.log('aaa');
@@ -62,6 +62,49 @@ $datos = data_submitted();
               
                 //console.log(total);
                 $('#total').html('$' + total.toFixed(2));
+
+                // Crear el formulario fantasma
+                var form = $('<form>', {
+                    'action': './actionIniciarCompra.php',
+                    'method': 'post',
+                    'style': 'display: none;',
+                    'id': 'formCompra',
+                    'class': 'd-none',
+                    'target': 'hidden_iframe'
+                });
+
+                // Crear un iframe oculto
+                var iframe = $('<iframe>', {
+                    'name': 'hidden_iframe',
+                    'style': 'display: none;'
+                });
+
+                // Agregar los datos al formulario
+                datos.forEach(function(producto) {
+                    form.append($('<input>', {
+                        'type': 'hidden',
+                        'name': 'productos[]',
+                        'value': JSON.stringify(producto)
+                    }));
+                });
+
+                // Agregar el iframe y el formulario al body y enviarlo
+                $('body').append(iframe).append(form);
+                form.submit();
+            // Enviar los datos usando AJAX en lugar de un formulario oculto
+            $.ajax({
+                url: './actionIniciarCompra.php',
+                type: 'post',
+                data: { productos: datos },
+                success: function(response) {
+                    console.log('se envio el formulario...');
+                    console.log(response);
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error en la solicitud AJAX:', status, error);
+                }
+            });
+            console.log('datos cargados');
             },
             error: function(xhr, status, error) {
                 console.error('Error en la solicitud AJAX:', status, error);
@@ -96,9 +139,9 @@ $datos = data_submitted();
         function pago(){
             $.ajax({
                 url: './actionIniciarCompra.php',
-                type: 'get',
+                type: 'post',
                 beforeSend: function(){
-                    console.log('enviando');
+                    console.log('enviando datos al servidor');
                 },
                 success: function(response){
                     console.log(response);
@@ -106,9 +149,10 @@ $datos = data_submitted();
                         url: './actionMandarCorreo.php',
                         type: 'get',
                         beforeSend: function(){
-                            console.log('enviando');
+                            console.log('enviando correo');
                         },
                         success: function(response){
+                            console.log(response);
                             $('#mensajeOperacion').addClass('alert alert-success alert-dismissible fade show text-center').html('Se envio exitosamente.');
                         },
                         error: function(xhr, status, error) {

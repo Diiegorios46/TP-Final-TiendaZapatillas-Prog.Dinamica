@@ -7,7 +7,8 @@ $abmCompraItem = new abmCompraItem();
 
 $datos = data_submitted();
 
-echo json_encode($datos);
+$productos = $datos['productos'];
+
 // $idUsuario = $session->getUsuario()['idusuario'];
 
 // $datos['accion'] = 'nuevo';
@@ -19,3 +20,7 @@ echo json_encode($datos);
 // }else{
 //     echo json_encode("Se lesiono");
 // }
+
+foreach($productos as $producto){
+    //ACA TIENE QUE OCURRIR LA MAGIA (PROBABLEMENTE)
+}
