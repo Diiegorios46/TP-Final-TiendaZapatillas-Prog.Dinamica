@@ -227,7 +227,7 @@ class BaseDatos extends PDO {
        $indiceActual = $this->getIndice();
        if ($indiceActual>=0) {
            $filas = $this->getResultado();
-           if($indiceActual<count($filas)){
+           if($indiceActual< count($filas)){
                $filaActual =  $filas[$indiceActual];
           
                 $indiceActual++;

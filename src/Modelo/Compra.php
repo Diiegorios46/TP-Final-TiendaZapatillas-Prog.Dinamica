@@ -61,7 +61,7 @@ class Compra extends BaseDatos
         $resp = false;
         $base = new BaseDatos();
         $sql = "SELECT * FROM compra WHERE idcompra = " . $this->getIdcompra();
-        // echo $sql;
+
         if ($base->Iniciar()) {
             $res = $base->Ejecutar($sql);
             if ($res > -1) {
@@ -70,12 +70,12 @@ class Compra extends BaseDatos
 
                     $objUsuario = NULL;
                     if ($row['idusuario'] != null) {
-                        $objUsuario = new usuario();
+                        $objUsuario = new Usuario();
                         $objUsuario->setIdusuario($row['idusuario']);
                         $objUsuario->cargar();
                     }
 
-                    $this->setear($row['idcompra'], $row['cofecha'], $objUsuario);
+                    $this->setear($row);
                     $resp = true;
                 }
             }
@@ -89,7 +89,7 @@ class Compra extends BaseDatos
     {
         $resp = false;
         $base = new BaseDatos();
-        $sql = "INSERT INTO compra (idcompra, cofecha, idusuario) VALUES ({$this->getIdcompra()},'{$this->getCofecha()}',{$this->getIdusuario()});";
+        $sql = "INSERT INTO compra (cofecha, idusuario) VALUES ('{$this->getCofecha()}',{$this->getIdusuario()});";
         
         if ($base->Iniciar()) {
             if ($elid = $base->Ejecutar($sql)) {
@@ -111,7 +111,6 @@ class Compra extends BaseDatos
         $id = $this->getIdcompra() ? $this->getIdcompra() : 'NULL';
         
         $sql = "UPDATE compra SET cofecha='{$this->getCofecha()}', idusuario='{$this->getIdusuario()}' WHERE idcompra='{$this->getIdcompra()}'";
-        verEstructura($sql);
         
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
@@ -132,7 +131,7 @@ class Compra extends BaseDatos
         $sql = "DELETE FROM compra WHERE idcompra=" . $this->getIdcompra();
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
-                return true;
+                $resp = true;
             } else {
                 $this->setMensajeOperacion("Compra->eliminar: " . $base->getError());
             }

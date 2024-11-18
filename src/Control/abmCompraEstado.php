@@ -126,14 +126,13 @@ class abmCompraEstado
             if(isset($param['idcompraestadotipo']))
                 $where .= " and idcompraestadotipo = '" . $param['idcompraestadotipo'] . "'";
             if(isset($param['cefechaini']))
-                $where .= " and cefechaini = " . $param['cefechaini'];
+                $where .= " and cefechaini = '" . $param['cefechaini'] . "'";
             if(isset($param['cefechafin']))
                 $where .= " and cefechafin = '" . $param['cefechafin'] . "'";
         }
         $obj = new CompraEstado();
         $arreglo = $obj->listar($where);
         $result = [];
-
         if (!empty($arreglo)) {
             foreach ($arreglo as $compraEstado) {
                 $result[] = [

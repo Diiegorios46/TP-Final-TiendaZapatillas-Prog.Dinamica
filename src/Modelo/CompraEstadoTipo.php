@@ -42,11 +42,11 @@ class compraestadotipo extends BaseDatos
         $this->mensajeoperacion = $msj;
     }
 
-    public function setear($idcompraestadotipo, $cetdescripcion, $cetdetalle)
+    public function setear($param)
     {
-        $this->setIdcompraestadotipo($idcompraestadotipo);
-        $this->setCetdescripcion($cetdescripcion);
-        $this->setCetdetalle($cetdetalle);
+        $this->setIdcompraestadotipo($param['idcompraestadotipo']);
+        $this->setCetdescripcion($param['cetdescripcion']);
+        $this->setCetdetalle($param['cetdetalle']);
     }
 
     public function cargar()
@@ -61,9 +61,7 @@ class compraestadotipo extends BaseDatos
             if ($res > -1) {
                 if ($res > 0) {
                     $row = $base->Registro();
-                    $this->setear($row['idcompraestadotipo'], 
-                                  $row['cetdescripcion'], 
-                                  $row['cetdetalle']);
+                    $this->setear($row);
                     $resp = true;
                 }
             }
@@ -123,7 +121,7 @@ class compraestadotipo extends BaseDatos
         
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
-                return true;
+                $resp = true;
             } else {
                 $this->setMensajeOperacion("CompraEstadoTipo->eliminar: " . $base->getError());
             }
@@ -148,9 +146,7 @@ class compraestadotipo extends BaseDatos
 
                 while ($row = $base->Registro()) {
                     $obj = new compraestadotipo();
-                    $obj->setear($row['idcompraestadotipo'],
-                                 $row['cetdescripcion'],
-                                 $row['cetdetalle']);
+                    $obj->setear($row);
                     array_push($arreglo, $obj);
                 }
             }

@@ -9,18 +9,18 @@ $datos = data_submitted();
 
 $productos = $datos['productos'];
 
-// $idUsuario = $session->getUsuario()['idusuario'];
-
-// $datos['accion'] = 'nuevo';
-// $datos['idusuario'] = $idUsuario;
-// $datos['cofecha'] = date('Y-m-d H:i:s');
-
-// if($abmCompra->abm($datos)){
-
-// }else{
-//     echo json_encode("Se lesiono");
-// }
+$i = 0;
 
 foreach($productos as $producto){
-    //ACA TIENE QUE OCURRIR LA MAGIA (PROBABLEMENTE)
+    $datos['accion'] = 'nuevo';
+    $datos['idusuario'] = $session->getUsuario()['idusuario'];
+    $datos['cofecha'] = date('Y-m-d H:i:s');
+    $datos['idproducto'] = $producto['idproducto'];
+    $datos['cicantidad'] = $producto['cantidad'];
+    if($abmCompra->abm($datos)){
+        echo "Se creo la compra" . $i ."\n";
+    }else{
+        echo "Se lesiono";
+    }
+    $i++;
 }

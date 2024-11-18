@@ -111,6 +111,25 @@ class Usuario extends BaseDatos {
         return $resp;
     }
 
+    public function cargar(){
+        $resp = false;
+        $base=new BaseDatos();
+        $sql="SELECT * FROM usuario WHERE idusuario= ".$this->getIdUsuario();
+        
+        if($base->Iniciar()){
+            $res = $base->Ejecutar($sql);
+            if($res>-1){
+                if($res>0){
+                    $row = $base->Registro();
+                    $this->setear($row);
+                }
+            }
+        } else {
+            $this->setUsdeshabilitado(1);
+        }
+        return $resp;
+    }
+
 
     public function listar($param=''){
         $arreglo = null;

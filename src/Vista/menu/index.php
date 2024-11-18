@@ -133,14 +133,37 @@
                     url: url,
                     type: 'GET',
                     success: function(result) {
-                        console.log(result);
+                        console.log(result)
+                        /*
+                        result.forEach(function(datos, index) {
+                            
+                            if (index % 4 === 0) {
+                                row = $('<div class="row mt-4 mb-4"></div>');
+                                $('.grid').append(row);
+                            }
+                            let pedido  = `<div class="container-sm border mt-5 w-100 rounded">
+                                                    <div class="column w-25">
+                                                        <div class="d-flex flex-column">
+                                                            <div>idproducto:${datos.idproducto}</div>
+                                                            <div>idCompra:${datos.idcompra}</div>
+                                                            <div>cantidad solicitada:${datos.cicantidad}</div>
+                                                            <div>Stock: ${datos}</div>
+                                                            <div class="d-flex flex-row">
+                                                                <button class="btn btn-success m-1">Enviar</button>
+                                                                <button class="btn btn-danger m-1">Cancelar</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>`;
+                        });
+                        pedido.append(datos);
+                        */
                     },
                     error: function(xhr, status, error) {
                         console.log('Error al cargar los datos del menú dinámico.');
                         console.log('Error: ' + error);
                     }
                 })
-
                 break;
             case 3:
                 //AGREGAR PRODUCTO ADMIN CORREGIR PORQUE SOLO ADMIN TIENE ESE ORDEN , PERO LO DEJO ASI PARA QUE SEPAMOS LOS CODIGOS

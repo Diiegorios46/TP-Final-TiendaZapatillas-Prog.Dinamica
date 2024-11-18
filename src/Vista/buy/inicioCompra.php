@@ -91,19 +91,7 @@ $datos = data_submitted();
                 // Agregar el iframe y el formulario al body y enviarlo
                 $('body').append(iframe).append(form);
                 form.submit();
-            // Enviar los datos usando AJAX en lugar de un formulario oculto
-            $.ajax({
-                url: './actionIniciarCompra.php',
-                type: 'post',
-                data: { productos: datos },
-                success: function(response) {
-                    console.log('se envio el formulario...');
-                    console.log(response);
-                },
-                error: function(xhr, status, error) {
-                    console.error('Error en la solicitud AJAX:', status, error);
-                }
-            });
+            
             console.log('datos cargados');
             },
             error: function(xhr, status, error) {
@@ -140,6 +128,7 @@ $datos = data_submitted();
             $.ajax({
                 url: './actionIniciarCompra.php',
                 type: 'post',
+                data: { productos: <?php echo json_encode($datos['productos']); ?> },
                 beforeSend: function(){
                     console.log('enviando datos al servidor');
                 },

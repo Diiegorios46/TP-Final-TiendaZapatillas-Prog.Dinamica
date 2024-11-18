@@ -52,8 +52,8 @@ class abmCompraItem{
     private function cargarObjeto($param)
     {
         $objCompraItem = null;
-        if (array_key_exists('idcompra', $param) && array_key_exists('idproducto', $param) && array_key_exists('idcompraitem', $param)) {
-
+        $param['idcompraitem'] = null;
+        if (array_key_exists('idcompra', $param) && array_key_exists('idproducto', $param) && array_key_exists('idcompraitem', $param) && array_key_exists('cicantidad', $param)) {
             $objCompraItem = new CompraItem();
             $objCompraItem->setear($param);
         }
@@ -82,8 +82,8 @@ class abmCompraItem{
 
     public function alta($param)
     {
+        $paramp['idcompraitem'] = null;
         $resp = false;
-
         $elObjtCompraItem = $this->cargarObjeto($param);
         if ($elObjtCompraItem != null and $elObjtCompraItem->insertar()) {
             $resp = true;
@@ -115,6 +115,39 @@ class abmCompraItem{
         return $resp;
     }
 
-    
+    public function obtenerDatos($param){
+        $where = " true ";
+        if ($param != null) {
+            if (isset($param['idcompraitem'])) {
+                $where .= " and idcompraitem =" . $param['idcompraitem'];
+            }
+            if (isset($param['idcompra'])) {
+                $where .= " and idcompra =" . $param['idcompra'];
+            }
+            if (isset($param['idproducto'])) {
+                $where .= " and idproducto =" . $param['idproducto'];
+            }
+            if (isset($param['citcantidad'])) {
+                $where .= " and citcantidad =" . $param['citcantidad'];
+            }
+        }
+
+        $objCompraItem = new CompraItem();
+        $arreglo = $objCompraItem->listar($where);
+
+        $result = [];
+        
+        foreach ($arreglo as $compraItem) {
+            $result[] = [
+            'idcompraitem' => $compraItem->getIdcompraitem(),
+            'idcompra' => $compraItem->getIdcompra(),
+            'idproducto' => $compraItem->getIdproducto(),
+            'cicantidad' => $compraItem->getCicantidad(),
+            ];
+        }
+        $arreglo = $result;
+
+        return $arreglo;
+    }
 }
 ?>
