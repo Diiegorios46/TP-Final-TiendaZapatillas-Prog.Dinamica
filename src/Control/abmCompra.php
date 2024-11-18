@@ -108,7 +108,8 @@ class abmCompra
             if (isset($param['idusuario']))
                 $where .= " and idusuario ='" . $param['idusuario'] . "'";
         }
-        $arreglo = Compra::listar($where);
+        $obj = new Compra();
+        $arreglo = $obj->listar($where);
 
         return $arreglo;
     }

@@ -44,7 +44,8 @@ class abmCompraItem{
                 $where .= " and citprecio =" . $param['citprecio'];
             }
         }
-        $arreglo = compraitem::listar($where);
+        $objCompraItem = new CompraItem();
+        $arreglo = $objCompraItem->listar($where);
         return $arreglo;
     }
 
