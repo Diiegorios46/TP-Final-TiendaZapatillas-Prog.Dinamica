@@ -3,7 +3,9 @@ include '../../../config.php';
 
 $datos = data_submitted();
 
-if($session->iniciar($datos['mail'], md5($datos['password']))){
+$datos['password'] = md5($datos['password']);
+
+if($session->iniciar($datos['mail'], $datos['password'])){
     $mensaje = '1';
 } else {
     $mensaje = '0';

@@ -30,12 +30,11 @@ $(document).ready(function(){
             url: './action.php',
             data: datos,
             success: function(data){
-                console.log(data);
-                // if(data == '1'){
-                //     window.location.href = '../home/index.php';
-                // } else {
-                //     window.location.href = './index.php?error=1';
-                // }
+                if(data == '1'){
+                    window.location.href = '../home/index.php';
+                } else {
+                    window.location.href = './index.php?error=1';
+                }
             },
             error: function(data){
                 console.log(data);

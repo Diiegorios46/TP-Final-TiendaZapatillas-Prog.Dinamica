@@ -1,6 +1,9 @@
 <?php
 include '../../../config.php';
 
+if($session->getUsuario() == null){
+    header('Location: ./inicioCompra.php');
+}
 $abmCompraEstado = new abmCompraEstado();
 $abmCompra = new abmCompra();
 $abmCompraItem = new abmCompraItem();
