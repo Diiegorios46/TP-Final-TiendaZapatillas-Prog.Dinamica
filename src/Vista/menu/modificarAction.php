@@ -1,24 +1,34 @@
 <?php
 include '../../../config.php';
 
-$datos = data_submitted();
+$nuevosDatosProducto = data_submitted();
+// verEstructura($nuevosDatosProducto);
+$producto = new abmProducto();
+$productoViejo = $producto->obtenerDatos(['idproducto' => $nuevosDatosProducto['idproducto']])[0];
+
+// verEstructura($nuevosDatosProducto);
+$datos = [];
 $datos['accion'] = 'editar';
+$i=1;
 
-if (isset($datos['image']) && !empty($datos['image']['tmp_name'])) {
-    foreach ($datos['image']['tmp_name'] as $key => $tmp_name) {
-        $datos['proimagen' . ($key + 1)] = base64_encode(file_get_contents($tmp_name));
+foreach ($nuevosDatosProducto as $key => $value) {
+    // echo $key . ' ' . $value . '<br>'; 
+    if ($value != $productoViejo[$key]) {
+        if($key == 'proimagen1'){
+            $datos['proimagen1'] = base64_encode(file_get_contents($nuevosDatosProducto['proimagen1']));
+            verEstructura($datos['proimagen1']);
+            unset($datos['image']);
+            $datos[$key] = $value;
+        }
+        echo "diferente " . $i++ . '<br>';
+
+    } else {
+        $datos[$key] = $productoViejo[$key];
     }
-    unset($datos['image']);
 }
-
-$abmProducto = new abmProducto();
-
-try {
-    if($abmProducto->abm($datos)){
-        echo json_encode("Producto modificado con éxito");
-     } else {
-        echo json_encode("Error al modificar el producto");
-    }
- } catch (Exception $e) {
- }
+if ($producto->abm($datos)) {
+    echo "Producto modificado con éxito";
+} else {
+    echo "Error al modificar el producto";
+}
 ?>

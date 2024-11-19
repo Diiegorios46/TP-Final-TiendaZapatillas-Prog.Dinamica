@@ -88,8 +88,7 @@
                                             <div class="card-marca">${producto.promarca}</div>
                                             <div class="card-infoZapatillas data-nombre">${producto.pronombre}</div>
                                             <div class="card-precioMasDescuento">
-                                                <span class="data-precio">${producto.proprecio}</span>
-                                                <span>10% off</span>
+                                                <strong>$</strong><span class="data-precio">${producto.proprecio} </span><strong>USD</strong>
                                             </div>
                                             <div class="hidden">
                                                 <span class="data-idproducto">${producto.idproducto}</span>

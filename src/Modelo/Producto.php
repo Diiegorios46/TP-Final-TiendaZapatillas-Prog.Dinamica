@@ -47,21 +47,6 @@ class Producto extends BaseDatos
         return $this->proimagen1;
     }
 
-    public function getProimagen2()
-    {
-        return $this->proimagen2;
-    }
-
-    public function getProimagen3()
-    {
-        return $this->proimagen3;
-    }
-
-    public function getProimagen4()
-    {
-        return $this->proimagen4;
-    }
-    
     //SETTERS
     public function setIdproducto($idproducto)
     {
@@ -90,20 +75,6 @@ class Producto extends BaseDatos
         $this->proimagen1 = $proimagen1;
     }
 
-    public function setProimagen2($proimagen2)
-    {
-        $this->proimagen2 = $proimagen2;
-    }
-
-    public function setProimagen3($proimagen3)
-    {
-        $this->proimagen3 = $proimagen3;
-    }
-
-    public function setProimagen4($proimagen4)
-    {
-        $this->proimagen4 = $proimagen4;
-    }
 
     public function setMensajeOperacion($mensajeOperacion)
     {
@@ -154,17 +125,8 @@ class Producto extends BaseDatos
     {
         $resp = false;
         $base = new BaseDatos();
-        
-        $proimagen1 = ($this->getProimagen1() !==  null)  ? $this->getProimagen1() : "NULL";
-        $this->setProimagen1($proimagen1);
-        $proimagen2 = ($this->getProimagen2() !==  null)  ? $this->getProimagen2() :  "NULL";
-        $this->setProimagen2($proimagen2);
-        $proimagen3 = ($this->getProimagen3() !==  null)  ? $this->getProimagen3() : "NULL";
-        $this->setProimagen3($proimagen3);
-        $proimagen4 = ($this->getProimagen4() !==  null)  ? $this->getProimagen4() :  "NULL";
-        $this->setProimagen4($proimagen4);
 
-        $sql = "INSERT INTO producto (pronombre, prodetalle, procantstock, proprecio, promarca, proimagen1, proimagen2, proimagen3, proimagen4) VALUES ('".$this->getPronombre()."', '".$this->getProdetalle()."',".$this->getProcantstock().",".$this->getProPrecio().",'".$this->getProMarca()."','".$this->getProimagen1()."','".$this->getProimagen2()."','".$this->getProimagen3()."','".$this->getProimagen4()."')";
+        $sql = "INSERT INTO producto (pronombre, prodetalle, procantstock, proprecio, promarca, proimagen1) VALUES ('".$this->getPronombre()."', '".$this->getProdetalle()."',".$this->getProcantstock().",".$this->getProPrecio().",'".$this->getProMarca()."','".$this->getProimagen1()."')";
         if ($base->Iniciar()) {
             if ($base = $base->Ejecutar($sql)) {
                 $this->setIdproducto($base);
@@ -182,17 +144,8 @@ class Producto extends BaseDatos
     {
         $resp = false;
         $base = new BaseDatos();
-        
-        $proimagen2 = ($this->getProimagen2() !==  null)  ? $this->getProimagen2() : "NULL";
-        $this->setProimagen2($proimagen2);
-        $proimagen3 = ($this->getProimagen3() !==  null)  ? $this->getProimagen3() : "NULL";
-        $this->setProimagen3($proimagen3);
-        $proimagen4 = ($this->getProimagen4() !==  null)  ? $this->getProimagen4() : "NULL";
-        $this->setProimagen4($proimagen4);
 
-        $sql = "UPDATE producto SET pronombre = '" . $this->getPronombre() . "', prodetalle = '" . $this->getProdetalle() . "', proprecio = " . $this->getProPrecio() . ", procantstock = " . $this->getProcantstock() . ", promarca = '" . $this->getPromarca() . "', proimagen1 = '" . $this->getProimagen1() . "', proimagen2 = '" . $this->getProimagen2() . "', proimagen3 = '" . $this->getProimagen3() . "', proimagen4 = '" . $this->getProimagen4() . "' WHERE idproducto = " . $this->getIdproducto() . ";";
-        // $sql = "UPDATE producto SET pronombre = '6', prodetalle = '6', proprecio = 6, procantstock = 6, promarca = 'nike', proimagen1 = 'UklGRvB4AABXRUJQVlA4IOR4AADQCQKdASogAyADPm02l0ikI' WHERE idproducto = 16;";
-        
+        $sql = "UPDATE `producto` SET pronombre = '" . $this->getPronombre() . "', prodetalle = '" . $this->getProdetalle() . "', proprecio = " . $this->getProPrecio() . ", procantstock = " . $this->getProcantstock() . ", promarca = '" . $this->getPromarca() . "', proimagen1 = '" . $this->getProimagen1() . "' WHERE idproducto = " . $this->getIdproducto() . ";";
         if($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 $resp = true;
