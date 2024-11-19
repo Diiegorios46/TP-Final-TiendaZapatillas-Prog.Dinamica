@@ -32,7 +32,39 @@
                 <div class="w-25 min-vh-100 margin-right-2 shadow mr-2porciento">
                     <div class="mt-4">
                         <div class="accordion" id="accordionExample">
-                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        Talles
+                                    </button>
+                                </h2>
+                                <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        <ul>
+                                            <li><input type="checkbox" name="" id="">30</li>
+                                            <li><input type="checkbox" name="" id="">32</li>
+                                            <li><input type="checkbox" name="" id="">33</li>
+                                            <li><input type="checkbox" name="" id="">34</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        Categoria
+                                    </button>
+                                </h2>
+                                <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        <ul>
+                                            <li><input type="checkbox" name="" id="">Hombre</li>
+                                            <li><input type="checkbox" name="" id="">Mujer</li>
+                                            <li><input type="checkbox" name="" id="">Niños</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="accordion-item">
                                 <h2 class="accordion-header">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
@@ -49,7 +81,6 @@
                                     </div>
                                 </div>
                             </div>
-                            
                         </div>
                     </div>
                 </div>
@@ -163,9 +194,9 @@
                 }); 
                 }else{ 
                     modal.innerHTML = "<p>El carrito esta vacio</p>"; 
-                }
+                } 
             }else { 
-                console.log(`Producto no encontrado: ${nombre}`); 
+                    console.log(`Producto no encontrado: ${nombre}`); 
             } 
         }
 
