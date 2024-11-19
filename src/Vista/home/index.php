@@ -163,9 +163,9 @@
                 }); 
                 }else{ 
                     modal.innerHTML = "<p>El carrito esta vacio</p>"; 
-                } 
+                }
             }else { 
-                    console.log(`Producto no encontrado: ${nombre}`); 
+                console.log(`Producto no encontrado: ${nombre}`); 
             } 
         }
 

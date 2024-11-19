@@ -1,6 +1,6 @@
-    <?php include '../estructura/cabeceraSegura.php' ?>
+<?php include '../estructura/cabeceraSegura.php' ?>
 
-    <div class="container-sm min-vh-100">  
+    <div class="container-sm">  
 
         <div id='mensajeOperacion'></div>
 
@@ -10,6 +10,7 @@
             <!--viene el codigo de jquery-->
         </div>
         <div class="grid"></div>
+        
     </div>
 
 
@@ -72,6 +73,7 @@
         var url;
         switch(indice) {
             case 1:
+                //COFIG USUARIO ADMIN CORREGIR PORQUE SOLO ADMIN TIENE ESE ORDEN , PERO LO DEJO ASI PARA QUE SEPAMOS LOS CODIGOS
                     url = './actionlistarDatosUsuario.php';
     
                 $.ajax({
@@ -80,41 +82,24 @@
                     dataType: 'json',
                     success: function(result) {
                         $('.deposito-menu').html('');
-                        $('.deposito-title').html('Configuracion Usuario');
-
                         $('.grid').html('');
     
                         let userInfo = `
-                        <div class="d-flex flex-row w-77">
-
-                          <div class="d-flex flex-row w-100">
-                            <form class="formularioMenuConfig" id="formularioUs" novalidate method="post" action="./actionConfigurarPerfil.php">
-                                <div class="form-group mb-4">
-                                    <label for="usnombre" class="form-label text-light">Nombre del usuario</label>
+                            <form class="upload-form" id="formularioUs" novalidate method="post" action="./actionConfigurarPerfil.php">
+                                <div class="form-group">
+                                    <label for="usnombre" class="form-label">Nombre del usuario</label>
                                     <input type="text" name="usnombre" id="usnombre" class="form-input" value="${result.usnombre}" required>
                                 </div>
-                                <div class="form-group mb-4">
-                                    <label for="usmail" class="form-label text-light">Correo del usuario</label>
+                                <div class="form-group">
+                                    <label for="usmail" class="form-label">Correo del usuario</label>
                                     <input type="email" name="usmail" id="usmail" class="form-input" value="${result.usmail}" required>
                                 </div>
-                                <div class="form-group mb-4">
-                                    <label for="uspass" class="form-label text-light">Contraseña del usuario</label>
-                                    <input type="password" name="uspass" id="uspass" class="form-input mb-2" value="${result.uspass}" required>
+                                <div class="form-group">
+                                    <label for="uspass" class="form-label">Contraseña del usuario</label>
+                                    <input type="password" name="uspass" id="uspass" class="form-input" value="${result.uspass}" required>
                                 </div>
-                                <div class="d-flex justify-content-center">
-                                    <input type="submit" value="Actualizar Perfil" name="submit" class="btn-actualizarPerfil mt-4">
-                                </div>
+                                <input type="submit" value="Actualizar Perfil" name="submit" class="form-submit">
                             </form>
-                         </div>
-                         
-                            <div class="d-flex flex-row w-100 justify-content-center bg-ee9f40">
-                                <div class="w-70 h-100 rounded-end">
-                                    <img src="../Assets/imgs/imagen-formulario.jpg" alt="" class="w-100 h-100 rounded-end">
-                                </div>    
-                            </div>
-
-                        </div>
-
                         `;
                         $('.deposito-menu').append(userInfo);
     
@@ -191,19 +176,18 @@
                     });
                 break;
             case 3:
-
-                $('.deposito-title').html('Agregar Producto');
+                //AGREGAR PRODUCTO ADMIN CORREGIR PORQUE SOLO ADMIN TIENE ESE ORDEN , PERO LO DEJO ASI PARA QUE SEPAMOS LOS CODIGOS
 
                 url = './agregarAction.php';
                 $('.deposito-menu').html(`
-                    <form class="formAgregarProducto" id="fm" novalidate method="post">
-                        <div class="form-group inputForm">
+                    <form class="upload-form" id="fm" novalidate method="post">
+                        <div class="form-group">
                             <label for="pronombre" class="form-label">Nombre del producto</label>
                             <input type="text" name="pronombre" id="pronombre" class="form-input" required>
                         </div>
                         <div class="form-group">
                             <label for="proprecio" class="form-label">Precio del producto</label>
-                            <input type="number" name="proprecio" id="proprecio" class="form-input inputForm" required>
+                            <input type="number" name="proprecio" id="proprecio" class="form-input" required>
                         </div>
                         <div class="form-group">
                             <label for="promarca" class="form-label">Marca del producto</label>
@@ -211,25 +195,22 @@
                                 <option value="nike">Nike</option>
                                 <option value="adidas">Adidas</option>
                                 <option value="vans">Vans</option>
-                                <option value="dc">DC</option>
                                 <option value="topper">Topper</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="prodetalle" class="form-label">Detalle del producto</label>
-                            <input type="text" name="prodetalle" id="prodetalle" class="form-input inputForm" required>
+                            <input type="text" name="prodetalle" id="prodetalle" class="form-input" required>
                         </div>
                         <div class="form-group">
                             <label for="procantstock" class="form-label">Cantidad de stock</label>
-                            <input type="number" name="procantstock" id="procantstock" class="form-input inputForm" required>
+                            <input type="number" name="procantstock" id="procantstock" class="form-input" required>
                         </div>
                         <div class="form-group">
                             <label for="image" class="form-label">Choose image(s) to upload:</label>
                             <input type="file" name="image[]" id="image" class="form-file" multiple required>
                         </div>
-                        <div class="text-center">
-                            <input type="submit" value="Subir imagen" name="submit" class="btn-verde">
-                        </div>
+                        <input type="submit" value="Subir imagen" name="submit" class="form-submit">
                     </form>`);
 
                 $('#fm').on('submit', function(e) {
@@ -241,8 +222,9 @@
                         data: new FormData(this),
                         processData: false,
                         contentType: false,
-                        dataType: 'json',
+                        // dataType: 'json',
                         success: function(result) {
+                            console.log(result);
                             try {
                                 if (result) {
                                     $('#mensajeOperacion').addClass('alert alert-success alert-dismissible fade show text-center').html('Producto agregado exitosamente.');    
@@ -261,6 +243,7 @@
                 
                 break;
             case 4:
+                //MODIFICAR PRODUCTO
                 url = './listarDeposito.php';
 
                 $.ajax({
@@ -288,8 +271,7 @@
                                             <div class="card-marca">${producto.promarca}</div>
                                             <div class="card-infoZapatillas data-nombre">${producto.pronombre}</div>
                                             <div class="card-precioMasDescuento">
-                                                <span class="data-precio">${producto.proprecio}</span>
-                                                <span>10% off</span>
+                                            <strong>$</strong><span class="data-precio">${producto.proprecio}</span><strong>USD</strong>
                                             </div>
                                             <div class="hidden">
                                                 <span class="data-idproducto">${producto.idproducto}</span>
@@ -312,28 +294,28 @@
 
                 break;
             case 5:
+                //ALTA USUARIO ADMIN CORREGIR PORQUE SOLO ADMIN TIENE ESE ORDEN , PERO LO DEJO ASI PARA QUE SEPAMOS LOS CODIGOS
                 url = './actionAltaUsuario.php';
-                $('.deposito-title').html('Agregar un usuario nuevo');
                 
                 $('.deposito-menu').html(`
-                        <form class="formNuevoUsuario" id="formulario" novalidate method="post">
-                            <h2>Formulario de Registro</h2>
+                    <div class="container mt-5">
+                        <h2>Formulario de Registro</h2>
+                        <form class="" id="formulario" novalidate method="post">
                             <div class="form-group">
-                                <label for="nombre" class="form-label">Nombre</label>
-                                <input type="text" name="usnombre" class="form-input" id="nombre" placeholder="Ingresa tu nombre" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="contraseña" class="form-label">Contraseña</label>
-                                <input type="password" name="uspass" class="form-input" id="contraseña" placeholder="Ingresa tu contraseña" required>
+                                <label for="nombre">Nombre</label>
+                                <input type="text" name="usnombre" class="form-control" id="nombre" placeholder="Ingresa tu nombre" required>
                             </div>
                             <div class="form-group">
-                                <label for="correo" class="form-label">Correo Electrónico</label>
-                                <input type="email" name="usmail" class="form-input" id="correo" placeholder="Ingresa tu correo electrónico" required>
+                                <label for="contraseña">Contraseña</label>
+                                <input type="password" name="uspass" class="form-control" id="contraseña" placeholder="Ingresa tu contraseña" required>
                             </div>
-                            <div class="text-center mt-5">
-                                <button type="submit" class="btn-enviar-formularioRegistroUsuario">Enviar</button>
+                            <div class="form-group">
+                                <label for="correo">Correo Electrónico</label>
+                                <input type="email" name="usmail" class="form-control" id="correo" placeholder="Ingresa tu correo electrónico" required>
                             </div>
-                        </form>`);
+                            <button type="submit" class="btn btn-primary">Enviar</button>
+                        </form>
+                </div>`);
 
                 $('#formulario').on('submit', function(e) {
                     e.preventDefault(); 
@@ -363,7 +345,7 @@
 
                 break;
                 case 6:
-                $('.deposito-title').html('Borrar un Usuario');
+                //BAJA USUARIO ADMIN CORREGIR PORQUE SOLO ADMIN TIENE ESE ORDEN , PERO LO DEJO ASI PARA QUE SEPAMOS LOS CODIGOS
 
                 url = './listarUsuarios.php';
 
@@ -374,9 +356,9 @@
                     success: function(result) { 
 
                         $('.deposito-menu').html(''); 
-                        let grid = $('.grid').html('');
+                        $('.grid').html(''); 
+
                         let row;
-                        $('.deposito-menu').append(grid);
 
                         result.forEach(function(usuario, index) {
                             let usuarioStr = JSON.stringify(usuario).replace(/"/g, '&quot;');
@@ -391,10 +373,10 @@
                                         <div class="card m-2 p-2 shadow-sm"> 
                                             <div class="card-body"> 
                                             <form class="" id="formularioBorrado" novalidate method="post">
-                                                <p class="card-title"><strong>Nombre : </strong>${usuario.usnombre}</p> 
-                                                <p class="card-text"><strong>Contraseña:</strong> ${usuario.uspass}</p> 
-                                                <p class="card-text"><strong>Correo:</strong> ${usuario.usmail}</p> 
-                                                <p class="card-text font-bold">${usuario.usdeshabilitado == '0000-00-00 00:00:00' ? 'Habilitado' : 'Deshabilitado'}</p> 
+                                                <h5 class="card-title">Nombre :${usuario.usnombre}</h5> 
+                                                <h5 class="card-text">Contraseña: ${usuario.uspass}</h5> 
+                                                <h5 class="card-text">Correo: ${usuario.usmail}</h5> 
+                                                <p class="card-text">${usuario.usdeshabilitado == '0000-00-00 00:00:00' ? 'Habilitado' : 'Deshabilitado'}</p> 
                                                 <button class="btn btn-danger"><a onclick="borradoLogicaUsuario(${usuarioStr})">Dar de Baja</a></button> 
                                             </form>    
                                             </div> 
@@ -413,7 +395,7 @@
                             
                     break;   
                      case 7:
-                    $('.deposito-title').html('Modificar un Usuario');
+                    //MODIFICAR USUARIO ADMIN CORREGIR PORQUE SOLO ADMIN TIENE ESE ORDEN , PERO LO DEJO ASI PARA QUE SEPAMOS LOS CODIGOS
 
                     url = './listarUsuarios.php'; 
                     
@@ -423,8 +405,7 @@
                         dataType: 'json',
                         success: function(result) {
                             $('.deposito-menu').html('');
-                            let grid = $('.grid').html('');
-                            $('.deposito-menu').append(grid);
+                            $('.grid').html('');
 
                             let row;
                             result.forEach(function(usuario, index ) {
@@ -439,14 +420,11 @@
                                             <div class="card m-2 p-2 shadow-sm">
                                                 <div class="card-body">
                                                     <form>
-                                                        <p class="card-title">Nombre : ${usuario.usnombre}</p>
+                                                        <h5 class="card-title">${usuario.usnombre}</h5>
                                                         <p class="card-text">Contraseña: ${usuario.uspass}</p>
                                                         <p class="card-text">Correo: ${usuario.usmail}</p>
-                                                        <p class="card-text"><strong>Rol: ${usuario.rodescripcion}</strong></p>
-                                                        <div class="text-center">
-                                                            <button class="btn btn-warning"><a onclick="modificarUsuario(${usuarioStr})">Modificar</a></button>
-                                                        <div>
--
+                                                        <p class="card-text">Rol: ${usuario.rodescripcion}</p>
+                                                        <button class="btn btn-light"><a onclick="modificarUsuario(${usuarioStr})">Modificar</a></button>
                                                     </form>
                                                 </div>
                                             </div>
@@ -468,7 +446,6 @@
         }
     }
 
-<<<<<<< HEAD
     function modificarProducto(producto) {
         $.ajax({
             url: './modificarAction.php',
@@ -491,6 +468,7 @@
                                 <option value="nike" ${producto.promarca === 'nike' ? 'selected' : ''}>Nike</option>
                                 <option value="adidas" ${producto.promarca === 'adidas' ? 'selected' : ''}>Adidas</option>
                                 <option value="vans" ${producto.promarca === 'vans' ? 'selected' : ''}>Vans</option>
+                                <option value="dc" ${producto.promarca === 'dc' ? 'selected' : ''}>DC</option>
                                 <option value="topper" ${producto.promarca === 'topper' ? 'selected' : ''}>Topper</option>
                             </select>
                         </div>
@@ -512,76 +490,52 @@
                         <input type="submit" value="Subir imagen" name="submit" class="form-submit" required>
                     </form>
                 `);
-=======
-    function modificarProducto(producto){
-        $('.grid').html('');
->>>>>>> 1b89fe1e373d00ac6205c9c49b313d7a24e07f4c
 
-        $('.deposito-menu').html(`
-            <form class="upload-form" id="form" novalidate method="post">
-                <div class="form-group">
-                    <label for="pronombre" class="form-label">Nombre del producto</label>
-                    <input type="text" name="pronombre" id="pronombre" class="form-input" value="${producto.pronombre}" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="proprecio" class="form-label">Precio del producto</label>
-                    <input type="number" name="proprecio" id="proprecio" class="form-input" value="${parseInt(producto.proprecio,10).toFixed(2)}" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="promarca" class="form-label">Marca del producto</label>
-                    <select name="promarca" id="promarca" class="form-select" required>
-                        <option value="nike" ${producto.promarca === 'nike' ? 'selected' : ''}>Nike</option>
-                        <option value="adidas" ${producto.promarca === 'adidas' ? 'selected' : ''}>Adidas</option>
-                        <option value="vans" ${producto.promarca === 'vans' ? 'selected' : ''}>Vans</option>
-                        <option value="dc" ${producto.promarca === 'dc' ? 'selected' : ''}>DC</option>
-                        <option value="topper" ${producto.promarca === 'topper' ? 'selected' : ''}>Topper</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="prodetalle" class="form-label">Detalle del producto</label>
-                    <input type="text" name="prodetalle" id="prodetalle" class="form-input" value="${producto.prodetalle}" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="procantstock" class="form-label">Cantidad de stock</label>
-                    <input type="number" name="procantstock" id="procantstock" class="form-input" value="${parseInt(producto.procantstock,10)}" required>
-                </div>
+                $('#form').on('submit', function(e) {
+                    e.preventDefault();
+                    var formData = new FormData();
+                    formData.append('idproducto', producto.idproducto);
+                    formData.append('pronombre', $('#pronombre').val());
+                    formData.append('proprecio', $('#proprecio').val());
+                    formData.append('promarca', $('#promarca').val());
+                    formData.append('prodetalle', $('#prodetalle').val());
+                    formData.append('procantstock', $('#procantstock').val());
 
-                <div class="form-group">
-                    <label for="image" class="form-label">Seleccione las imagenes para cambiar:</label>
-                    <div class="form-group w-50">
-                        <img src="${producto.proimagen1}" class="w-100 h-100">
-                    </div>
-                    <input type="file" name="image[]" id="image" class="form-file" multiple required>
-                </div>
-                <input type="submit" value="Subir imagen" name="submit" class="form-submit" required>
-            </form>`);
-
-            url = './modificarAction.php';
-            
-            $('#form').on('submit', function(e) {
-                e.preventDefault(); 
-                $.ajax({
-                    url: url,
-                    type: 'POST',
-                    data: new FormData(this),
-                    processData: false,
-                    contentType: false,
-
-                    success: function(texto) {
-                        console.log(texto);
-                        $('#mensajeOperacion').addClass('alert alert-success alert-dismissible fade show text-center').html('Producto modificado exitosamente.');
-                    },
-                    error: function(xhr, status, error) {
-                        console.log('Error: ' + error);
+                    var fileInput = $('#proimagen1')[0];
+                    if (fileInput.files && fileInput.files[0]) {
+                        var reader = new FileReader();
+                        reader.onload = function(e) {
+                            formData.append('proimagen1', e.target.result);
+                            enviarFormulario(formData);
+                        };
+                        reader.readAsDataURL(fileInput.files[0]);
+                    } else {
+                        formData.append('proimagen1', $('#proimagen1-preview').attr('src'));
+                        enviarFormulario(formData);
                     }
                 });
-            });
-                 
-        }
+
+                function enviarFormulario(formData) {
+                    $.ajax({
+                        url: './modificarAction.php',
+                        type: 'POST',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function(texto) {
+                            console.log(texto);
+                        },
+                        error: function(xhr, status, error) {
+                            console.log('Error: ' + error);
+                        }
+                    });
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log('Error: ' + error);
+            }
+        });
+    }
 
         function modificarUsuario(objUsuario){
             $('.grid').html('');
@@ -645,28 +599,8 @@
                 data: { idcompra: idcompra, estado: estado },
                 // dataType: 'json',
                 success: function(response) {
-                    console.log(response);
-
-                    let mensaje = '';
-                    let tipoAlerta = '';
-
-                    if (response.estado == 1) {
-                        mensaje = 'Pedido aceptado exitosamente.';
-                        tipoAlerta = 'alert-success';
-                    } else if (response.estado == 0) {
-                        mensaje = 'Pedido cancelado.';
-                        tipoAlerta = 'alert-danger';
-                    } else {
-                        mensaje = 'Hubo un error al procesar el pedido.';
-                        tipoAlerta = 'alert-warning';
-                    }
-
-                    $('#mensajeOperacion')
-                        .removeClass('alert-success alert-danger alert-warning')
-                        .addClass(`alert ${tipoAlerta} alert-dismissible fade show text-center`)
-                        .html(mensaje);
-                        
-                        $(boton).closest('.evalua').remove();
+                    $('#mensajeOperacion').html(response);
+                    $(boton).closest('.evalua').remove();   
                 },
                 error: function(xhr, status, error) {
                     console.log('Error: ' + error);
@@ -725,10 +659,3 @@
         }
             
 </script>
-
-
-
-
-
-
-
