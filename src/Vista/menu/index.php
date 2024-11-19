@@ -468,7 +468,6 @@
                                 <option value="nike" ${producto.promarca === 'nike' ? 'selected' : ''}>Nike</option>
                                 <option value="adidas" ${producto.promarca === 'adidas' ? 'selected' : ''}>Adidas</option>
                                 <option value="vans" ${producto.promarca === 'vans' ? 'selected' : ''}>Vans</option>
-                                <option value="dc" ${producto.promarca === 'dc' ? 'selected' : ''}>DC</option>
                                 <option value="topper" ${producto.promarca === 'topper' ? 'selected' : ''}>Topper</option>
                             </select>
                         </div>
