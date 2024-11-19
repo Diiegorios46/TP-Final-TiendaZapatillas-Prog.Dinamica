@@ -27,19 +27,19 @@ include '../../../config.php';
                
                 <div class="d-flex w-10 gap align-self-center">
                     <div class="dropdown d-flex gap align-items-center">
-                        <a href="../menu/index.php" class="btn-link text-reset">
+
+                        <i class="bi bi-person-circle dropdown-toggle icono-persona hoverCabecera" id="dropdownMenuButton"style="font-size: 2rem;" data-bs-toggle="dropdown" aria-expanded="false">                        <?php 
+                                $session = new Session();
+                                if($session->validar()){
+                                echo "<span>". strtoupper($session->getUsuario()['usnombre']) ."</span>";
+                                } else {
+                                    header('Location: ../login/index.php');
+                                }?>
+                        </i>
+
+                        <a href="../menu/index.php" class="btn-link text-reset hoverCabecera">
                             <i class="bi bi-gear w-100"></i>
                         </a>
-                        
-                        
-                        <i class="bi bi-person-circle dropdown-toggle icono-persona" id="dropdownMenuButton"style="font-size: 2rem;" data-bs-toggle="dropdown" aria-expanded="false">                        <?php 
-                            $session = new Session();
-                            if($session->validar()){
-                               echo "<span>". strtoupper($session->getUsuario()['usnombre']) ."</span>";
-                            } else {
-                                header('Location: ../login/index.php');
-                            }?>
-                        </i>
 
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="../home/logout.php">Cerrar Sesion</a></li>
@@ -47,7 +47,7 @@ include '../../../config.php';
                     </div>
 
                     <div class="w-h">
-                        <i class="bi bi-cart" style="font-size: 2rem;" class="w100-h55" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"></i>
+                        <i class="bi bi-cart hoverCabecera" style="font-size: 2rem;" class="w100-h55" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"></i>
 
                         <div class="w-40 offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
                             aria-labelledby="offcanvasRightLabel">
