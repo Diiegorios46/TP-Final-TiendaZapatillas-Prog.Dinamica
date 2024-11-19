@@ -27,11 +27,11 @@
         $arrayDatos['usmail'] = $mail;
         $arrayDatos['uspass'] = $psw;
         $arrayDatos['usdeshabilitado'] ='0000-00-00 00:00:00';
-        $resultado = $obj->buscar($arrayDatos);
+        $resultado = $obj->obtenerDatos($arrayDatos);
         //no va a andar si la base de datos no tiene nada
         if(!empty($resultado) && count($resultado) > 0){
             $usuario = $resultado[0];
-            $_SESSION['idusuario'] = $usuario->getIdUsuario();
+            $_SESSION['idusuario'] = $usuario['idusuario'];
             $boolean = true;
         } else {
             $this->cerrar();

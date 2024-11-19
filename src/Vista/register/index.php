@@ -1,77 +1,62 @@
 <?php
- include_once '../estructura/cabecera.php';
+include_once '../estructura/cabecera.php';
+$datos = data_submitted();
 ?>
 
-    <main class="container w-32 h-100 mt-4">
-
-        <section class="login-container bg-form rouded-modify shadow">
-            <?php
-            if(isset($_GET['error'])){
-                switch ($_GET['error']) {
-                    case 1:
-                        echo '<div class="alert alert-danger" role="alert">El correo ya esta registrado</div>';
-                        break;
-                    default:
-                        echo '<div class="alert alert-danger" role="alert">Error al registrar usuario</div>';
-                        break;
-                }
+<main class="container w-32 h-100 mt-4">
+    <section class="login-container bg-form rounded-modify shadow">
+        <?php if (isset($datos['error'])){
+            echo '<div class="alert alert-danger" role="alert">';
+            if ($datos['error'] == 1) {
+                echo 'El correo electrónico ya está registrado.';
             }
-            ?>
-            <div class="text-center fs-2 pt-4 pb-4">
-                <span>Registrar</span>
+            echo '</div>';
+            }
+        ?>
+        <div class="text-center fs-2 pt-4 pb-4">
+            <span>Registrar</span>
+        </div>
+        <form class="w-100 d-flex flex-column" action="./action.php" id="registerForm" method="POST">
+            <div class="mt-4 ml-2 mb-2 mr-2">
+                <input type="text" name="usnombre" class="fancy-input rounded-pill img-input-usuario" id="usnombre" placeholder="Nombre de usuario" required>
             </div>
-
-            <form class="w-100 d-flex flex-column" action="./action.php" id="loginForm" method="POST">
-                <div class="mt-4 ml-2 mb-2 mr-2">
-                    <input type="text" name="usnombre" class="fancy-input rounded-pill img-input-usuario" id="usnombre" placeholder="Nombre de usuario" required>
-                </div>
-                <div class="mt-4 ml-2 mb-2 mr-2">
-                    <input type="password" name="uspass" class="fancy-input rounded-pill img-input-contraseña" id="uspass" placeholder="Contraseña" required>
-                </div>
-                <div class="mt-4 ml-2 mb-4 mr-2">
-                    <input type="email" name="usmail" class="fancy-input rounded-pill" id="usmail" placeholder="Correo Electronico" required>
-                </div>
-                <div class="d-flex w-70 align-self-center mb-2 pb-4">
-                     <input type="submit" class="btn-enviar rounded-pill" value="Enviar">
-                </div>
-                <div class="d-flex w-100 h-100 align-content-start justify-content-center mb-5">
-                    <span>¿Ya estas registrado?<a href="../login/index.php"> Login</a></span>
-                </div>
-            </form>
-
-        </section>
-
-    </main>
+            <div class="d-flex w-70 align-self-center mb-2 mt-3">
+                <input type="email" name="usmail" class="fancy-input rounded-pill" id="usmail" placeholder="Correo Electrónico" required>
+            </div>
+            <div class="mt-3 ml-2 mb-2 mr-2">
+                <input type="password" name="uspass" class="fancy-input rounded-pill img-input-contraseña" id="uspass" placeholder="Contraseña" required>
+            </div>
+            <div class="mt-2 ml-2 mb-4 mr-2">
+                <input type="submit" class="btn-enviar rounded-pill" value="Enviar">
+            </div>
+            <div class="d-flex w-100 h-100 align-content-start justify-content-center mb-5">
+                <span>¿Ya estás registrado? <a href="../login/index.php">Login</a></span>
+            </div>
+        </form>
+    </section>
+</main>
 </body>
 </html>
 
- <!-- // CREATE TABLE `usuario` (
-//   `idusuario` bigint(20) NOT NULL,
-//   `usnombre` varchar(50) NOT NULL,
-//   `uspass` varchar(50) NOT NULL,
-//   `usmail` varchar(50) NOT NULL,
-//   `usdeshabilitado` timestamp NULL DEFAULT NULL
-// ) ENGINE=InnoDB DEFAULT CHARSET=latin1; 
-
-<form action="./action.php" method="POST" id="loginForm" >
-    <label for="usnombre">Ingrese su nombre</label>
-    <input type="text" name="usnombre" id="usnombre" placeholder="Nombre de usuario" required>
-    <label for="uspass">Ingrese la clave</label>
-    <input type="password" name="uspass" id="uspass" placeholder="Contraseña" required>
-    <label for="usmail">Ingrese su correo</label>
-    <input type="email" name="usmail" id="usmail" placeholder="Correo" required>
-    <input type="submit" value="Registrarse">
-</form>
 <script>
-        $(document).ready(function() {
-            $('#loginForm').on('submit', function(e) {  
-            var password = $('#uspass').val();
-            var encryptedPassword = hex_md5(password);
-        $('#uspass').val(encryptedPassword);
-        setTimeout(function() {
-        $('#uspass').val(''); // Limpiar el campo de contraseña después de enviar el formulario
-                }, 1);
-
-                    });
-                });
-            </script> - -->
+document.getElementById('registerForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    $.ajax({
+        type: 'POST',
+        url: './action.php',
+        data: $(this).serialize(),
+        success: function(response) {
+            if (response == 'success') {
+                window.location.href = '../login/index.php?login=1';
+            } else if (response === 'email_exists') {
+                window.location.href = './index.php?error=1';
+            } else {
+                window.location.href = './index.php?error=2';
+            }
+        },
+        error: function() {
+            window.location.href = './index.php?error=2';
+        }
+    });
+});
+</script>
