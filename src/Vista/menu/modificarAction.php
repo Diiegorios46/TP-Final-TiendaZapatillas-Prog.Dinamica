@@ -12,7 +12,6 @@ if (isset($datos['image']) && !empty($datos['image']['tmp_name'])) {
 }
 
 $abmProducto = new abmProducto();
-verEstructura($datos);
 
 try {
     if($abmProducto->abm($datos)){

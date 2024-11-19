@@ -3,7 +3,7 @@ class abmCompraEstado
 {
     public function abm($datos) {
         $resp = false;
-
+        
         if ($datos['accion'] == 'editar') {
             if ($this->modificacion($datos)) {
                 $resp = true;
@@ -83,6 +83,7 @@ class abmCompraEstado
         $resp = false;
         if ($this->seteadosCamposClaves($param)) {
             $elObjtArchivoE = $this->cargarObjeto($param);
+            
             if ($elObjtArchivoE != null and $elObjtArchivoE->modificar()) {
                 $resp = true;
             }

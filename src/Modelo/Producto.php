@@ -125,9 +125,6 @@ class Producto extends BaseDatos
         $this->setProdetalle($param['prodetalle']);
         $this->setProcantstock($param['procantstock']);
         $this->setProimagen1($param['proimagen1']);
-        $this->setProimagen2(isset($param['proimagen2']) ? $param['proimagen2'] : null);
-        $this->setProimagen3(isset($param['proimagen3']) ? $param['proimagen3'] : null);
-        $this->setProimagen4(isset($param['proimagen4']) ? $param['proimagen4'] : null);
     }
 
     public function cargar()

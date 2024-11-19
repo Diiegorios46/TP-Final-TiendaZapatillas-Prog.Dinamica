@@ -130,40 +130,50 @@
                 url = "./actionVerPaquetes.php";
 
                 $.ajax({
-                    url: url,
-                    type: 'GET',
-                    success: function(result) {
-                        console.log(result)
-                        /*
-                        result.forEach(function(datos, index) {
-                            
-                            if (index % 4 === 0) {
-                                row = $('<div class="row mt-4 mb-4"></div>');
-                                $('.grid').append(row);
-                            }
-                            let pedido  = `<div class="container-sm border mt-5 w-100 rounded">
-                                                    <div class="column w-25">
+                        url: url,
+                        type: 'GET',
+                        dataType: 'json', 
+                        success: function(result) {
+                            if (Array.isArray(result)) {
+                                $('.deposito-menu').html('');  
+                                let row; 
+
+                                result.forEach(function(datos, index) {
+                                   
+                                    if (index % 4 === 0) {
+                                        row = $('<div class="row mt-4 mb-4"></div>'); 
+                                        $('.grid').append(row); 
+                                    }
+
+                                    
+                                    let pedido = `<div class="col-md-3 col-sm-6 mb-3 evalua">  
+                                                    <div class="container-sm border mt-5 w-100 rounded">
                                                         <div class="d-flex flex-column">
-                                                            <div>idproducto:${datos.idproducto}</div>
-                                                            <div>idCompra:${datos.idcompra}</div>
-                                                            <div>cantidad solicitada:${datos.cicantidad}</div>
-                                                            <div>Stock: ${datos}</div>
+                                                            <div>Id del Producto: ${datos.idproducto}</div>
+                                                            <div>Id de la Compra: ${datos.idcompra}</div>
+                                                            <div>Pedido numero: ${datos.idcompraitem}</div>
+                                                            <div>Cantidad solicitada: ${datos.cicantidad}</div>
+                                                            <div>Stock: ${datos.cicantstock}</div>
                                                             <div class="d-flex flex-row">
-                                                                <button class="btn btn-success m-1">Enviar</button>
-                                                                <button class="btn btn-danger m-1">Cancelar</button>
+                                                                <button class="btn btn-success m-1" onclick="evaluar(this, ${datos.idcompra}, 1)">Aceptar</button>
+                                                                <button class="btn btn-success m-1" onclick="evaluar(this, ${datos.idcompra}, 0)">Cancelar</button>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>`;
-                        });
-                        pedido.append(datos);
-                        */
+
+                                   
+                                    row.append(pedido);
+                                });
+                            } else {
+                                console.error('La respuesta no es un array:', result);
+                        }
                     },
-                    error: function(xhr, status, error) {
-                        console.log('Error al cargar los datos del menú dinámico.');
-                        console.log('Error: ' + error);
-                    }
-                })
+                        error: function(xhr, status, error) {
+                            console.log('Error al cargar los datos del menú dinámico.');
+                            console.log('Error: ' + error);
+                        }
+                    });
                 break;
             case 3:
                 //AGREGAR PRODUCTO ADMIN CORREGIR PORQUE SOLO ADMIN TIENE ESE ORDEN , PERO LO DEJO ASI PARA QUE SEPAMOS LOS CODIGOS
@@ -559,7 +569,44 @@
             });
 
         }
+        
+        function evaluar(boton, idcompra, estado) {
 
+            $.ajax({
+                url: './actionEvaluar.php',
+                type: 'POST',
+                data: { idcompra: idcompra, estado: estado },
+                // dataType: 'json',
+                success: function(response) {
+                    console.log(response);
+
+                    let mensaje = '';
+                    let tipoAlerta = '';
+
+                    if (response.estado == 1) {
+                        mensaje = 'Pedido aceptado exitosamente.';
+                        tipoAlerta = 'alert-success';
+                    } else if (response.estado == 0) {
+                        mensaje = 'Pedido cancelado.';
+                        tipoAlerta = 'alert-danger';
+                    } else {
+                        mensaje = 'Hubo un error al procesar el pedido.';
+                        tipoAlerta = 'alert-warning';
+                    }
+
+                    $('#mensajeOperacion')
+                        .removeClass('alert-success alert-danger alert-warning')
+                        .addClass(`alert ${tipoAlerta} alert-dismissible fade show text-center`)
+                        .html(mensaje);
+                        
+                        $(boton).closest('.evalua').remove();
+                },
+                error: function(xhr, status, error) {
+                    console.log('Error: ' + error);
+                }
+            });
+          
+        }
         function borradoLogicaUsuario(objUsuario){
 
             $('.grid').html('');

@@ -19,7 +19,7 @@ class CompraEstado extends BaseDatos
         return $this->idcompra;
     }
 
-    public function getIdcompraEstadoTipo()
+    public function getIdcompraestadotipo()
     {
         return $this->idcomesttipo;
     }
@@ -102,10 +102,8 @@ class CompraEstado extends BaseDatos
     {
         $resp = false;
         $base = new BaseDatos();
-        $idCompra = $this->getIdcompra() ? $this->getIdcompra() : 'NULL';
-        $idCompraEstadoTipo = $this->getIdcompraEstadoTipo() ? $this->getIdcompraestadotipo() : 'NULL';
         
-        $sql = "UPDATE compraestado SET idcompra={$idCompra},  idcompraestadotipo={$idCompraEstadoTipo}, cefechaini='{$this->getCefechaini()}', cefechafin='{$this->getCefechafin()}' WHERE idcompraestado = {$this->getIdcompraestado()}";
+        $sql = "UPDATE compraestado SET idcompra={$this->getIdcompra()},  idcompraestadotipo={$this->getIdcompraestadotipo()}, cefechaini='{$this->getCefechaini()}', cefechafin='{$this->getCefechafin()}' WHERE idcompraestado = {$this->getIdcompraestado()}";
 
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
