@@ -5,6 +5,7 @@ class abmProducto
         $resp = false;
 
         if ($datos['accion'] == 'editar') {
+            verEstructura($datos);
             if ($this->modificacion($datos)) {
                 $resp = true;
             }
@@ -192,7 +193,7 @@ class abmProducto
                     'procantstock' => $producto->getProcantstock(),
                     'promarca' => $producto->getPromarca(),
                     'proprecio' => $producto->getProprecio(),
-                    'proimagen1' => 'data:image/jpeg;base64,' .$producto->getProimagen1()
+                    'proimagen1' =>  $producto->getProimagen1()
                 ];
             }
         }

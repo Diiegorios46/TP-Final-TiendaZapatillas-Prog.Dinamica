@@ -195,7 +195,6 @@
                                 <option value="nike">Nike</option>
                                 <option value="adidas">Adidas</option>
                                 <option value="vans">Vans</option>
-                                <option value="dc">DC</option>
                                 <option value="topper">Topper</option>
                             </select>
                         </div>
@@ -223,8 +222,9 @@
                         data: new FormData(this),
                         processData: false,
                         contentType: false,
-                        dataType: 'json',
+                        // dataType: 'json',
                         success: function(result) {
+                            console.log(result);
                             try {
                                 if (result) {
                                     $('#mensajeOperacion').addClass('alert alert-success alert-dismissible fade show text-center').html('Producto agregado exitosamente.');    
@@ -243,7 +243,7 @@
                 
                 break;
             case 4:
-                //MODIFICAR PRODUCTO ADMIN CORREGIR PORQUE SOLO ADMIN TIENE ESE ORDEN , PERO LO DEJO ASI PARA QUE SEPAMOS LOS CODIGOS
+                //MODIFICAR PRODUCTO
                 url = './listarDeposito.php';
 
                 $.ajax({
@@ -271,8 +271,7 @@
                                             <div class="card-marca">${producto.promarca}</div>
                                             <div class="card-infoZapatillas data-nombre">${producto.pronombre}</div>
                                             <div class="card-precioMasDescuento">
-                                                <span class="data-precio">${producto.proprecio}</span>
-                                                <span>10% off</span>
+                                            <strong>$</strong><span class="data-precio">${producto.proprecio}</span><strong>USD</strong>
                                             </div>
                                             <div class="hidden">
                                                 <span class="data-idproducto">${producto.idproducto}</span>
@@ -447,74 +446,96 @@
         }
     }
 
-    function modificarProducto(producto){
-        $('.grid').html('');
+    function modificarProducto(producto) {
+        $.ajax({
+            url: './modificarAction.php',
+            type: 'get',
+            success: function(response) {
+                $('.grid').html('');
+                $('.deposito-menu').html(`
+                    <form class="upload-form" id="form" novalidate method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="pronombre" class="form-label">Nombre del producto</label>
+                            <input type="text" name="pronombre" id="pronombre" class="form-input" value="${producto.pronombre}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="proprecio" class="form-label">Precio del producto</label>
+                            <input type="number" name="proprecio" id="proprecio" class="form-input" value="${parseInt(producto.proprecio, 10).toFixed(2)}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="promarca" class="form-label">Marca del producto</label>
+                            <select name="promarca" id="promarca" class="form-select" required>
+                                <option value="nike" ${producto.promarca === 'nike' ? 'selected' : ''}>Nike</option>
+                                <option value="adidas" ${producto.promarca === 'adidas' ? 'selected' : ''}>Adidas</option>
+                                <option value="vans" ${producto.promarca === 'vans' ? 'selected' : ''}>Vans</option>
+                                <option value="dc" ${producto.promarca === 'dc' ? 'selected' : ''}>DC</option>
+                                <option value="topper" ${producto.promarca === 'topper' ? 'selected' : ''}>Topper</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="prodetalle" class="form-label">Detalle del producto</label>
+                            <input type="text" name="prodetalle" id="prodetalle" class="form-input" value="${producto.prodetalle}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="procantstock" class="form-label">Cantidad de stock</label>
+                            <input type="number" name="procantstock" id="procantstock" class="form-input" value="${parseInt(producto.procantstock, 10)}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="proimagen1" class="form-label">Seleccione la imagen para cambiar:</label>
+                            <div class="form-group w-50">
+                                <img src="${producto.proimagen1}" class="w-100 h-100" id="proimagen1-preview">
+                            </div>
+                            <input type="file" name="proimagen1" id="proimagen1" class="form-file">
+                        </div>
+                        <input type="submit" value="Subir imagen" name="submit" class="form-submit" required>
+                    </form>
+                `);
 
-        $('.deposito-menu').html(`
-            <form class="upload-form" id="form" novalidate method="post">
-                <div class="form-group">
-                    <label for="pronombre" class="form-label">Nombre del producto</label>
-                    <input type="text" name="pronombre" id="pronombre" class="form-input" value="${producto.pronombre}" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="proprecio" class="form-label">Precio del producto</label>
-                    <input type="number" name="proprecio" id="proprecio" class="form-input" value="${parseInt(producto.proprecio,10).toFixed(2)}" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="promarca" class="form-label">Marca del producto</label>
-                    <select name="promarca" id="promarca" class="form-select" required>
-                        <option value="nike" ${producto.promarca === 'nike' ? 'selected' : ''}>Nike</option>
-                        <option value="adidas" ${producto.promarca === 'adidas' ? 'selected' : ''}>Adidas</option>
-                        <option value="vans" ${producto.promarca === 'vans' ? 'selected' : ''}>Vans</option>
-                        <option value="dc" ${producto.promarca === 'dc' ? 'selected' : ''}>DC</option>
-                        <option value="topper" ${producto.promarca === 'topper' ? 'selected' : ''}>Topper</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="prodetalle" class="form-label">Detalle del producto</label>
-                    <input type="text" name="prodetalle" id="prodetalle" class="form-input" value="${producto.prodetalle}" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="procantstock" class="form-label">Cantidad de stock</label>
-                    <input type="number" name="procantstock" id="procantstock" class="form-input" value="${parseInt(producto.procantstock,10)}" required>
-                </div>
+                $('#form').on('submit', function(e) {
+                    e.preventDefault();
+                    var formData = new FormData();
+                    formData.append('idproducto', producto.idproducto);
+                    formData.append('pronombre', $('#pronombre').val());
+                    formData.append('proprecio', $('#proprecio').val());
+                    formData.append('promarca', $('#promarca').val());
+                    formData.append('prodetalle', $('#prodetalle').val());
+                    formData.append('procantstock', $('#procantstock').val());
 
-                <div class="form-group">
-                    <label for="image" class="form-label">Seleccione las imagenes para cambiar:</label>
-                    <div class="form-group w-50">
-                        <img src="${producto.proimagen1}" class="w-100 h-100">
-                    </div>
-                    <input type="file" name="image[]" id="image" class="form-file" multiple required>
-                </div>
-                <input type="submit" value="Subir imagen" name="submit" class="form-submit" required>
-            </form>`);
-
-            url = './modificarAction.php';
-            
-            $('#form').on('submit', function(e) {
-                e.preventDefault(); 
-                $.ajax({
-                    url: url,
-                    type: 'POST',
-                    data: new FormData(this),
-                    processData: false,
-                    contentType: false,
-
-                    success: function(texto) {
-                        console.log(texto);
-                        $('#mensajeOperacion').addClass('alert alert-success alert-dismissible fade show text-center').html('Producto modificado exitosamente.');
-                    },
-                    error: function(xhr, status, error) {
-                        console.log('Error: ' + error);
+                    var fileInput = $('#proimagen1')[0];
+                    if (fileInput.files && fileInput.files[0]) {
+                        var reader = new FileReader();
+                        reader.onload = function(e) {
+                            formData.append('proimagen1', e.target.result);
+                            enviarFormulario(formData);
+                        };
+                        reader.readAsDataURL(fileInput.files[0]);
+                    } else {
+                        formData.append('proimagen1', $('#proimagen1-preview').attr('src'));
+                        enviarFormulario(formData);
                     }
                 });
-            });
-                 
-        }
+
+                function enviarFormulario(formData) {
+                    $.ajax({
+                        url: './modificarAction.php',
+                        type: 'POST',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function(texto) {
+                            console.log(texto);
+                        },
+                        error: function(xhr, status, error) {
+                            console.log('Error: ' + error);
+                        }
+                    });
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log('Error: ' + error);
+            }
+        });
+    }
 
         function modificarUsuario(objUsuario){
             $('.grid').html('');
@@ -578,9 +599,8 @@
                 data: { idcompra: idcompra, estado: estado },
                 // dataType: 'json',
                 success: function(response) {
-                    console.log(response);
-                // $('#mensajeOperacion').html(response);
-                $(boton).closest('.evalua').remove();
+                    $('#mensajeOperacion').html(response);
+                    $(boton).closest('.evalua').remove();   
                 },
                 error: function(xhr, status, error) {
                     console.log('Error: ' + error);

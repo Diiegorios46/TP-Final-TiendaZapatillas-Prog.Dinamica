@@ -1,12 +1,16 @@
 <?php
 include '../../../config.php';
-header('Content-Type: application/json');
+// header('Content-Type: application/json');
 $datos = data_submitted();
 $datos['accion'] = 'nuevo';
 $datos['idproducto'] = null;
-foreach ($_FILES['image']['tmp_name'] as $key => $tmp_name) {
-    $datos['proimagen' . ($key + 1)] = base64_encode(file_get_contents($tmp_name));
+
+if (isset($datos['image']['tmp_name'])) {
+    $datos['proimagen1'] = "data:image/jpeg;base64,".base64_encode(file_get_contents($datos['image']['tmp_name'][0]));
+
 }
+
+echo $datos['proimagen1'];
 unset($datos['image']);
 
 $abmProducto = new abmProducto();
@@ -14,10 +18,9 @@ $abmProducto = new abmProducto();
 try {
     
     if($abmProducto->abm($datos)){
-        echo json_encode('Producto agregado correctamente');
+        echo 'Producto agregado correctamente';
     } else {
         //echo json_encode('Error al agregar el producto');
-        echo json_encode($datos);
     }
 } catch (Exception $e) {
    // echo json_encode('Error al agregar el producto');
