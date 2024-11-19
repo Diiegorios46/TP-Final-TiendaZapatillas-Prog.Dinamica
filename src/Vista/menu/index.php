@@ -579,27 +579,8 @@
                 // dataType: 'json',
                 success: function(response) {
                     console.log(response);
-
-                    let mensaje = '';
-                    let tipoAlerta = '';
-
-                    if (response.estado == 1) {
-                        mensaje = 'Pedido aceptado exitosamente.';
-                        tipoAlerta = 'alert-success';
-                    } else if (response.estado == 0) {
-                        mensaje = 'Pedido cancelado.';
-                        tipoAlerta = 'alert-danger';
-                    } else {
-                        mensaje = 'Hubo un error al procesar el pedido.';
-                        tipoAlerta = 'alert-warning';
-                    }
-
-                    $('#mensajeOperacion')
-                        .removeClass('alert-success alert-danger alert-warning')
-                        .addClass(`alert ${tipoAlerta} alert-dismissible fade show text-center`)
-                        .html(mensaje);
-                        
-                        $(boton).closest('.evalua').remove();
+                // $('#mensajeOperacion').html(response);
+                $(boton).closest('.evalua').remove();
                 },
                 error: function(xhr, status, error) {
                     console.log('Error: ' + error);

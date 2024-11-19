@@ -192,10 +192,7 @@ class abmProducto
                     'procantstock' => $producto->getProcantstock(),
                     'promarca' => $producto->getPromarca(),
                     'proprecio' => $producto->getProprecio(),
-                    'proimagen1' => 'data:image/jpeg;base64,' .$producto->getProimagen1(), 
-                    'proimagen2' => 'data:image/jpeg;base64,' .$producto->getProimagen2(),
-                    'proimagen3' => 'data:image/jpeg;base64,' .$producto->getProimagen3(),
-                    'proimagen4' => 'data:image/jpeg;base64,' .$producto->getProimagen4(),
+                    'proimagen1' => 'data:image/jpeg;base64,' .$producto->getProimagen1()
                 ];
             }
         }
