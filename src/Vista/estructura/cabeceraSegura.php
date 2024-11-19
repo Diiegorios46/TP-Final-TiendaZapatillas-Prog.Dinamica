@@ -35,7 +35,12 @@ include '../../../config.php';
                         <i class="bi bi-person-circle dropdown-toggle icono-persona" id="dropdownMenuButton"style="font-size: 2rem;" data-bs-toggle="dropdown" aria-expanded="false">                        <?php 
                             $session = new Session();
                             if($session->validar()){
-                               echo "<span>". strtoupper($session->getUsuario()['usnombre']) ."</span>";
+                                $usuario = $session->getUsuario();
+                                if ($usuario) {
+                                    echo "<span>". strtoupper($usuario['usnombre']) ."</span>";
+                                } else {
+                                    header('Location: ../login/index.php');
+                                }
                             } else {
                                 header('Location: ../login/index.php');
                             }?>

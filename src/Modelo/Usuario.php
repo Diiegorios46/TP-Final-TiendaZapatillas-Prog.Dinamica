@@ -54,6 +54,7 @@ class Usuario extends BaseDatos {
 
     public function insertar(){
         $base=new BaseDatos();
+        $this->setUspass(md5($this->getUspass()));
         $consultaInsertar="INSERT INTO usuario(usnombre, uspass, usmail, usdeshabilitado) VALUES 
         ('".$this->getUsNombre()."','".$this->getUsPass()."','".$this->getUsMail()."','".$this->getUsDeshabilitado()."')";
         

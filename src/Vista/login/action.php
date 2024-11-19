@@ -1,13 +1,12 @@
 <?php
 include '../../../config.php';
 
-$session = new Session();
+$datos = data_submitted();
 
-$mail = $_POST['usmail'];
-$clave = $_POST['uspass'];
-
-if($session->iniciar($mail, $clave)){
-    header('Location: ../home/index.php');
+if($session->iniciar($datos['mail'], md5($datos['password']))){
+    $mensaje = '1';
 } else {
-   header('Location: ../login/index.php?error=1');
+    $mensaje = '0';
 }
+
+echo $mensaje;

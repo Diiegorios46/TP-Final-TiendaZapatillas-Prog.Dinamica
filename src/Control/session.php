@@ -8,9 +8,10 @@
         if($this->validar()){
             $obj = new abmUsuario();
             $param['idusuario'] = $_SESSION['idusuario'];
-            $resultado = $obj->obtenerDatos($param)[0];
+            $resultadoArray = $obj->obtenerDatos($param);
+            $resultado = !empty($resultadoArray) ? $resultadoArray[0] : null;
             
-            if(count($resultado) > 0){
+            if($resultado != null && count($resultado) > 0){
                 
                 $usuario = $resultado;
             }
