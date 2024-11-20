@@ -126,13 +126,16 @@
                             $('#prueba').html('Cargando...');
                         },
                         success: function (response) {
+
                             $('#prueba').html('');
                              let row;
+
                             response.forEach((producto, index) => {
                                 if (index % 4 === 0) {
                                     row = $('<div class="row mt-4 mb-4"></div>');
                                     $('#prueba').append(row);
                                 }
+                                
                                 let zapatilla = `
                                     <div class="col-3">
                                         <div class="card d-flex w-100 h-100 p-3 sombraCard">
