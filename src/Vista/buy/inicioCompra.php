@@ -132,15 +132,17 @@ $datos = data_submitted();
                     console.log('enviando datos al servidor');
                 },
                 success: function(response){
-                    console.log(response);
+                    // console.log(response);
                     $.ajax({
                         url: './actionMandarCorreo.php',
-                        type: 'get',
+                        type: 'post',
+                        data: {estado: 'iniciado', productos: <?php echo json_encode($datos['productos']); ?>},
                         beforeSend: function(){
                             console.log('enviando correo');
                         },
                         success: function(response){
-                            $('#mensajeOperacion').addClass('alert alert-success alert-dismissible fade show text-center').html('Se envio exitosamente.');
+                            console.log(response);
+                            $('#mensajeOperacion').addClass('alert alert-success alert-dismissible fade show text-center').html('El pedido se envio exitosamente.');
                         },
                         error: function(xhr, status, error) {
                             console.error('Error en la solicitud AJAX:', status, error);

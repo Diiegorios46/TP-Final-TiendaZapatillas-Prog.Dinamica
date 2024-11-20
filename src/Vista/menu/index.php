@@ -144,6 +144,7 @@
                 });
                 break;
             case 2:
+                //VER PAQUETES DEPOSITO
                 url = "./actionVerPaquetes.php";
 
                 $.ajax({
@@ -173,11 +174,11 @@
                                     }
                                     let pedido = `<div class="col-md-3 col-sm-6 mb-3 evalua w-25">  
                                                     <div class="d-flex flex-column">
-                                                        <div class="text-center">Id del Producto: ${datos.idproducto}</div>
-                                                        <div class="text-center">Id de la Compra: ${datos.idcompra}</div>
-                                                        <div class="text-center">Pedido numero: ${datos.idcompraitem}</div>
-                                                        <div class="text-center">Cantidad solicitada: ${datos.cicantidad}</div>
-                                                        <div class="text-center">Stock: ${datos.cicantstock}</div>
+                                                    <div class="text-center">Pedido numero: ${datos.idcompraitem}</div>
+                                                    <div class="text-center">Id de la Compra: ${datos.idcompra}</div>
+                                                    <div class="text-center">Id del Producto: ${datos.idproducto}</div>
+                                                        <div class="text-center"><strong>Cantidad solicitada: ${datos.cicantidad}</strong></div>
+                                                        <div class="text-center"><strong>Stock: ${datos.cicantstock}</strong></div>
                                                         <div class="d-flex flex-row justify-content-center">
                                                             <button class="btn btn-success" onclick="evaluar(this, ${datos.idcompra}, 1)">Aceptar</button>
                                                             <button class="btn btn-danger" onclick="evaluar(this, ${datos.idcompra}, 0)">Cancelar</button>
@@ -406,7 +407,6 @@
                                             <div class="card-body"> 
                                             <form class="" id="formularioBorrado" novalidate method="post">
                                                 <p class="card-title"><strong>Nombre : </strong>${usuario.usnombre}</p> 
-                                                <p class="card-text"><strong>Contraseña:</strong> ${usuario.uspass}</p> 
                                                 <p class="card-text"><strong>Correo:</strong> ${usuario.usmail}</p> 
                                                 <p class="card-text font-bold">${usuario.usdeshabilitado == '0000-00-00 00:00:00' ? 'Habilitado' : 'Deshabilitado'}</p> 
                                                 <button class="btn btn-danger"><a onclick="borradoLogicaUsuario(${usuarioStr})">Dar de Baja</a></button> 
@@ -456,7 +456,6 @@
                                                 <div class="card-body">
                                                     <form>
                                                         <p class="card-title">Nombre : ${usuario.usnombre}</p>
-                                                        <p class="card-text">Contraseña: ${usuario.uspass}</p>
                                                         <p class="card-text">Correo: ${usuario.usmail}</p>
                                                         <p class="card-text"><strong>Rol: ${usuario.rodescripcion}</strong></p>
                                                         <div class="text-center">
@@ -634,7 +633,35 @@
             data: { idcompra: idcompra, estado: estado },
             success: function(response) {
                 $('#mensajeOperacion').html(response);
-                $(boton).closest('.evalua').remove();   
+                $(boton).closest('.evalua').remove();
+                $.ajax({
+                    url: '../buy/actionMandarCorreo.php',
+                    type: 'post',
+                    data: {estado: estado == 1 ? 'aceptado' : 'rechazado', compra: idcompra},
+                    // beforeSend: function(){
+                    //     console.log('enviando correo');
+                    // },
+                    success: function(response){
+                        console.log(response);
+                        $.ajax({
+                            url: '../buy/actionMandarCorreo.php',
+                            type: 'post',
+                            data: {estado: response, compra: idcompra},
+                            // beforeSend: function(){
+                            //     console.log('enviando correo');
+                            // },
+                            success: function(response){
+                                console.log(response);
+                            },
+                            error: function(xhr, status, error) {
+                                console.log('Error: ' + error);
+                            }
+                        })
+                    },
+                    error: function(xhr, status, error) {
+                        console.log('Error: ' + error);
+                    }
+                });
             },
             error: function(xhr, status, error) {
                 console.log('Error: ' + error);
@@ -644,7 +671,6 @@
     }
     
     function borradoLogicaUsuario(objUsuario){
-
         $('.grid').html('');
         $('.deposito-menu').html(`
             <form class="upload-form" id="formularioUsuario" novalidate method="post">
@@ -662,7 +688,10 @@
                 </div>
                 <div class="form-group"> 
                         <label for="usmail" class="form-label">Estado</label>
-                    <input type="text" name="usmail" id="usmail" class="form-input" value="${objUsuario.usdeshabilitado == '0000-00-00 00:00:00' ? 'Habilitado' : 'Deshabilitado'}" readonly required>
+                    <select class="form-select form-select-lg" aria-label="Large select example" name="usdeshabilitado" id="usdeshabilitado">
+                        <option value="0000-00-00 00:00:00" ${objUsuario.usdeshabilitado == '0000-00-00 00:00:00' ? 'selected' : ''}>Habilitado</option>
+                        <option value="2021-09-01 00:00:00" ${objUsuario.usdeshabilitado == '2021-09-01 00:00:00' ? 'selected' : ''}>Deshabilitado</option>
+                    </select>
                     <p>¿Estas seguro de que quieres eliminar ? 😲😒</p>
                     <input type="submit" value="Confirmar Baja" name="submit" class="form-submit" required>
                 </div>                 
@@ -690,10 +719,3 @@
     }
             
 </script>
-
-
-
-
-
-
-
