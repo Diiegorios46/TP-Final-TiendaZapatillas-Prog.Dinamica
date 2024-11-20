@@ -26,12 +26,33 @@ include '../../../config.php';
                 </div>
                
                 <div class="d-flex w-10 gap align-self-center">
-                    <div class="dropdown d-flex gap align-items-center">     
-                                           
-                        <div>
-                           <a href="../history/index.php"><button>Mis compras</button></a>
+    
+                    <div class="w-h">
+                        <div class="w-40 offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+                            <div class="offcanvas-header">
+                                <h5 class="offcanvas-title" id="offcanvasRightLabel"><strong>Carrito</strong></h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="offcanvas-body">
+                                <div class="card-compra d-flex flex-row w-100 justify-content-center mr-5 mb-2 pr-1">
+                                    <button class="btn btn-dark btn-comprar">Pagar</button>
+                                </div>
+                            </div>
                         </div>
-                        
+                        <div class="dropdown d-flex gap align-items-center">   
+
+                        <a href="../menu/index.php" class="btn-link text-reset hoverCabecera">
+                            <i class="bi bi-gear w-100 text-light"></i>
+                        </a>
+
+                        <i class="bi bi-cart hoverCabecera text-light w25-h55" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"></i>
+
+                        <div>
+                            <a href="../history/index.php" class="text-light text-decoration-none"><button class="hoverCabecera">Mis compras</button></a>
+                        </div>
+
+
                         <i class="bi bi-person-circle dropdown-toggle icono-persona hoverCabecera text-light" id="dropdownMenuButton"  data-bs-toggle="dropdown" aria-expanded="false">                        <?php 
                             $session = new Session();
                             if($session->validar()){
@@ -46,31 +67,11 @@ include '../../../config.php';
                             }?>
                         </i>
                         
-                        <a href="../menu/index.php" class="btn-link text-reset hoverCabecera">
-                            <i class="bi bi-gear w-100 text-light"></i>
-                        </a>
-
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="../home/logout.php">Cerrar Sesion</a></li>
                         </ul>
                     </div>
-
-                    <div class="w-h">
-                        <i class="bi bi-cart hoverCabecera text-light w100-h55 pt-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"></i>
-
-                        <div class="w-40 offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-                            <div class="offcanvas-header">
-                                <h5 class="offcanvas-title" id="offcanvasRightLabel"><strong>Carrito</strong></h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="offcanvas-body">
-                                <div class="card-compra d-flex flex-row w-100 justify-content-center mr-5 mb-2 pr-1">
-                                    <button class="btn btn-dark btn-comprar">Pagar</button>
-                                </div>
-                            </div>
-                        </div>
-
+                        
                     </div>
                 </div>
             </div>
