@@ -66,6 +66,7 @@ if (isset($datos['estado']) && in_array($datos['estado'], [0, 1])) {
         if ($compraEstadoData) {
             $compraEstadoData['accion'] = 'editar';
             $compraEstadoData['idcompraestadotipo'] = 4;
+            $compraEstadoData['cefechafin'] = date('Y-m-d H:i:s');
             $compraEstado->abm($compraEstadoData);
             $tipoAlerta = 'alert-warning';
             $mensaje = 'El paquete no sera enviado';

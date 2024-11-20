@@ -26,12 +26,17 @@ include '../../../config.php';
                 </div>
                
                 <div class="d-flex w-10 gap align-self-center">
-                    <div class="dropdown d-flex gap align-items-center">                        
+                    <div class="dropdown d-flex gap align-items-center">     
+                                           
+                        <div>
+                           <a href="../history/index.php"><button>Mis compras</button></a>
+                        </div>
+                        
                         <i class="bi bi-person-circle dropdown-toggle icono-persona hoverCabecera text-light" id="dropdownMenuButton"  data-bs-toggle="dropdown" aria-expanded="false">                        <?php 
                             $session = new Session();
                             if($session->validar()){
                                 $usuario = $session->getUsuario();
-                                if ($usuario) {
+                                if ($usuario){
                                     echo "<span>". $usuario['usnombre'] ."</span>";
                                 } else {
                                     header('Location: ../login/index.php');
