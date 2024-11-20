@@ -1,9 +1,7 @@
 <?php
 include '../../../config.php';
-// header('Content-Type: application/json');
-if ($session->getUsuario() == null) {
-    header('Location: ./inicioCompra.php');
-}
+ header('Content-Type: application/json');
+
 $datos = data_submitted();
 
 $usuario = $session->getUsuario();
