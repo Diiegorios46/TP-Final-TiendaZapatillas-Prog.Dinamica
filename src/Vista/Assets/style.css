@@ -158,7 +158,15 @@ body {
 }
 
 .dropdown-item:hover {
-    background-color: #ccc;
+    background-color: #ffffff80;
+}
+
+.divIconos {
+
+    display: flex;
+    justify-content: space-around;
+    width:380px;
+    
 }
 
 .card-compra {
@@ -658,4 +666,10 @@ section.container-sm.d-flex.gap {
 .sombraCard:hover {
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
     transform: translateY(-5px);
+}
+.misCompras{
+   
+    background-color: #FF5722;
+    border-radius: 8px;
+   
 }

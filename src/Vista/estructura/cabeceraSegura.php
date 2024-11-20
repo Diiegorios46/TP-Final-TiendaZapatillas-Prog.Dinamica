@@ -40,7 +40,7 @@ include '../../../config.php';
                                 </div>
                             </div>
                         </div>
-                        <div class="dropdown d-flex gap align-items-center">   
+                        <div class="dropdown d-flex gap align-items-center divIconos">   
 
                         <a href="../menu/index.php" class="btn-link text-reset hoverCabecera">
                             <i class="bi bi-gear w-100 text-light"></i>
@@ -48,8 +48,8 @@ include '../../../config.php';
 
                         <i class="bi bi-cart hoverCabecera text-light w25-h55" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"></i>
 
-                        <div>
-                            <a href="../history/index.php" class="text-light text-decoration-none"><button class="hoverCabecera">Mis compras</button></a>
+                        <div class="misCompras hoverCabecera">
+                            <a href="../history/index.php" class="text-light hoverCabecera"><i class="bi bi-bag hoverCabecera"></i></a>
                         </div>
 
 
