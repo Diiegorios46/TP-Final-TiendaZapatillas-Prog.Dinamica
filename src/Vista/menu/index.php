@@ -59,6 +59,8 @@
                         });
                         menuHtml += "</div>";
                         $('.deposito-menu').append(menuHtml);
+                        $('.deposito-menu').addClass('align-items-stretch');
+
                     }
                 },
                 error: function(xhr, status, error) {
@@ -270,6 +272,8 @@
                 //MODIFICAR PRODUCTO
                 url = './listarDeposito.php';
 
+                $('.deposito-title').html('Modificar Producto');
+
                 $.ajax({
                     url: url,
                     type: 'GET',
@@ -277,12 +281,14 @@
                     success: function(result) {
 
                     $('.deposito-menu').html(''); 
-                    $('.grid').html(''); 
+                    let grid = $('.grid').html(''); 
+
                     let row;
                         result.forEach(function(producto ,index) {
                             if (index % 4 === 0) {
                                     row = $('<div class="row mt-4 mb-4"></div>');
                                     $('.grid').append(row);
+                                    $('.deposito-menu').html(grid); 
                                 }
                                 
                             let productoStr = JSON.stringify(producto).replace(/"/g, '&quot;');
@@ -454,7 +460,7 @@
                                                         <p class="card-text">Correo: ${usuario.usmail}</p>
                                                         <p class="card-text"><strong>Rol: ${usuario.rodescripcion}</strong></p>
                                                         <div class="text-center">
-                                                            <button class="btn btn-warning"><a onclick="modificarUsuario(${usuarioStr})">Modificar</a></button>
+                                                            <button class="btn btn-warning boton-formuModificar"><a onclick="modificarUsuario(${usuarioStr})">Modificar</a></button>
                                                         <div>
 -
                                                     </form>
@@ -674,7 +680,7 @@
                 contentType: false,
                 
                 success: function(texto) {
-                    $('#mensajeOperacion').addClass('alert alert-success alert-dismissible fade show text-center').html('Usuario deshabilitado exitosamente.');
+                    $('#deposito-menu').addClass('alert alert-success alert-dismissible fade show text-center').html('Usuario deshabilitado exitosamente.');
                 },
                 error: function(xhr, status, error) {
                     console.log('Error: ' + error);

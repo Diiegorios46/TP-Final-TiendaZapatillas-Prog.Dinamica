@@ -27,12 +27,12 @@ include '../../../config.php';
                
                 <div class="d-flex w-10 gap align-self-center">
                     <div class="dropdown d-flex gap align-items-center">                        
-                        <i class="bi bi-person-circle dropdown-toggle icono-persona hoverCabecera" id="dropdownMenuButton"style="font-size: 2rem;" data-bs-toggle="dropdown" aria-expanded="false">                        <?php 
+                        <i class="bi bi-person-circle dropdown-toggle icono-persona hoverCabecera text-light" id="dropdownMenuButton"  data-bs-toggle="dropdown" aria-expanded="false">                        <?php 
                             $session = new Session();
                             if($session->validar()){
                                 $usuario = $session->getUsuario();
                                 if ($usuario) {
-                                    echo "<span>". strtoupper($usuario['usnombre']) ."</span>";
+                                    echo "<span>". $usuario['usnombre'] ."</span>";
                                 } else {
                                     header('Location: ../login/index.php');
                                 }
@@ -42,7 +42,7 @@ include '../../../config.php';
                         </i>
                         
                         <a href="../menu/index.php" class="btn-link text-reset hoverCabecera">
-                            <i class="bi bi-gear w-100"></i>
+                            <i class="bi bi-gear w-100 text-light"></i>
                         </a>
 
                         <ul class="dropdown-menu">
@@ -51,12 +51,11 @@ include '../../../config.php';
                     </div>
 
                     <div class="w-h">
-                        <i class="bi bi-cart hoverCabecera" style="font-size: 2rem;" class="w100-h55" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"></i>
+                        <i class="bi bi-cart hoverCabecera text-light w100-h55 pt-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"></i>
 
-                        <div class="w-40 offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
-                            aria-labelledby="offcanvasRightLabel">
+                        <div class="w-40 offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
                             <div class="offcanvas-header">
-                                <h5 class="offcanvas-title" id="offcanvasRightLabel">Carrito</h5>
+                                <h5 class="offcanvas-title" id="offcanvasRightLabel"><strong>Carrito</strong></h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
                                     aria-label="Close"></button>
                             </div>

@@ -419,19 +419,6 @@ section.container-sm.d-flex.gap {
 
 }
 
-.card-button .btn {
-    padding: 12px 25px;
-    font-size: 1rem;
-    font-weight: bold;
-    background-color: #3498db;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    width: 100%;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    visibility: hidden;
-    transition: visibility 0.1s, opacity 0.3s ease-out;
-}
 
 .card-img {
     width: 100%;
@@ -451,6 +438,7 @@ section.container-sm.d-flex.gap {
     font-size: 1rem;
     color: #555;
     margin: 10px 0;
+    font-weight: bold;
 }
 
 .card-marca {
@@ -459,19 +447,34 @@ section.container-sm.d-flex.gap {
 
 .card-precioMasDescuento {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    font-size: 1rem;
 }
 
 .data-precio {
-    font-size: 1.2rem;
+    font-size: 2.2rem;
     font-weight: bold;
     color: #333;
 }
 
+.card-button .btn {
+    padding: 12px 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    background-color: #212121;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    visibility: hidden;
+    transition: visibility 0.1s, opacity 0.3s ease-out;
+}
+
 
 .card-button .btn:hover {
-    background-color: #2980b9;
+    background-color: #000000;
+    color: #ffffff;
     transform: translateY(-2px);
 }
 
@@ -634,4 +637,25 @@ section.container-sm.d-flex.gap {
 
 .font-bold{
     font-weight: bold;
+}
+
+.boton-formuModificar{
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+
+.sombraCard{
+    transition: box-shadow 0.3s ease, transform 0.3s ease;     
+}
+
+.sombraCard:hover {
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px);
 }

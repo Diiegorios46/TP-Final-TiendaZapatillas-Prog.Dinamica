@@ -135,7 +135,7 @@
                                 }
                                 let zapatilla = `
                                     <div class="col-3">
-                                        <div class="card d-flex w-100 h-100 p-3 shadow-sm">
+                                        <div class="card d-flex w-100 h-100 p-3 sombraCard">
                                             <div class="card-img w-100">
                                                 <img src="${producto.proimagen1}" alt="" class="w-100 h-100 img-card">
                                             </div>
@@ -148,7 +148,7 @@
                                                 <span class="data-idproducto">${producto.idproducto}</span>
                                             </div>
                                             <div class="card-button text-center pt-3">
-                                                <button class="btn btn-dark p-2 agregarCarrito" id="myButton" onclick="agregarAlCarrito(this)">Agregar al carrito</button>
+                                                <button class=" p-2 agregarCarrito btn btn-dark" id="myButton" onclick="agregarAlCarrito(this)">Agregar al carrito</button>
                                             </div>
                                         </div>
                                     </div>`;
