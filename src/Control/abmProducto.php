@@ -199,4 +199,34 @@ class abmProducto
         }
         return $result;
     }
+
+    public function obtenerDatosSeguros($param){
+        $where = " true ";
+        if ($param <> NULL) {
+            if (isset($param['prodetalle']))
+                $where .= " and prodetalle = '" . $param['prodetalle'] . "'";
+            if (isset($param['proprecio']))
+                $where .= " and proprecio = " . $param['proprecio'];
+        }
+
+        $obj = new Producto();
+
+        $arreglo = $obj->listar($where);
+        $result = [];
+
+        if (!empty($arreglo)) {
+            foreach ($arreglo as $producto) {
+                $result[] = [
+                    'pronombre' => $producto->getPronombre(),
+                    'prodetalle' => $producto->getProdetalle(),
+                    'procantstock' => $producto->getProcantstock(),
+                    'promarca' => $producto->getPromarca(),
+                    'proprecio' => $producto->getProprecio(),
+                    'proimagen1' =>  $producto->getProimagen1(),
+                    'idproducto' => ''
+                ];
+            }
+        }
+        return $result;
+    }
 }

@@ -1,13 +1,12 @@
 <?php
 
 include '../../../config.php';
-
-if($session->getUsuario() == null){
-    header('Location: ./index.php');
-}
-
 $abmProducots = new abmProducto();
 
-$productos = $abmProducots->obtenerDatos(null);
-//verEstructura($productos);
+if($session->getUsuario() != null){
+    $productos = $abmProducots->obtenerDatos(null);
+} else {
+    $productos = $abmProducots->obtenerDatosSeguros(null);
+}
+
 echo json_encode($productos);

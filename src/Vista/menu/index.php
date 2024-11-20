@@ -28,7 +28,7 @@
                         $('.deposito-menu').html('Error al cargar los datos.');
                     } else {
                         var i = 1;
-                        let menuHtml = "<div class='d-flex flex-column'>"; // Definir menuHtml
+                        let menuHtml = "<div class='d-flex flex-column'>"; 
                         
                         response.forEach(menu => {
                             switch(menu) {
@@ -73,8 +73,8 @@
         var url;
         switch(indice) {
             case 1:
-                //COFIG USUARIO ADMIN CORREGIR PORQUE SOLO ADMIN TIENE ESE ORDEN , PERO LO DEJO ASI PARA QUE SEPAMOS LOS CODIGOS
-                    url = './actionlistarDatosUsuario.php';
+                //COFIG USUARIO ADMIN 
+                url = './actionlistarDatosUsuario.php';
     
                 $.ajax({
                     url: url,
@@ -176,7 +176,7 @@
                     });
                 break;
             case 3:
-                //AGREGAR PRODUCTO ADMIN CORREGIR PORQUE SOLO ADMIN TIENE ESE ORDEN , PERO LO DEJO ASI PARA QUE SEPAMOS LOS CODIGOS
+                //AGREGAR PRODUCTO ADMIN 
 
                 url = './agregarAction.php';
                 $('.deposito-menu').html(`
@@ -222,7 +222,6 @@
                         data: new FormData(this),
                         processData: false,
                         contentType: false,
-                        // dataType: 'json',
                         success: function(result) {
                             console.log(result);
                             try {
@@ -294,7 +293,7 @@
 
                 break;
             case 5:
-                //ALTA USUARIO ADMIN CORREGIR PORQUE SOLO ADMIN TIENE ESE ORDEN , PERO LO DEJO ASI PARA QUE SEPAMOS LOS CODIGOS
+                //ALTA USUARIO ADMIN 
                 url = './actionAltaUsuario.php';
                 
                 $('.deposito-menu').html(`
@@ -345,7 +344,7 @@
 
                 break;
                 case 6:
-                //BAJA USUARIO ADMIN CORREGIR PORQUE SOLO ADMIN TIENE ESE ORDEN , PERO LO DEJO ASI PARA QUE SEPAMOS LOS CODIGOS
+                //BAJA USUARIO ADMIN 
 
                 url = './listarUsuarios.php';
 
@@ -395,7 +394,7 @@
                             
                     break;   
                      case 7:
-                    //MODIFICAR USUARIO ADMIN CORREGIR PORQUE SOLO ADMIN TIENE ESE ORDEN , PERO LO DEJO ASI PARA QUE SEPAMOS LOS CODIGOS
+                    //MODIFICAR USUARIO ADMIN 
 
                     url = './listarUsuarios.php'; 
                     
@@ -421,10 +420,9 @@
                                                 <div class="card-body">
                                                     <form>
                                                         <h5 class="card-title">${usuario.usnombre}</h5>
-                                                        <p class="card-text">Contraseña: ${usuario.uspass}</p>
                                                         <p class="card-text">Correo: ${usuario.usmail}</p>
                                                         <p class="card-text">Rol: ${usuario.rodescripcion}</p>
-                                                        <button class="btn btn-light"><a onclick="modificarUsuario(${usuarioStr})">Modificar</a></button>
+                                                        <button class="btn btn-light" onclick="modificarUsuario(${usuarioStr})">Modificar</button>
                                                     </form>
                                                 </div>
                                             </div>
@@ -536,126 +534,120 @@
         });
     }
 
-        function modificarUsuario(objUsuario){
-            $('.grid').html('');
+    function modificarUsuario(objUsuario){
+        $('.grid').html('');
 
-            $('.deposito-menu').html(`
-                <form class="upload-form" id="formularioUsuario" novalidate method="post">
-                    <div class="form-group">
-                        <label for="usnombre" class="form-label">Nombre del usuario</label>
-                        <input type="text" name="usnombre" id="usnombre" class="form-input" value="${objUsuario.usnombre}" required>
-                    </div>
-                    <div class="form-group hidden">
-                        <label for="usid" class="form-label">ID del usuario</label>
-                        <input type="text" name="idusuario" id="idusuario" class="form-input" value="${objUsuario.idusuario}" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="uspass" class="form-label">Contraseña del usuario</label>
-                        <input type="text" name="uspass" id="uspass" class="form-input" value="${objUsuario.uspass}" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="usmail" class="form-label">Correo del usuario</label>
-                        <input type="text" name="usmail" id="usmail" class="form-input" value="${objUsuario.usmail}" required>
-                        
-                    </div> 
-                      <div class="form-group">
-                        <label for="rodescripcion" class="form-label">Rol</label>
-                        <input type="text" name="rodescripcion" id="rodescripcion" class="form-input" value="${objUsuario.rodescripcion}" required>
-                    </div> 
+        $('.deposito-menu').html(`
+
+            <form class="upload-form" id="formularioUsuario" novalidate>
+                <div class="form-group">
+                    <label for="usnombre" class="form-label">Nombre del usuario</label>
+                    <input type="text" name="usnombre" id="usnombre" class="form-input" value="${objUsuario.usnombre}" required>
+                </div>
+
+                <div class="form-group hidden">
+                    <label for="usid" class="form-label">ID del usuario</label>
+                    <input type="text" name="idusuario" id="idusuario" class="form-input" value="${objUsuario.idusuario}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="usmail" class="form-label">Correo del usuario</label>
+                    <input type="text" name="usmail" id="usmail" class="form-input" value="${objUsuario.usmail}" required>
+                </div> 
+
+                <div class="form-group">
+                    <label for="rodescripcion" class="form-label">Rol</label>
+                    <select class="form-select form-select-lg" aria-label="Large select example" name="rodescripcion" id="">
+                        <option value="Cliente" ${objUsuario.rodescripcion === 'Cliente' ? 'selected' : ''}>Cliente</option>
+                        <option value="Deposito" ${objUsuario.rodescripcion === 'Deposito' ? 'selected' : ''}>Deposito</option>
+                        <option value="Administrador" ${objUsuario.rodescripcion === 'Administrador' ? 'selected' : ''}>Administrador</option>
+                    </select>
+                </div> 
                     <input type="submit" value="Modificar usuario" name="submit" class="form-submit" required>
-                </form>`
-            );
+            </form>`);
 
-            url = './actionModificarUsuario.php';
+        url='./actionModificarUsuario.php';
 
-            $('#formularioUsuario').on('submit', function(e) {
-                e.preventDefault(); 
-                $.ajax({
-                    url: url,
-                    type: 'POST',
-                    data: new FormData(this),
-                    processData: false,
-                    contentType: false,
-
-                    success: function(texto) {
-
-                        $('#mensajeOperacion').addClass('alert alert-success alert-dismissible fade show text-center').html('Usuario modificado exitosamente.');
-
-                    },
-                    error: function(xhr, status, error) {
-                        console.log('Error: ' + error);
-                    }
-                });
-            });
-
-        }
-        
-        function evaluar(boton, idcompra, estado) {
-
+        $('#formularioUsuario').on('submit', function(e) {
+            e.preventDefault(); 
             $.ajax({
-                url: './actionEvaluar.php',
+                url: url,
                 type: 'POST',
-                data: { idcompra: idcompra, estado: estado },
-                // dataType: 'json',
-                success: function(response) {
-                    $('#mensajeOperacion').html(response);
-                    $(boton).closest('.evalua').remove();   
+                data: new FormData(this),
+                processData: false,
+                contentType: false,
+                success: function(texto) {
+                    console.log(texto);
+                    $('#mensajeOperacion').addClass('alert alert-success alert-dismissible fade show text-center').html('Usuario modificado exitosamente.');
                 },
                 error: function(xhr, status, error) {
                     console.log('Error: ' + error);
                 }
             });
-          
-        }
-        function borradoLogicaUsuario(objUsuario){
+        });
+    }
+        
+    function evaluar(boton, idcompra, estado) {
+        $.ajax({
+            url: './actionEvaluar.php',
+            type: 'POST',
+            data: { idcompra: idcompra, estado: estado },
+            success: function(response) {
+                $('#mensajeOperacion').html(response);
+                $(boton).closest('.evalua').remove();   
+            },
+            error: function(xhr, status, error) {
+                console.log('Error: ' + error);
+            }
+        });
+        
+    }
+    
+    function borradoLogicaUsuario(objUsuario){
 
-            $('.grid').html('');
-
-            $('.deposito-menu').html(`
-                <form class="upload-form" id="formularioUsuario" novalidate method="post">
-                    <div class="form-group">
-                        <label for="usnombre" class="form-label">Nombre del usuario</label>
-                        <input type="text" name="usnombre" id="usnombre" class="form-input" value="${objUsuario.usnombre}" readonly required>
-                    </div>
-                    <div class="form-group hidden">
-                        <label for="usid" class="form-label">ID del usuario</label>
-                        <input type="text" name="idusuario" id="idusuario" class="form-input" value="${objUsuario.idusuario}" readonly required>
-                    </div>
-                    <div class="form-group">
-                        <label for="usmail" class="form-label">Correo del usuario</label>
-                        <input type="text" name="usmail" id="usmail" class="form-input" value="${objUsuario.usmail}" readonly required>
-                    </div>
-                    <div class="form-group"> 
-                         <label for="usmail" class="form-label">Estado</label>
-                        <input type="text" name="usmail" id="usmail" class="form-input" value="${objUsuario.usdeshabilitado == '0000-00-00 00:00:00' ? 'Habilitado' : 'Deshabilitado'}" readonly required>
-                        <p>¿Estas seguro de que quieres eliminar ? 😲😒</p>
-                        <input type="submit" value="Confirmar Baja" name="submit" class="form-submit" required>
-                    </div>                 
-                </form>`
-            );
-            
-            url = './actionBajaUsuario.php';
-            
-            $('#formularioUsuario').on('submit', function(e) {
-                e.preventDefault(); 
-                $.ajax({
-                    url: url,
-                    type: 'POST',
-                    data: new FormData(this),
-                    processData: false,
-                    contentType: false,
-                    
-                    success: function(texto) {
-
-                        $('#mensajeOperacion').addClass('alert alert-success alert-dismissible fade show text-center').html('Usuario deshabilitado exitosamente.');
-
-                    },
-                    error: function(xhr, status, error) {
-                        console.log('Error: ' + error);
-                    }
-                });
+        $('.grid').html('');
+        $('.deposito-menu').html(`
+            <form class="upload-form" id="formularioUsuario" novalidate method="post">
+                <div class="form-group">
+                    <label for="usnombre" class="form-label">Nombre del usuario</label>
+                    <input type="text" name="usnombre" id="usnombre" class="form-input" value="${objUsuario.usnombre}" readonly required>
+                </div>
+                <div class="form-group hidden">
+                    <label for="usid" class="form-label">ID del usuario</label>
+                    <input type="text" name="idusuario" id="idusuario" class="form-input" value="${objUsuario.idusuario}" readonly required>
+                </div>
+                <div class="form-group">
+                    <label for="usmail" class="form-label">Correo del usuario</label>
+                    <input type="text" name="usmail" id="usmail" class="form-input" value="${objUsuario.usmail}" readonly required>
+                </div>
+                <div class="form-group"> 
+                        <label for="usmail" class="form-label">Estado</label>
+                    <input type="text" name="usmail" id="usmail" class="form-input" value="${objUsuario.usdeshabilitado == '0000-00-00 00:00:00' ? 'Habilitado' : 'Deshabilitado'}" readonly required>
+                    <p>¿Estas seguro de que quieres eliminar ? 😲😒</p>
+                    <input type="submit" value="Confirmar Baja" name="submit" class="form-submit" required>
+                </div>                 
+            </form>`);
+        
+        url = './actionBajaUsuario.php';
+        
+        $('#formularioUsuario').on('submit', function(e) {
+            e.preventDefault(); 
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: new FormData(this),
+                processData: false,
+                contentType: false,
+                
+                success: function(texto) {
+                    $('#mensajeOperacion').addClass('alert alert-success alert-dismissible fade show text-center').html('Usuario deshabilitado exitosamente.');
+                },
+                error: function(xhr, status, error) {
+                    console.log('Error: ' + error);
+                }
             });
-        }
+        });
+    }
             
 </script>
 

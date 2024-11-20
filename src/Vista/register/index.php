@@ -5,14 +5,11 @@ $datos = data_submitted();
 
 <main class="container w-32 h-100 mt-4">
     <section class="login-container bg-form rounded-modify shadow">
-        <?php if (isset($datos['error'])){
-            echo '<div class="alert alert-danger" role="alert">';
-            if ($datos['error'] == 1) {
-                echo 'El correo electrónico ya está registrado.';
-            }
-            echo '</div>';
-            }
-        ?>
+        <?php if (isset($datos['error'])) { ?>
+            <div class="alert alert-danger" role="alert">
+            <?php if ($datos['error'] == 1) { echo 'El correo electrónico ya está registrado.';}?>
+            </div>
+        <?php }?>
         <div class="text-center fs-2 pt-4 pb-4">
             <span>Registrar</span>
         </div>
@@ -46,7 +43,7 @@ document.getElementById('registerForm').addEventListener('submit', function(even
         url: './action.php',
         data: $(this).serialize(),
         success: function(response) {
-            if (response == 'success') {
+            if (response === 'success') {
                 window.location.href = '../login/index.php?login=1';
             } else if (response === 'email_exists') {
                 window.location.href = './index.php?error=1';
@@ -58,5 +55,39 @@ document.getElementById('registerForm').addEventListener('submit', function(even
             window.location.href = './index.php?error=2';
         }
     });
+});
+
+$('#registerForm').validate({
+    rules: {
+        usnombre: {
+            required: true,
+            minlength: 3
+        },
+        usmail: {
+            required: true,
+            email: true
+        },
+        uspass: {
+            required: true,
+            minlength: 6
+        }
+    },
+    messages: {
+        usnombre: {
+            required: "Por favor ingrese un nombre de usuario",
+            minlength: "El nombre de usuario debe tener al menos 3 caracteres"
+        },
+        usmail: {
+            required: "Por favor ingrese un correo electrónico",
+            email: "Por favor ingrese un correo electrónico válido"
+        },
+        uspass: {
+            required: "Por favor ingrese una contraseña",
+            minlength: "La contraseña debe tener al menos 6 caracteres"
+        }
+    },
+    submitHandler: function(form) {
+        form.submit();
+    }
 });
 </script>

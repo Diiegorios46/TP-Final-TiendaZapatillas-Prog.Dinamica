@@ -1,34 +1,30 @@
 <?php
 include '../../../config.php';
 
-$datos = data_submitted();
-$datos['accion'] = 'editar';
-
+$datosNuevosUsuario = data_submitted();
 $abmUsuario = new abmUsuario();
 $abmUsuarioRol = new abmUsuarioRol();
 
-switch ($datos['rodescripcion']) {
-    case "Administrador":
-        $datos['idrol'] = 1;
-        break;
+$usuarioViejo = $abmUsuario->obtenerDatos(['idusuario' => $datosNuevosUsuario['idusuario']])[0];
+$abmUsuarioRol->obtenerDatos(['idusuario' => $datosNuevosUsuario['idusuario']])['idrol'];
 
-    case "Deposito":
-        $datos['idrol'] = 2;
-        break;
-    case "Cliente":
-        $datos['idrol'] = 3;
-        break;
-}
+verEstructura($abmUsuarioRol->obtenerDatos(['idusuario' => $datosNuevosUsuario['idusuario']])[0]);
+// verEstructura($usuarioViejo);
 
-$usuariorol = $abmUsuarioRol->obtenerDatos($datos['idusuario']);
+// $datos = [];
+// $datos['accion'] = 'editar';
 
-try {
-    if($abmUsuario->abm($datos) && $abmUsuarioRol->abm($datos)){
-        echo json_encode('Usuario editado correctamente');
-    } else {
-        echo json_encode('Error al editar el usuario');
-    }
-} catch (Exception $e) {
-    echo json_encode('Error al agregar el el usuario');
-}
-?>
+// foreach ($datosNuevosUsuario as $key => $value) {
+//     if ($value != $usuarioViejo[$key]) {
+//         $datos[$key] = $value;
+//     } else {
+//         $datos[$key] = $usuarioViejo[$key];
+//     }
+// }
+
+// if ($abmUsuarioRol->abm($datos)) {
+//     echo "Usuario modificado con éxito";
+// } else {
+//     echo "Error al modificar el usuario";
+// }
+// ?>

@@ -152,7 +152,8 @@ class abmUsuarioRol{
             if (!empty($arreglo)) {
                 foreach ($arreglo as $rol) {
                     $result[] = ["idrol" => $rol->getIdRol(),
-                                 "idusuario" => $rol->getIdUsuario()];
+                        "idusuario" => $rol->getIdUsuario()
+                    ];
                 }
             }
             return $result;

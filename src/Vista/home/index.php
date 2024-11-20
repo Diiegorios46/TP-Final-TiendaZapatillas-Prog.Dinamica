@@ -1,5 +1,6 @@
 <?php
     include '../../../config.php';
+
     if($session->validar()){
         $session->cerrar();
         include '../estructura/cabeceraSegura.php';
@@ -10,7 +11,7 @@
     if (isset($_GET['seccion']) && $_GET['seccion'] == 'iniciarCompra'){
         echo 'inicioCompra';
     }
-    ?>
+?>
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -34,50 +35,26 @@
                         <div class="accordion" id="accordionExample">
                             <div class="accordion-item">
                                 <h2 class="accordion-header">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                        Talles
-                                    </button>
-                                </h2>
-                                <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
-                                        <ul>
-                                            <li><input type="checkbox" name="" id="">30</li>
-                                            <li><input type="checkbox" name="" id="">32</li>
-                                            <li><input type="checkbox" name="" id="">33</li>
-                                            <li><input type="checkbox" name="" id="">34</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                        Categoria
-                                    </button>
-                                </h2>
-                                <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
-                                        <ul>
-                                            <li><input type="checkbox" name="" id="">Hombre</li>
-                                            <li><input type="checkbox" name="" id="">Mujer</li>
-                                            <li><input type="checkbox" name="" id="">Niños</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                        Precio
+                                        Precios de las zapatillas
                                     </button>
                                 </h2>
                                 <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
-                                        <ul>
-                                            <li><input type="checkbox">$100</li>
-                                            <li><input type="checkbox">$200</li>
-                                            <li><input type="checkbox">$300</li>
-                                        </ul>
+                                    <ul class="list-unstyled">
+                                        <li class="d-flex align-items-center mb-2">
+                                            <input type="checkbox" id="price100" class="me-2">
+                                            <label for="price100" class="mb-0">$100</label>
+                                        </li>
+                                        <li class="d-flex align-items-center mb-2">
+                                            <input type="checkbox" id="price200" class="me-2">
+                                            <label for="price200" class="mb-0">$200</label>
+                                        </li>
+                                        <li class="d-flex align-items-center mb-2">
+                                            <input type="checkbox" id="price300" class="me-2">
+                                            <label for="price300" class="mb-0">$300</label>
+                                        </li>
+                                    </ul>
                                     </div>
                                 </div>
                             </div>
@@ -279,7 +256,6 @@
             `;
             }
         }
-
         </script>
         
 </body>
