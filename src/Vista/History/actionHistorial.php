@@ -1,6 +1,6 @@
 <?php
 include '../../../config.php';
-// header('Content-Type: application/json');
+header('Content-Type: application/json');
 
 $session = new Session();
 $usuario = $session->getUsuario();
@@ -31,4 +31,4 @@ foreach($abmCompra->obtenerDatos(['idusuario' => $usuario['idusuario']]) as $com
 }
 
 
-verEstructura($historial);
+echo json_encode($historial);
