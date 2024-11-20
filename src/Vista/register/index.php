@@ -13,7 +13,7 @@ $datos = data_submitted();
         <div class="text-center fs-2 pt-4 pb-4">
             <span>Registrar</span>
         </div>
-        <form class="w-100 d-flex flex-column" action="./action.php" id="registerForm" method="POST">
+        <form class="w-100 d-flex flex-column" action="./action.php" id="loginForm" method="POST">
             <div class="mt-4 ml-2 mb-2 mr-2">
                 <input type="text" name="usnombre" class="fancy-input rounded-pill img-input-usuario" id="usnombre" placeholder="Nombre de usuario" required>
             </div>
@@ -23,7 +23,7 @@ $datos = data_submitted();
             <div class="mt-3 ml-2 mb-2 mr-2">
                 <input type="password" name="uspass" class="fancy-input rounded-pill img-input-contraseña" id="uspass" placeholder="Contraseña" required>
             </div>
-            <div class="mt-2 ml-2 mb-4 mr-2">
+            <div class="d-flex w-70 align-self-center mb-2 pb-4">
                 <input type="submit" class="btn-enviar rounded-pill" value="Enviar">
             </div>
             <div class="d-flex w-100 h-100 align-content-start justify-content-center mb-5">
@@ -36,7 +36,7 @@ $datos = data_submitted();
 </html>
 
 <script>
-document.getElementById('registerForm').addEventListener('submit', function(event) {
+document.getElementById('loginForm').addEventListener('submit', function(event) {
     event.preventDefault();
     $.ajax({
         type: 'POST',
@@ -57,7 +57,7 @@ document.getElementById('registerForm').addEventListener('submit', function(even
     });
 });
 
-$('#registerForm').validate({
+$('#loginForm').validate({
     rules: {
         usnombre: {
             required: true,

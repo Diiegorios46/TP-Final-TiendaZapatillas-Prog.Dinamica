@@ -158,7 +158,15 @@ body {
 }
 
 .dropdown-item:hover {
-    background-color: #ccc;
+    background-color: #ffffff80;
+}
+
+.divIconos {
+
+    display: flex;
+    justify-content: space-around;
+    width:380px;
+    
 }
 
 .card-compra {
@@ -361,34 +369,27 @@ button {
 
 .deposito-btn-subir-producto,
 .deposito-btn-modificar-producto {
-    padding: 12px 25px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: #fff;
-    background-color: #4A4A4A;
-    /* Color principal pastel */
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    width: 170px;
-    text-align: center;
+    padding: 12px 25px; /* Mantén los márgenes */
+    font-size: 1.1rem; /* Ajuste del tamaño de fuente */
+    font-weight: bold; /* Negrita */
+    border: none; /* Sin bordes */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cursor tipo puntero */
+    background-color: #fff; /* Fondo blanco */
+    color: #333; /* Color del texto */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Transiciones suaves */
+    width: 170px; /* Ancho fijo */
+    text-align: center; /* Alineación del texto al centro */
 }
 
 .deposito-btn-subir-producto:hover,
 .deposito-btn-modificar-producto:hover {
-    background-color: #616161;
-    /* Color de hover */
-    transform: translateY(-2px);
+    background-color: #dfdfdf; /* Negro medio al pasar el cursor */
+    color: #000000; /* Color del texto al pasar el cursor */
+    transform: translateY(-2px); /* Efecto de levantamiento */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Sombra más profunda */
 }
-
-.deposito-btn-subir-producto:active,
-.deposito-btn-modificar-producto:active {
-    background-color: #2C2C2C;
-    /* Color de active */
-}
-
-
 
 
 section.container-sm.d-flex.gap {
@@ -606,7 +607,7 @@ section.container-sm.d-flex.gap {
     font-size: 1.2rem;
     font-weight: bold;
     color: #fff;
-    background-color: #28a745;
+    background-color: #22A1FF;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -658,4 +659,14 @@ section.container-sm.d-flex.gap {
 .sombraCard:hover {
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
     transform: translateY(-5px);
+}
+.misCompras{
+   
+    background-color: #FF5722;
+    border-radius: 8px;
+   
+}
+
+.h-35{
+    min-height: 35%;
 }

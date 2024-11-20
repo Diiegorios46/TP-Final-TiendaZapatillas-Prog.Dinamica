@@ -5,13 +5,18 @@ $datosNuevosUsuario = data_submitted();
 $abmUsuario = new abmUsuario();
 $abmUsuarioRol = new abmUsuarioRol();
 $abmRol = new abmRol();
-$usuarioViejo = $abmUsuario->obtenerDatos(['idusuario' => $datosNuevosUsuario['idusuario']])[0];
-$datosNuevosUsuario['idrol'] = $abmRol->obtenerDatos(['rodescripcion' => $datosNuevosUsuario['rodescripcion']])[0]['idrol'];
+
+$idUsuarioAux = $datosNuevosUsuario['idusuario'];
+$roDescripcionAux = $datosNuevosUsuario['rodescripcion'];
+
+$usuarioViejo = $abmUsuario->obtenerDatos(['idusuario' => $idUsuarioAux])[0];
+$datosNuevosUsuario['idrol'] = $abmRol->obtenerDatos(['rodescripcion' => $roDescripcionAux])[0]['idrol'];
 
 $datos = [];
 $datos['accion'] = 'editar';
 $datos['uspass'] = $usuarioViejo['uspass'];
 
+verEstructura($datosNuevosUsuario);
 foreach ($datosNuevosUsuario as $key => $value) {
     if ($value != $usuarioViejo[$key]) {
         $datos[$key] = $value;

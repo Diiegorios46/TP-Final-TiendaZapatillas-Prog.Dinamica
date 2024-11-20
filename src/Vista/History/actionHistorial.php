@@ -30,5 +30,5 @@ foreach($abmCompra->obtenerDatos(['idusuario' => $usuario['idusuario']]) as $com
     }
 }
 
-
+//verEstructura($historial);
 echo json_encode($historial);
