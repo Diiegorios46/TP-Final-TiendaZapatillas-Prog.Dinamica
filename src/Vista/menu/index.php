@@ -33,25 +33,25 @@
                         response.forEach(menu => {
                             switch(menu) {
                                 case 'verpaquete':
-                                    menu = "<span>Ver Paquete(s).</span>";
+                                    menu = "<span class='text-primary'>Ver Paquete(s).</span>";
                                     break;
                                 case 'agregarproducto':
-                                    menu = "<span>Agregar un Producto.</span>";
+                                    menu = "<span class='text-succcess'>Agregar un Producto.</span>";
                                     break;
                                 case 'modificarproducto':
-                                    menu = "<span>Modificar un Producto.</span>";
+                                    menu = "<span class='text-warning'>Modificar un Producto.</span>";
                                     break;
                                 case 'altausuario':
-                                    menu = "<span>Agregar un Usuario.</span>";
+                                    menu = "<span class='text-info'>Agregar un Usuario.</span>";
                                     break;
                                 case 'bajausuario':
-                                    menu = "<span>Borrar Usuario.</span>";
+                                    menu = "<span class='text-danger'>Borrar Usuario.</span>";
                                     break;
                                 case 'modificarusuario':
-                                    menu = "<span>Modificar un Usuario.</span>";
+                                    menu = "<span class='text-secondary'>Modificar un Usuario.</span>";
                                     break;
                                 case 'configuracionusuario': 
-                                    menu = "<span>Configuracion de Usuario.</span>";
+                                    menu = "<span class='text-dark'>Configuracion de Usuario.</span>";
                                     break;
                             }
                             menuHtml += `<button type="button" class="deposito-btn-subir-producto mb-2" onclick="obtenerMenu(${i})">${menu}</button>`;
@@ -147,6 +147,8 @@
                 //VER PAQUETES DEPOSITO
                 url = "./actionVerPaquetes.php";
 
+                $('.deposito-title').html('Ver Paquetes');
+
                 $.ajax({
                         url: url,
                         type: 'GET',
@@ -167,21 +169,21 @@
                                 result.forEach(function(datos, index) {
                                    
                                     if (index % 4 === 0) {
-                                        row = $('<div class="row mt-3 mb-3 justify-content-between"></div>'); 
+                                        row = $('<div class="row mt-3 mb-3"></div>'); 
                                         $('.grid').append(row); 
                                         $('.grid').addClass('w-100')
                                         $('.deposito-menu').html(grid);
                                     }
-                                    let pedido = `<div class="col-md-3 col-sm-6 mb-3 evalua w-25">  
-                                                    <div class="d-flex flex-column">
-                                                    <div class="text-center">Pedido numero: ${datos.idcompraitem}</div>
-                                                    <div class="text-center">Id de la Compra: ${datos.idcompra}</div>
-                                                    <div class="text-center">Id del Producto: ${datos.idproducto}</div>
-                                                        <div class="text-center"><strong>Cantidad solicitada: ${datos.cicantidad}</strong></div>
-                                                        <div class="text-center"><strong>Stock: ${datos.cicantstock}</strong></div>
-                                                        <div class="d-flex flex-row justify-content-center">
-                                                            <button class="btn btn-success" onclick="evaluar(this, ${datos.idcompra}, 1)">Aceptar</button>
-                                                            <button class="btn btn-danger" onclick="evaluar(this, ${datos.idcompra}, 0)">Cancelar</button>
+                                    let pedido = `<div class="col-md-3 col-sm-6 mb-3 evalua w-25 shadow p-3">  
+                                                    <div class="d-flex flex-column ">
+                                                    <div class="text-center p-1">Pedido numero: ${datos.idcompraitem}</div>
+                                                    <div class="text-center p-1">Id de la Compra: ${datos.idcompra}</div>
+                                                    <div class="text-center p-1">Id del Producto: ${datos.idproducto}</div>
+                                                        <div class="text-center p-1"><strong>Cantidad solicitada: ${datos.cicantidad}</strong></div>
+                                                        <div class="text-center p-1"><strong>Stock: ${datos.cicantstock}</strong></div>
+                                                        <div class="d-flex flex-row justify-content-center gap">
+                                                            <button class="btn btn-success m-1" onclick="evaluar(this, ${datos.idcompra}, 1)">Aceptar</button>
+                                                            <button class="btn btn-danger m-1" onclick="evaluar(this, ${datos.idcompra}, 0)">Cancelar</button>
                                                         </div>
                                                     </div>
                                                 </div>`;
@@ -206,16 +208,16 @@
                 url = './agregarAction.php';
 
                 $('.deposito-menu').html(`
-                    <form class="formAgregarProducto" id="fm" novalidate method="post">
-                        <div class="form-group inputForm">
+                    <form class="formAgregarProducto rounded shadow" id="fm" novalidate method="post">
+                        <div class="form-group inputForm m-2">
                             <label for="pronombre" class="form-label">Nombre del producto</label>
-                            <input type="text" name="pronombre" id="pronombre" class="form-input inputForm" required>
+                            <input type="text" name="pronombre" id="pronombre" class="form-input inputForm" placeholder="Iforce" required>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group m-2">
                             <label for="proprecio" class="form-label">Precio del producto</label>
-                            <input type="number" name="proprecio" id="proprecio" class="form-input inputForm" required>
+                            <input type="number" name="proprecio" id="proprecio" class="form-input inputForm" placeholder="$1500" required>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group m-2">
                             <label for="promarca" class="form-label">Marca del producto</label>
                             <select name="promarca" id="promarca" class="form-select" required>
                                 <option value="nike">Nike</option>
@@ -224,20 +226,20 @@
                                 <option value="topper">Topper</option>
                             </select>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group m-2">
                             <label for="prodetalle" class="form-label">Detalle del producto</label>
-                            <input type="text" name="prodetalle" id="prodetalle" class="form-input inputForm" required>
+                            <input type="text" name="prodetalle" id="prodetalle" class="form-input inputForm" placeholder="Son un excelente producto para hacer deporte" required>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group m-2">
                             <label for="procantstock" class="form-label">Cantidad de stock</label>
-                            <input type="number" name="procantstock" id="procantstock" class="form-input inputForm" required>
+                            <input type="number" name="procantstock" id="procantstock" class="form-input inputForm" placeholder="100" required>
                         </div>
-                        <div class="form-group">
-                            <label for="image" class="form-label">Choose image(s) to upload:</label>
+                        <div class="form-group m-2">
+                            <label for="image" class="form-label">Elegi una imagen para el producto:</label>
                             <input type="file" name="image[]" id="image" class="form-file" multiple required>
                         </div>
                         <div class="text-center">
-                            <input type="submit" value="Subir imagen" name="submit" class="btn-verde">
+                            <input type="submit" value="Subir imagen" name="submit" class="btn-verde mt-4">
                         </div>
                     </form>`);
 
@@ -295,7 +297,7 @@
                             let productoStr = JSON.stringify(producto).replace(/"/g, '&quot;');
                             let zapatilla = `
                                     <div class="col-3">
-                                        <div class="card d-flex w-100 h-100 p-3 shadow-sm">
+                                        <div class="card d-flex w-100 h-100 p-3 shadow">
                                             <div class="card-img w-100">
                                                 <img src="${producto.proimagen1}" alt="" class="w-100 h-100 img-card">
                                             </div>
@@ -330,25 +332,27 @@
                 $('.deposito-title').html('Agregar un usuario nuevo');
 
                 $('.deposito-menu').html(`
-                        <form class="formNuevoUsuario" id="formulario" novalidate method="post">
-                            <h2>Formulario de Registro</h2>
-                            <div class="form-group">
-                                <label for="nombre" class="form-label">Nombre</label>
-                                <input type="text" name="usnombre" class="form-input" id="nombre" placeholder="Ingresa tu nombre" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="contraseña" class="form-label">Contraseña</label>
-                                <input type="password" name="uspass" class="form-input" id="contraseña" placeholder="Ingresa tu contraseña" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="correo" class="form-label">Correo Electrónico</label>
-                                <input type="email" name="usmail" class="form-input" id="correo" placeholder="Ingresa tu correo electrónico" required>
-                            </div>
-                            <div class="text-center mt-5">
-                                <button type="submit" class="btn-enviar-formularioRegistroUsuario">Enviar</button>
-                            </div>
-                        </form>`);
+                                <div class="container w-50">
+                                    <form id="formulario" novalidate method="post" class="bg-light p-4 border-button-dark rounded min-height-50 shadow">
+                                        <div class="form-group">
+                                            <label for="nombre" class="form-label">Nombre</label>
+                                            <input type="text" name="usnombre" class="form-control" id="nombre" placeholder="Ingresa tu nombre" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="contraseña" class="form-label">Contraseña</label>
+                                            <input type="password" name="uspass" class="form-control" id="contraseña" placeholder="Ingresa tu contraseña" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="correo" class="form-label">Correo Electrónico</label>
+                                            <input type="email" name="usmail" class="form-control" id="correo" placeholder="Ingresa tu correo electrónico" required>
+                                        </div>
+                                        <div class="d-flex justify-content-center mt-4">
+                                            <button type="submit" class="btn-verde">Enviar</button>
+                                        </div>
+                                    </form>
+                                </div>`);
 
+                        
                 $('#formulario').on('submit', function(e) {
                     e.preventDefault(); 
                     $.ajax({
@@ -427,7 +431,7 @@
                             
                     break;   
                      case 7:
-                    //MODIFICAR USUARIO ADMIN 
+
                     $('.deposito-title').html('Modificar un Usuario');
                     url = './listarUsuarios.php'; 
                     
@@ -435,6 +439,9 @@
                         url: './listarUsuarios.php',
                         type: 'GET',
                         dataType: 'json',
+                        beforeSend: function (response){
+                            $('#mensajeOperacion').addClass('alert alert-warning alert-dismissible fade show text-center').html('Cargando...');
+                        },
                         success: function(result) {
 
                             $('.deposito-menu').html('');
@@ -452,12 +459,13 @@
                                     
                                     let usuarioHtml = `
                                         <div class="col-3">
-                                            <div class="card m-2 p-2 shadow-sm">
+                                            <div class="card m-2 p-2 shadow">
                                                 <div class="card-body">
                                                     <form>
                                                         <p class="card-title">Nombre : ${usuario.usnombre}</p>
                                                         <p class="card-text">Correo: ${usuario.usmail}</p>
                                                         <p class="card-text"><strong>Rol: ${usuario.rodescripcion}</strong></p>
+
                                                         <div class="text-center">
                                                             <button class="btn btn-warning boton-formuModificar"><a onclick="modificarUsuario(${usuarioStr})">Modificar</a></button>
                                                         <div>
@@ -468,6 +476,9 @@
                                         </div>
                                     `;
                                     row.append(usuarioHtml);
+                                    $('#mensajeOperacion').html('');
+                                    $('#mensajeOperacion').addClass('hidden');
+
                             });
                         },
                         error: function(xhr, status, error) {
@@ -577,8 +588,8 @@
         $('.grid').html('');
 
         $('.deposito-menu').html(`
-
-            <form class="upload-form" id="formularioUsuario" novalidate>
+        <div class ="container-sm w-50 h-50 shadow rounded">
+            <form class="p-5" id="formularioUsuario" novalidate>
                 <div class="form-group">
                     <label for="usnombre" class="form-label">Nombre del usuario</label>
                     <input type="text" name="usnombre" id="usnombre" class="form-input" value="${objUsuario.usnombre}" required>
@@ -602,8 +613,11 @@
                         <option value="Administrador" ${objUsuario.rodescripcion === 'Administrador' ? 'selected' : ''}>Administrador</option>
                     </select>
                 </div> 
-                    <input type="submit" value="Modificar usuario" name="submit" class="form-submit" required>
-            </form>`);
+                <div class="text-center mt-4"> 
+                    <input type="submit" value="Modificar usuario" name="submit" class="form-submit text-center" required>
+                </div>
+            </form>
+        </div>`);
 
         url='./actionModificarUsuario.php';
 

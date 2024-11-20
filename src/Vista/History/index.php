@@ -11,10 +11,14 @@
             url: url,
             type: 'GET',
             dataType: 'json', 
+
+            beforeSend: function (result){
+                $('#divHistorial').html('<div class="alert alert-warning alert-dismissible fade show text-center">Cargando..</div>');
+            },
             success: function(result) {
-                
                 let div = $('#divHistorial').html('');
-                
+                div.html('<div class="w-100 text-center mb-5"><h1>Historial de Compras.</h1></div>');
+
                 result.forEach(function(datos, index) {
                     if (index % 3 === 0) {
                         row = $('<div class="row mt-3 mb-3 justify-content-between gap"></div>'); 
