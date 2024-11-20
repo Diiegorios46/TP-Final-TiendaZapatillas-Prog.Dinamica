@@ -10,8 +10,6 @@ $datos = data_submitted();
 
 $productos = $datos['productos'];
 
-$i = 0;
-
 foreach($productos as $producto){
     $datos['accion'] = 'nuevo';
     $datos['idusuario'] = $session->getUsuario()['idusuario'];
@@ -19,9 +17,9 @@ foreach($productos as $producto){
     $datos['idproducto'] = $producto['idproducto'];
     $datos['cicantidad'] = $producto['cantidad'];
     if($abmCompra->abm($datos)){
-        echo "Se creo la compra" . $i ."\n";
+        echo json_encode("Se dio de alta");
     }else{
-        echo "Se lesiono";
+        echo json_encode("No se pudo dar de alta");
     }
-    $i++;
+
 }

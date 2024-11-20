@@ -1,11 +1,10 @@
 <?php
 include '../../../config.php';
- header('Content-Type: application/json');
+header('Content-Type: application/json');
 
 $datos = data_submitted();
 
 $usuario = $session->getUsuario();
-// echo json_encode($usuario);
 $to = $usuario['usmail'];
 $subject = "Se inicio el pedido";
 $message = "Gracias por tu compra. Tu pedido está siendo procesado.";

@@ -12,6 +12,7 @@ $datos = data_submitted();
         <div class="d-flex flex-column justify-content-between  w-80 mr-1">
             <div id="prueba"></div>
         <script>
+            
     $(document).ready(function() {
         $.ajax({
             url: 'action.php',
@@ -21,9 +22,7 @@ $datos = data_submitted();
                 console.log('trayendo datos');
             },
             success: function(response){
-                //console.log('aaa');
                 var datos = <?php echo json_encode($datos['productos']); ?>;
-                //console.log(datos);
 
                 // Crear la tabla
                 var tabla = '<table class="table table-striped text-center fs-3">';
@@ -141,7 +140,6 @@ $datos = data_submitted();
                             console.log('enviando correo');
                         },
                         success: function(response){
-                            console.log(response);
                             $('#mensajeOperacion').addClass('alert alert-success alert-dismissible fade show text-center').html('Se envio exitosamente.');
                         },
                         error: function(xhr, status, error) {
