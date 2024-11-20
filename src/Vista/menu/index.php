@@ -1,6 +1,6 @@
     <?php include '../estructura/cabeceraSegura.php' ?>
 
-    <div class="container-sm">  
+    <div class="container-sm min-vh-100">  
 
         <div id='mensajeOperacion'></div>
 
@@ -82,24 +82,39 @@
                     dataType: 'json',
                     success: function(result) {
                         $('.deposito-menu').html('');
+                        $('.deposito-title').html('Configuracion Usuario');
                         $('.grid').html('');
     
                         let userInfo = `
-                            <form class="upload-form" id="formularioUs" novalidate method="post" action="./actionConfigurarPerfil.php">
-                                <div class="form-group">
-                                    <label for="usnombre" class="form-label">Nombre del usuario</label>
-                                    <input type="text" name="usnombre" id="usnombre" class="form-input" value="${result.usnombre}" required>
+                            <div class="d-flex flex-row w-77">
+
+                            <div class="d-flex flex-row w-100">
+                                <form class="formularioMenuConfig" id="formularioUs" novalidate method="post" action="./actionConfigurarPerfil.php">
+                                    <div class="form-group mb-4">
+                                        <label for="usnombre" class="form-label text-light">Nombre del usuario</label>
+                                        <input type="text" name="usnombre" id="usnombre" class="form-input" value="${result.usnombre}" required>
+                                    </div>
+                                    <div class="form-group mb-4">
+                                        <label for="usmail" class="form-label text-light">Correo del usuario</label>
+                                        <input type="email" name="usmail" id="usmail" class="form-input" value="${result.usmail}" required>
+                                    </div>
+                                    <div class="form-group mb-4">
+                                        <label for="uspass" class="form-label text-light">Contraseña del usuario</label>
+                                        <input type="password" name="uspass" id="uspass" class="form-input mb-2" value="${result.uspass}" required>
+                                    </div>
+                                    <div class="d-flex justify-content-center">
+                                        <input type="submit" value="Actualizar Perfil" name="submit" class="btn-actualizarPerfil mt-4">
+                                    </div>
+                                </form>
+                            </div>
+                            
+                                <div class="d-flex flex-row w-100 justify-content-center bg-ee9f40">
+                                    <div class="w-70 h-100 rounded-end">
+                                        <img src="../Assets/imgs/imagen-formulario.jpg" alt="" class="w-100 h-100 rounded-end">
+                                    </div>    
                                 </div>
-                                <div class="form-group">
-                                    <label for="usmail" class="form-label">Correo del usuario</label>
-                                    <input type="email" name="usmail" id="usmail" class="form-input" value="${result.usmail}" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="uspass" class="form-label">Contraseña del usuario</label>
-                                    <input type="password" name="uspass" id="uspass" class="form-input" value="${result.uspass}" required>
-                                </div>
-                                <input type="submit" value="Actualizar Perfil" name="submit" class="form-submit">
-                            </form>
+
+                            </div>
                         `;
                         $('.deposito-menu').append(userInfo);
     
@@ -135,29 +150,35 @@
                         dataType: 'json', 
                         success: function(result) {
                             if (Array.isArray(result)) {
-                                $('.deposito-menu').html('');  
-                                let row; 
+
+                                let deposito = $('.deposito-menu').html('');
+                                let grid = $('.grid').html('');
+                                let row;
+
+                                if ($('.deposito-menu').is(':empty')) {
+                                    $('.deposito-menu').html('<div class="alert alert-dark alert-dismissible fade show text-center w-100">No hay nada en el depósito.</div>');
+                                    $('.deposito-menu').css('min-height', '0px');
+                                }
+
 
                                 result.forEach(function(datos, index) {
                                    
                                     if (index % 4 === 0) {
-                                        row = $('<div class="row mt-4 mb-4"></div>'); 
+                                        row = $('<div class="row mt-3 mb-3 justify-content-between"></div>'); 
                                         $('.grid').append(row); 
+                                        $('.grid').addClass('w-100')
+                                        $('.deposito-menu').html(grid);
                                     }
-
-                                    
-                                    let pedido = `<div class="col-md-3 col-sm-6 mb-3 evalua">  
-                                                    <div class="container-sm border mt-5 w-100 rounded">
-                                                        <div class="d-flex flex-column">
-                                                            <div>Id del Producto: ${datos.idproducto}</div>
-                                                            <div>Id de la Compra: ${datos.idcompra}</div>
-                                                            <div>Pedido numero: ${datos.idcompraitem}</div>
-                                                            <div>Cantidad solicitada: ${datos.cicantidad}</div>
-                                                            <div>Stock: ${datos.cicantstock}</div>
-                                                            <div class="d-flex flex-row">
-                                                                <button class="btn btn-success m-1" onclick="evaluar(this, ${datos.idcompra}, 1)">Aceptar</button>
-                                                                <button class="btn btn-success m-1" onclick="evaluar(this, ${datos.idcompra}, 0)">Cancelar</button>
-                                                            </div>
+                                    let pedido = `<div class="col-md-3 col-sm-6 mb-3 evalua w-25">  
+                                                    <div class="d-flex flex-column">
+                                                        <div class="text-center">Id del Producto: ${datos.idproducto}</div>
+                                                        <div class="text-center">Id de la Compra: ${datos.idcompra}</div>
+                                                        <div class="text-center">Pedido numero: ${datos.idcompraitem}</div>
+                                                        <div class="text-center">Cantidad solicitada: ${datos.cicantidad}</div>
+                                                        <div class="text-center">Stock: ${datos.cicantstock}</div>
+                                                        <div class="d-flex flex-row justify-content-center">
+                                                            <button class="btn btn-success" onclick="evaluar(this, ${datos.idcompra}, 1)">Aceptar</button>
+                                                            <button class="btn btn-danger" onclick="evaluar(this, ${datos.idcompra}, 0)">Cancelar</button>
                                                         </div>
                                                     </div>
                                                 </div>`;
@@ -177,17 +198,19 @@
                 break;
             case 3:
                 //AGREGAR PRODUCTO ADMIN 
+                $('.deposito-title').html('Agregar Producto');
 
                 url = './agregarAction.php';
+
                 $('.deposito-menu').html(`
-                    <form class="upload-form" id="fm" novalidate method="post">
-                        <div class="form-group">
+                    <form class="formAgregarProducto" id="fm" novalidate method="post">
+                        <div class="form-group inputForm">
                             <label for="pronombre" class="form-label">Nombre del producto</label>
-                            <input type="text" name="pronombre" id="pronombre" class="form-input" required>
+                            <input type="text" name="pronombre" id="pronombre" class="form-input inputForm" required>
                         </div>
                         <div class="form-group">
                             <label for="proprecio" class="form-label">Precio del producto</label>
-                            <input type="number" name="proprecio" id="proprecio" class="form-input" required>
+                            <input type="number" name="proprecio" id="proprecio" class="form-input inputForm" required>
                         </div>
                         <div class="form-group">
                             <label for="promarca" class="form-label">Marca del producto</label>
@@ -200,17 +223,19 @@
                         </div>
                         <div class="form-group">
                             <label for="prodetalle" class="form-label">Detalle del producto</label>
-                            <input type="text" name="prodetalle" id="prodetalle" class="form-input" required>
+                            <input type="text" name="prodetalle" id="prodetalle" class="form-input inputForm" required>
                         </div>
                         <div class="form-group">
                             <label for="procantstock" class="form-label">Cantidad de stock</label>
-                            <input type="number" name="procantstock" id="procantstock" class="form-input" required>
+                            <input type="number" name="procantstock" id="procantstock" class="form-input inputForm" required>
                         </div>
                         <div class="form-group">
                             <label for="image" class="form-label">Choose image(s) to upload:</label>
                             <input type="file" name="image[]" id="image" class="form-file" multiple required>
                         </div>
-                        <input type="submit" value="Subir imagen" name="submit" class="form-submit">
+                        <div class="text-center">
+                            <input type="submit" value="Subir imagen" name="submit" class="btn-verde">
+                        </div>
                     </form>`);
 
                 $('#fm').on('submit', function(e) {
@@ -295,26 +320,27 @@
             case 5:
                 //ALTA USUARIO ADMIN 
                 url = './actionAltaUsuario.php';
-                
+                $('.deposito-title').html('Agregar un usuario nuevo');
+
                 $('.deposito-menu').html(`
-                    <div class="container mt-5">
-                        <h2>Formulario de Registro</h2>
-                        <form class="" id="formulario" novalidate method="post">
+                        <form class="formNuevoUsuario" id="formulario" novalidate method="post">
+                            <h2>Formulario de Registro</h2>
                             <div class="form-group">
-                                <label for="nombre">Nombre</label>
-                                <input type="text" name="usnombre" class="form-control" id="nombre" placeholder="Ingresa tu nombre" required>
+                                <label for="nombre" class="form-label">Nombre</label>
+                                <input type="text" name="usnombre" class="form-input" id="nombre" placeholder="Ingresa tu nombre" required>
                             </div>
                             <div class="form-group">
-                                <label for="contraseña">Contraseña</label>
-                                <input type="password" name="uspass" class="form-control" id="contraseña" placeholder="Ingresa tu contraseña" required>
+                                <label for="contraseña" class="form-label">Contraseña</label>
+                                <input type="password" name="uspass" class="form-input" id="contraseña" placeholder="Ingresa tu contraseña" required>
                             </div>
                             <div class="form-group">
-                                <label for="correo">Correo Electrónico</label>
-                                <input type="email" name="usmail" class="form-control" id="correo" placeholder="Ingresa tu correo electrónico" required>
+                                <label for="correo" class="form-label">Correo Electrónico</label>
+                                <input type="email" name="usmail" class="form-input" id="correo" placeholder="Ingresa tu correo electrónico" required>
                             </div>
-                            <button type="submit" class="btn btn-primary">Enviar</button>
-                        </form>
-                </div>`);
+                            <div class="text-center mt-5">
+                                <button type="submit" class="btn-enviar-formularioRegistroUsuario">Enviar</button>
+                            </div>
+                        </form>`);
 
                 $('#formulario').on('submit', function(e) {
                     e.preventDefault(); 
@@ -347,6 +373,7 @@
                 //BAJA USUARIO ADMIN 
 
                 url = './listarUsuarios.php';
+                $('.deposito-title').html('Borrar un Usuario');
 
                 $.ajax({ 
                     url: url, 
@@ -355,9 +382,9 @@
                     success: function(result) { 
 
                         $('.deposito-menu').html(''); 
-                        $('.grid').html(''); 
-
+                        let grid = $('.grid').html('');
                         let row;
+                        $('.deposito-menu').append(grid);
 
                         result.forEach(function(usuario, index) {
                             let usuarioStr = JSON.stringify(usuario).replace(/"/g, '&quot;');
@@ -372,10 +399,10 @@
                                         <div class="card m-2 p-2 shadow-sm"> 
                                             <div class="card-body"> 
                                             <form class="" id="formularioBorrado" novalidate method="post">
-                                                <h5 class="card-title">Nombre :${usuario.usnombre}</h5> 
-                                                <h5 class="card-text">Contraseña: ${usuario.uspass}</h5> 
-                                                <h5 class="card-text">Correo: ${usuario.usmail}</h5> 
-                                                <p class="card-text">${usuario.usdeshabilitado == '0000-00-00 00:00:00' ? 'Habilitado' : 'Deshabilitado'}</p> 
+                                                <p class="card-title"><strong>Nombre : </strong>${usuario.usnombre}</p> 
+                                                <p class="card-text"><strong>Contraseña:</strong> ${usuario.uspass}</p> 
+                                                <p class="card-text"><strong>Correo:</strong> ${usuario.usmail}</p> 
+                                                <p class="card-text font-bold">${usuario.usdeshabilitado == '0000-00-00 00:00:00' ? 'Habilitado' : 'Deshabilitado'}</p> 
                                                 <button class="btn btn-danger"><a onclick="borradoLogicaUsuario(${usuarioStr})">Dar de Baja</a></button> 
                                             </form>    
                                             </div> 
@@ -395,7 +422,7 @@
                     break;   
                      case 7:
                     //MODIFICAR USUARIO ADMIN 
-
+                    $('.deposito-title').html('Modificar un Usuario');
                     url = './listarUsuarios.php'; 
                     
                     $.ajax({
@@ -403,8 +430,10 @@
                         type: 'GET',
                         dataType: 'json',
                         success: function(result) {
+
                             $('.deposito-menu').html('');
-                            $('.grid').html('');
+                            let grid = $('.grid').html('');
+                            $('.deposito-menu').append(grid);
 
                             let row;
                             result.forEach(function(usuario, index ) {
@@ -414,22 +443,26 @@
                                         row = $('<div class="row mt-4 mb-4"></div>');
                                         $('.grid').append(row);
                                     }
+                                    
                                     let usuarioHtml = `
                                         <div class="col-3">
                                             <div class="card m-2 p-2 shadow-sm">
                                                 <div class="card-body">
                                                     <form>
-                                                        <h5 class="card-title">${usuario.usnombre}</h5>
+                                                        <p class="card-title">Nombre : ${usuario.usnombre}</p>
+                                                        <p class="card-text">Contraseña: ${usuario.uspass}</p>
                                                         <p class="card-text">Correo: ${usuario.usmail}</p>
-                                                        <p class="card-text">Rol: ${usuario.rodescripcion}</p>
-                                                        <button class="btn btn-light" onclick="modificarUsuario(${usuarioStr})">Modificar</button>
+                                                        <p class="card-text"><strong>Rol: ${usuario.rodescripcion}</strong></p>
+                                                        <div class="text-center">
+                                                            <button class="btn btn-warning"><a onclick="modificarUsuario(${usuarioStr})">Modificar</a></button>
+                                                        <div>
+-
                                                     </form>
                                                 </div>
                                             </div>
                                         </div>
                                     `;
                                     row.append(usuarioHtml);
-    
                             });
                         },
                         error: function(xhr, status, error) {

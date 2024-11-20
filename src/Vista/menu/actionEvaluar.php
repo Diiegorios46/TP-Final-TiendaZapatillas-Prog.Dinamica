@@ -68,7 +68,7 @@ if (isset($datos['estado']) && in_array($datos['estado'], [0, 1])) {
             $compraEstadoData['idcompraestadotipo'] = 4;
             $compraEstado->abm($compraEstadoData);
             $tipoAlerta = 'alert-warning';
-            $mensaje = 'Compra cancelada';
+            $mensaje = 'El paquete no sera enviado';
         } else {
             $tipoAlerta = 'alert-danger';
             $mensaje = 'No se pudo obtener el estado de la compra';
@@ -79,7 +79,7 @@ if (isset($datos['estado']) && in_array($datos['estado'], [0, 1])) {
     $mensaje = 'Datos de estado inválidos';
 }
 
-$mensaje = '<div class="alert ' . $tipoAlerta . ' alert-dismissible fade show text-center">' . $mensaje . '</div>';
+$mensaje ="<div class= 'alert  $tipoAlerta alert-dismissible fade show text-center'>$mensaje";
 
 echo json_encode($mensaje);
 ?>

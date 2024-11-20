@@ -1,11 +1,12 @@
-body{
+body {
     padding: 0;
     margin: 0;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
-#btnDeposito > button {
+#btnDeposito>button {
     background-color: #29945e;
-    margin-right:10px ;
+    margin-right: 10px;
     margin-bottom: 5px;
 }
 
@@ -63,7 +64,7 @@ body{
     margin-left: 15%;
 }
 
-.mr-2porciento{
+.mr-2porciento {
     margin-right: 2%;
 }
 
@@ -108,7 +109,7 @@ body{
     transition: border-color 0.3s,
 }
 
-.img-input-contraseña{
+.img-input-contraseña {
     width: 100%;
     padding: 10px 40px 10px 10px;
     font-size: 16px;
@@ -119,7 +120,7 @@ body{
     transition: border-color 0.3s,
 }
 
-.rouded-modify{
+.rouded-modify {
     border-radius: 5%;
 }
 
@@ -127,7 +128,7 @@ body{
     width: 40% !important;
 }
 
-.btn-comprar{
+.btn-comprar {
     display: inline-block;
     width: 80%;
     padding: 10px;
@@ -140,30 +141,31 @@ body{
     font-size: 16px
 }
 
-.pr-1{
+.pr-1 {
     padding-right: 5%;
 }
 
-.w-8{
+.w-8 {
     width: 8%;
 }
 
-.icono-persona{
+.icono-persona {
     cursor: pointer;
 }
 
-.icono-persona::after{ 
-     display: none !important; 
+.icono-persona::after {
+    display: none !important;
 }
 
-.dropdown-item:hover{
+.dropdown-item:hover {
     background-color: #ccc;
 }
 
-.card-compra{
+.card-compra {
     position: absolute;
     bottom: 0;
 }
+
 /**/
 .deposito-menu {
     display: flex;
@@ -225,6 +227,7 @@ button {
 .btn-modificar-producto:active {
     background-color: #1e8449;
 }
+
 .upload-title {
     font-size: 2rem;
     font-weight: bold;
@@ -257,7 +260,9 @@ button {
     margin-bottom: 8px;
 }
 
-.form-input, .form-select, .form-file {
+.form-input,
+.form-select,
+.form-file {
     padding: 12px 15px;
     font-size: 1rem;
     border: 1px solid #ccc;
@@ -265,7 +270,9 @@ button {
     transition: border-color 0.3s ease, background-color 0.3s ease;
 }
 
-.form-input:focus, .form-select:focus, .form-file:focus {
+.form-input:focus,
+.form-select:focus,
+.form-file:focus {
     border-color: #3498db;
     outline: none;
 }
@@ -294,6 +301,8 @@ button {
     align-self: center;
 }
 
+
+
 .form-submit:hover {
     background-color: #2980b9;
     transform: translateY(-2px);
@@ -314,7 +323,10 @@ button {
         grid-template-columns: 1fr;
     }
 
-    .form-input, .form-select, .form-file, .form-submit {
+    .form-input,
+    .form-select,
+    .form-file,
+    .form-submit {
         font-size: 1rem;
     }
 
@@ -322,6 +334,7 @@ button {
         font-size: 1rem;
     }
 }
+
 /** index del deposito */
 .deposito-title {
     display: block;
@@ -329,28 +342,31 @@ button {
     font-weight: bold;
     color: #333;
     text-align: center;
-    margin-bottom: 20px;
 }
 
 .deposito-menu {
     display: flex;
-    flex-direction: row; 
-    justify-content: center; 
-    gap: 20px; 
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
     padding: 20px;
     border-radius: 8px;
+    min-height: 700px;
 }
 
-.deposito-link-agregar, .deposito-link-modificar {
+.deposito-link-agregar,
+.deposito-link-modificar {
     text-decoration: none;
 }
 
-.deposito-btn-subir-producto, .deposito-btn-modificar-producto {
+.deposito-btn-subir-producto,
+.deposito-btn-modificar-producto {
     padding: 12px 25px;
     font-size: 1.1rem;
     font-weight: bold;
     color: #fff;
-    background-color: #333;
+    background-color: #4A4A4A;
+    /* Color principal pastel */
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -359,14 +375,21 @@ button {
     text-align: center;
 }
 
-.deposito-btn-subir-producto:hover, .deposito-btn-modificar-producto:hover {
-    background-color: #2980b9;
+.deposito-btn-subir-producto:hover,
+.deposito-btn-modificar-producto:hover {
+    background-color: #616161;
+    /* Color de hover */
     transform: translateY(-2px);
 }
 
-.deposito-btn-subir-producto:active, .deposito-btn-modificar-producto:active {
-    background-color: #1f6a8b;
+.deposito-btn-subir-producto:active,
+.deposito-btn-modificar-producto:active {
+    background-color: #2C2C2C;
+    /* Color de active */
 }
+
+
+
 
 section.container-sm.d-flex.gap {
     display: flex;
@@ -406,7 +429,7 @@ section.container-sm.d-flex.gap {
     border-radius: 5px;
     width: 100%;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    visibility: hidden; 
+    visibility: hidden;
     transition: visibility 0.1s, opacity 0.3s ease-out;
 }
 
@@ -422,7 +445,9 @@ section.container-sm.d-flex.gap {
     object-fit: fill;
 }
 
-.card-marca, .card-infoZapatillas, .card-precioMasDescuento {
+.card-marca,
+.card-infoZapatillas,
+.card-precioMasDescuento {
     font-size: 1rem;
     color: #555;
     margin: 10px 0;
@@ -450,11 +475,11 @@ section.container-sm.d-flex.gap {
     transform: translateY(-2px);
 }
 
-.imagen{
+.imagen {
     transition: transform 0.3s ease-in-out;
 }
 
-.imagen:hover{
+.imagen:hover {
     transform: scale(1.1);
 }
 
@@ -464,13 +489,16 @@ section.container-sm.d-flex.gap {
 }
 
 
+.w-77{
+    width: 77%;
+}
 
 
-
-.w-15{
+.w-15 {
     width: 15%;
 }
-.min-height-50{
+
+.min-height-50 {
     min-height: 50vh !important;
 }
 
@@ -478,21 +506,25 @@ section.container-sm.d-flex.gap {
     margin-right: 20%;
 }
 
-.card-pago{
-    background-color: #343a40; /* Color gris oscuro */
-    border: 1px solid #23272b; /* Borde gris más oscuro */
-    color: #ffffff; /* Texto blanco para alto contraste */
+.card-pago {
+    background-color: #343a40;
+    /* Color gris oscuro */
+    border: 1px solid #23272b;
+    /* Borde gris más oscuro */
+    color: #ffffff;
+    /* Texto blanco para alto contraste */
     padding: 15px;
     border-radius: 5px;
 }
 
-.input-compra{
-    background-color: #343a40; /* Color gris oscuro */
+.input-compra {
+    background-color: #343a40;
+    /* Color gris oscuro */
 
     width: 100%;
 }
 
-.mr-1{
+.mr-1 {
     margin-right: 5%;
 }
 
@@ -504,9 +536,102 @@ section.container-sm.d-flex.gap {
     display: none;
 }
 
-.deposito-btn-subir-producto{
+.deposito-btn-subir-producto {
     box-shadow: 0 0px 18px rgba(0, 0, 0, 0.1);
     width: auto;
-   
 
+
+}
+
+/*NUEVO*/
+
+.formularioMenuConfig {
+    max-width: 800px;
+    padding: 15%;
+    background-color: #6b394f;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-left: 8px;
+    width: 100%;
+    border-radius: 24px 0px 0px 24px;
+}
+
+.bg-ee9f40 {
+    background-color: #ee9f40;
+}
+
+.btn-actualizarPerfil {
+    padding: 12px 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #705055;
+    background: linear-gradient(135deg, #705055, #633114);
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+    grid-column: span 2;
+    align-self: center;
+}
+
+.btn-actualizarPerfil:hover {
+    background: linear-gradient(135deg, #633114, #705055);
+    transform: translateY(-2px);
+}
+
+.hoverCabecera {
+    transition: transform 0.3s ease, color 0.3s ease; 
+}
+
+.hoverCabecera:hover {
+    transform: scale(1.1);
+}
+
+.formAgregarProducto{
+    padding: 30px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.inputForm{
+    border-bottom: 1px solid black;
+}
+
+
+.btn-verde {
+    padding: 12px 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #28a745;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+
+.formNuevoUsuario{
+    padding: 30px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+.btn-enviar-formularioRegistroUsuario{
+    padding: 12px 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #0d6efd;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+
+.font-bold{
+    font-weight: bold;
 }
