@@ -115,6 +115,7 @@
                  $(document).ready(function () {
                      mostrarProductos();
                  });
+
                 function mostrarProductos() {
                     $.ajax({
                         url: 'action.php',
@@ -168,57 +169,55 @@
         var modales = document.getElementsByClassName('offcanvas-body');
 
         function sacarDelcarrito(button) {
+            var card = button.closest('.card'); 
+            var nombre = card.querySelector('.nombre-zapatilla').textContent.trim(); 
+            var id = card.querySelector('.hidden')?.textContent.trim(); 
 
-        var card = button.closest('.card');
-        var nombre = card.querySelector('.card-infoZapatillas').textContent.trim();
-        var id = card.querySelector('.hidden').textContent.trim();
+            let productEliminar = carrito.findIndex(producto => 
+                (id && producto.id === id) || producto.nombre === nombre
+            );
 
-        console.log(id);
-        let productEliminar = carrito.findIndex(producto => producto.nombre === nombre);
+            if (productEliminar !== -1) {
+                carrito.splice(productEliminar, 1);
 
-        if (productEliminar !== -1) {
+                let modal = modales[0];
+                modal.innerHTML = ""; 
 
-            carrito.splice(productEliminar, 1);
-            let modal = modales[0];
-            modal.innerHTML = "";
-
-                if (carrito.length > 0) { 
-                    carrito.forEach(item => { 
-                    modal.innerHTML += `
-                        <div class="border border-dark d-flex flex-row justify-content-around card">
-                            <div class="w-25">
-                                <img src="${item.img}" alt="" class="w-100 h-100">  
+                if (carrito.length > 0) {
+                    carrito.forEach(item => {
+                        modal.innerHTML += `
+                            <div class="border border-dark d-flex flex-row justify-content-around card">
+                                <div class="w-25">
+                                    <img src="${item.img}" alt="" class="w-100 h-100">  
+                                </div>
+                                <div class="card-infoZapatillas d-flex">
+                                    <p class="nombre-zapatilla align-self-center mb-0 fs-6">${item.nombre}</p>
+                                </div>
+                                <div class="d-flex">
+                                    <span class="align-self-center fs-6">${item.precio}</span>
+                                </div>
+                                <div class="d-flex">
+                                    <span class="align-self-center fs-6">${item.cantidad} unidades</span>
+                                </div>
+                                <div class="align-self-center">
+                                    <button type="button" class="btn btn-dark" onclick="sacarDelcarrito(this)">
+                                        <i class="bi bi-x"></i>
+                                    </button>
+                                </div>
                             </div>
-                            <div class="card-infoZapatillas d-flex">
-                                <p class="nombre-zapatilla align-self-center mb-0 fs-6">${item.nombre}</p>
-                            </div>
-                            <div class="d-flex">
-                                <span class="align-self-center fs-6">${item.precio}</span>
-                            </div>
-                            <div class="d-flex">
-                                <span class="align-self-center fs-6">${item.cantidad}unidades</span>
-                            </div>
-                            <div class="d-flex">
-                                <span class="align-self-center fs-6">${item.id}unidades</span>
-                            </div>
-                            <div class="align-self-center">
-                                <button type="button" class="btn btn-dark" onclick="sacarDelcarrito(this)">
-                                    <i class="bi bi-x"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <form method='post' action='../buy/inicioCompra.php' class="card-compra d-flex flex-row w-100 justify-content-center mr-5 mb-2 pr-1">
-                            <button type='submit' name='idproducto' value='' class="btn btn-dark btn-comprar">Pagar</button>
-                        </form>
-                    `; 
-                }); 
-                }else{ 
-                    modal.innerHTML = "<p>El carrito esta vacio</p>"; 
-                } 
-            }else { 
-                    console.log(`Producto no encontrado: ${nombre}`); 
-            } 
+                            <form method='post' action='../buy/inicioCompra.php' class="card-compra d-flex flex-row w-100 justify-content-center mr-5 mb-2 pr-1">
+                                <button type='submit' name='idproducto' value='${item.id}' class="btn btn-dark btn-comprar">Pagar</button>
+                            </form>
+                        `;
+                    });
+                } else {
+                    modal.innerHTML = "<p>El carrito está vacío</p>";
+                }
+            } else {
+                console.log(`Producto no encontrado: ${nombre}`);
+            }
         }
+
 
         function agregarAlCarrito(button) {
             var card = button.closest('.card');
