@@ -83,7 +83,7 @@ if ($cliente != null) {
         $to = $cliente['usmail'];
         $subject = "Su pedido por el producto ".$producto['pronombre']." ha sido despachado";
         $message = "Gracias por tu compra ".$cliente['usnombre']."!
-        su pedido ha sido despachado, en breve se le enviará un correo avisando cuando este en camino.
+        su pedido ha sido despachado.
         debera llegarle ". $compraItem['cicantidad'] ." unidades del producto y el precio abonado fue de $". $compraItem['cicantidad'] * $producto['proprecio'] ." USD\n";
         mail($to, $subject, $message, $headers);
     }
