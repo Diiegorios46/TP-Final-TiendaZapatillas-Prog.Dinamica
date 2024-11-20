@@ -36,28 +36,70 @@
                             <div class="accordion-item">
                                 <h2 class="accordion-header">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                        Precios de las zapatillas
+                                        Precios de los precios
                                     </button>
                                 </h2>
+                                
                                 <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
-                                    <ul class="list-unstyled">
-                                        <li class="d-flex align-items-center mb-2">
-                                            <input type="checkbox" id="price100" class="me-2">
-                                            <label for="price100" class="mb-0">$100</label>
-                                        </li>
-                                        <li class="d-flex align-items-center mb-2">
-                                            <input type="checkbox" id="price200" class="me-2">
-                                            <label for="price200" class="mb-0">$200</label>
-                                        </li>
-                                        <li class="d-flex align-items-center mb-2">
-                                            <input type="checkbox" id="price300" class="me-2">
-                                            <label for="price300" class="mb-0">$300</label>
-                                        </li>
-                                    </ul>
+
+                                        <ul class="list-unstyled">
+                                            <li class="d-flex align-items-center mb-2">
+                                                <input type="radio" name="price" id="price0" value="0" class="me-2" onclick="mostrarProductos()" checked>
+                                                <label for="price0" class="mb-0">Todos los productos</label>
+                                            </li>
+                                            <li class="d-flex align-items-center mb-2">
+                                                <input type="radio" name="price" id="price100"value="1" class="me-2"onclick="mostrarProductos()" >
+                                                <label for="price100" class="mb-0">Menor a $100</label>
+                                            </li>
+                                            <li class="d-flex align-items-center mb-2">
+                                                <input type="radio" name="price" id="price200"value="2" class="me-2"onclick="mostrarProductos()">
+                                                <label for="price200" class="mb-0">Entre $100 y $200</label>
+                                            </li>
+                                            <li class="d-flex align-items-center mb-2">
+                                                <input type="radio" name="price" id="price300"value="3" class="me-2"onclick="mostrarProductos()">
+                                                <label for="price300" class="mb-0">Mas de $200</label>
+                                            </li>
+                                        </ul>
+                                        
                                     </div>
                                 </div>
                             </div>
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        Marcas de las zapatillas
+                                    </button>
+                                </h2>
+                                
+                                <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        <ul class="list-unstyled">
+                                            
+                                        <li class="d-flex align-items-center mb-2">
+                                                <input type="radio" name="priceMarca" id="price0" value="0" class="me-2" onclick="mostrarProductos()" checked>
+                                                <label for="price0" class="mb-0">Todos las marcas</label>
+                                            </li>
+                                            <li class="d-flex align-items-center mb-2">
+                                                <input type="radio" name="priceMarca" id="price100" value="vans" class="me-2"onclick="mostrarProductos()" >
+                                                <label for="price100" class="mb-0">Vans</label>
+                                            </li>
+                                            <li class="d-flex align-items-center mb-2">
+                                                <input type="radio" name="priceMarca" id="price200" value="nike" class="me-2"onclick="mostrarProductos()">
+                                                <label for="price200" class="mb-0">Nike</label>
+                                            </li>
+                                            <li class="d-flex align-items-center mb-2">
+                                                <input type="radio" name="priceMarca" id="price300" value="adidas" class="me-2"onclick="mostrarProductos()">
+                                                <label for="price300" class="mb-0">Adidas</label>
+                                            </li>
+                                            <li class="d-flex align-items-center mb-2">
+                                                <input type="radio" name="priceMarca" id="price300" value="topper" class="me-2"onclick="mostrarProductos()">
+                                                <label for="price300" class="mb-0">Topper</label>
+                                            </li>
+
+                                        </ul>
+                                        
+                                    </div>
+                                </div>
                         </div>
                     </div>
                 </div>
@@ -70,18 +112,21 @@
         </main>
     
         <script>
-            $(document).ready(function() {
+                 $(document).ready(function () {
+                     mostrarProductos();
+                 });
                 function mostrarProductos() {
                     $.ajax({
                         url: 'action.php',
-                        type: 'GET',
+                        type: 'post',
                         dataType: 'json',
+                        data: {price: $('input[name="price"]:checked').val(), priceMarca: $('input[name="priceMarca"]:checked').val()},
                         beforeSend: function () {
                             $('#prueba').html('Cargando...');
                         },
                         success: function (response) {
                             $('#prueba').html('');
-                            let row;
+                             let row;
                             response.forEach((producto, index) => {
                                 if (index % 4 === 0) {
                                     row = $('<div class="row mt-4 mb-4"></div>');
@@ -115,8 +160,6 @@
                         }
                     });
                 }
-                mostrarProductos();
-            });
         </script>
 
         <script>
@@ -136,7 +179,7 @@
         if (productEliminar !== -1) {
 
             carrito.splice(productEliminar, 1);
-            let modal = modales[0]; 
+            let modal = modales[0];
             modal.innerHTML = "";
 
                 if (carrito.length > 0) { 

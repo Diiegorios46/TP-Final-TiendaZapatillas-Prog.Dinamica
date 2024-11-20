@@ -495,6 +495,7 @@
                     formData.append('pronombre', $('#pronombre').val());
                     formData.append('proprecio', $('#proprecio').val());
                     formData.append('promarca', $('#promarca').val());
+                    formData.append('promarca', $('#promarca option:selected').val());
                     formData.append('prodetalle', $('#prodetalle').val());
                     formData.append('procantstock', $('#procantstock').val());
 
@@ -569,7 +570,7 @@
         url='./actionModificarUsuario.php';
 
         $('#formularioUsuario').on('submit', function(e) {
-            e.preventDefault(); 
+            e.preventDefault();
             $.ajax({
                 url: url,
                 type: 'POST',
