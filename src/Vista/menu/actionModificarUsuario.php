@@ -4,27 +4,29 @@ include '../../../config.php';
 $datosNuevosUsuario = data_submitted();
 $abmUsuario = new abmUsuario();
 $abmUsuarioRol = new abmUsuarioRol();
-
+$abmRol = new abmRol();
 $usuarioViejo = $abmUsuario->obtenerDatos(['idusuario' => $datosNuevosUsuario['idusuario']])[0];
-$abmUsuarioRol->obtenerDatos(['idusuario' => $datosNuevosUsuario['idusuario']])['idrol'];
+$datosNuevosUsuario['idrol'] = $abmRol->obtenerDatos(['rodescripcion' => $datosNuevosUsuario['rodescripcion']])[0]['idrol'];
 
-verEstructura($abmUsuarioRol->obtenerDatos(['idusuario' => $datosNuevosUsuario['idusuario']])[0]);
-// verEstructura($usuarioViejo);
+$datos = [];
+$datos['accion'] = 'editar';
+$datos['uspass'] = $usuarioViejo['uspass'];
 
-// $datos = [];
-// $datos['accion'] = 'editar';
+foreach ($datosNuevosUsuario as $key => $value) {
+    if ($value != $usuarioViejo[$key]) {
+        $datos[$key] = $value;
+    } else {
+        $datos[$key] = $usuarioViejo[$key];
+    }
+}
 
-// foreach ($datosNuevosUsuario as $key => $value) {
-//     if ($value != $usuarioViejo[$key]) {
-//         $datos[$key] = $value;
-//     } else {
-//         $datos[$key] = $usuarioViejo[$key];
-//     }
-// }
-
-// if ($abmUsuarioRol->abm($datos)) {
-//     echo "Usuario modificado con éxito";
-// } else {
-//     echo "Error al modificar el usuario";
-// }
-// ?>
+if ($abmUsuario->abm($datos)) {
+    if($abmUsuarioRol->abm($datos)){
+        echo "Usuario modificado correctamente";
+    } else {
+        echo "Error al modificar el rol del usuario";
+    }
+} else {
+    echo "Error al modificar el usuario";
+}
+?>
