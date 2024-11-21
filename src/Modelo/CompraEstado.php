@@ -19,7 +19,7 @@ class CompraEstado extends BaseDatos
         return $this->idcompra;
     }
 
-    public function getIdcompraEstadoTipo()
+    public function getIdcompraestadotipo()
     {
         return $this->idcomesttipo;
     }
@@ -72,10 +72,9 @@ class CompraEstado extends BaseDatos
 
     public function setear($param)
     {
-        verEstructura($param);
         $this->setIdcompraestado($param["idcompraestado"]);
         $this->setIdcompra($param["idcompra"]);
-        $this->setIdCompraestadotipo($param["idcompraestadotipo"]);
+        $this->setIdcompraestadotipo($param["idcompraestadotipo"]);
         $this->setCefechaini($param["cefechaini"]);
         $this->setCefechafin($param["cefechafin"]);
     }
@@ -85,12 +84,7 @@ class CompraEstado extends BaseDatos
         $resp = false;
         $base = new BaseDatos();
 
-        $idCompra = $this->getIdcompra() ? $this->getIdcompra() : 'NULL';
-        $idCompraEstadoTipo = $this->getIdcompraEstadoTipo() ? $this->getIdcompraestadotipo() : 'NULL';
-        
-        $sql =  "INSERT INTO compraestado (idcompra, idcompraestadotipo, cefechaini, cefechafin)  VALUES   ({$idCompra},{$idCompraEstadoTipo},'{$this->getCefechaini()}','{$this->getCefechafin()}');";
-        verEstructura($sql);
-
+        $sql =  "INSERT INTO compraestado (idcompra, idcompraestadotipo, cefechaini, cefechafin)  VALUES   ({$this->getIdcompra()},{$this->getIdcompraestadotipo()},'{$this->getCefechaini()}','{$this->getCefechafin()}');";
         if ($base->Iniciar()) {
             if ($base = $base->Ejecutar($sql)) {
                 $this->setIdcompraestado($base);
@@ -108,13 +102,8 @@ class CompraEstado extends BaseDatos
     {
         $resp = false;
         $base = new BaseDatos();
-        $idCompra = $this->getIdcompra() ? $this->getIdcompra() : 'NULL';
-        $idCompraEstadoTipo = $this->getIdcompraEstadoTipo() ? $this->getIdcompraestadotipo() : 'NULL';
         
-        $sql = "UPDATE compraestado SET idcompra={$idCompra}, 
-        idcompraestadotipo={$idCompraEstadoTipo},
-        cefechaini='{$this->getCefechaini()}',
-        cefechafin='{$this->getCefechafin()}' WHERE idcompraestado = {$this->getIdcompraestado()}";
+        $sql = "UPDATE compraestado SET idcompra={$this->getIdcompra()},  idcompraestadotipo={$this->getIdcompraestadotipo()}, cefechaini='{$this->getCefechaini()}', cefechafin='{$this->getCefechafin()}' WHERE idcompraestado = {$this->getIdcompraestado()}";
 
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
@@ -156,30 +145,19 @@ class CompraEstado extends BaseDatos
             $sql .= 'WHERE ' . $parametro;
         }
 
-        $res = $base->Ejecutar($sql);
+
+        if ($base->Iniciar()) {
+            $res = $base->Ejecutar($sql);
+        } else {
+            $this->setMensajeOperacion("CompraEstado->listar: " . $base->getError());
+            return $arreglo;
+        }
+
         if ($res > -1) {
             if ($res > 0) {
                 while ($row = $base->Registro()) {
-                    $obj = new compraestado();
-                    $objCompra = null;
-                    if ($row['idcompra'] != null) {
-                        $objCompra = new compra();
-                        $objCompra->setIdcompra($row['idcompra']);
-                        $objCompra->cargar();
-                    }
-                    $objCompraEstadoTipo = null;
-                    if ($row['idcompraestadotipo'] != null) {
-                        $objCompraEstadoTipo = new compraestadotipo();
-                        $objCompraEstadoTipo->setIdcompraestadotipo($row['idcompraestadotipo']);
-                        $objCompraEstadoTipo->cargar();
-                    }
-
-                    $obj->setear($row['idcompraestado'], 
-                                 $objCompra, 
-                                 $objCompraEstadoTipo, 
-                                 $row['cefechaini'], 
-                                 $row['cefechafin']);
-
+                    $obj = new CompraEstado();
+                    $obj->setear($row);
                     array_push($arreglo, $obj);
                 }
             }

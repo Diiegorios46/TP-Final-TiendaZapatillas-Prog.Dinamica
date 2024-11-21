@@ -64,7 +64,6 @@ class CompraItem extends BaseDatos
     }
     
     public function setear($param){
-        verEstructura($param);
         $this->setIdcompraitem($param['idcompraitem']);
         $this->setIdproducto($param['idproducto']);
         $this->setIdCompra($param['idcompra']);
@@ -85,14 +84,14 @@ class CompraItem extends BaseDatos
 
                     $idProducto = NULL;
                     if ($row['idproducto'] != null) {
-                        $idProducto = new producto();
+                        $idProducto = new Producto();
                         $idProducto->setIdproducto($row['idproducto']);
                         $idProducto->cargar();
                     }
 
                     $objCompra = NULL;
                     if ($row['idcompra'] != null) {
-                        $objCompra = new compra();
+                        $objCompra = new Compra();
                         $objCompra->setIdcompra($row['idcompra']);
                         $objCompra->cargar();
                     }
@@ -133,7 +132,6 @@ class CompraItem extends BaseDatos
         $base = new BaseDatos();
         
         $sql = "UPDATE compraitem SET idproducto='{$this->getIdproducto()}', idcompra={$this->getIdcompra()}, cicantidad={$this->getCicantidad()} WHERE idcompraitem={$this->getIdcompraitem()}";
-        verEstructura($sql);
         
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
@@ -152,6 +150,7 @@ class CompraItem extends BaseDatos
         $resp = false;
         $base = new BaseDatos();
         $sql = "DELETE FROM compraitem WHERE idcompraitem=" . $this->getIdcompraitem();
+        
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 return true;
@@ -171,33 +170,29 @@ class CompraItem extends BaseDatos
         $sql = "SELECT * FROM compraitem";
 
         if ($parametro != "") {
-            $sql .= 'WHERE ' . $parametro;
+            $sql .= ' WHERE ' . $parametro;
         }
-
         $res = $base->Ejecutar($sql);
         if ($res > -1) {
             if ($res > 0) {
-
-                while ($row = $base->Registro()) {
+                while ($row = $base->Registro($sql)) {
                     $obj = new CompraItem();
-
                     $idProducto = NULL;
+
                     if ($row['idproducto'] != null) {
-                        $idProducto = new producto();
+                        $idProducto = new Producto();
                         $idProducto->setIdproducto($row['idproducto']);
                         $idProducto->cargar();
                     }
                     $objCompra = NULL;
+
                     if ($row['idcompra'] != null) {
-                        $objCompra = new compra();
+                        $objCompra = new Compra();
                         $objCompra->setIdcompra($row['idcompra']);
                         $objCompra->cargar();
                     }
 
-                    $obj->setear($row['idcompraitem'],
-                                $idProducto,
-                                $objCompra,
-                                $row['cicantidad']);
+                    $obj->setear($row);
                     array_push($arreglo, $obj);
                 }
             }
@@ -208,28 +203,5 @@ class CompraItem extends BaseDatos
         return $arreglo;
     }
 
-    /*
-    public function contar($parametro = "")
-    {
-        $arreglo = array();
-        $base = new BaseDatos();
-        $res = $base->Ejecutar($parametro);
-        if ($res > -1) {
-            if ($res > 0) {
-
-                while ($row = $base->Registro()) {
-                    if ($row['cantidad'] != null) {
-                        $cantidad = $row['cantidad'];
-                    }
-                    array_push($arreglo, $cantidad);
-                }
-            }
-        } else {
-            $this->setMensajeOperacion("CompraItem->listar: " . $base->getError());
-        }
-
-        return $arreglo;
-    }
-    */
 
 }

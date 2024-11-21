@@ -116,14 +116,19 @@ class MenuRol extends BaseDatos
         $arreglo = array();
         $base = new BaseDatos();
         $sql = "SELECT * FROM menurol ";
+        
+
+        
         if ($parametro != "") {
             $sql .= 'WHERE ' . $parametro;
         }
+        
+
         $res = $base->Ejecutar($sql);
         if ($res > -1) {
             if ($res > 0) {
                 while ($row = $base->Registro()) {
-                    $obj = new menurol();
+                    $obj = new Menurol();
                     $obj->setear($row['idmenu'], $row['idrol']);
                     array_push($arreglo, $obj);
                 }
@@ -131,7 +136,7 @@ class MenuRol extends BaseDatos
         } else {
             $this->setMensajeOperacion("menurol->listar: " . $base->getError());
         }
-
+        
         return $arreglo;
     }
 

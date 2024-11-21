@@ -28,7 +28,6 @@ class UsuarioRol extends BaseDatos{
     }
     
     public function setear($datosUsuario){
-        verEstructura($datosUsuario);
         $this->setIdUsuario($datosUsuario['idusuario']);
         $this->setIdRol($datosUsuario['idrol']);
     }
@@ -37,7 +36,6 @@ class UsuarioRol extends BaseDatos{
         $resp = false;
         $base = new BaseDatos();
         $sql = "INSERT INTO usuariorol (idusuario, idrol) VALUES (".$this->getIdUsuario().", ".$this->getIdRol().")";
-        verEstructura($sql);
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 $resp = true;
@@ -99,8 +97,8 @@ class UsuarioRol extends BaseDatos{
             if($res>0){
                 $arreglo = array();
                 while($row = $base->Registro()){
-                    $obj = new Usuario();
-                    $obj->cargar($row);
+                    $obj = new UsuarioRol();
+                    $obj->setear($row);
                     array_push($arreglo, $obj);
                 }
             }

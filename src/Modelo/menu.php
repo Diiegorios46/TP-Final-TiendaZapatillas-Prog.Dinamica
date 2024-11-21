@@ -64,13 +64,13 @@ class Menu extends BaseDatos
     }
 
 
-    public function setear($idmenu, $menombre, $medescripcion, $idpadre, $medeshabilitado)
+    public function setear($param)
     {
-        $this->setIdmenu($idmenu);
-        $this->setMenombre($menombre);
-        $this->setMedescripcion($medescripcion);
-        $this->setIdpadre($idpadre);
-        $this->setMedeshabilitado($medeshabilitado);
+        $this->setIdmenu($param['idmenu']);
+        $this->setMenombre($param['menombre']);
+        $this->setMedescripcion($param['medescripcion']);
+        $this->setIdpadre($param['idpadre']);
+        $this->setMedeshabilitado($param['medeshabilitado']);
     }
 
     public function cargar()
@@ -111,7 +111,6 @@ class Menu extends BaseDatos
     
     $sql = "INSERT INTO menu (idmenu, menombre, medescripcion, idpadre, medeshabilitado) VALUES  (" . $this->getIdmenu() . ", '" . $this->getMenombre() . "', '" . $this->getMedescripcion() . "', " . $idpadre . ", '0000-00-00 00:00:00')";
 
-    verEstructura($sql);
     
     if ($base->Iniciar()) {
         if ($elid = $base->Ejecutar($sql)) {
@@ -127,6 +126,8 @@ class Menu extends BaseDatos
     return $resp;
 }
 
+
+
     public function modificar()
     {
         $resp = false;
@@ -135,7 +136,6 @@ class Menu extends BaseDatos
         
         $sql = "UPDATE menu SET menombre= '" . $this->getMenombre() . "', medescripcion= '" . $this->getMedescripcion() . "', idpadre= " . $idpadre . ", medeshabilitado= '" . $this->getMedeshabilitado() . "' WHERE idmenu=" . $this->getIdmenu();
         
-                verEstructura($sql);
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 $resp = true;
@@ -147,25 +147,6 @@ class Menu extends BaseDatos
         }
         return $resp;
     }
-
-  
-     /* public function estado($param = "")
-    {
-        $resp = false;
-        $base = new BaseDatos();
-        $sql = "UPDATE menu SET medeshabilitado='" . $param . "' WHERE idmenu=" . $this->getIdmenu();
-        
-        if ($base->Iniciar()) {
-            if ($base->Ejecutar($sql)) {
-                $resp = true;
-            } else {
-                $this->setmensajeoperacion("Menu->estado: " . $base->getError());
-            }
-        } else {
-            $this->setmensajeoperacion("Menu->estado: " . $base->getError());
-        }
-        return $resp;
-    } */
   
 
     public function eliminar()
@@ -175,7 +156,6 @@ class Menu extends BaseDatos
         $idpadre = $this->getIdpadre() ? "'" . $this->getIdpadre() . "'" : "NULL";
 
         $sql = "DELETE FROM menu WHERE idmenu=" . $this->getIdmenu();
-        verEstructura($sql);
         
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
@@ -189,36 +169,29 @@ class Menu extends BaseDatos
         return $resp;
     }
 
-    public function listar($parametro = "")
-    {
+    public function listar($parametro = ""){
         $arreglo = array();
         $base = new BaseDatos();
         $sql = "SELECT * FROM menu ";
 
         if ($parametro != "") {
-            $sql .= 'WHERE ' . $parametro;
+            $sql .= 'WHERE ' . $parametro . ' ';
         }
+        $sql .= "ORDER BY idpadre";
 
         $res = $base->Ejecutar($sql);
-
+        $i = 0;
         if ($res > -1) {
-            if ($res > 0) {
-                while ($row = $base->Registro()) {
-                    $obj = new menu();
-                    
-                    $obj->setear($row['idmenu'],
-                                $row['menombre'],
-                                $row['medescripcion'],
-                                $row['idpadre'],
-                                $row['medeshabilitado']);
-                    array_push($arreglo, $obj);
+                if ($res > 0) {
+                    while ($row = $base->Registro()){ 
+                        $obj = new Menu();
+                        $obj->setear($row);
+                        array_push($arreglo, $obj);
+                    }
                 }
+            } else {
+                $this->setMensajeOperacion("Menu->listar: " . $base->getError());
             }
-        } else {
-            $this->setMensajeOperacion("Menu->listar: " . $base->getError());
+            return $arreglo;
         }
-        return $arreglo;
     }
-
-
-}

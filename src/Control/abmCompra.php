@@ -57,9 +57,18 @@ class abmCompra
     {
         $resp = false;
         $param['idcompra'] = null;
+        $param['cefechaini'] = null;
+        $param['idcompraestadotipo'] = 1;
+        $param['cefechafin'] = null;
         
         $elObjtArchivoE = $this->cargarObjeto($param);
         if ($elObjtArchivoE != null and $elObjtArchivoE->insertar()) {
+            $param['idcompra'] = $elObjtArchivoE->getIdcompra();
+            $param['accion'] = 'nuevo';
+            $objCompraEstado = new abmCompraEstado();
+            $objCompraEstado->abm($param);
+            $objCompraItem = new abmCompraItem();
+            $objCompraItem->abm($param);
             $resp = true;
         }
         return $resp;
@@ -101,8 +110,36 @@ class abmCompra
             if (isset($param['idusuario']))
                 $where .= " and idusuario ='" . $param['idusuario'] . "'";
         }
-        $arreglo = Compra::listar($where);
+        $obj = new Compra();
+        $arreglo = $obj->listar($where);
 
         return $arreglo;
+    }
+
+    public function obtenerDatos($param) {
+        $where = " true ";
+        if ($param <> NULL) {
+            if (isset($param['idcompra']))
+                $where .= " and idcompra =" . $param['idcompra'];
+            if (isset($param['idusuario']))
+                $where .= " and idusuario ='" . $param['idusuario'] . "'";
+            if (isset($param['cofecha']))
+                $where .= " and cofecha ='" . $param['cofecha'] . "'";
+        }
+
+        $obj = new Compra();
+        $arreglo = $obj->listar($where);
+        $result = [];
+
+        if (!empty($arreglo)) {
+            foreach ($arreglo as $compra) {
+                $result[] = [
+                    "idcompra" => $compra->getIdcompra(),
+                    "idusuario" => $compra->getIdusuario(),
+                    "cofecha" => $compra->getCofecha()
+                ];
+            }
+        }
+        return $result;
     }
 }

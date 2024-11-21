@@ -28,12 +28,10 @@ class abmUsuario{
       
     public function cargarObjeto($param){
         $obj = null;
-        verEstructura($param);
         if(array_key_exists('idusuario',$param) 
            and array_key_exists('usnombre',$param) 
            and array_key_exists('uspass',$param)
            and array_key_exists('usmail',$param)){
-
             $obj = new Usuario();
             $obj->setear($param);
         }
@@ -60,12 +58,23 @@ class abmUsuario{
 
     public function alta($param) {
         $resp = false;
+        $abmUsuario = new abmUsuario();
+        $abmUsuarioRol = new abmUsuarioRol();
+        
         $param['idusuario'] = null;
-        $param['usDeshabilitado'] = null;
+        $param['usdeshabilitado'] = null;
+        $param['idrol'] = 3;
         
         $elObjtTabla = $this->cargarObjeto($param);
         if ($elObjtTabla != null && $elObjtTabla->insertar()) {
-            $resp = true;
+            $param['idusuario'] = $elObjtTabla->getIdusuario();
+            if (!$abmUsuarioRol->alta($param)) {
+                $this->abm($param);
+                $param['accion'] = 'borrar';
+            } else {
+                $resp = true;
+            }
+            
         }
         
         return $resp;
@@ -73,7 +82,7 @@ class abmUsuario{
 
     public function baja($param) {
         $resp = false;
-        $param['usDeshabilitado'] = date('Y-m-d') . " " . date('H:i:s');
+        $param['usdeshabilitado'] = date('Y-m-d') . " " . date('H:i:s');
 
         $elObjtTabla = $this->cargarObjetosConClave($param);
         if ($elObjtTabla != null && $elObjtTabla->eliminar($param)) {
@@ -90,7 +99,6 @@ class abmUsuario{
      */
     public function modificacion($param) {
         $resp = false;
-        verEstructura($param);
         if ($this->seteadosCamposClaves($param)){
             $elObjtTabla = $this->cargarObjeto($param);
             if ($elObjtTabla != null && $elObjtTabla->modificar()){
@@ -134,7 +142,6 @@ class abmUsuario{
             if (isset($param['usdeshabilitado']))
                 $where .= " and usdeshabilitado = '" . $param['usdeshabilitado'] . "'";
         }
-        
         $obj = new Usuario();
         
         $arreglo = $obj->listar($where);

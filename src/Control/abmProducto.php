@@ -28,10 +28,7 @@ class abmProducto
     private function cargarObjeto($param)
     {
         $obj = null;
-        // verEstructura($param);
-        if (
-            array_key_exists('idproducto', $param) and array_key_exists('pronombre', $param) and array_key_exists('proprecio', $param)
-        ) {
+        if (array_key_exists('idproducto', $param) and array_key_exists('pronombre', $param) and array_key_exists('proprecio', $param)) {
             $obj = new Producto();
             $obj->setear($param);
             return $obj;
@@ -60,7 +57,6 @@ class abmProducto
     public function alta($param)
     {
         $resp = false;
-
         $elObjtProducto = $this->cargarObjeto($param);
         if ($elObjtProducto != null and $elObjtProducto->insertar()) {
             $resp = true;
@@ -99,18 +95,19 @@ class abmProducto
         if ($param != null) {
             if (isset($param['idproducto']))
                 $where .= " and idproducto = " . $param['idproducto'];
-            if (isset($param['prodescripcion']))
-                $where .= " and prodescripcion = '" . $param['prodescripcion'] . "'";
             if (isset($param['prodetalle']))
                 $where .= " and prodetalle = '" . $param['prodetalle'] . "'";
             if (isset($param['proprecio']))
                 $where .= " and proprecio = " . $param['proprecio'];
+            if (isset($param['promarca']))
+                $where .= " and promarca = '" . $param['promarca'] . "'";
+
         }
-        $arreglo = producto::listar($where);
+        $obj = new Producto();
+        $arreglo = $obj->listar($where);
         return $arreglo;
     }
 
-    //REVISAR ESTA ATROCIDAD
     public function listar($param = "")
     {
         $arreglo = array();
@@ -126,15 +123,8 @@ class abmProducto
             if ($res > 0) {
 
                 while ($row = $base->Registro()) {
-                    $obj = new producto();
-
-                    $objProducto = NULL;
-                    if ($row['idproducto'] != null) {
-                        $objProducto = new producto();
-                        $objProducto->setear($row);
-                    }
+                    $obj = new Producto();
                     $obj->setear($row);
-                    
                     array_push($arreglo, $obj);
                 }
             }
@@ -182,8 +172,6 @@ class abmProducto
         if ($param <> NULL) {
             if (isset($param['idproducto']))
                 $where .= " and idproducto = " . $param['idproducto'];
-            if (isset($param['prodescripcion']))
-                $where .= " and prodescripcion = '" . $param['prodescripcion'] . "'";
             if (isset($param['prodetalle']))
                 $where .= " and prodetalle = '" . $param['prodetalle'] . "'";
             if (isset($param['proprecio']))
@@ -204,10 +192,37 @@ class abmProducto
                     'procantstock' => $producto->getProcantstock(),
                     'promarca' => $producto->getPromarca(),
                     'proprecio' => $producto->getProprecio(),
-                    'proimagen1' => $producto->getProimagen1(), 
-                    'proimagen2' => $producto->getProimagen2(),
-                    'proimagen3' => $producto->getProimagen3(),
-                    'proimagen4' => $producto->getProimagen4(),
+                    'proimagen1' =>  $producto->getProimagen1()
+                ];
+            }
+        }
+        return $result;
+    }
+
+    public function obtenerDatosSeguros($param){
+        $where = " true ";
+        if ($param <> NULL) {
+            if (isset($param['prodetalle']))
+                $where .= " and prodetalle = '" . $param['prodetalle'] . "'";
+            if (isset($param['proprecio']))
+                $where .= " and proprecio = " . $param['proprecio'];
+        }
+
+        $obj = new Producto();
+
+        $arreglo = $obj->listar($where);
+        $result = [];
+
+        if (!empty($arreglo)) {
+            foreach ($arreglo as $producto) {
+                $result[] = [
+                    'pronombre' => $producto->getPronombre(),
+                    'prodetalle' => $producto->getProdetalle(),
+                    'procantstock' => $producto->getProcantstock(),
+                    'promarca' => $producto->getPromarca(),
+                    'proprecio' => $producto->getProprecio(),
+                    'proimagen1' =>  $producto->getProimagen1(),
+                    'idproducto' => ''
                 ];
             }
         }

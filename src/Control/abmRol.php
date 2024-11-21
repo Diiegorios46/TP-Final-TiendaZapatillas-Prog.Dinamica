@@ -137,9 +137,7 @@ class abmRol{
             
             $obj = new Rol();
             $arreglo = $obj->listar($where);
-            echo '<h1> HASTA ACA TODO BIEN 222222222</h1>';
-            verEstructura($arreglo);
-            echo '<h1> ----------------------------</h1>';
+
             return $arreglo;
 
         }
@@ -151,7 +149,7 @@ class abmRol{
             if ($param <> NULL) {
                 if (isset($param['idrol']))
                     $where .= " and idRol ='" . $param['idrol'] . "'";
-                if (isset($param['roldescripcion']))
+                if (isset($param['rodescripcion']))
                     $where .= " and rodescripcion ='" . $param['rodescripcion'] . "'";
             }
 
@@ -163,7 +161,7 @@ class abmRol{
             if (!empty($arreglo)) {
                 foreach ($arreglo as $rol) {
                     $result[] = ["idrol" => $rol->getIdRol(),
-                                 "roldescripcion" => $rol->getRolDescripcion()]; 
+                                 "rodescripcion" => $rol->getRolDescripcion()]; 
                 }
             }
             return $result;

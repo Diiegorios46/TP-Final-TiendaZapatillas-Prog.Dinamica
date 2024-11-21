@@ -2,43 +2,57 @@
 include '../estructura/cabecera.php';
 
 $session = new Session();
+$datos = data_submitted();
+if(isset($datos['login']) && $datos['login'] == 1){
+   echo '<div class="alert alert-success" role="alert">Usuario registrado correctamente.</div>';
+}
 ?>
+<main class="container w-32 h-100 mt-5 pt-5 h-100">
+    <section class="login-container bg-form rouded-modify shadow">
 
-<body>
-    <main class="container w-32 h-100 mt-5 pt-5 h-100">
-        <?php
-        if(isset($_GET['error'])){
-            echo '<div class="alert alert-danger" role="alert">
-            correo o contraseña incorrectos
-            </div>';
-        }
-        if(isset($_GET['registro'])){
-            echo '<div class="alert alert-success" role="alert">
-            Registro exitoso
-            </div>';
-        }
-        ?>
-        <section class="login-container bg-form rouded-modify shadow">
-            <div class="text-center fs-2 pt-4 pb-4">
-                <span>Login</span>
+        <div class="text-center fs-2 pt-4 pb-4">
+            <span>Login</span>
+        </div>
+
+        <form class="w-100 d-flex flex-column" method="post" id="login">
+            <div class="mt-3 ml-2 mb-2 mr-2">
+                <input type="mail" name="mail" id="usmail" class="fancy-input rounded-pill" placeholder="Correo Electronico">
             </div>
-            <form class="w-100 d-flex flex-column" action='./action.php' method="post">
-                <div class="mt-3 ml-2 mb-2 mr-2">
-                    <input type="mail" name="usmail" id="usmail" class="fancy-input rounded-pill" placeholder="Correo Electronico">
-                </div>
-                <div class="mt-3 ml-2 mb-2 mr-2">
-                    <input type="text" name="uspass" id="uspass" class="fancy-input rounded-pill img-input-contraseña" placeholder="Contraseña">
-                </div>
-                <div class="d-flex w-70 align-self-center mb-2">
-                    <input type="submit" name="btnenviar" id="btnenviar" class="btn-enviar rounded-pill" value="Enviar">
-                </div>
-                <div class="d-flex w-100 h-100 align-content-start justify-content-center mb-5">
-                    <span>¿No tenes cuenta?<a href="../register/index.php"> Registrarte</a></span>
-                </div>
-            </form>
-        </section>
+            <div class="mt-3 ml-2 mb-4 mr-2">
+                <input type="password" name="password" id="uspass" class="fancy-input rounded-pill img-input-contraseña" placeholder="Contraseña">
+            </div>
+            <div class="d-flex w-70 align-self-center mb-2">
+                <input type="submit" name="btnenviar" id="btnenviar" class="btn-enviar rounded-pill" value="Enviar">
+            </div>
+            <div class="d-flex w-100 h-100 align-content-start justify-content-center mb-5">
+                <span>¿No tenes cuenta?<a href="../register/index.php"> Registrarte</a></span>
+            </div>
+        </form>
+        
+    </section>
+</main>
+<script>
 
-    </main>
-</body>
-</html>
+$(document).ready(function(){
+    $('#login').submit(function(e){
+        e.preventDefault();
+        var datos = $(this).serialize();
+        $.ajax({
+            type: 'POST',
+            url: './action.php',
+            data: datos,
+            success: function(data){
+                if(data == 1){
+                    window.location.href = '../home/index.php';
+                } else {
+                    window.location.href = './index.php?error=1';
+                }
+            },
+            error: function(data){
+                console.log(data);
+            }
+        });
+    });
+});
 
+</script>

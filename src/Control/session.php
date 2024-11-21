@@ -1,12 +1,6 @@
 <?php 
  class Session {
- 
-    public function __construct() {
-        //se va a romper el root si pones eso 
-        //session_start();
-    }
 
-    
     // ********* Usar en caso especifico ********* //
     //getUsuario().Devuelve el getUsuario logeado.
     public function getUsuario(){
@@ -14,29 +8,17 @@
         if($this->validar()){
             $obj = new abmUsuario();
             $param['idusuario'] = $_SESSION['idusuario'];
-            $resultado = $obj->obtenerDatos($param);
-
-            if(count($resultado) > 0){
-                $usuario = $resultado[0];
+            $resultadoArray = $obj->obtenerDatos($param);
+            $resultado = !empty($resultadoArray) ? $resultadoArray[0] : null;
+            
+            if($resultado != null && count($resultado) > 0){
+                
+                $usuario = $resultado;
             }
         }
         return $usuario;
     }
-
-    // getRol(). Devuelve el rol del rol  logeado.
-    public function getRol(){
-        $list_rol = null;
-        if($this->validar()){
-            $obj = new abmUsuario();
-             $param['idusuario'] = $_SESSION['idusuario'];
-             $resultado = $obj->darRoles($param);
-             
-            if(count($resultado) > 0){
-                $list_rol = $resultado;
-            }
-        }
-        return $list_rol;
-    }
+    
         
     // Actualiza las variables de sesion con los valores ingresados.
     public function iniciar($mail ,$psw){
@@ -45,19 +27,21 @@
         $arrayDatos['usmail'] = $mail;
         $arrayDatos['uspass'] = $psw;
         $arrayDatos['usdeshabilitado'] ='0000-00-00 00:00:00';
-        echo '///////////////////////////////////////';
-        verEstructura($arrayDatos);
-        $resultado = $obj->buscar($arrayDatos);
+        $resultado = $obj->obtenerDatos($arrayDatos);
         //no va a andar si la base de datos no tiene nada
         if(!empty($resultado) && count($resultado) > 0){
             $usuario = $resultado[0];
-            $_SESSION['idusuario'] = $usuario->getIdUsuario();
+            $_SESSION['idusuario'] = $usuario['idusuario'];
             $boolean = true;
         } else {
             $this->cerrar();
         }
 
         return $boolean;
+    }
+
+    public function setearUnDato($dato){
+        $_SESSION[$dato['nombreDato']] = $dato['dato'];
     }
     
     
@@ -71,6 +55,21 @@
         return $resp;
     }
 
+    public function getRol(){
+        $rol = null;
+        if($this->validar()){
+            $obj = new abmUsuarioRol();
+            $param['idusuario'] = $_SESSION['idusuario'];
+            $resultado = $obj->obtenerDatos($param);
+
+            if(count($resultado) > 0){
+                $usuario = $resultado[0];
+                $rol = $usuario['idrol'];
+            }
+        }
+        
+        return $rol;
+    }
    
 
     //activa(). Devuelve true o false si la sesion esta activa o no. 
@@ -80,7 +79,15 @@
 
     //cerrar(). Cierra la sesion actual.
     public function cerrar(){
+        session_write_close();
+    }
+
+    public function destruir(){
         session_destroy();
+    }
+
+    public function activar(){
+        session_start();
     }
 
 }

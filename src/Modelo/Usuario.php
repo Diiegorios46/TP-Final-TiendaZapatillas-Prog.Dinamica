@@ -96,7 +96,7 @@ class Usuario extends BaseDatos {
     public function eliminar($param) {
         $resp = false;
         $base=new BaseDatos();
-        $sql="UPDATE usuario SET usDeshabilitado = '".$this->getUsDeshabilitado()."' WHERE idUsuario=".$this->getIdUsuario();
+        $sql="UPDATE usuario SET usdeshabilitado = '".$this->getUsDeshabilitado()."' WHERE idusuario=".$this->getIdUsuario();
 
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
@@ -108,6 +108,25 @@ class Usuario extends BaseDatos {
             $this->setMensajeOperacion("usuario->borrado logico: ".$base->getError());
         }
 
+        return $resp;
+    }
+
+    public function cargar(){
+        $resp = false;
+        $base=new BaseDatos();
+        $sql="SELECT * FROM usuario WHERE idusuario= ".$this->getIdUsuario();
+        
+        if($base->Iniciar()){
+            $res = $base->Ejecutar($sql);
+            if($res>-1){
+                if($res>0){
+                    $row = $base->Registro();
+                    $this->setear($row);
+                }
+            }
+        } else {
+            $this->setUsdeshabilitado(1);
+        }
         return $resp;
     }
 

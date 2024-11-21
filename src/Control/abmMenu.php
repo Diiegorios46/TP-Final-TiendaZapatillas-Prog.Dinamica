@@ -130,14 +130,11 @@ class abmMenu
     {
         $resp = false;
         $objMenu = $this->cargarObjeto($param);
-        verEstructura($param);
-
         if ($objMenu->insertar()) {
             $resp = true;
         }
         return $resp;
     }
-
 
     //Hace un borrado logico del menu. 
     //En caso de que ya estuviese deshabilitado, lo vuelve a habilitar.
@@ -176,20 +173,22 @@ class abmMenu
             if(isset($param['medeshabilitado']))
                 $where .= " and medeshabilitado = '" . $param['medeshabilitado'] . "'";
         }
-        $obj = new menu();
+        $obj = new Menu();
         $arreglo = $obj->listar($where);
         $result = [];
 
         if (!empty($arreglo)) {
             foreach ($arreglo as $menu) {
-                $result[] = ["idmenu" => $menu->getIdmenu(),
-                                "menombre" => $menu->getMenombre(),
-                                "medescripcion" => $menu->getMedescripcion(),
-                                "idpadre" => $menu->getIdpadre(),
-                                "medeshabilitado" => $menu->getMedeshabilitado()];
+                $result[] = ["idmenu" => $menu->getIdmenu(), "menombre" => $menu->getMenombre(), "medescripcion" => $menu->getMedescripcion(), "idpadre" => $menu->getIdpadre(), "medeshabilitado" => $menu->getMedeshabilitado()];
             }
         }
         return $result;
     
     }
+
+    function menuUsuario ($rol) {
+        
+    }
+
+
 }
