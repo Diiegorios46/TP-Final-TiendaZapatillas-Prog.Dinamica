@@ -1,12 +1,15 @@
 <?php
 include '../../../config.php';
+// header('Content-Type: application/json');
 
 $nuevosDatosProducto = data_submitted();
+
 $producto = new abmProducto();
 $productoViejo = $producto->obtenerDatos(['idproducto' => $nuevosDatosProducto['idproducto']])[0];
 
 $datos = [];
 $datos['accion'] = 'editar';
+echo json_encode($productoViejo);
 
 foreach ($nuevosDatosProducto as $key => $value) {
     
@@ -24,8 +27,8 @@ foreach ($nuevosDatosProducto as $key => $value) {
 }
 
 if ($producto->abm($datos)) {
-    echo "Producto modificado con éxito";
+    echo json_encode("Producto modificado con éxito");
 } else {
-    echo "Error al modificar el producto";
+    echo json_encode("Error al modificar el producto");
 }
 ?>

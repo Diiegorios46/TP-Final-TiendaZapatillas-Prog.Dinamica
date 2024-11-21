@@ -14,7 +14,7 @@ if(isset($datos['login']) && $datos['login'] == 1){
             <span>Login</span>
         </div>
 
-        <form class="w-100 d-flex flex-column" action='./action.php' method="post" id="login">
+        <form class="w-100 d-flex flex-column" method="post" id="login">
             <div class="mt-3 ml-2 mb-2 mr-2">
                 <input type="mail" name="mail" id="usmail" class="fancy-input rounded-pill" placeholder="Correo Electronico">
             </div>
@@ -42,7 +42,7 @@ $(document).ready(function(){
             url: './action.php',
             data: datos,
             success: function(data){
-                if(data == '1'){
+                if(data == 1){
                     window.location.href = '../home/index.php';
                 } else {
                     window.location.href = './index.php?error=1';

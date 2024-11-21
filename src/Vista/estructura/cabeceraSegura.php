@@ -48,11 +48,12 @@ include '../../../config.php';
                             <i class="bi bi-gear w-100 text-light"></i>
                         </a>
 
-                        <i class="bi bi-cart hoverCabecera text-light w25-h55" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"></i>
-
                         <div class="misCompras hoverCabecera">
                             <a href="../history/index.php" class="text-light hoverCabecera"><i class="bi bi-bag hoverCabecera"></i></a>
                         </div>
+                        
+                        <i class="bi bi-cart hoverCabecera text-light w25-h55" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"></i>
+
 
 
                         <i class="bi bi-person-circle dropdown-toggle icono-persona hoverCabecera text-light" id="dropdownMenuButton"  data-bs-toggle="dropdown" aria-expanded="false">                        <?php 

@@ -8,9 +8,9 @@
         $session->cerrar();
         include '../estructura/cabecera.php';
     }
-    if (isset($_GET['seccion']) && $_GET['seccion'] == 'iniciarCompra'){
-        echo 'inicioCompra';
-    }
+    // if (isset($_GET['seccion']) && $_GET['seccion'] == 'iniciarCompra'){
+    //     echo 'inicioCompra';
+    // }
 ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -49,15 +49,15 @@
                                                 <label for="price0" class="mb-0">Todos los productos</label>
                                             </li>
                                             <li class="d-flex align-items-center mb-2">
-                                                <input type="radio" name="price" id="price100"value="1" class="me-2"onclick="mostrarProductos()" >
+                                                <input type="radio" name="price" id="price100"value="1" class="me-2" onclick="mostrarProductos()">
                                                 <label for="price100" class="mb-0">Menor a $100</label>
                                             </li>
                                             <li class="d-flex align-items-center mb-2">
-                                                <input type="radio" name="price" id="price200"value="2" class="me-2"onclick="mostrarProductos()">
+                                                <input type="radio" name="price" id="price200"value="2" class="me-2" onclick="mostrarProductos()">
                                                 <label for="price200" class="mb-0">Entre $100 y $200</label>
                                             </li>
                                             <li class="d-flex align-items-center mb-2">
-                                                <input type="radio" name="price" id="price300"value="3" class="me-2"onclick="mostrarProductos()">
+                                                <input type="radio" name="price" id="price300"value="3" class="me-2" onclick="mostrarProductos()">
                                                 <label for="price300" class="mb-0">Mas de $200</label>
                                             </li>
                                         </ul>
@@ -80,7 +80,7 @@
                                                 <label for="price0" class="mb-0">Todos las marcas</label>
                                             </li>
                                             <li class="d-flex align-items-center mb-2">
-                                                <input type="radio" name="priceMarca" id="price100" value="vans" class="me-2"onclick="mostrarProductos()" >
+                                                <input type="radio" name="priceMarca" id="price100" value="vans" class="me-2"onclick="mostrarProductos()">
                                                 <label for="price100" class="mb-0">Vans</label>
                                             </li>
                                             <li class="d-flex align-items-center mb-2">
@@ -105,14 +105,15 @@
                 </div>
                 <div class="w-75 justify-content-center align-content-start">
                     <div class="row mt-4 mb-4" id="prueba">
-                        <!-- Aquí se agregarán las tarjetas dinámicamente -->
+                        <!-- Aquí se agregarán las tarjetas dinámicamente con jquery -->
                     </div>
                 </div>
             </section>
         </main>
-    
+
         <script>
                  $(document).ready(function () {
+                    //muestra los productos cuando se carga la pagina
                      mostrarProductos();
                  });
 
@@ -122,13 +123,16 @@
                         type: 'post',
                         dataType: 'json',
                         data: {price: $('input[name="price"]:checked').val(), priceMarca: $('input[name="priceMarca"]:checked').val()},
+
                         beforeSend: function () {
                             $('#prueba').html('Cargando...');
                         },
+
                         success: function (response) {
 
                             $('#prueba').html('');
-                             let row;
+                            
+                            let row;
 
                             response.forEach((producto, index) => {
                                 if (index % 4 === 0) {
@@ -139,6 +143,7 @@
                                 let zapatilla = `
                                     <div class="col-3">
                                         <div class="card d-flex w-100 h-100 p-3 sombraCard">
+
                                             <div class="card-img w-100">
                                                 <img src="${producto.proimagen1}" alt="" class="w-100 h-100 img-card">
                                             </div>
@@ -150,9 +155,11 @@
                                             <div class="hidden">
                                                 <span class="data-idproducto">${producto.idproducto}</span>
                                             </div>
+
                                             <div class="card-button text-center pt-3">
                                                 <button class=" p-2 agregarCarrito btn btn-dark" id="myButton" onclick="agregarAlCarrito(this)">Agregar al carrito</button>
                                             </div>
+
                                         </div>
                                     </div>`;
                                 row.append(zapatilla);
@@ -177,8 +184,7 @@
             var id = card.querySelector('.hidden')?.textContent.trim(); 
 
             let productEliminar = carrito.findIndex(producto => 
-                (id && producto.id === id) || producto.nombre === nombre
-            );
+                (id && producto.id === id) || producto.nombre === nombre);
 
             if (productEliminar !== -1) {
                 carrito.splice(productEliminar, 1);
@@ -207,20 +213,26 @@
                                         <i class="bi bi-x"></i>
                                     </button>
                                 </div>
-                            </div>
-                            <form method='post' action='../buy/inicioCompra.php' class="card-compra d-flex flex-row w-100 justify-content-center mr-5 mb-2 pr-1">
-                                <button type='submit' name='idproducto' value='${item.id}' class="btn btn-dark btn-comprar">Pagar</button>
-                            </form>
-                        `;
+                            </div>`;
+
+                        modal.innerHTML += `
+                        <form method='post' action='../buy/inicioCompra.php' class="card-compra d-flex flex-row w-100 justify-content-center mr-5 mb-2 pr-1">
+                            ${carrito.map((item, index) => `
+                                <input type='hidden' name='productos[${index}][idproducto]' value='${item.id}'>
+                                <input type='hidden' name='productos[${index}][nombre]' value='${item.nombre}'>
+                                <input type='hidden' name='productos[${index}][precio]' value='${item.precio}'>
+                                <input type='hidden' name='productos[${index}][cantidad]' value='${item.cantidad}'>
+                                <input type='hidden' name='productos[${index}][img]' value='${item.img}'>`).join('')}
+                            <button type='submit' class="btn btn-dark btn-comprar">Pagar</button>
+                        </form>`;
                     });
                 } else {
-                    modal.innerHTML = "<p>El carrito está vacío</p>";
+                    modal.innerHTML = "<p>El carrito esta vacio</p>";
                 }
             } else {
                 console.log(`Producto no encontrado: ${nombre}`);
             }
         }
-
 
         function agregarAlCarrito(button) {
             var card = button.closest('.card');
@@ -241,6 +253,7 @@
             mandarAlmodal();
         }
 
+
         function verificarMasZapatillas(zapatilla) {
 
             let productoEnCarrito = carrito.find(producto => producto.nombre === zapatilla.nombre);
@@ -253,6 +266,7 @@
 
         function mandarAlmodal() {
             let modales = document.getElementsByClassName('offcanvas-body');
+            
             if (modales.length > 0) {
                 let modal = modales[0];  
                 modal.innerHTML = '';
@@ -287,6 +301,7 @@
                     `;
                 });
 
+
                 modal.innerHTML += `
                 <form method='post' action='../buy/inicioCompra.php' class="card-compra d-flex flex-row w-100 justify-content-center mr-5 mb-2 pr-1">
                     ${carrito.map((item, index) => `
@@ -297,8 +312,7 @@
                         <input type='hidden' name='productos[${index}][img]' value='${item.img}'>
                     `).join('')}
                     <button type='submit' class="btn btn-dark btn-comprar">Pagar</button>
-                </form>
-            `;
+                </form>`;
             }
         }
         </script>
