@@ -1,6 +1,6 @@
 <?php
 include '../../../config.php';
-
+header('Content-Type: application/json');
 $datosNuevosUsuario = data_submitted();
 $abmUsuario = new abmUsuario();
 $abmUsuarioRol = new abmUsuarioRol();
@@ -16,18 +16,23 @@ $datos = [];
 $datos['accion'] = 'editar';
 $datos['uspass'] = $usuarioViejo['uspass'];
 
-verEstructura($datosNuevosUsuario);
+unset($datosNuevosUsuario['rodescripcion']);
+
 foreach ($datosNuevosUsuario as $key => $value) {
-    if ($value != $usuarioViejo[$key]) {
-        $datos[$key] = $value;
-    } else {
-        $datos[$key] = $usuarioViejo[$key];
+    if ($key != 'idrol' && $key != 'usdeshabilitado') {
+        if ($value != $usuarioViejo[$key]) {
+            $datos[$key] = $value;
+        } else {
+            $datos[$key] = $usuarioViejo[$key];
+        }
     }
 }
-
+$datos['usdeshabilitado'] = $usuarioViejo['usdeshabilitado'];
+$datos['idrol'] = $datosNuevosUsuario['idrol'];
 if ($abmUsuario->abm($datos)) {
+    echo "Usuario modificado correctamente";
     if($abmUsuarioRol->abm($datos)){
-        echo "Usuario modificado correctamente";
+        echo "Rol del usuario modificado correctamente";
     } else {
         echo "Error al modificar el rol del usuario";
     }

@@ -119,13 +119,43 @@
                             </div>
                         `;
                         $('.deposito-menu').append(userInfo);
-    
-                            $('#formularioUs').on('submit', function(e) {
-                                e.preventDefault();
+
+                        $('#formularioUs').validate({
+                            rules: {
+                                usnombre: {
+                                    required: true,
+                                    minlength: 2,
+                                    pattern: "^(?![0-9]*$)[a-zA-Z0-9]+$"
+                                },
+                                usmail: {
+                                    required: true,
+                                    email: true
+                                },
+                                uspass: {
+                                    required: true,
+                                    minlength: 5
+                                }
+                            },
+                            messages: {
+                                usnombre: {
+                                    required: "Por favor ingrese su nombre",
+                                    minlength: "El nombre debe tener al menos 2 caracteres",
+                                    pattern: "El nombre no puede contener solo números"
+                                },
+                                usmail: {
+                                    required: "Por favor ingrese su correo electrónico",
+                                    email: "Por favor ingrese un correo electrónico válido"
+                                },
+                                uspass: {
+                                    required: "Por favor ingrese su contraseña",
+                                    minlength: "La contraseña debe tener al menos 5 caracteres"
+                                }
+                            },
+                            submitHandler: function(form) {
                                 $.ajax({
                                     url: './actionConfigurarPerfil.php',
                                     type: 'POST',
-                                    data: new FormData(this),
+                                    data: new FormData(form),
                                     processData: false,
                                     contentType: false,
                                     success: function(texto) {
@@ -135,7 +165,8 @@
                                         console.log('Error: ' + error);
                                     }
                                 });
-                            });
+                            }
+                        });
                     },
                     error: function(xhr, status, error) {
                         console.log('Error al cargar los datos del menú dinámico.');
@@ -145,6 +176,7 @@
                 break;
             case 2:
                 //VER PAQUETES DEPOSITO
+
                 url = "./actionVerPaquetes.php";
 
                 $('.deposito-title').html('Ver Paquetes');
@@ -211,16 +243,16 @@
                     <form class="formAgregarProducto rounded shadow" id="fm" novalidate method="post">
                         <div class="form-group inputForm m-2">
                             <label for="pronombre" class="form-label">Nombre del producto</label>
-                            <input type="text" name="pronombre" id="pronombre" class="form-input inputForm" placeholder="Iforce" required>
+                            <input type="text" name="pronombre" id="pronombre" class="form-input inputForm" placeholder="ej: Iforce" required>
                         </div>
                         <div class="form-group m-2">
                             <label for="proprecio" class="form-label">Precio del producto</label>
-                            <input type="number" name="proprecio" id="proprecio" class="form-input inputForm" placeholder="$1500" required>
+                            <input type="number" name="proprecio" id="proprecio" class="form-input inputForm" placeholder="ej: $1500" required>
                         </div>
                         <div class="form-group m-2">
                             <label for="promarca" class="form-label">Marca del producto</label>
                             <select name="promarca" id="promarca" class="form-select" required>
-                                <option value="nike">Nike</option>
+                                <option value="nike" selected>Nike</option>
                                 <option value="adidas">Adidas</option>
                                 <option value="vans">Vans</option>
                                 <option value="topper">Topper</option>
@@ -228,11 +260,11 @@
                         </div>
                         <div class="form-group m-2">
                             <label for="prodetalle" class="form-label">Detalle del producto</label>
-                            <input type="text" name="prodetalle" id="prodetalle" class="form-input inputForm" placeholder="Son un excelente producto para hacer deporte" required>
+                            <input type="text" name="prodetalle" id="prodetalle" class="form-input inputForm" placeholder="ej: Son un excelente producto para hacer deporte" required>
                         </div>
                         <div class="form-group m-2">
                             <label for="procantstock" class="form-label">Cantidad de stock</label>
-                            <input type="number" name="procantstock" id="procantstock" class="form-input inputForm" placeholder="100" required>
+                            <input type="number" name="procantstock" id="procantstock" class="form-input inputForm" placeholder="ej: 100" required>
                         </div>
                         <div class="form-group m-2">
                             <label for="image" class="form-label">Elegi una imagen para el producto:</label>
@@ -243,32 +275,78 @@
                         </div>
                     </form>`);
 
-                $('#fm').on('submit', function(e) {
-                    
-                    e.preventDefault(); 
-                    $.ajax({
-                        url: url,
-                        type: 'POST',
-                        data: new FormData(this),
-                        processData: false,
-                        contentType: false,
-                        success: function(result) {
-                            console.log(result);
-                            try {
-                                if (result) {
-                                    $('#mensajeOperacion').addClass('alert alert-success alert-dismissible fade show text-center').html('Producto agregado exitosamente.');    
-                                    } else {console.log('Error: ' + result.errorMsg);
-                                }
-                            } catch (e) {
-                                console.log('Error al parsear la respuesta del servidor.');
+                    $('#fm').validate({
+                        rules: {
+                            pronombre: {
+                                required: true,
+                                minlength: 2,
+                                pattern: "^(?![0-9]*$)[a-zA-Z0-9]+$"
+                            },
+                            proprecio: {
+                                required: true,
+                                number: true
+                            },
+                            prodetalle: {
+                                required: true,
+                                minlength: 5,
+                                pattern: "^[a-zA-Z0-9]+$"},
+                            procantstock: {
+                                required: true,
+                                number: true
+                            },
+                            image: {
+                                required: true,
+                                extension: "jpg|jpeg|png|gif"
                             }
                         },
-                        error: function(xhr, status, error) {
-                            console.log('Error al cargar los datos del menú dinámico.');
-                            console.log('Error: ' + error);
+                        messages: {
+                            pronombre: {
+                                required: "Por favor ingrese el nombre del producto",
+                                minlength: "El nombre debe tener al menos 2 caracteres",
+                                pattern: "El nombre no puede contener solo números"
+                            },
+                            proprecio: {
+                                required: "Por favor ingrese el precio del producto",
+                                number: "Por favor ingrese un número"
+                            },
+                            prodetalle: {
+                                required: "Por favor ingrese el detalle del producto",
+                                minlength: "El detalle debe tener al menos 5 caracteres"
+                            },
+                            procantstock: {
+                                required: "Por favor ingrese la cantidad de stock",
+                                number: "Por favor ingrese un número"
+                            },
+                            image: {
+                                required: "Por favor seleccione una imagen",
+                                extension: "Por favor seleccione una imagen con extensión jpg, jpeg, png o gif"
+                            }
+                        },
+                        submitHandler: function(form) {
+                            $.ajax({
+                                url: url,
+                                type: 'POST',
+                                data: new FormData(this),
+                                processData: false,
+                                contentType: false,
+                                success: function(result) {
+                                    console.log(result);
+                                    try {
+                                        if (result) {
+                                            $('#mensajeOperacion').addClass('alert alert-success alert-dismissible fade show text-center').html('Producto agregado exitosamente.');    
+                                            } else {console.log('Error: ' + result.errorMsg);
+                                        }
+                                    } catch (e) {
+                                        console.log('Error al parsear la respuesta del servidor.');
+                                    }
+                                },
+                                error: function(xhr, status, error) {
+                                    console.log('Error al cargar los datos del menú dinámico.');
+                                    console.log('Error: ' + error);
+                                }
+                            });
                         }
-                    });
-                });
+                    })
                 
                 break;
             case 4:
@@ -293,7 +371,6 @@
                                     $('.grid').append(row);
                                     $('.deposito-menu').html(grid); 
                                 }
-                                
                             let productoStr = JSON.stringify(producto).replace(/"/g, '&quot;');
                             let zapatilla = `
                                     <div class="col-3">
@@ -353,35 +430,59 @@
                                 </div>`);
 
                         
-                $('#formulario').on('submit', function(e) {
-                    e.preventDefault(); 
-                    $.ajax({
-                        url: url,
-                        type: 'POST',
-                        data: new FormData(this),
-                        processData: false,
-                        contentType: false,
-                        dataType: 'json',
-                        success: function(result) {
-                            try {
-                                if (result) {
-                                    $('#mensajeOperacion').addClass('alert alert-success alert-dismissible fade show text-center').html('Se agrego un usuario correctamente.');    
-                                    } else {console.log('Error: ' + result.errorMsg);
-                                }
-                            } catch (e) {
-                                console.log('Error al parsear la respuesta del servidor.');
-                            }
+                $('#formulario').validate({
+                    
+                    rules: {
+                        usnombre: {
+                            required: true,
+                            minlength: 2,
+                            pattern: "^(?![0-9]*$)[a-zA-Z0-9]+$"
                         },
-                        error: function(xhr, status, error) {
-                            console.log('Error al cargar los datos del menú dinámico.');
-                            console.log('Error: ' + error);
+                        uspass: {
+                            required: true,
+                            minlength: 5
+                        },
+                        usmail: {
+                            required: true,
+                            email: true
                         }
-                    });
+                    },
+                    messages: {
+                        usnombre: {
+                            required: "Por favor ingrese su nombre",
+                            minlength: "El nombre debe tener al menos 2 caracteres",
+                            pattern: "El nombre no puede contener solo números"
+                        },
+                        uspass: {
+                            required: "Por favor ingrese su contraseña",
+                            minlength: "La contraseña debe tener al menos 5 caracteres"
+                        },
+                        usmail: {
+                            required: "Por favor ingrese su correo electrónico",
+                            email: "Por favor ingrese un correo electrónico válido"
+                        }
+                    },
+                    submitHandler: function(form) {
+                        $.ajax({
+                            url: url,
+                            type: 'POST',
+                            data: new FormData(form),
+                            processData: false,
+                            contentType: false,
+                            success: function(texto) {
+                                console.log(texto);
+                                $('#mensajeOperacion').addClass('alert alert-success alert-dismissible fade show text-center').html('Usuario agregado exitosamente.');
+                            },
+                            error: function(xhr, status, error) {
+                                console.log('Error: ' + error);
+                            }
+                        });
+                    }
                 });
 
                 break;
                 case 6:
-                //BAJA USUARIO ADMIN 
+                //BAJA USUARIO 
 
                 url = './listarUsuarios.php';
                 $('.deposito-title').html('Borrar un Usuario');
@@ -417,7 +518,7 @@
                                             </form>    
                                             </div> 
                                         </div> 
-                                    </div>
+                                    </div> 
                             `;
                             row.append(usuarioHtml);
                         });
@@ -469,7 +570,6 @@
                                                         <div class="text-center">
                                                             <button class="btn btn-warning boton-formuModificar"><a onclick="modificarUsuario(${usuarioStr})">Modificar</a></button>
                                                         <div>
--
                                                     </form>
                                                 </div>
                                             </div>
@@ -495,93 +595,135 @@
 
     function modificarProducto(producto) {
         $.ajax({
-            url: './modificarAction.php',
-            type: 'get',
-            success: function(response) {
-                $('.grid').html('');
-                $('.deposito-menu').html(`
-                    <form class="upload-form" id="form" novalidate method="post" enctype="multipart/form-data">
-                        <div class="form-group">
-                            <label for="pronombre" class="form-label">Nombre del producto</label>
-                            <input type="text" name="pronombre" id="pronombre" class="form-input" value="${producto.pronombre}" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="proprecio" class="form-label">Precio del producto</label>
-                            <input type="number" name="proprecio" id="proprecio" class="form-input" value="${parseInt(producto.proprecio, 10).toFixed(2)}" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="promarca" class="form-label">Marca del producto</label>
-                            <select name="promarca" id="promarca" class="form-select" required>
-                                <option value="nike" ${producto.promarca === 'nike' ? 'selected' : ''}>Nike</option>
-                                <option value="adidas" ${producto.promarca === 'adidas' ? 'selected' : ''}>Adidas</option>
-                                <option value="vans" ${producto.promarca === 'vans' ? 'selected' : ''}>Vans</option>
-                                <option value="topper" ${producto.promarca === 'topper' ? 'selected' : ''}>Topper</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="prodetalle" class="form-label">Detalle del producto</label>
-                            <input type="text" name="prodetalle" id="prodetalle" class="form-input" value="${producto.prodetalle}" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="procantstock" class="form-label">Cantidad de stock</label>
-                            <input type="number" name="procantstock" id="procantstock" class="form-input" value="${parseInt(producto.procantstock, 10)}" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="proimagen1" class="form-label">Seleccione la imagen para cambiar:</label>
-                            <div class="form-group w-50">
-                                <img src="${producto.proimagen1}" class="w-100 h-100" id="proimagen1-preview">
-                            </div>
-                            <input type="file" name="proimagen1" id="proimagen1" class="form-file">
-                        </div>
-                        <input type="submit" value="Subir imagen" name="submit" class="form-submit" required>
-                    </form>
-                `);
+                    url: './modificarAction.php',
+                    type: 'get',
+                    success: function(response) {
+                            $('.grid').html('');
+                            $('.deposito-menu').html(`
+                                    <form class="upload-form" id="form" novalidate method="post" enctype="multipart/form-data">
+                                            <div class="form-group">
+                                                    <label for="pronombre" class="form-label">Nombre del producto</label>
+                                                    <input type="text" name="pronombre" id="pronombre" class="form-input" value="${producto.pronombre}" required>
+                                            </div>
+                                            <div class="form-group">
+                                                    <label for="proprecio" class="form-label">Precio del producto</label>
+                                                    <input type="number" name="proprecio" id="proprecio" class="form-input" value="${parseInt(producto.proprecio, 10).toFixed(2)}" required>
+                                            </div>
+                                            <div class="form-group">
+                                                    <label for="promarca" class="form-label">Marca del producto</label>
+                                                    <select name="promarca" id="promarca" class="form-select" required>
+                                                            <option value="nike" ${producto.promarca === 'nike' ? 'selected' : ''}>Nike</option>
+                                                            <option value="adidas" ${producto.promarca === 'adidas' ? 'selected' : ''}>Adidas</option>
+                                                            <option value="vans" ${producto.promarca === 'vans' ? 'selected' : ''}>Vans</option>
+                                                            <option value="topper" ${producto.promarca === 'topper' ? 'selected' : ''}>Topper</option>
+                                                    </select>
+                                            </div>
+                                            <div class="form-group">
+                                                    <label for="prodetalle" class="form-label">Detalle del producto</label>
+                                                    <input type="text" name="prodetalle" id="prodetalle" class="form-input" value="${producto.prodetalle}" required>
+                                            </div>
+                                            <div class="form-group">
+                                                    <label for="procantstock" class="form-label">Cantidad de stock</label>
+                                                    <input type="number" name="procantstock" id="procantstock" class="form-input" value="${parseInt(producto.procantstock, 10)}" required>
+                                            </div>
+                                            <div class="form-group">
+                                                    <label for="proimagen1" class="form-label">Seleccione la imagen para cambiar:</label>
+                                                    <div class="form-group w-50">
+                                                            <img src="${producto.proimagen1}" class="w-100 h-100" id="proimagen1-preview">
+                                                    </div>
+                                                    <input type="file" name="proimagen1" id="proimagen1" class="form-file">
+                                            </div>
+                                            <input type="submit" value="Cambiar producto" name="submit" class="form-submit" required>
+                                    </form>
+                            `);
 
-                $('#form').on('submit', function(e) {
-                    e.preventDefault();
-                    var formData = new FormData();
-                    formData.append('idproducto', producto.idproducto);
-                    formData.append('pronombre', $('#pronombre').val());
-                    formData.append('proprecio', $('#proprecio').val());
-                    formData.append('promarca', $('#promarca').val());
-                    formData.append('promarca', $('#promarca option:selected').val());
-                    formData.append('prodetalle', $('#prodetalle').val());
-                    formData.append('procantstock', $('#procantstock').val());
+                            $('#form').validate({
+                                    rules: {
+                                            pronombre: {
+                                                    required: true,
+                                                    minlength: 2,
+                                            },
+                                            proprecio: {
+                                                    required: true,
+                                                    number: true,
+                                                    min: 1
+                                            },
+                                            prodetalle: {
+                                                    required: true,
+                                                    minlength: 5,
+                                            },
+                                            procantstock: {
+                                                    required: true,
+                                                    number: true,
+                                                    min: 1
 
-                    var fileInput = $('#proimagen1')[0];
-                    if (fileInput.files && fileInput.files[0]) {
-                        var reader = new FileReader();
-                        reader.onload = function(e) {
-                            formData.append('proimagen1', e.target.result);
-                            enviarFormulario(formData);
-                        };
-                        reader.readAsDataURL(fileInput.files[0]);
-                    } else {
-                        formData.append('proimagen1', $('#proimagen1-preview').attr('src'));
-                        enviarFormulario(formData);
-                    }
-                });
+                                            },
+                                            proimagen1: {
+                                                    extension: "jpg|jpeg|png|gif"
+                                            }
+                                    },
+                                    messages: {
+                                            pronombre: {
+                                                    required: "Por favor ingrese el nombre del producto",
+                                                    minlength: "El nombre debe tener al menos 2 caracteres",
+                                            },
+                                            proprecio: {
+                                                    required: "Por favor ingrese el precio del producto",
+                                                    number: "Por favor ingrese un número",
+                                                    min: "El valor debe ser mayor o igual a 1"
+                                            },
+                                            prodetalle: {
+                                                    required: "Por favor ingrese el detalle del producto",
+                                                    minlength: "El detalle debe tener al menos 5 caracteres"
+                                            },
+                                            procantstock: {
+                                                    required: "Por favor ingrese la cantidad de stock",
+                                                    number: "Por favor ingrese un número",
+                                                    min: "El valor debe ser mayor o igual a 1"
+                                            },
+                                            proimagen1: {
+                                                    extension: "Por favor seleccione una imagen con extensión jpg, jpeg, png o gif"
+                                            }
+                                    },
+                                    submitHandler: function(form) {
+                                            var formData = new FormData(form);
+                                            formData.append('idproducto', producto.idproducto);
 
-                function enviarFormulario(formData) {
-                    $.ajax({
-                        url: './modificarAction.php',
-                        type: 'POST',
-                        data: formData,
-                        processData: false,
-                        contentType: false,
-                        success: function(texto) {
-                            console.log(texto);
-                        },
-                        error: function(xhr, status, error) {
+                                            var fileInput = $('#proimagen1')[0];
+                                            if (fileInput.files && fileInput.files[0]) {
+                                                    var reader = new FileReader();
+                                                    reader.onload = function(e) {
+                                                            formData.append('proimagen1', e.target.result);
+                                                            enviarFormulario(formData);
+                                                    };
+                                                    reader.readAsDataURL(fileInput.files[0]);
+                                            } else {
+                                                    formData.append('proimagen1', $('#proimagen1-preview').attr('src'));
+                                                    enviarFormulario(formData);
+                                            }
+                                    }
+                            });
+
+                            function enviarFormulario(formData) {
+                                    $.ajax({
+                                            url: './modificarAction.php',
+                                            type: 'POST',
+                                            data: formData,
+                                            processData: false,
+                                            contentType: false,
+                                            success: function(texto) {
+                                                    console.log(texto);
+                                            },
+                                            error: function(xhr, status, error) {
+                                                    console.log('Error: ' + error);
+                                            }
+                                    });
+                            }
+                    },
+                    error: function(xhr, status, error) {
                             console.log('Error: ' + error);
-                        }
-                    });
-                }
-            },
-            error: function(xhr, status, error) {
-                console.log('Error: ' + error);
-            }
-        });
+                    }
+            });
     }
 
     function modificarUsuario(objUsuario){
@@ -642,9 +784,11 @@
         
     function evaluar(boton, idcompra, estado) {
         $.ajax({
+            
             url: './actionEvaluar.php',
             type: 'POST',
             data: { idcompra: idcompra, estado: estado },
+
             success: function(response) {
                 $('#mensajeOperacion').html(response);
                 $(boton).closest('.evalua').remove();
@@ -687,48 +831,71 @@
     function borradoLogicaUsuario(objUsuario){
         $('.grid').html('');
         $('.deposito-menu').html(`
-            <form class="upload-form" id="formularioUsuario" novalidate method="post">
-                <div class="form-group">
-                    <label for="usnombre" class="form-label">Nombre del usuario</label>
-                    <input type="text" name="usnombre" id="usnombre" class="form-input" value="${objUsuario.usnombre}" readonly required>
+            <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmar Baja</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        ¿Estás seguro de que quieres eliminar al usuario <strong>${objUsuario.usnombre}</strong>?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-danger" id="confirmDeleteButton">Confirmar Baja</button>
+                    </div>
                 </div>
-                <div class="form-group hidden">
-                    <label for="usid" class="form-label">ID del usuario</label>
-                    <input type="text" name="idusuario" id="idusuario" class="form-input" value="${objUsuario.idusuario}" readonly required>
-                </div>
-                <div class="form-group">
-                    <label for="usmail" class="form-label">Correo del usuario</label>
-                    <input type="text" name="usmail" id="usmail" class="form-input" value="${objUsuario.usmail}" readonly required>
-                </div>
-                <div class="form-group"> 
-                        <label for="usmail" class="form-label">Estado</label>
-                    <select class="form-select form-select-lg" aria-label="Large select example" name="usdeshabilitado" id="usdeshabilitado">
-                        <option value="0000-00-00 00:00:00" ${objUsuario.usdeshabilitado == '0000-00-00 00:00:00' ? 'selected' : ''}>Habilitado</option>
-                        <option value="2021-09-01 00:00:00" ${objUsuario.usdeshabilitado == '2021-09-01 00:00:00' ? 'selected' : ''}>Deshabilitado</option>
-                    </select>
-                    <p>¿Estas seguro de que quieres eliminar ? 😲😒</p>
-                    <input type="submit" value="Confirmar Baja" name="submit" class="form-submit" required>
-                </div>                 
-            </form>`);
+            </div>
+        </div>`
+    
+
+        <script>
+            $(document).ready(function() {
+                $('#confirmDeleteModal').modal('show');
+
+                $('#confirmDeleteButton').on('click', function() {
+                    $.ajax({
+                        url: './actionBajaUsuario.php',
+                        type: 'POST',
+                        data: {
+                            idusuario: objUsuario.idusuario,
+                            usdeshabilitado: $('#usdeshabilitado').val()
+                        },
+                        success: function(texto) {
+                            console.log(texto);
+                            $('#mensajeOperacion').addClass('alert alert-success alert-dismissible fade show text-center').html('Usuario eliminado exitosamente.');
+                            $('#confirmDeleteModal').modal('hide');
+                        },
+                        error: function(xhr, status, error) {
+                            console.log('Error: ' + error);
+                        }
+                    });
+                });
+            });
+        </script>
+        );
         
         url = './actionBajaUsuario.php';
         
-        $('#formularioUsuario').on('submit', function(e) {
-            e.preventDefault(); 
-            $.ajax({
-                url: url,
-                type: 'POST',
-                data: new FormData(this),
-                processData: false,
-                contentType: false,
-                
-                success: function(texto) {
-                    $('#deposito-menu').addClass('alert alert-success alert-dismissible fade show text-center').html('Usuario deshabilitado exitosamente.');
-                },
-                error: function(xhr, status, error) {
-                    console.log('Error: ' + error);
-                }
-            });
+        $('#formularioUsuario').validate({
+            submitHandler: function(form) {
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: new FormData(form),
+                    processData: false,
+                    contentType: false,
+                    success: function(texto) {
+                        console.log(texto);
+                        $('#mensajeOperacion').addClass('alert alert-success alert-dismissible fade show text-center').html('Usuario eliminado exitosamente.');
+                    },
+                    error: function(xhr, status, error) {
+                        console.log('Error: ' + error);
+                    }
+                });
+            }
+            
         });
     }
             

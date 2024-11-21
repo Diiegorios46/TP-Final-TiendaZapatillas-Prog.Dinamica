@@ -5,7 +5,6 @@ class abmProducto
         $resp = false;
 
         if ($datos['accion'] == 'editar') {
-            verEstructura($datos);
             if ($this->modificacion($datos)) {
                 $resp = true;
             }

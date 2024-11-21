@@ -23,7 +23,7 @@ include '../../../config.php';
                 <div class="d-flex w-10 gap">
 
                     <div class="dropdown">
-                        <i class="bi bi-person-circle dropdown-toggle icono-persona" id="dropdownMenuButton"style="font-size: 2rem;" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                        <i class="bi bi-person-circle dropdown-toggle icono-persona text-light" id="dropdownMenuButton"style="font-size: 2rem;" data-bs-toggle="dropdown" aria-expanded="false"></i>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="../login/index.php">Iniciar Sesion</a></li>
                             <li><a class="dropdown-item" href="../register/index.php">Registrate</a></li>
@@ -31,7 +31,7 @@ include '../../../config.php';
                     </div>
 
                     <div class="w-h">
-                        <i class="bi bi-cart" style="font-size: 2rem;" class="w100-h55" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"></i>
+                        <i class="bi bi-cart text-light" style="font-size: 2rem;" class="w100-h55" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"></i>
 
                         <div class="w-40 offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
                             aria-labelledby="offcanvasRightLabel">

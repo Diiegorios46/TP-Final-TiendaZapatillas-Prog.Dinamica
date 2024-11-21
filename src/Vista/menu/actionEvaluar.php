@@ -1,6 +1,6 @@
 <?php
 include '../../../config.php';
-// header('Content-Type: application/json');
+header('Content-Type: application/json');
 
 $datos = data_submitted();
 $mensaje = 'Procesando su solicitud...';
@@ -80,7 +80,6 @@ if (isset($datos['estado']) && in_array($datos['estado'], [0, 1])) {
     $mensaje = 'Datos de estado inválidos';
 }
 
-$mensaje ="<div class= 'alert  $tipoAlerta alert-dismissible fade show text-center'>$mensaje";
-
-echo json_encode($mensaje);
+$mensaje =`<div class='alert $tipoAlerta alert-dismissible fade show text-center'>$mensaje`;
+echo $mensaje;
 ?>

@@ -99,7 +99,6 @@ class abmUsuario{
      */
     public function modificacion($param) {
         $resp = false;
-        verEstructura($param);
         if ($this->seteadosCamposClaves($param)){
             $elObjtTabla = $this->cargarObjeto($param);
             if ($elObjtTabla != null && $elObjtTabla->modificar()){
