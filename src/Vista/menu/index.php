@@ -184,7 +184,7 @@
                 $.ajax({
                         url: url,
                         type: 'GET',
-                        dataType: 'json', 
+                        dataType: 'json',
                         success: function(result) {
                             if (Array.isArray(result)) {
 
@@ -796,18 +796,22 @@
                     url: '../buy/actionMandarCorreo.php',
                     type: 'post',
                     data: {estado: estado == 1 ? 'aceptado' : 'rechazado', compra: idcompra},
-                    // beforeSend: function(){
-                    //     console.log('enviando correo');
-                    // },
+                    beforeSend: function() {
+                        $('#mensajeOperacion').addClass('alert alert-info alert-dismissible fade show text-center').html('Espere 5 segundos a que se procese la acción...');
+                        let seconds = 0;
+                        let interval = setInterval(function() {
+                            seconds++;
+                            $('#mensajeOperacion').html(`Espere ${5 - seconds} segundos a que se procese la acción...`);
+                            if (seconds >= 5) {
+                                clearInterval(interval);
+                                $('#mensajeOperacion').removeClass('alert alert-info alert-dismissible fade show text-center').html('');
+                            }
+                        }, 1000);    },
                     success: function(response){
-                        console.log(response);
                         $.ajax({
                             url: '../buy/actionMandarCorreo.php',
                             type: 'post',
                             data: {estado: response, compra: idcompra},
-                            // beforeSend: function(){
-                            //     console.log('enviando correo');
-                            // },
                             success: function(response){
                                 console.log(response);
                             },
@@ -848,33 +852,29 @@
                 </div>
             </div>
         </div>`
-    
+    );
+    $(document).ready(function() {
+        $('#confirmDeleteModal').modal('show');
 
-        <script>
-            $(document).ready(function() {
-                $('#confirmDeleteModal').modal('show');
-
-                $('#confirmDeleteButton').on('click', function() {
-                    $.ajax({
-                        url: './actionBajaUsuario.php',
-                        type: 'POST',
-                        data: {
-                            idusuario: objUsuario.idusuario,
-                            usdeshabilitado: $('#usdeshabilitado').val()
-                        },
-                        success: function(texto) {
-                            console.log(texto);
-                            $('#mensajeOperacion').addClass('alert alert-success alert-dismissible fade show text-center').html('Usuario eliminado exitosamente.');
-                            $('#confirmDeleteModal').modal('hide');
-                        },
-                        error: function(xhr, status, error) {
-                            console.log('Error: ' + error);
-                        }
-                    });
-                });
+        $('#confirmDeleteButton').on('click', function() {
+            $.ajax({
+                url: './actionBajaUsuario.php',
+                type: 'POST',
+                data: {
+                    idusuario: objUsuario.idusuario,
+                    usdeshabilitado: $('#usdeshabilitado').val()
+                },
+                success: function(texto) {
+                    console.log(texto);
+                    $('#mensajeOperacion').addClass('alert alert-success alert-dismissible fade show text-center').html('Usuario eliminado exitosamente.');
+                    $('#confirmDeleteModal').modal('hide');
+                },
+                error: function(xhr, status, error) {
+                    console.log('Error: ' + error);
+                }
             });
-        </script>
-        );
+        });
+    });
         
         url = './actionBajaUsuario.php';
         

@@ -16,4 +16,3 @@ try {
     echo json_encode('Error al agregar el el usuario');
 }
 ?>
-

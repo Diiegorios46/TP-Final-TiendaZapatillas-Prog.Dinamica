@@ -1,6 +1,6 @@
 <?php
 include '../../../config.php';
-// header('apllication/json');
+header('apllication/json');
 $compraItem = new abmCompraItem();
 $comprasEstado = new abmCompraEstado();
 $productos = new abmProducto();

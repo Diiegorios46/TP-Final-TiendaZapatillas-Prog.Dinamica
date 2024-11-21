@@ -81,5 +81,5 @@ if (isset($datos['estado']) && in_array($datos['estado'], [0, 1])) {
 }
 
 $mensaje =`<div class='alert $tipoAlerta alert-dismissible fade show text-center'>$mensaje`;
-echo $mensaje;
+echo json_encode($mensaje);
 ?>
