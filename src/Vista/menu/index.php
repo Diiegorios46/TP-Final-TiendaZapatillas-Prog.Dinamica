@@ -20,6 +20,8 @@
                     menu.forEach(descripcion => {
                         $('.deposito-menu').append(`<a href="${descripcion.descripcion}"><button class="btn btn-outline-primary">${descripcion.nombre}</button></a>`);
                     });
+                    $('.deposito-menu').addClass('justify-content-start');
+                    $('.deposito-menu').addClass('flex-column');
                 },
                 error: function(xhr, status, error) {
                     console.log('Error al cargar los datos.');
