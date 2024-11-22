@@ -5,6 +5,7 @@ include '../../../config.php';
 $datos = data_submitted();
 $datos['accion'] = 'nuevo';
 $abmUsuario = new abmUsuario();
+$datos['uspass'] = md5($datos['uspass']);
 //verEstructura($datos);
 try {
     if($abmUsuario->abm($datos)){
