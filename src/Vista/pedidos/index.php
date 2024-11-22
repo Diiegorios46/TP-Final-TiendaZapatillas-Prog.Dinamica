@@ -72,59 +72,63 @@
 
 
         function evaluar(boton, idcompra, estado) {
-        $.ajax({
+            $.ajax({
+                
+                url: './actionEvaluar.php',
+                type: 'post',
+                data: { idcompra: idcompra, estado: estado },
+
+                success: function(response) {
+
+                    $('#mensajeOperacion').html(response);
+                    $(boton).closest('.evalua').remove();
+
+                    $.ajax({
+                        url: '../buy/actionMandarCorreo.php',
+                        type: 'post',
+                        data: {estado: estado == 1 ? 'aceptado' : 'rechazado', compra: idcompra},
+
+                        beforeSend: function() {
+                            $('#mensajeOperacion').addClass('alert alert-info alert-dismissible fade show text-center').html('Espere 5 segundos a que se procese la acción...');
+                            let seconds = 0;
+                            let interval = setInterval(function() {
+                                seconds++;
+                                $('#mensajeOperacion').html(`Espere ${5 - seconds} segundos a que se procese la acción...`);
+                                if (seconds >= 5) {
+                                    clearInterval(interval);
+                                    $('#mensajeOperacion').removeClass('alert alert-info alert-dismissible fade show text-center').html('');
+                                }
+                            }, 1000);    },
+
+                        success: function(response){
+
+                            $.ajax({
+                                url: '../buy/actionMandarCorreo.php',
+                                type: 'post',
+                                data: {estado: response, compra: idcompra},
+                                success: function(response){
+                                    console.log(response);
+                                },
+                                error: function(xhr, status, error) {
+                                    console.log('Error: ' + error);
+                                }
+                            })
+                        },
+
+                        error: function(xhr, status, error) {
+                            console.log('Error: ' + error);
+                        }
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.log('Error: ' + error);
+                }
+            });
             
-            url: './actionEvaluar.php',
-            type: 'post',
-            data: { idcompra: idcompra, estado: estado },
+        }
 
-            success: function(response) {
-
-                $('#mensajeOperacion').html(response);
-                $(boton).closest('.evalua').remove();
-
-                $.ajax({
-                    url: '../buy/actionMandarCorreo.php',
-                    type: 'post',
-                    data: {estado: estado == 1 ? 'aceptado' : 'rechazado', compra: idcompra},
-
-                    beforeSend: function() {
-                        $('#mensajeOperacion').addClass('alert alert-info alert-dismissible fade show text-center').html('Espere 5 segundos a que se procese la acción...');
-                        let seconds = 0;
-                        let interval = setInterval(function() {
-                            seconds++;
-                            $('#mensajeOperacion').html(`Espere ${5 - seconds} segundos a que se procese la acción...`);
-                            if (seconds >= 5) {
-                                clearInterval(interval);
-                                $('#mensajeOperacion').removeClass('alert alert-info alert-dismissible fade show text-center').html('');
-                            }
-                        }, 1000);    },
-
-                    success: function(response){
-
-                        $.ajax({
-                            url: '../buy/actionMandarCorreo.php',
-                            type: 'post',
-                            data: {estado: response, compra: idcompra},
-                            success: function(response){
-                                console.log(response);
-                            },
-                            error: function(xhr, status, error) {
-                                console.log('Error: ' + error);
-                            }
-                        })
-                    },
-
-                    error: function(xhr, status, error) {
-                        console.log('Error: ' + error);
-                    }
-                });
-            },
-            error: function(xhr, status, error) {
-                console.log('Error: ' + error);
-            }
-        });
         
-    }
+
+
 
 </script>
