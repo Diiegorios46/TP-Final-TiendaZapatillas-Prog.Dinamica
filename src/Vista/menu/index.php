@@ -47,7 +47,7 @@
     </div>
 
     
-    <!-- <script>
+    <script>
     $(document).ready(function() {
 
         function mostrarMenues() {
@@ -938,4 +938,4 @@
         });
     }
             
-</script> -->
+</script>
