@@ -15,7 +15,7 @@ $PROYECTO ='TpFinal-TiendaZapatillas';
 $ROOT = $_SERVER['DOCUMENT_ROOT']."/$PROYECTO/";
 
 include_once($ROOT.'src/Utils/utils.php');
-include_once($ROOT.'vendor/autoload.php');
+// include_once($ROOT.'vendor/autoload.php');
 include_once($ROOT.'src/Control/Session.php');
 
 // Variable que define la pagina de autenticacion del proyecto
