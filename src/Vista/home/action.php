@@ -7,7 +7,6 @@ $datos = data_submitted();
 
 // verEstructura($datos);
 
-if($session->getUsuario() != null){
     $productos2 = $abmProducots->obtenerDatos(null);
     if($productos2 != null){
 
@@ -76,7 +75,3 @@ if($session->getUsuario() != null){
         // verEstructura($productosFiltros);    
         echo json_encode($productosFiltros2);
     }
-} else {
-    $productos = $abmProducots->obtenerDatosSeguros(null);
-    echo json_encode($productos);
-}
