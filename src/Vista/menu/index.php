@@ -82,7 +82,7 @@
         switch(indice) {
             case 1:
                 //COFIG USUARIO ADMIN 
-                url = './actionlistarDatosUsuario.php';
+                url = '../usuario/actionlistarDatosUsuario.php';
     
                 $.ajax({
                     url: url,
@@ -182,7 +182,7 @@
             case 2:
                 //VER PAQUETES DEPOSITO
 
-                url = "./actionVerPaquetes.php";
+                url = "../pedidos/actionVerPaquetes.php";
 
                 $('.deposito-title').html('Ver Paquetes');
 
@@ -242,7 +242,7 @@
                 //AGREGAR PRODUCTO ADMIN 
                 $('.deposito-title').html('Agregar Producto');
 
-                url = './agregarAction.php';
+                url = '../productos/actionAgregarProducto.php';
 
                 $('.deposito-menu').html(`
                     <form class="formAgregarProducto rounded shadow" id="fm" novalidate method="post">
@@ -356,7 +356,7 @@
                 break;
             case 4:
                 //MODIFICAR PRODUCTO
-                url = './listarDeposito.php';
+                url = '../pedidos/listarDeposito.php';
 
                 $('.deposito-title').html('Modificar Producto');
 
@@ -408,7 +408,8 @@
                 break;
             case 5:
                 //ALTA USUARIO ADMIN 
-                url = './actionAltaUsuario.php';
+                url = '../usuario/actionAltaUsuario.php';
+                
                 $('.deposito-title').html('Agregar un usuario nuevo');
 
                 $('.deposito-menu').html(`
@@ -484,7 +485,7 @@
                 case 6:
                 //BORRAR UN USUARIO 
 
-                url = './listarUsuarios.php';
+                url = '../usuario/listarUsuarios.php';
                 $('.deposito-title').html('Borrar un Usuario');
 
                 $.ajax({ 
@@ -534,10 +535,10 @@
                      case 7:
 
                     $('.deposito-title').html('Modificar un Usuario');
-                    url = './listarUsuarios.php'; 
+
                     
                     $.ajax({
-                        url: './listarUsuarios.php',
+                        url: '../usuario/listarUsuarios.php',
                         type: 'GET',
                         dataType: 'json',
                         beforeSend: function (response){
@@ -595,7 +596,7 @@
 
     function modificarProducto(producto) {
         $.ajax({
-            url: './modificarAction.php',
+            url: '../productos/modificarAction.php',
             type: 'get',
             success: function(response) {
                 $('.grid').html('');
@@ -766,7 +767,7 @@
             </form>
         </div>`);
 
-        url='./actionModificarUsuario.php';
+        url='../usuario/actionModificarUsuario.php';
 
         $('#formularioUsuario').on('submit', function(e) {
             e.preventDefault();
@@ -790,7 +791,7 @@
     function evaluar(boton, idcompra, estado) {
         $.ajax({
             
-            url: './actionEvaluar.php',
+            url: '../pedidos/actionEvaluar.php',
             type: 'POST',
             data: { idcompra: idcompra, estado: estado },
 
@@ -862,7 +863,7 @@
         $('#confirmDeleteModal').modal('show');
 
         $('#confirmDeleteButton').on('click', function() {
-            url: './actionBajaUsuario.php',
+            url: '../usuario/actionBajaUsuario.php',
             $.ajax({
                 type: 'POST',
                 data: {
@@ -881,7 +882,7 @@
         });
     });
         
-        url = './actionBajaUsuario.php';
+        url = '../usuario/actionBajaUsuario.php';
         
         $('#formularioUsuario').validate({
             submitHandler: function(form) {
