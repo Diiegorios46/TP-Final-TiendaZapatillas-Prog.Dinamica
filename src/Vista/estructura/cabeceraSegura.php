@@ -56,8 +56,9 @@ include '../../../config.php';
 
 
 
-                        <i class="bi bi-person-circle dropdown-toggle icono-persona hoverCabecera text-light" id="dropdownMenuButton"  data-bs-toggle="dropdown" aria-expanded="false">                        <?php 
-                            $session = new Session();
+                        <i class="bi bi-person-circle dropdown-toggle icono-persona hoverCabecera text-light" id="dropdownMenuButton"  data-bs-toggle="dropdown" aria-expanded="false"> 
+                            
+                            <?php 
                             if($session->validar()){
                                 $usuario = $session->getUsuario();
                                 if ($usuario){
@@ -67,6 +68,15 @@ include '../../../config.php';
                                 }
                             } else {
                                 header('Location: ../login/index.php');
+                                ?>
+                                <script>
+                                    document.addEventListener('DOMContentLoaded', function() {
+                                        if (!<?php echo json_encode($session->validar()); ?>) {
+                                            location.href = '../login/index.php';
+                                        }
+                                    });
+                                </script>
+                                <?php
                             }?>
                         </i>
                         
