@@ -5,9 +5,9 @@ $datos = data_submitted();
 
 <main class="container w-32 h-100 mt-4">
     <section class="login-container bg-form rounded-modify shadow">
-        <?php if (isset($datos['error'])) { ?>
+        <?php if(isset($datos['error'])) { ?>
             <div class="alert alert-danger" role="alert">
-            <?php if ($datos['error'] == 1) { echo 'El correo electrónico ya está registrado.';}?>
+            <?php echo 'El correo electrónico ya está registrado.';?>
             </div>
         <?php }?>
         <div class="text-center fs-2 pt-4 pb-4">
@@ -71,12 +71,10 @@ $('#loginForm').validate({
             url: './action.php',
             data: $(form).serialize(),
             success: function(response) {
-                if (response == 'success') {
+                response = JSON.parse(response);
+                console.log(response);
+                if (response == "success") {
                     window.location.href = '../login/index.php?login=1';
-                } else if (response == 'email_exists') {
-                    window.location.href = './index.php?error=1';
-                } else {
-                    window.location.href = './index.php?error=2';
                 }
             },
             error: function() {

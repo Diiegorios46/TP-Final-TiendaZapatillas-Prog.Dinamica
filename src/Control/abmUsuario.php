@@ -28,7 +28,6 @@ class abmUsuario{
       
     public function cargarObjeto($param){
         $obj = null;
-        verEstructura($param);
         if(array_key_exists('idusuario',$param) 
            and array_key_exists('usnombre',$param) 
            and array_key_exists('uspass',$param)
@@ -51,7 +50,6 @@ class abmUsuario{
 
     private function seteadosCamposClaves($param){
         $resp = false;
-        verEstructura($param);
         if(isset($param['idusuario'])){
             $resp = true;
         }
