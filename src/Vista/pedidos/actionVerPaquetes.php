@@ -36,9 +36,8 @@ foreach($comprasItems as &$compraItem){
     $producto = $productos->obtenerDatos(['idproducto' => $compraItem['idproducto']])[0];
     $compraItem['cicantstock'] = $producto['procantstock'];
 }
-unset($compraItem); // break the reference with the last element
+unset($compraItem); 
 
 
 echo json_encode($comprasItems);
 
-//listoooo
