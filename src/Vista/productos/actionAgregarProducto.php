@@ -1,6 +1,7 @@
 <?php
 include '../../../config.php';
-// header('Content-Type: application/json');
+//header('Content-Type: application/json');
+
 $datos = data_submitted();
 $datos['accion'] = 'nuevo';
 $datos['idproducto'] = null;

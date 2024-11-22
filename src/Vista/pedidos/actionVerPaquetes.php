@@ -1,6 +1,7 @@
 <?php
 include '../../../config.php';
-header('apllication/json');
+header('Content-Type: application/json');
+
 $compraItem = new abmCompraItem();
 $comprasEstado = new abmCompraEstado();
 $productos = new abmProducto();
@@ -36,9 +37,8 @@ foreach($comprasItems as &$compraItem){
     $producto = $productos->obtenerDatos(['idproducto' => $compraItem['idproducto']])[0];
     $compraItem['cicantstock'] = $producto['procantstock'];
 }
-unset($compraItem); // break the reference with the last element
+unset($compraItem); 
 
 
 echo json_encode($comprasItems);
 
-//listoooo

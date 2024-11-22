@@ -47,7 +47,8 @@
     </div>
 
     
-    <script>
+     <script>
+        /*
     $(document).ready(function() {
 
         // function mostrarMenues() {
@@ -180,7 +181,7 @@
                 //AGREGAR PRODUCTO ADMIN 
                 $('.deposito-title').html('Agregar Producto');
 
-                url = '../productos/actionAgregarProducto.php';
+                url = '../ /actionAgregarProducto.php';
 
                 $('.deposito-menu').html(`
                     <form class="formAgregarProducto rounded shadow" id="fm" novalidate method="post">
@@ -733,6 +734,71 @@
         
     }
     
-    
+    function borradoLogicaUsuario(objUsuario){
+        $('.grid').html('');
+        $('.deposito-menu').html(`
+            <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmar Baja</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        ¿Estás seguro de que quieres eliminar al usuario <strong>${objUsuario.usnombre}</strong>?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-danger" id="confirmDeleteButton">Confirmar Baja</button>
+                    </div>
+                </div>
+            </div>
+        </div>`
+    );
+    $(document).ready(function() {
+        $('#confirmDeleteModal').modal('show');
+
+        $('#confirmDeleteButton').on('click', function() {
+            url: '../usuario/actionBajaUsuario.php',
+            $.ajax({
+                type: 'POST',
+                data: {
+                    idusuario: objUsuario.idusuario,
+                    usdeshabilitado: $('#usdeshabilitado').val()
+                },
+                success: function(texto) {
+                    console.log(texto);
+                    $('#mensajeOperacion').addClass('alert alert-success alert-dismissible fade show text-center').html('Usuario eliminado exitosamente.');
+                    $('#confirmDeleteModal').modal('hide');
+                },
+                error: function(xhr, status, error) {
+                    console.log('Error: ' + error);
+                }
+            });
+        });
+    });
+        
+        url = '../usuario/actionBajaUsuario.php';
+        
+        $('#formularioUsuario').validate({
+            submitHandler: function(form) {
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: new FormData(form),
+                    processData: false,
+                    contentType: false,
+                    success: function(texto) {
+                        console.log(texto);
+                        $('#mensajeOperacion').addClass('alert alert-success alert-dismissible fade show text-center').html('Usuario eliminado exitosamente.');
+                    },
+                    error: function(xhr, status, error) {
+                        console.log('Error: ' + error);
+                    }
+                });
+            }
+            
+        });
+    }
             
 </script>
