@@ -18,8 +18,7 @@ $datos = data_submitted();
 </div>
 
 <script>
-var menu = <?php echo json_encode($datos);?>
- 
+var menu = <?php echo json_encode($datos);?>;
 if(menu.m == '3'){
 // nuevo PRODUCTO
     $('.deposito-title').html('Agregar Producto');
