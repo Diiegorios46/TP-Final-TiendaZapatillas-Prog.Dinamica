@@ -1,4 +1,10 @@
-<?php include '../estructura/cabeceraSegura.php'; $menu = data_submitted();?>
+<?php include '../estructura/cabeceraSegura.php'; 
+$menu = data_submitted();
+
+if($session->getRol() != 1){
+    $menu['m'] = 1;
+}
+?>
 
 <div class="container-sm min-vh-100">  
     <div id='mensajeOperacion'></div>
@@ -263,5 +269,105 @@
             });
         }
 
-}
+    } else if (menu == 7){
+        //MODIFICAR UN USUARIO
+        url = './listarUsuarios.php';
+        $('.deposito-title').html('Modificar un Usuario');
+        $.ajax({ 
+            url: url, 
+            type: 'GET', 
+            success: function(result) { 
+                $('.deposito-menu').html(''); 
+                let grid = $('.grid').html('');
+                let row;
+                $('.deposito-menu').append(grid);
+
+                result.forEach(function(usuario, index) {
+                    let usuarioStr = JSON.stringify(usuario).replace(/"/g, '&quot;');
+
+                    if (index % 4 === 0) {
+                        row = $('<div class="row mt-4 mb-4"></div>');
+                        $('.grid').append(row);
+                    }
+
+                    let usuarioHtml = `
+                            <div class="col-3 text-center">
+                                <div class="card m-2 p-2 shadow-sm"> 
+                                    <div class="card-body"> 
+                                    <form class="" id="formularioModificacion" novalidate method="post">
+                                        <p class="card-title"><strong>Nombre : </strong>${usuario.usnombre}</p> 
+                                        <p class="card-text"><strong>Correo:</strong> ${usuario.usmail}</p>
+                                        <p class="card-text font-bold">${usuario.usdeshabilitado == '0000-00-00 00:00:00' ? 'Habilitado' : 'Deshabilitado'}</p>
+                                        <button type="button" class="btn btn-warning" onclick="modificarUsuario(${usuarioStr})">Modificar</button>
+                                    </form>
+                                    </div>
+                                </div>
+                            </div>
+                    `;
+                    row.append(usuarioHtml);
+                });
+            },
+            error: function(xhr, status, error) {
+                console.log('Error al cargar los datos del menú dinámico.');
+                console.log('Error: ' + error);
+            }
+        });
+
+        function modificarUsuario(objUsuario){
+            $('.grid').html('');
+
+        $('.deposito-menu').html(`
+            <div class ="container-sm w-50 h-50 shadow rounded">
+                <form class="p-5" id="formularioUsuario" novalidate>
+                    <div class="form-group">
+                        <label for="usnombre" class="form-label">Nombre del usuario</label>
+                        <input type="text" name="usnombre" id="usnombre" class="form-input" value="${objUsuario.usnombre}" required>
+                    </div>
+
+                    <div class="form-group hidden">
+                        <label for="usid" class="form-label">ID del usuario</label>
+                        <input type="text" name="idusuario" id="idusuario" class="form-input" value="${objUsuario.idusuario}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="usmail" class="form-label">Correo del usuario</label>
+                        <input type="text" name="usmail" id="usmail" class="form-input" value="${objUsuario.usmail}" required>
+                    </div> 
+
+                    <div class="form-group">
+                        <label for="rodescripcion" class="form-label">Rol</label>
+                        <select class="form-select form-select-lg" aria-label="Large select example" name="rodescripcion" id="">
+                            <option value="Cliente" ${objUsuario.rodescripcion === 'Cliente' ? 'selected' : ''}>Cliente</option>
+                            <option value="Deposito" ${objUsuario.rodescripcion === 'Deposito' ? 'selected' : ''}>Deposito</option>
+                            <option value="Administrador" ${objUsuario.rodescripcion === 'Administrador' ? 'selected' : ''}>Administrador</option>
+                        </select>
+                    </div> 
+                    <div class="text-center mt-4"> 
+                        <input type="submit" value="Modificar usuario" name="submit" class="form-submit text-center" required>
+                    </div>
+                </form>
+            </div>`
+        );
+
+        url='./actionModificarUsuario.php';
+
+        $('#formularioUsuario').on('submit', function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: new FormData(this),
+                processData: false,
+                contentType: false,
+                success: function(texto) {
+                    console.log(texto);
+                    $('#mensajeOperacion').addClass('alert alert-success alert-dismissible fade show text-center').html('Usuario modificado exitosamente.');
+                },
+                error: function(xhr, status, error) {
+                    console.log('Error: ' + error);
+                }
+            });
+        });
+        }
+    }
 </script>

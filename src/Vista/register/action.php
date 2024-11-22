@@ -1,5 +1,4 @@
 <?php
-
 include '../../../config.php';
 $abmUsuario = new abmUsuario();
 
@@ -7,6 +6,7 @@ $datos = data_submitted();
 $datos['accion'] = 'nuevo';
 $mail['usmail'] = $datos['usmail'];
 $datos['uspass'] = md5($datos['uspass']);
+
 
 $mensaje = '';
 if (!$abmUsuario->buscar($mail)) {
@@ -19,4 +19,4 @@ if (!$abmUsuario->buscar($mail)) {
     $mensaje = 'email_exists';
 }
 
-echo $mensaje;
+echo json_encode($mensaje);

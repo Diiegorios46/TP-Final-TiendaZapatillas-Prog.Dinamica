@@ -113,7 +113,6 @@
 
         <script>
                  $(document).ready(function () {
-                    //muestra los productos cuando se carga la pagina
                      mostrarProductos();
                  });
 
@@ -121,29 +120,30 @@
                     $.ajax({
                         url: 'action.php',
                         type: 'post',
-                        dataType: 'json',
                         data: {price: $('input[name="price"]:checked').val(), priceMarca: $('input[name="priceMarca"]:checked').val()},
-
                         beforeSend: function () {
+                            console.log('Cargando datos...');
                             $('#prueba').html('Cargando...');
                         },
-
                         success: function (response) {
-
+                            // console.log('Datos cargados correctamente:', response);
+                            response = JSON.parse(response);
                             $('#prueba').html('');
-                            
                             let row;
 
+                            if(response.length === 0) {
+                                $('#prueba').html('<div class="alert alert-warning" role="alert">No hay productos disponibles.</div>');
+                                return;
+                            }
+                            
                             response.forEach((producto, index) => {
                                 if (index % 4 === 0) {
                                     row = $('<div class="row mt-4 mb-4"></div>');
                                     $('#prueba').append(row);
                                 }
-                                
                                 let zapatilla = `
                                     <div class="col-3">
                                         <div class="card d-flex w-100 h-100 p-3 sombraCard">
-
                                             <div class="card-img w-100">
                                                 <img src="${producto.proimagen1}" alt="" class="w-100 h-100 img-card">
                                             </div>
@@ -155,11 +155,9 @@
                                             <div class="hidden">
                                                 <span class="data-idproducto">${producto.idproducto}</span>
                                             </div>
-
                                             <div class="card-button text-center pt-3">
                                                 <button class=" p-2 agregarCarrito btn btn-dark" id="myButton" onclick="agregarAlCarrito(this)">Agregar al carrito</button>
                                             </div>
-
                                         </div>
                                     </div>`;
                                 row.append(zapatilla);

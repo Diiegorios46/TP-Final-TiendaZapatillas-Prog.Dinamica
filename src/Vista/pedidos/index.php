@@ -1,4 +1,6 @@
-<?php include '../estructura/cabeceraSegura.php';?>
+<?php 
+    include '../estructura/cabeceraSegura.php';
+?>
 
 <div class="container-sm min-vh-100">  
 
@@ -17,12 +19,17 @@
 <script>
 
     $('.deposito-title').html('Ver Paquetes');
-
     $.ajax({
             url: "./actionVerPaquetes.php",
             type: 'GET',
             dataType: 'json',
             success: function(result) {
+                if(result == 'No tiene permisos'){
+                    $('#mensajeOperacion').html('No tiene permisos para ver esta página');
+                    location.href = '../home/index.php';
+                    return;
+                }
+
                 if (Array.isArray(result)) {
 
                     let deposito = $('.deposito-menu').html('');
@@ -43,19 +50,20 @@
                             $('.grid').addClass('w-100')
                             $('.deposito-menu').html(grid);
                         }
-                        let pedido = `<div class="col-md-3 col-sm-6 mb-3 evalua w-25 shadow p-3">  
-                                        <div class="d-flex flex-column ">
-                                        <div class="text-center p-1">Pedido numero: ${datos.idcompraitem}</div>
-                                        <div class="text-center p-1">Id de la Compra: ${datos.idcompra}</div>
-                                        <div class="text-center p-1">Id del Producto: ${datos.idproducto}</div>
-                                            <div class="text-center p-1"><strong>Cantidad solicitada: ${datos.cicantidad}</strong></div>
-                                            <div class="text-center p-1"><strong>Stock: ${datos.cicantstock}</strong></div>
-                                            <div class="d-flex flex-row justify-content-center gap">
-                                                <button class="btn btn-success m-1" onclick="evaluar(this, ${datos.idcompra}, 1)">Aceptar</button>
-                                                <button class="btn btn-danger m-1" onclick="evaluar(this, ${datos.idcompra}, 0)">Cancelar</button>
-                                            </div>
-                                        </div>
-                                    </div>`;
+                        let pedido = 
+                        `<div class="col-md-3 col-sm-6 mb-3 evalua w-25 shadow p-3">  
+                            <div class="d-flex flex-column ">
+                            <div class="text-center p-1">Pedido numero: ${datos.idcompraitem}</div>
+                            <div class="text-center p-1">Id de la Compra: ${datos.idcompra}</div>
+                            <div class="text-center p-1">Id del Producto: ${datos.idproducto}</div>
+                                <div class="text-center p-1"><strong>Cantidad solicitada: ${datos.cicantidad}</strong></div>
+                                <div class="text-center p-1"><strong>Stock: ${datos.cicantstock}</strong></div>
+                                <div class="d-flex flex-row justify-content-center gap">
+                                    <button class="btn btn-success m-1" onclick="evaluar(this, ${datos.idcompra}, 1)">Aceptar</button>
+                                    <button class="btn btn-danger m-1" onclick="evaluar(this, ${datos.idcompra}, 0)">Cancelar</button>
+                                </div>
+                            </div>
+                        </div>`;
 
                         
                         row.append(pedido);

@@ -1,9 +1,11 @@
 <?php
 
 include '../../../config.php';
-header('Content-Type: application/json');
+// header('Content-Type: application/json');
 $abmProducots = new abmProducto();
 $datos = data_submitted();
+
+// verEstructura($datos);
 
 if($session->getUsuario() != null){
     $productos2 = $abmProducots->obtenerDatos(null);

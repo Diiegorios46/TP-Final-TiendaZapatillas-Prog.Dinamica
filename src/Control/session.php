@@ -61,7 +61,6 @@
             $obj = new abmUsuarioRol();
             $param['idusuario'] = $_SESSION['idusuario'];
             $resultado = $obj->obtenerDatos($param);
-
             if(count($resultado) > 0){
                 $usuario = $resultado[0];
                 $rol = $usuario['idrol'];

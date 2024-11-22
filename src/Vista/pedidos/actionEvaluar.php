@@ -1,5 +1,6 @@
 <?php
 include '../../../config.php';
+$rol = $session->getRol();
 header('Content-Type: application/json');
 
 $datos = data_submitted();

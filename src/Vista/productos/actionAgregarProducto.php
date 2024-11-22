@@ -5,6 +5,7 @@ include '../../../config.php';
 $datos = data_submitted();
 $datos['accion'] = 'nuevo';
 $datos['idproducto'] = null;
+verEstructura($datos);
 
 if (isset($datos['image']['tmp_name'])) {
     $datos['proimagen1'] = "data:image/jpeg;base64,".base64_encode(file_get_contents($datos['image']['tmp_name'][0]));

@@ -36,27 +36,6 @@ $datos = data_submitted();
 </html>
 
 <script>
-document.getElementById('loginForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    $.ajax({
-        type: 'POST',
-        url: './action.php',
-        data: $(this).serialize(),
-        success: function(response) {
-            if (response === 'success') {
-                window.location.href = '../login/index.php?login=1';
-            } else if (response === 'email_exists') {
-                window.location.href = './index.php?error=1';
-            } else {
-                window.location.href = './index.php?error=2';
-            }
-        },
-        error: function() {
-            window.location.href = './index.php?error=2';
-        }
-    });
-});
-
 $('#loginForm').validate({
     rules: {
         usnombre: {
@@ -87,7 +66,23 @@ $('#loginForm').validate({
         }
     },
     submitHandler: function(form) {
-        form.submit();
+        $.ajax({
+            type: 'POST',
+            url: './action.php',
+            data: $(form).serialize(),
+            success: function(response) {
+                if (response == 'success') {
+                    window.location.href = '../login/index.php?login=1';
+                } else if (response == 'email_exists') {
+                    window.location.href = './index.php?error=1';
+                } else {
+                    window.location.href = './index.php?error=2';
+                }
+            },
+            error: function() {
+                window.location.href = './index.php?error=2';
+            }
+        });
     }
 });
 </script>
