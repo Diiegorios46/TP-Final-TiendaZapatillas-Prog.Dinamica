@@ -1,5 +1,6 @@
 <?php
 include '../../../config.php';
+header('application/json');
 $abmMenu = new abmMenu();
 $abmUsuarioRol = new abmUsuarioRol();
 $usuario = $session->getUsuario();
