@@ -142,4 +142,31 @@ class abmCompra
         }
         return $result;
     }
+
+    public function iniciarCompra($datos){
+        $abmCompraEstado = new abmCompraEstado();
+        $abmCompraItem = new abmCompraItem();
+        $abmCompra = new abmCompra();
+        $session = new Session();
+        $result = false;
+
+        $productos = $datos['productos'];   
+
+        foreach($productos as $producto){
+            $datos['accion'] = 'nuevo';
+            $datos['idusuario'] = $session->getUsuario()['idusuario'];
+            $datos['cofecha'] = date('Y-m-d H:i:s');
+            $datos['idproducto'] = $producto['idproducto'];
+            $datos['cicantidad'] = $producto['cantidad'];
+            if($abmCompra->abm($datos)){
+                $result = true;
+            }
+        }
+    }
+
+
+    public function enviarCorreo($datos){
+        
+        
+    }
 }
