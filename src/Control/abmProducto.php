@@ -258,7 +258,6 @@ class abmProducto
                 $datos[$key] = $productoViejo[$key];
             }
         }
-        
     }
     
 }
