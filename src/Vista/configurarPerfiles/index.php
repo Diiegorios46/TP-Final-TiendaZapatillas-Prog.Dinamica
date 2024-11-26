@@ -192,6 +192,9 @@ if($session->getRol() != 1){
             url: url, 
             type: 'GET', 
             dataType: 'json', 
+            beforeSend: function (){
+                $('#mensajeOperacion').addClass('alert alert-warning alert-dismissible fade show text-center').html('Cargando...');  
+            },
             success: function(result) { 
                 $('.deposito-menu').html(''); 
                 let grid = $('.grid').html('');
@@ -221,6 +224,9 @@ if($session->getRol() != 1){
                             </div> 
                     `;
                     row.append(usuarioHtml);
+                    $('#mensajeOperacion').hide(); 
+
+
                 });
             }, 
             error: function(xhr, status, error) { 
@@ -276,6 +282,9 @@ if($session->getRol() != 1){
         $.ajax({ 
             url: url, 
             type: 'GET', 
+            beforeSend: function (){
+                $('#mensajeOperacion').addClass('alert alert-warning alert-dismissible fade show text-center').html('Cargando...');  
+            },
             success: function(result) { 
                 $('.deposito-menu').html(''); 
                 let grid = $('.grid').html('');
@@ -305,6 +314,7 @@ if($session->getRol() != 1){
                             </div>
                     `;
                     row.append(usuarioHtml);
+                    $('#mensajeOperacion').hide()
                 });
             },
             error: function(xhr, status, error) {
