@@ -149,5 +149,23 @@ class abmCompraItem{
 
         return $arreglo;
     }
+
+
+    public function generarHistorico($idCompra){
+        $abmCompra = new abmCompra();
+        $abmUsuario = new abmUsuario();
+        $abmProducto = new abmProducto();
+        $abmCompraItem = new abmCompraItem();
+        $abmCompraEstado = new abmCompraEstado();
+        $abmCompraEstadoTipo = new abmCompraEstadoTipo();
+
+        $historico = [];
+
+        $historico['idusuario'] = $abmCompra->obtenerDatos(['idcompra' => $idCompra])[0]['idusuario'];
+        $historico['idcompra'] = $idCompra;
+        
+
+        return $historico;
+    }
 }
 ?>

@@ -12,7 +12,6 @@ $datos['accion'] = 'editar';
 echo json_encode($productoViejo);
 
 foreach ($nuevosDatosProducto as $key => $value) {
-    
     if (empty($productoViejo[$key]) || $value != $productoViejo[$key]) {
         if($key == 'proimagen1'){
             $datos['proimagen1'] = base64_encode(file_get_contents($nuevosDatosProducto['proimagen1']));
