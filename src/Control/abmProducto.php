@@ -227,6 +227,38 @@ class abmProducto
         }
         return $result;
     }
+    
+    public function comprimirImagen($datos){
+        try {
+            if (isset($datos['image']['tmp_name'])) {
+                $datos['proimagen1'] = "data:image/jpeg;base64,".base64_encode(file_get_contents($datos['image']['tmp_name'][0]));
+            }
+            unset($datos['image']);
 
+        } catch (Exception $e) {
+                $datos = [];  
+        }
+        return $datos;
+    }
+
+    public function actualizaDatosProductos ($datos) {
+        $abmProducto = new abmProducto();
+        $productoViejo = $abmProducto->obtenerDatos(['idproducto' => $datos['idproducto']])[0];
+
+        foreach ($datos as $key => $value) {
+            if (empty($productoViejo[$key]) || $value != $productoViejo[$key]) {
+                if($key == 'proimagen1'){
+                    $datos['proimagen1'] = base64_encode(file_get_contents($datos['proimagen1']));
+                    unset($datos['image']);
+                    $datos[$key] = $value;
+                } else{
+                    $datos[$key] = $value;
+                }
+            } else {
+                $datos[$key] = $productoViejo[$key];
+            }
+        }
+        
+    }
     
 }
