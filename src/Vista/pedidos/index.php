@@ -24,6 +24,9 @@
             type: 'GET',
             dataType: 'json',
             success: function(result) {
+                
+                console.log(result);
+
                 if(result == 'No tiene permisos'){
                     $('#mensajeOperacion').html('No tiene permisos para ver esta página');
                     location.href = '../home/index.php';

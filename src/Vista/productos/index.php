@@ -13,7 +13,7 @@ $datos = data_submitted();
     <div class="deposito-menu" id="menuDinamico">
         <!--viene el codigo de jquery-->
     </div>
-    <div class="grid"></div>
+    <div class="grid w-100"></div>
 
 </div>
 

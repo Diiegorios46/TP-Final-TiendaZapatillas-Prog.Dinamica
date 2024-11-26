@@ -176,8 +176,7 @@ class abmProducto
                 $where .= " and prodetalle = '" . $param['prodetalle'] . "'";
             if (isset($param['proprecio']))
                 $where .= " and proprecio = " . $param['proprecio'];
-        }
-        
+        } 
         $obj = new Producto();
         
         $arreglo = $obj->listar($where);
