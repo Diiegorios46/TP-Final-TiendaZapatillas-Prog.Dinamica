@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-11-2024 a las 20:23:44
+-- Tiempo de generación: 27-11-2024 a las 02:26:45
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -37,6 +37,8 @@ CREATE TABLE `compra` (
 -- Volcado de datos para la tabla `compra`
 --
 
+INSERT INTO `compra` (`idcompra`, `cofecha`, `idusuario`) VALUES
+(162, '2024-11-27 05:21:08', 90);
 
 -- --------------------------------------------------------
 
@@ -55,6 +57,11 @@ CREATE TABLE `compraestado` (
 --
 -- Volcado de datos para la tabla `compraestado`
 --
+
+INSERT INTO `compraestado` (`idcompraestado`, `idcompra`, `idcompraestadotipo`, `cefechaini`, `cefechafin`) VALUES
+(198, 162, 1, '2024-11-27 05:21:08', '2024-11-27 05:21:30'),
+(199, 162, 2, '2024-11-27 05:21:30', '2024-11-27 05:21:30'),
+(200, 162, 3, '2024-11-27 05:21:30', '2024-11-27 05:21:30');
 
 -- --------------------------------------------------------
 
@@ -95,6 +102,8 @@ CREATE TABLE `compraitem` (
 -- Volcado de datos para la tabla `compraitem`
 --
 
+INSERT INTO `compraitem` (`idcompraitem`, `idproducto`, `idcompra`, `cicantidad`) VALUES
+(110, 9, 162, 6);
 
 -- --------------------------------------------------------
 
@@ -123,13 +132,15 @@ INSERT INTO `menu` (`idmenu`, `menombre`, `medescripcion`, `idpadre`, `medeshabi
 (7, 'Ver Pedido(s).', '../pedidos/index.php?m=2', 2, '0000-00-00 00:00:00'),
 (8, 'Agregar un Producto.', '../productos/index.php?m=3', 2, '0000-00-00 00:00:00'),
 (9, 'Modificar un Producto.', '../productos/index.php?m=4', 2, '0000-00-00 00:00:00'),
-(10, 'Configuracion de Usuario.', '../configurarPerfiles/index.php?m=1', 1, '0000-00-00 00:00:00'),
+(10, 'Ver Historico', '../Historico/index.php', 2, '0000-00-00 00:00:00'),
+(18, 'Configuracion de Usuario.', '../configurarPerfiles/index.php?m=1', 1, '0000-00-00 00:00:00'),
 (19, 'Ver Pedido(s).', '../pedidos/index.php?2', 1, '0000-00-00 00:00:00'),
 (20, 'Agregar un Producto.', '../productos/index.php?m=3\n', 1, '0000-00-00 00:00:00'),
 (21, 'Modificar un Producto.', '../productos/index.php?m=4', 1, '0000-00-00 00:00:00'),
 (25, 'Agregar un Usuario', '../configurarPerfiles/index.php?m=5', 1, '0000-00-00 00:00:00'),
 (26, 'Borrar Usuario', '../configurarPerfiles/index.php?m=6', 1, '0000-00-00 00:00:00'),
-(27, 'Modificar un Usuario.', '../configurarPerfiles/index.php?m=7', 1, '0000-00-00 00:00:00');
+(27, 'Modificar un Usuario.', '../configurarPerfiles/index.php?m=7', 1, '0000-00-00 00:00:00'),
+(29, 'Ver Historico', '../Historico/index.php', 1, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -152,7 +163,7 @@ INSERT INTO `menurol` (`idmenu`, `idrol`) VALUES
 (7, 2),
 (8, 2),
 (9, 2),
-(10, 1),
+(18, 1),
 (19, 1),
 (20, 1),
 (21, 1),
@@ -215,25 +226,10 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`idusuario`, `usnombre`, `uspass`, `usmail`, `usdeshabilitado`) VALUES
-(64, 'valenAdmin', '202cb962ac59075b964b07152d234b70', '123@gmail.com', '0000-00-00 00:00:00'),
-(65, 'admin@gmail.com', '202cb962ac59075b964b07152d234b70', 'admin@gmail.com', '0000-00-00 00:00:00'),
-(67, 'usuario', '202cb962ac59075b964b07152d234b70', 'usuario@gmail.com', '0000-00-00 00:00:00'),
-(68, 'valen', 'cfcd208495d565ef66e7dff9f98764da', '9@gmail.com', '0000-00-00 00:00:00'),
-(69, 'valen', 'c81e728d9d4c2f636f067f89cc14862c', '2@gmail.com', '0000-00-00 00:00:00'),
-(70, 'Juan', '202cb962ac59075b964b07152d234b70', 'jgeslowski@gmail.com', '2024-11-22 08:33:34'),
-(71, 'DiegoMaradona', '202cb962ac59075b964b07152d234b70', 'marado@gmail.com', '2024-11-22 08:05:43'),
-(75, 'valentin', 'e10adc3949ba59abbe56e057f20f883e', 'valentin7v7@gmail.com', '0000-00-00 00:00:00'),
-(76, 'deposito', 'e10adc3949ba59abbe56e057f20f883e', 'deposito@gmail.com', '0000-00-00 00:00:00'),
-(77, 'valen', 'e10adc3949ba59abbe56e057f20f883e', 'cuentanueva@gmail.com', '0000-00-00 00:00:00'),
-(80, 'admin2', 'e10adc3949ba59abbe56e057f20f883e', 'admin2@gmail.com', '0000-00-00 00:00:00'),
-(81, 'valen3', 'e10adc3949ba59abbe56e057f20f883e', 'valen2@gmail.com', '0000-00-00 00:00:00'),
-(82, 'admin3', 'e10adc3949ba59abbe56e057f20f883e', 'admin3@gmail.com', '0000-00-00 00:00:00'),
-(83, '2222', 'e10adc3949ba59abbe56e057f20f883e', 'deposito3@gmail.com', '0000-00-00 00:00:00'),
-(84, 'pos', 'e10adc3949ba59abbe56e057f20f883e', 'deposito60@gmail.com', '0000-00-00 00:00:00'),
-(85, 'pepe', 'e10adc3949ba59abbe56e057f20f883e', 't1@gmail.com', '0000-00-00 00:00:00'),
-(86, 'valen', 'e10adc3949ba59abbe56e057f20f883e', 't2@gmail.com', '0000-00-00 00:00:00'),
-(87, 'pepe', 'e10adc3949ba59abbe56e057f20f883e', 't3@gmail.com', '0000-00-00 00:00:00'),
-(88, '123', 'e10adc3949ba59abbe56e057f20f883e', 'goku@gmail.com', '0000-00-00 00:00:00');
+(89, 'valen', 'e10adc3949ba59abbe56e057f20f883e', 'valentin7v7@gmail.com', '0000-00-00 00:00:00'),
+(90, 'valen', 'e10adc3949ba59abbe56e057f20f883e', 'admin@gmail.com', '0000-00-00 00:00:00'),
+(91, 'deposito', 'e10adc3949ba59abbe56e057f20f883e', 'deposito@gmail.com', '0000-00-00 00:00:00'),
+(92, 'usuario', 'e10adc3949ba59abbe56e057f20f883e', 'cliente@gmail.com', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -251,24 +247,10 @@ CREATE TABLE `usuariorol` (
 --
 
 INSERT INTO `usuariorol` (`idusuario`, `idrol`) VALUES
-(64, 1),
-(65, 1),
-(67, 3),
-(68, 3),
-(69, 3),
-(70, 3),
-(71, 3),
-(76, 2),
-(77, 3),
-(80, 3),
-(81, 3),
-(82, 3),
-(83, 3),
-(84, 3),
-(85, 3),
-(86, 3),
-(87, 3),
-(88, 3);
+(89, 3),
+(90, 1),
+(91, 2),
+(92, 3);
 
 --
 -- Índices para tablas volcadas
@@ -359,19 +341,19 @@ ALTER TABLE `usuariorol`
 -- AUTO_INCREMENT de la tabla `compra`
 --
 ALTER TABLE `compra`
-  MODIFY `idcompra` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
+  MODIFY `idcompra` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=163;
 
 --
 -- AUTO_INCREMENT de la tabla `compraestado`
 --
 ALTER TABLE `compraestado`
-  MODIFY `idcompraestado` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
+  MODIFY `idcompraestado` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=201;
 
 --
 -- AUTO_INCREMENT de la tabla `compraitem`
 --
 ALTER TABLE `compraitem`
-  MODIFY `idcompraitem` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `idcompraitem` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
 
 --
 -- AUTO_INCREMENT de la tabla `menu`
@@ -395,7 +377,7 @@ ALTER TABLE `rol`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idusuario` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
+  MODIFY `idusuario` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
 
 --
 -- Restricciones para tablas volcadas

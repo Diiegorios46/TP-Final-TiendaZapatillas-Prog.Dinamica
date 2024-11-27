@@ -52,7 +52,7 @@ include '../estructura/cabeceraSegura.php';
                     <div class="card-title">Numero de compra: ${element.idcompra}</div>
                     <div class="card-subtitle mb-2 text-muted">Inicio : ${element.cefechaini}</div>
                     <p class="card-text">Terminó: ${element.cefechafin}</p>
-                    <p>ID Compra-estado: ${element.idcompraestado} </p>
+                    <p class="card-subtitle mb-2 text-muted">ID Compra-estado: ${element.idcompraestado} </p>
                     </div>
                     </div>
                     `);

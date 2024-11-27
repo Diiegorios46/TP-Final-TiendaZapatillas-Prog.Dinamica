@@ -3,7 +3,6 @@ include '../../../config.php';
 
 $rol = $session->getRol();
 if($rol == 1 || $rol == 2){
-
     header('Content-Type: application/json');
     
     $compraItem = new abmCompraItem();
@@ -35,14 +34,13 @@ if($rol == 1 || $rol == 2){
     }
     $compraItem = null;
     
-    foreach($comprasItems as &$compraItem){
+    foreach($comprasItems as $compraItem){
         $producto = $productos->obtenerDatos(['idproducto' => $compraItem['idproducto']])[0];
         $compraItem['cicantstock'] = $producto['procantstock'];
     }
     unset($compraItem); 
     
     echo json_encode($comprasItems);
-
 } else{
     echo json_encode("No tiene permisos");
 }
