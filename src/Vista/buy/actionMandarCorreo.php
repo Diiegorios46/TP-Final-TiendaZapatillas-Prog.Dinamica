@@ -1,5 +1,7 @@
 <?php
 include '../../../config.php';
+$session->usuarioSinPermiso();
+
 $abmCompra = new abmCompra();
 $datos = data_submitted();
 $estado = $datos['estado'];

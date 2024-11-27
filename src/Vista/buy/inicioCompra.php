@@ -131,7 +131,6 @@ $datos = data_submitted();
                     console.log('enviando datos al servidor');
                 },
                 success: function(response){
-                    console.log(response);
                     $.ajax({
                         url: './actionMandarCorreo.php',
                         type: 'post',

@@ -1,5 +1,7 @@
 <?php 
 include '../../../config.php';
+$session->usuarioNoLogeado();
+$usuario = $session->getUsuario();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -15,9 +17,8 @@ include '../../../config.php';
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.21.0/additional-methods.min.js" integrity="sha512-owaCKNpctt4R4oShUTTraMPFKQWG9UdWTtG6GRzBjFV4VypcFi6+M3yc4Jk85s3ioQmkYWJbUl1b2b2r41RTjA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- <script type="text/javascript" src="../Assets/jquery-easyui-1.6.6/jquery.min.js"></script>
     <script type="text/javascript" src="../Assets/jquery-easyui-1.6.6/jquery.easyui.min.js"></script> -->
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.2/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="../Assets/style.css?<?php echo time(); ?>">
+    <link rel="stylesheet" href="../Assets/style.css?v=<?php echo time();?>">
 </head>
 
 <header class="container-fluid m-0 p-0">
@@ -42,49 +43,28 @@ include '../../../config.php';
                                 </div>
                             </div>
                         </div>
-                        <div class="dropdown d-flex gap align-items-center divIconos">   
+                            <div class="dropdown d-flex gap align-items-center divIconos">   
 
-                        <a href="../menu/index.php" class="btn-link text-reset hoverCabecera">
-                            <i class="bi bi-gear w-100 text-light"></i>
-                        </a>
+                            <a href="../menu/index.php" class="btn-link text-reset hoverCabecera">
+                                <i class="bi bi-gear w-100 text-light"></i>
+                            </a>
 
-                        <div class="misCompras hoverCabecera">
-                            <a href="../history/index.php" class="text-light hoverCabecera"><i class="bi bi-bag hoverCabecera"></i></a>
-                        </div>
+                            <div class="misCompras hoverCabecera">
+                                <a href="../history/index.php" class="text-light hoverCabecera"><i class="bi bi-bag hoverCabecera"></i></a>
+                            </div>
                         
                         <i class="bi bi-cart hoverCabecera text-light w25-h55" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"></i>
 
 
 
                         <i class="bi bi-person-circle dropdown-toggle icono-persona hoverCabecera text-light" id="dropdownMenuButton"  data-bs-toggle="dropdown" aria-expanded="false"> 
-                            
-                            <?php 
-                            if($session->validar()){
-                                $usuario = $session->getUsuario();
-                                if ($usuario){
-                                    echo "<span>". $usuario['usnombre'] ."</span>";
-                                } else {
-                                    header('Location: ../login/index.php');
-                                }
-                            } else {
-                                header('Location: ../login/index.php');
-                                ?>
-                                <script>
-                                    document.addEventListener('DOMContentLoaded', function() {
-                                        if (!<?php echo json_encode($session->validar()); ?>) {
-                                            location.href = '../login/index.php';
-                                        }
-                                    });
-                                </script>
-                                <?php
-                            }?>
+                            <?php echo "<span>". $usuario['usnombre'] ."</span>";?>
                         </i>
                         
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="../home/logout.php">Cerrar Sesion</a></li>
                         </ul>
-                    </div>
-                        
+                        </div>
                     </div>
                 </div>
             </div>

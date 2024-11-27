@@ -186,8 +186,12 @@ class abmMenu
     
     }
 
-    function menuUsuario ($rol) {
-        
+    public function obtenerBotones($usuario){
+        $abmUsuarioRol = new abmUsuarioRol();
+        $idrol = $abmUsuarioRol->obtenerDatos(['idusuario' => $usuario['idusuario']])[0]['idrol'];
+        $menues = $this->obtenerDatos(['idpadre' => $idrol]);
+
+        return $menues;
     }
 
 
