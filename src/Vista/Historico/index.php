@@ -20,6 +20,7 @@ include '../estructura/cabeceraSegura.php';
             console.log(data);
 
             let container = $('<div class="container-sm"></div>');
+            container.append('<h1 class="text-center  my-4">Histórico de Compra</h1>');
             
             let row = $('<div class="row"></div>');  
 
@@ -28,10 +29,12 @@ include '../estructura/cabeceraSegura.php';
                     <div class="col-12 col-md-4 col-lg-3 m-4">
                         <div class="card shadow-lg rounded border" style="width: 18rem;">
                             <div class="card-body">
-                                <h5 class="card-title text-primary">Numero de compra: ${element.idcompra}</h5>
+                                <h5 class="card-title text-dark font-bold">Numero de compra: ${element.idcompra}</h5>
                                 <h6 class="card-subtitle mb-2 text-muted">ID producto: ${element.idproducto}</h6>
                                 <p class="card-text">Cantidad comprada: ${element.cicantidad}</p>
-                                <button class="btn btn-success mt-2" onclick="traerHistorico(${element.idcompra})">Ver Historico</button>
+                                <div class="text-center">
+                                    <button class="btn btn-warning mt-2" onclick="traerHistorico(${element.idcompra})">Ver Historico</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -52,27 +55,48 @@ include '../estructura/cabeceraSegura.php';
         }
     });
 
-    function traerHistorico(idcompra) {
+        function traerHistorico(idcompra) {
         $.ajax({
             url: './action.php',
             type: 'POST',
-            data: {idcompra: idcompra},
+            data: { idcompra: idcompra },
             success: function (data) {
                 data = JSON.parse(data);
-                console.log(data);
-                
-                let container = $('<div class="container-sm"></div>');
-                
-                container.append('<h1 class="text-center text-success my-4">Histórico de Compra</h1>');
 
-                data.forEach(element => {
-                    container.append(`
-                        <div class="card mb-4 shadow-sm border-success" style="width: 18rem;">
-                            <div class="card-body">
-                                <div class="card-title text-primary">Numero de compra: ${element.idcompra}</div>
-                                <div class="card-subtitle mb-2 text-muted">Inicio: ${element.cefechaini}</div>
-                                <p class="card-text">Terminó: ${element.cefechafin}</p>
-                                <p class="card-subtitle mb-2 text-muted">Estado de la compra: ${element.idcompraestado}</p>
+                let container = $('<div class="container-sm"></div>');
+                container.append('<h1 class="text-center  my-4">Informacion de las compras</h1>');
+
+                let row; // Contenedor de la fila actual
+                data.forEach((element, index) => {
+                    // Si el índice es divisible entre 4, crea una nueva fila
+                    if (index % 4 === 0) {
+                        row = $('<div class="row mb-4"></div>');
+                        container.append(row); // Añade la nueva fila al contenedor
+                    }
+
+                    // Agrega la tarjeta a la fila actual
+                    row.append(`
+                        <div class="col-12 col-md-6 col-lg-3 d-flex justify-content-center">
+                            <div class="card mb-4 shadow-sm border-success" style="width: 18rem;">
+                                <div class="card-body">
+                                    <div class="card-title font-bold">Numero de compra: ${element.idcompra}</div>
+                                    <div class="card-subtitle mb-2 text-muted">Inicio: ${element.cefechaini}</div>
+                                    <p class="card-text">Terminó: ${element.cefechafin}</p>
+                                    <p class="card-subtitle mb-2">
+                                        Estado de la compra: 
+                                        <span class="badge rounded px-3 py-2 
+                                            ${element.idcompraestadotipo === 1 ? 'bg-primary' : 
+                                            element.idcompraestadotipo === 2 ? 'bg-success' : 
+                                            element.idcompraestadotipo === 3 ? 'bg-warning text-dark' : 
+                                            element.idcompraestadotipo === 4 ? 'bg-danger' : 
+                                            'bg-secondary'}">
+                                            ${element.idcompraestadotipo === 1 ? 'Iniciada' :
+                                            element.idcompraestadotipo === 2 ? 'Aceptada' :
+                                            element.idcompraestadotipo === 3 ? 'Enviada' :
+                                            element.idcompraestadotipo === 4 ? 'Cancelada' : 'Desconocida'}
+                                        </span>
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     `);
@@ -84,4 +108,6 @@ include '../estructura/cabeceraSegura.php';
         });
     }
 
+
 </script>
+

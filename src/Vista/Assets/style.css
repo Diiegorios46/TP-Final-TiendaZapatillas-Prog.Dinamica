@@ -670,3 +670,12 @@ section.container-sm.d-flex.gap {
 .h-35{
     min-height: 35%;
 }
+
+
+.min-h-360{
+    min-height: 360px;
+}
+
+.w-33{
+    width: 33.3%;
+}
