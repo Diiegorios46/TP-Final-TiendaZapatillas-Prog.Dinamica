@@ -24,12 +24,11 @@ $usuario = $session->getUsuario();
 <header class="container-fluid m-0 p-0">
         <nav class="container-fluid fs-3 bg-naranja p-4">
             <div class="container-sm d-flex justify-content-between">
-
                 <div class="w100-h55">
                     <a href="../../../../TpFinal-TiendaZapatillas/src/Vista/home/index.php"><img src="../Assets/imgs/th.jpg" alt="" class="h-100 w-100 objet-fit rounded"></a>
                 </div>
                
-                <div class="d-flex w-10 gap align-self-center">
+                <div class="d-flex w-30 gap align-self-center">
     
                     <div class="w-h">
                         <div class="w-40 offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
@@ -49,18 +48,15 @@ $usuario = $session->getUsuario();
                         </div>
                             <div class="dropdown d-flex gap align-items-center divIconos">   
 
-                            <div class="misCompras hoverCabecera">
-                                <a href="../history/index.php" class="text-light hoverCabecera"><i class="bi bi-bag hoverCabecera"></i></a>
-                            </div>
-                            
                             <a href="../menu/index.php" class="btn-link text-reset hoverCabecera">
                                 <i class="bi bi-gear w-100 text-light"></i>
                             </a>
 
-
+                            <div class="misCompras hoverCabecera">
+                                <a href="../history/index.php" class="text-light hoverCabecera"><i class="bi bi-bag hoverCabecera"></i></a>
+                            </div>
                         
                         <i class="bi bi-cart hoverCabecera text-light w25-h55" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"></i>
-
 
 
                         <i class="bi bi-person-circle dropdown-toggle icono-persona hoverCabecera text-light" id="dropdownMenuButton"  data-bs-toggle="dropdown" aria-expanded="false"> 

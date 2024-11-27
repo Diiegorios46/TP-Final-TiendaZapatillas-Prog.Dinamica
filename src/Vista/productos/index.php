@@ -6,6 +6,8 @@ $datos = data_submitted();
 
 <div class="container-sm min-vh-100">  
 
+    <div class="container-Tittle-volver mt-5"></div>
+
     <div id='mensajeOperacion'></div>
 
     <h1 class="deposito-title pt-4">Menu Productos</h1>
@@ -21,7 +23,22 @@ $datos = data_submitted();
 var menu = <?php echo json_encode($datos);?>;
 if(menu.m == '3'){
 // nuevo PRODUCTO
-    $('.deposito-title').html('Agregar Producto');
+    $('.deposito-menu').html('');
+    $('.deposito-title').hide('');
+
+    $('.container-Tittle-volver').html(`
+    <div class="container-sm d-flex w-75">
+        <div class="d-flex w-5">   
+            <a href="../menu/index.php" class="d-flex align-content-center">
+                <div class="w-100"><img src="../Assets/imgs/volver.png" alt="" class="h-100 w-100 p-1 rounded-circle"></div> 
+            </a>
+        </div>
+        <div class="w-100 d-flex justify-content-center">
+            <h1>Agregar un Nuevo Producto</h1>
+        </div>
+    </div>
+
+    `);
     
     $('.deposito-menu').html(`
 
@@ -133,7 +150,22 @@ if(menu.m == '3'){
     });
     
 }else if(menu.m == '4'){
-$('.deposito-title').html('Modificar Producto');
+    $('.deposito-menu').html('');
+    $('.deposito-title').hide('');
+
+    $('.container-Tittle-volver').html(`
+    <div class="container-sm d-flex w-75">
+        <div class="d-flex w-5">   
+            <a href="../menu/index.php" class="d-flex align-content-center">
+                <div class="w-100"><img src="../Assets/imgs/volver.png" alt="" class="h-100 w-100 p-1 rounded-circle"></div> 
+            </a>
+        </div>
+        <div class="w-100 d-flex justify-content-center">
+            <h1>Modificar un Producto</h1>
+        </div>
+    </div>
+
+    `);
 
     $.ajax({
         url: '../pedidos/listarDeposito.php',

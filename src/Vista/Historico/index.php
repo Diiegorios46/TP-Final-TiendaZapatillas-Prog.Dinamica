@@ -7,9 +7,10 @@ include '../estructura/cabeceraSegura.php';
 // }
 ?>
 
-<div id="contenido" >
+<div class="container-Tittle-volver mt-5"></div>
 
-</div>
+<div id="contenido" ></div>
+
 <script>
 
     $.ajax({
@@ -20,7 +21,23 @@ include '../estructura/cabeceraSegura.php';
             console.log(data);
 
             let container = $('<div class="container-sm"></div>');
-            container.append('<h1 class="text-center  my-4">Histórico de Compra</h1>');
+
+            $('.deposito-menu').html('');
+                $('.deposito-title').hide('');
+
+                $('.container-Tittle-volver').html(`
+                <div class="container-sm d-flex w-75">
+                    <div class="d-flex w-5">   
+                         <a href="../menu/index.php" class="d-flex align-content-center">
+                            <div class="w-100"><img src="../Assets/imgs/volver.png" alt="" class="h-100 w-100 p-1 rounded-circle"></div> 
+                         </a>
+                    </div>
+                    <div class="w-100 d-flex justify-content-center">
+                        <h1>Historico de compras</h1>
+                    </div>
+                </div>
+
+                `);
             
             let row = $('<div class="row"></div>');  
 
@@ -64,7 +81,24 @@ include '../estructura/cabeceraSegura.php';
                 data = JSON.parse(data);
 
                 let container = $('<div class="container-sm"></div>');
-                container.append('<h1 class="text-center  my-4">Informacion de las compras</h1>');
+                container.append('<h1 class="text-center  my-4"></h1>');
+
+                $('.deposito-menu').html('');
+                $('.deposito-title').hide('');
+
+                $('.container-Tittle-volver').html(`
+                <div class="container-sm d-flex w-75">
+                    <div class="d-flex w-5">   
+                         <a href="../menu/index.php" class="d-flex align-content-center">
+                            <div class="w-100"><img src="../Assets/imgs/volver.png" alt="" class="h-100 w-100 p-1 rounded-circle"></div> 
+                         </a>
+                    </div>
+                    <div class="w-100 d-flex justify-content-center">
+                        <h1>Informacion de las compras</h1>
+                    </div>
+                </div>
+
+                `);
 
                 let row; // Contenedor de la fila actual
                 data.forEach((element, index) => {

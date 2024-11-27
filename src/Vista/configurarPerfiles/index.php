@@ -7,15 +7,23 @@ if($session->getRol() != 1){
 ?>
 
 <div class="container-sm min-vh-100">  
+
     <div id='mensajeOperacion'></div>
+    
     <h1 class="deposito-title pt-4">Menu</h1>
-    <div class="deposito-menu" id="menuDinamico">
-        <!--viene el codigo de jquery-->
-    </div>
+
+    <div class="container-Tittle-volver mt-5"></div>
+
+    <div class="deposito-menu align-items-stretch" id="menuDinamico"> </div>
+
     <div class="grid"></div>
+
 </div>
 
+
+
 <script>
+
     let menu = <?php echo json_encode($menu['m']); ?>;
     if(menu == 1){
         url = './actionlistarDatosUsuario.php';
@@ -25,7 +33,20 @@ if($session->getRol() != 1){
             dataType: 'json',
             success: function(result) {
                 $('.deposito-menu').html('');
-                $('.deposito-title').html('Configuracion Usuario');
+                $('.deposito-title').hide('');
+
+                $('.container-Tittle-volver').html(`
+                <div class="container-sm d-flex w-75">
+                    <div class="d-flex w-5">   
+                         <a href="../menu/index.php" class="d-flex align-content-center">
+                            <div class="w-100"><img src="../Assets/imgs/volver.png" alt="" class="h-100 w-100 p-1 rounded-circle"></div> 
+                         </a>
+                    </div>
+                    <div class="w-100 d-flex justify-content-center">
+                        <h1>Configuracion Usuario</h1>
+                    </div>
+                </div>`);
+
                 $('.grid').html('');
 
                 let userInfo = `
@@ -114,8 +135,19 @@ if($session->getRol() != 1){
     } else if (menu == 5){
         url = './actionAltaUsuario.php';
             
-        $('.deposito-title').html('Agregar un usuario nuevo');
-
+        $('.deposito-title').hide('');
+        $('.container-Tittle-volver').html(`
+                <div class="container-sm d-flex w-75">
+                    <div class="d-flex w-5">   
+                         <a href="../menu/index.php" class="d-flex align-content-center">
+                            <div class="w-100"><img src="../Assets/imgs/volver.png" alt="" class="h-100 w-100 p-1 rounded-circle"></div> 
+                         </a>
+                    </div>
+                    <div class="w-100 d-flex justify-content-center">
+                        <h1>Agregar un usuario nuevo</h1>
+                    </div>
+                </div>`);
+                
         $('.deposito-menu').html(`
             <div class="container w-50">
             <form id="formulario" novalidate method="post" class="bg-light p-4 border-button-dark rounded min-height-50 shadow">
@@ -187,7 +219,19 @@ if($session->getRol() != 1){
     } else if (menu == 6){
         //BORRAR UN USUARIO 
         url = './listarUsuarios.php';
-        $('.deposito-title').html('Borrar un Usuario');
+        $('.deposito-title').hide('');
+        $('.container-Tittle-volver').html(`
+                <div class="container-sm d-flex w-75">
+                    <div class="d-flex w-5">   
+                         <a href="../menu/index.php" class="d-flex align-content-center">
+                            <div class="w-100"><img src="../Assets/imgs/volver.png" alt="" class="h-100 w-100 p-1 rounded-circle"></div> 
+                         </a>
+                    </div>
+                    <div class="w-100 d-flex justify-content-center">
+                        <h1>Borrar un usuario</h1>
+                    </div>
+                </div>`);
+
         $.ajax({ 
             url: url, 
             type: 'GET', 
@@ -278,7 +322,20 @@ if($session->getRol() != 1){
     } else if (menu == 7){
         //MODIFICAR UN USUARIO
         url = './listarUsuarios.php';
-        $('.deposito-title').html('Modificar un Usuario');
+
+        $('.deposito-title').hide('');
+        $('.container-Tittle-volver').html(`
+                <div class="container-sm d-flex w-75">
+                    <div class="d-flex w-5">   
+                         <a href="../menu/index.php" class="d-flex align-content-center">
+                            <div class="w-100"><img src="../Assets/imgs/volver.png" alt="" class="h-100 w-100 p-1 rounded-circle"></div> 
+                         </a>
+                    </div>
+                    <div class="w-100 d-flex justify-content-center">
+                        <h1>Modificar un usuario</h1>
+                    </div>
+                </div>`);
+
         $.ajax({ 
             url: url, 
             type: 'GET', 
