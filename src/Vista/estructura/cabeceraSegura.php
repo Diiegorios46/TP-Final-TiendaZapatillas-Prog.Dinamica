@@ -47,25 +47,27 @@ $usuario = $session->getUsuario();
 
                         </div>
                             <div class="dropdown d-flex gap align-items-center divIconos">   
-
+                                
+                            <div class="misCompras hoverCabecera">
+                                <a href="../history/index.php" class="text-light hoverCabecera"><i class="bi bi-bag hoverCabecera"></i></a>
+                            </div>
+                                
                             <a href="../menu/index.php" class="btn-link text-reset hoverCabecera">
                                 <i class="bi bi-gear w-100 text-light"></i>
                             </a>
 
-                            <div class="misCompras hoverCabecera">
-                                <a href="../history/index.php" class="text-light hoverCabecera"><i class="bi bi-bag hoverCabecera"></i></a>
-                            </div>
                         
-                        <i class="bi bi-cart hoverCabecera text-light w25-h55" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"></i>
+                             <i class="bi bi-cart hoverCabecera text-light w25-h55" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"></i>
 
 
-                        <i class="bi bi-person-circle dropdown-toggle icono-persona hoverCabecera text-light" id="dropdownMenuButton"  data-bs-toggle="dropdown" aria-expanded="false"> 
-                            <?php echo "<span>". $usuario['usnombre'] ."</span>";?>
-                        </i>
-                        
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="../home/logout.php">Cerrar Sesion</a></li>
-                        </ul>
+                            <i class="bi bi-person-circle dropdown-toggle icono-persona hoverCabecera text-light" id="dropdownMenuButton"  data-bs-toggle="dropdown" aria-expanded="false"> 
+                                <?php echo "<span>". $usuario['usnombre'] ."</span>";?>
+                            </i>
+                            
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="../home/logout.php">Cerrar Sesion</a></li>
+                            </ul>
+
                         </div>
                     </div>
                 </div>
