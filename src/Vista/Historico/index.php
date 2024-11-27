@@ -77,7 +77,7 @@ include '../estructura/cabeceraSegura.php';
                     // Agrega la tarjeta a la fila actual
                     row.append(`
                         <div class="col-12 col-md-6 col-lg-3 d-flex justify-content-center">
-                            <div class="card mb-4 shadow-sm border-success" style="width: 18rem;">
+                            <div class="card mb-4 shadow-sm" style="width: 18rem;">
                                 <div class="card-body">
                                     <div class="card-title font-bold">Numero de compra: ${element.idcompra}</div>
                                     <div class="card-subtitle mb-2 text-muted">Inicio: ${element.cefechaini}</div>
@@ -86,8 +86,8 @@ include '../estructura/cabeceraSegura.php';
                                         Estado de la compra: 
                                         <span class="badge rounded px-3 py-2 
                                             ${element.idcompraestadotipo === 1 ? 'bg-primary' : 
-                                            element.idcompraestadotipo === 2 ? 'bg-success' : 
-                                            element.idcompraestadotipo === 3 ? 'bg-warning text-dark' : 
+                                            element.idcompraestadotipo === 2 ? 'bg-celeste' : 
+                                            element.idcompraestadotipo === 3 ? 'bg-success text-light' : 
                                             element.idcompraestadotipo === 4 ? 'bg-danger' : 
                                             'bg-secondary'}">
                                             ${element.idcompraestadotipo === 1 ? 'Iniciada' :

@@ -679,3 +679,7 @@ section.container-sm.d-flex.gap {
 .w-33{
     width: 33.3%;
 }
+
+.bg-celeste{
+    background-color: #0a57ca;
+}
