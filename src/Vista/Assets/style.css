@@ -695,3 +695,9 @@ section.container-sm.d-flex.gap {
 .w-75{
     width: 75%;
 }
+.column-diego{
+    flex: 0 0 25%;      
+  max-width: 25%;   
+  max-height: 80%;   
+  box-sizing: border-box;
+}

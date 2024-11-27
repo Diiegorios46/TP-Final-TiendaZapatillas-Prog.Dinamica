@@ -254,7 +254,7 @@ if($session->getRol() != 1){
                     }
 
                     let usuarioHtml = `
-                            <div class="col-3 text-center">
+                            <div class="column-diego text-center">
                                 <div class="card m-2 p-2 shadow-sm"> 
                                     <div class="card-body"> 
                                     <form class="" id="formularioBorrado" novalidate method="post">
@@ -357,7 +357,7 @@ if($session->getRol() != 1){
                     }
 
                     let usuarioHtml = `
-                            <div class="col-3 text-center">
+                            <div class="column-diego text-center">
                                 <div class="card m-2 p-2 shadow-sm"> 
                                     <div class="card-body"> 
                                     <form class="" id="formularioModificacion" novalidate method="post">
