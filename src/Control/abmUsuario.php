@@ -191,4 +191,25 @@ class abmUsuario{
 
         return $historial;
     }
+
+    public function RegistroUsuario($datos){
+        $mensaje = '';
+
+        $datos['accion'] = 'nuevo';
+        $datos['uspass'] = md5($datos['uspass']);
+
+        $mail['usmail'] = $datos['usmail'];
+
+        if (!$this->buscar($mail)) {
+            if ($this->alta($datos)) {
+                $mensaje = 'success';
+            } else {
+                $mensaje = 'error';
+            }
+        } else {
+            $mensaje = 'email_exists';
+        }
+        return $mensaje;
+    }
+
 }

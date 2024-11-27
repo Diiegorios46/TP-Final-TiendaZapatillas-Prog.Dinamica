@@ -35,13 +35,13 @@ include '../../../config.php';
                     <div class="w-h">
                         <i class="bi bi-cart text-light" style="font-size: 2rem;" class="w100-h55" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"></i>
 
-                        <div class="w-40 offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
-                            aria-labelledby="offcanvasRightLabel">
+                        <div class="w-40 offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
                             <div class="offcanvas-header">
                                 <h5 class="offcanvas-title" id="offcanvasRightLabel">Carrito</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
                                     aria-label="Close"></button>
                             </div>
+
                             <div class="offcanvas-body">
                                 <div class="card-compra d-flex flex-row w-100 justify-content-center mr-5 mb-2 pr-1">
                                     <button class="btn btn-dark btn-comprar">Pagar</button>

@@ -24,6 +24,7 @@ $usuario = $session->getUsuario();
 <header class="container-fluid m-0 p-0">
         <nav class="container-fluid fs-3 bg-naranja p-4">
             <div class="container-sm d-flex justify-content-between">
+
                 <div class="w100-h55">
                     <a href="../../../../TpFinal-TiendaZapatillas/src/Vista/home/index.php"><img src="../Assets/imgs/th.jpg" alt="" class="h-100 w-100 objet-fit rounded"></a>
                 </div>
@@ -32,26 +33,31 @@ $usuario = $session->getUsuario();
     
                     <div class="w-h">
                         <div class="w-40 offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+                            
                             <div class="offcanvas-header">
                                 <h5 class="offcanvas-title" id="offcanvasRightLabel"><strong>Carrito</strong></h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
                                     aria-label="Close"></button>
                             </div>
+                            
                             <div class="offcanvas-body">
                                 <div class="card-compra d-flex flex-row w-100 justify-content-center mr-5 mb-2 pr-1">
                                     <button class="btn btn-dark btn-comprar">Pagar</button>
                                 </div>
                             </div>
+
                         </div>
                             <div class="dropdown d-flex gap align-items-center divIconos">   
-
-                            <a href="../menu/index.php" class="btn-link text-reset hoverCabecera">
-                                <i class="bi bi-gear w-100 text-light"></i>
-                            </a>
 
                             <div class="misCompras hoverCabecera">
                                 <a href="../history/index.php" class="text-light hoverCabecera"><i class="bi bi-bag hoverCabecera"></i></a>
                             </div>
+                            
+                            <a href="../menu/index.php" class="btn-link text-reset hoverCabecera">
+                                <i class="bi bi-gear w-100 text-light"></i>
+                            </a>
+
+
                         
                         <i class="bi bi-cart hoverCabecera text-light w25-h55" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"></i>
 

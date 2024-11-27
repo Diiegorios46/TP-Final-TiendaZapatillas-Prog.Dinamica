@@ -73,6 +73,7 @@ $('#loginForm').validate({
             success: function(response) {
                 response = JSON.parse(response);
                 console.log(response);
+                
                 if (response == "success") {
                     window.location.href = '../login/index.php?login=1';
                 }
