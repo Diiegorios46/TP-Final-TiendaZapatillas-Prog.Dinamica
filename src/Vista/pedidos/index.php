@@ -90,15 +90,15 @@
                 data: { idcompra: idcompra, estado: estado },
 
                 success: function(response) {
-
-                    $('#mensajeOperacion').html(response);
+                    console.log('hola');
+                    console.log(response);
+                    // $('#mensajeOperacion').html(response);
                     $(boton).closest('.evalua').remove();
 
                     $.ajax({
                         url: '../buy/actionMandarCorreo.php',
                         type: 'post',
                         data: {estado: estado == 1 ? 'aceptado' : 'rechazado', compra: idcompra},
-
                         beforeSend: function() {
                             $('#mensajeOperacion').addClass('alert alert-info alert-dismissible fade show text-center').html('Espere 5 segundos a que se procese la acción...');
                             let seconds = 0;
@@ -112,6 +112,7 @@
                             }, 1000);    },
 
                         success: function(response){
+                            console.log(response);
 
                             $.ajax({
                                 url: '../buy/actionMandarCorreo.php',

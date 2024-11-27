@@ -1,8 +1,7 @@
 <?php
 include '../../../config.php';
-$abmCompraItem = new abmCompraItem();
-
+$abmCompra = new abmCompra();
 
 $datos = data_submitted();
 
-echo json_encode($datos);
+echo json_encode($abmCompra->obtenerHistorico($datos['idcompra']));

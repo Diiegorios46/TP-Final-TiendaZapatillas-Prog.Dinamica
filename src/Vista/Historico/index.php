@@ -34,6 +34,7 @@ include '../estructura/cabeceraSegura.php';
             
         }
     })
+    
     function traerHistorico(idcompra){
         $.ajax({
             url: './action.php',
@@ -42,18 +43,20 @@ include '../estructura/cabeceraSegura.php';
             success: function (data) {
                 data = JSON.parse(data);
                 console.log(data);
-                // $('#contenido').html('');
-                // data.forEach(element => {
-                //     $('#contenido').append(`
-                //     <div class="card" style="width: 18rem;">
-                //     <div class="card-body">
-                //     <h5 class="card-title">Numero de compra: ${element.idcompra}</h5>
-                //     <h6 class="card-subtitle mb-2 text-muted">id producto: ${element.idproducto}</h6>
-                //     <p class="card-text">Cantidad comprada: ${element.cicantidad}</p>
-                //     </div>
-                //     </div>
-                //     `);
-                // });
+                $('#contenido').html('');
+                $('contenido').append('<h1>Historico de compra</h1>');
+                data.forEach(element => {
+                    $('#contenido').append(`
+                    <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                    <div class="card-title">Numero de compra: ${element.idcompra}</div>
+                    <div class="card-subtitle mb-2 text-muted">Inicio : ${element.cefechaini}</div>
+                    <p class="card-text">Terminó: ${element.cefechafin}</p>
+                    <p>ID Compra-estado: ${element.idcompraestado} </p>
+                    </div>
+                    </div>
+                    `);
+                });
             }
         })
     }

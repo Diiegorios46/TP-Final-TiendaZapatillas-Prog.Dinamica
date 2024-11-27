@@ -10,8 +10,8 @@ class abmCompra
                 $resp = true;
             }
         }
-
         if ($datos['accion'] == 'borrar') {
+
             if ($this->baja($datos)) {
                 $resp = true;
             }           
@@ -256,5 +256,90 @@ class abmCompra
         }
         return $bool;
     }
+
+    public function evaluarCompra($datos){
+        // verEstructura($datos);
+        if ($datos['estado'] == 1){
+            $compraItem = new abmCompraItem();
+            $compraEstado = new abmCompraEstado();
+            $producto = new abmProducto();
+            $compraItemData = $compraItem->obtenerDatos($datos)[0] ?? null;
+
+            $productData = $producto->obtenerDatos(['idproducto' => $compraItemData['idproducto']])[0] ?? null;
+
+            $compraItemData['cantestock'] = $productData['procantstock'];
+
+            $compraEstadoData = $compraEstado->obtenerDatos(['idcompra' => $compraItemData['idcompra']])[0] ?? null;
+            //aca modificamos el primeroCompraEstado
+            $compraEstadoData['accion'] = 'editar';
+            $compraEstadoData['cefechafin'] = date('Y-m-d H:i:s');
+            $compraEstadoData['idcompraestadotipo'] = 1;
+
+            $compraEstado->abm($compraEstadoData);
+            //aca tenemos que crear el nuevo compraEstado con compraEstadoTipo 2
+            $compraEstadoData['idcompraestadotipo'] = 2;
+            $compraEstadoData['cefechaini'] = date('Y-m-d H:i:s');
+            $compraEstadoData['cefechafin'] = null;
+            $compraEstadoData['accion'] = 'nuevo';
+
     
+            $compraEstado->abm($compraEstadoData);
+            //aca modificamos el producto   
+            $productData['accion'] = 'editar';
+            $productData['procantstock'] = $compraItemData['cantestock'] - $compraItemData['cicantidad'];
+
+            if ($producto->abm($productData)) {
+                //aca modificamos el segundoCompraEstado
+                $compraEstadoData['cefechafin'] = date('Y-m-d H:i:s');
+                $compraEstadoData['accion'] = 'editar';
+                // unset($compraEstadoData['idcompraestado']);
+                $compraEstadoData['idcompraestado'] = $compraEstado->obtenerDatos(['idcompraestadotipo' => 2])[0]['idcompraestado'];
+                // verEstructura($compraEstadoData);
+                $compraEstado->abm($compraEstadoData);
+
+                $compraEstadoData['idcompraestadotipo'] = 3;
+                $compraEstadoData['cefechaini'] = date('Y-m-d H:i:s');
+                $compraEstadoData['cefechafin'] = date('Y-m-d H:i:s');
+                $compraEstadoData['accion'] = 'nuevo';
+                if($compraEstado->abm($compraEstadoData)){
+                    $tipoAlerta = 'alert-success';
+                    $mensaje = 'Compra aprobada';
+                } else {
+                    $tipoAlerta = 'alert-danger';
+                    $mensaje = 'No se pudo actualizar el estado de la compra';
+                    
+                }
+            } else {
+                $tipoAlerta = 'alert-danger';
+                $mensaje = 'No se pudo actualizar el stock del producto';
+            }
+        } else if ($datos['estado'] == 0) {
+            $compraEstado = new abmCompraEstado();
+            $compraEstadoData = $compraEstado->obtenerDatos($datos)[0] ?? null;
+            
+            $compraEstadoData['accion'] = 'editar';
+            $compraEstadoData['cefechafin'] = date('Y-m-d H:i:s');
+            $compraEstado->abm($compraEstadoData);
+
+            $compraEstadoData['idcompraestadotipo'] = 4;
+            $compraEstadoData['cefechaini'] = date('Y-m-d H:i:s');
+            $compraEstadoData['cefechafin'] = date('Y-m-d H:i:s');
+            $compraEstadoData['accion'] = 'nuevo';
+
+            if($compraEstado->abm($compraEstadoData)){
+                $tipoAlerta = 'alert-warning';
+                $mensaje = 'El paquete no sera enviado';
+            }
+        }
+        $mensaje = "<div class='alert $tipoAlerta alert-dismissible fade show text-center'>$mensaje";
+        echo json_encode($mensaje);
+    }
+
+
+    public function obtenerHistorico($idcompra){
+        $abmCompraEstado = new abmCompraEstado();
+
+        return $abmCompraEstado->obtenerDatos(['idcompra' => $idcompra]);
+    }
 }
+    
