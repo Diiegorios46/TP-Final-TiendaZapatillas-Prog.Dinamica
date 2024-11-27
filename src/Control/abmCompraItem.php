@@ -167,5 +167,57 @@ class abmCompraItem{
 
         return $historico;
     }
+    
+    public function verPaquetes(){
+        $session = new Session();
+        $rol = $session->getRol();
+        $resultado = [];
+
+        if($rol == 1 || $rol == 2){
+            header('Content-Type: application/json');
+            
+            $compraItem = new abmCompraItem();
+            $comprasEstado = new abmCompraEstado();
+            $productos = new abmProducto();
+            
+            $comprasItemsTotales = $compraItem->obtenerDatos(null);
+            $idcompras = [];
+            
+            foreach ($comprasItemsTotales as $compra) {
+                $arrayidCompraItem[] = $compra['idcompra'];
+            }
+            
+            $comprasEstadoTotales = $comprasEstado->obtenerDatos(['idcompraestadotipo' => 1, 'cefechafin' => '0000-00-00 00:00:00']);
+            
+            $comprasFiltradas = [];
+            
+            foreach ($arrayidCompraItem as $idCompraItem) {
+                foreach ($comprasEstadoTotales as $compraEstado) {
+                    if ($compraEstado['idcompra'] == $idCompraItem) {
+                        $comprasFiltradas[] = $compraEstado['idcompra'];
+                    }
+                }
+            }
+            
+            $comprasItems = [];
+            foreach ($comprasFiltradas as $compraFiltrada) {
+                $comprasItems[] = $compraItem->obtenerDatos(['idcompra' => $compraFiltrada])[0];
+            }
+            $compraItem = null;
+
+            // verEstructura($comprasItems);
+            
+            foreach($comprasItems as $compraItem){
+                $producto = $productos->obtenerDatos(['idproducto' => $compraItem['idproducto']])[0];
+                // echo $producto['procantstock'];
+                $compraItem['cicantstock'] = $producto['procantstock'];
+            }
+            $resultado[] = $compraItem;
+        } else{
+            echo json_encode("No tiene permisos");
+        }
+
+        return $resultado;
+    }
 }
 ?>

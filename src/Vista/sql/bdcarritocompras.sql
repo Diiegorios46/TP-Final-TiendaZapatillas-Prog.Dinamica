@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-11-2024 a las 02:26:45
+-- Tiempo de generación: 27-11-2024 a las 15:17:15
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -33,13 +33,6 @@ CREATE TABLE `compra` (
   `idusuario` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
---
--- Volcado de datos para la tabla `compra`
---
-
-INSERT INTO `compra` (`idcompra`, `cofecha`, `idusuario`) VALUES
-(162, '2024-11-27 05:21:08', 90);
-
 -- --------------------------------------------------------
 
 --
@@ -53,15 +46,6 @@ CREATE TABLE `compraestado` (
   `cefechaini` timestamp NOT NULL DEFAULT current_timestamp(),
   `cefechafin` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Volcado de datos para la tabla `compraestado`
---
-
-INSERT INTO `compraestado` (`idcompraestado`, `idcompra`, `idcompraestadotipo`, `cefechaini`, `cefechafin`) VALUES
-(198, 162, 1, '2024-11-27 05:21:08', '2024-11-27 05:21:30'),
-(199, 162, 2, '2024-11-27 05:21:30', '2024-11-27 05:21:30'),
-(200, 162, 3, '2024-11-27 05:21:30', '2024-11-27 05:21:30');
 
 -- --------------------------------------------------------
 
@@ -97,13 +81,6 @@ CREATE TABLE `compraitem` (
   `idcompra` bigint(20) NOT NULL,
   `cicantidad` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Volcado de datos para la tabla `compraitem`
---
-
-INSERT INTO `compraitem` (`idcompraitem`, `idproducto`, `idcompra`, `cicantidad`) VALUES
-(110, 9, 162, 6);
 
 -- --------------------------------------------------------
 
@@ -221,16 +198,6 @@ CREATE TABLE `usuario` (
   `usdeshabilitado` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
---
--- Volcado de datos para la tabla `usuario`
---
-
-INSERT INTO `usuario` (`idusuario`, `usnombre`, `uspass`, `usmail`, `usdeshabilitado`) VALUES
-(89, 'valen', 'e10adc3949ba59abbe56e057f20f883e', 'valentin7v7@gmail.com', '0000-00-00 00:00:00'),
-(90, 'valen', 'e10adc3949ba59abbe56e057f20f883e', 'admin@gmail.com', '0000-00-00 00:00:00'),
-(91, 'deposito', 'e10adc3949ba59abbe56e057f20f883e', 'deposito@gmail.com', '0000-00-00 00:00:00'),
-(92, 'usuario', 'e10adc3949ba59abbe56e057f20f883e', 'cliente@gmail.com', '0000-00-00 00:00:00');
-
 -- --------------------------------------------------------
 
 --
@@ -241,16 +208,6 @@ CREATE TABLE `usuariorol` (
   `idusuario` bigint(20) NOT NULL,
   `idrol` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Volcado de datos para la tabla `usuariorol`
---
-
-INSERT INTO `usuariorol` (`idusuario`, `idrol`) VALUES
-(89, 3),
-(90, 1),
-(91, 2),
-(92, 3);
 
 --
 -- Índices para tablas volcadas
@@ -286,7 +243,8 @@ ALTER TABLE `compraitem`
   ADD PRIMARY KEY (`idcompraitem`),
   ADD UNIQUE KEY `idcompraitem` (`idcompraitem`),
   ADD KEY `fkcompraitem_1` (`idcompra`),
-  ADD KEY `fkcompraitem_2` (`idproducto`);
+  ADD KEY `fkcompraitem_2` (`idproducto`),
+  ADD KEY `idcompra` (`idcompra`);
 
 --
 -- Indices de la tabla `menu`
@@ -341,19 +299,19 @@ ALTER TABLE `usuariorol`
 -- AUTO_INCREMENT de la tabla `compra`
 --
 ALTER TABLE `compra`
-  MODIFY `idcompra` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=163;
+  MODIFY `idcompra` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `compraestado`
 --
 ALTER TABLE `compraestado`
-  MODIFY `idcompraestado` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=201;
+  MODIFY `idcompraestado` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `compraitem`
 --
 ALTER TABLE `compraitem`
-  MODIFY `idcompraitem` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
+  MODIFY `idcompraitem` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `menu`
@@ -377,7 +335,7 @@ ALTER TABLE `rol`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idusuario` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
+  MODIFY `idusuario` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- Restricciones para tablas volcadas
@@ -395,6 +353,13 @@ ALTER TABLE `compra`
 ALTER TABLE `compraestado`
   ADD CONSTRAINT `fkcompraestado_1` FOREIGN KEY (`idcompra`) REFERENCES `compra` (`idcompra`) ON UPDATE CASCADE,
   ADD CONSTRAINT `fkcompraestado_2` FOREIGN KEY (`idcompraestadotipo`) REFERENCES `compraestadotipo` (`idcompraestadotipo`) ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `compraitem`
+--
+ALTER TABLE `compraitem`
+  ADD CONSTRAINT `compraitem_ibfk_1` FOREIGN KEY (`idproducto`) REFERENCES `producto` (`idproducto`),
+  ADD CONSTRAINT `compraitem_ibfk_2` FOREIGN KEY (`idcompra`) REFERENCES `compra` (`idcompra`);
 
 --
 -- Filtros para la tabla `menu`

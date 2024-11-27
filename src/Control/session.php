@@ -50,8 +50,9 @@
     //return boolean
     public function validar(){
         $resp = false;
-        if($this->activa() && isset($_SESSION['idusuario']))
+        if($this->activa() && isset($_SESSION['idusuario'])){
             $resp=true;
+        }
         return $resp;
     }
 
@@ -69,7 +70,21 @@
         
         return $rol;
     }
-   
+
+    public function usuarioSinPermiso(){
+        $rol = $this->getRol();
+        if ($rol != 1 && $rol != 2) {
+            header('Location: ../../Vista/home/index.php');
+            exit();
+        }
+        return true;
+    }
+
+    public function usuarioNoLogeado(){
+        if(!$this->validar()){
+            header('Location: ../../Vista/home/index.php');
+        }
+    }
 
     //activa(). Devuelve true o false si la sesion esta activa o no. 
     public function activa(){

@@ -259,6 +259,7 @@ class abmCompra
 
     public function evaluarCompra($datos){
         // verEstructura($datos);
+
         if ($datos['estado'] == 1){
             $compraItem = new abmCompraItem();
             $compraEstado = new abmCompraEstado();
