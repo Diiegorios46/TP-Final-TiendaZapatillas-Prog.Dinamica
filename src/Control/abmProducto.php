@@ -57,6 +57,12 @@ class abmProducto
     public function alta($param)
     {
         $resp = false;
+        $param['idproducto'] = null;
+        $abmProducto = new abmProducto();
+        $imagen = $abmProducto->comprimirImagen($param);
+        $param['proimagen1'] = $imagen['proimagen1'];
+
+
         $elObjtProducto = $this->cargarObjeto($param);
         if ($elObjtProducto != null and $elObjtProducto->insertar()) {
             $resp = true;
@@ -236,7 +242,7 @@ class abmProducto
             unset($datos['image']);
 
         } catch (Exception $e) {
-                $datos = [];  
+             $datos = [];  
         }
         return $datos;
     }
