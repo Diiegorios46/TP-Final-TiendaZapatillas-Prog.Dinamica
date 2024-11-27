@@ -16,7 +16,7 @@ if($rol == 1 || $rol == 2){
         $arrayidCompraItem[] = $compra['idcompra'];
     }
     
-    $comprasEstadoTotales = $comprasEstado->obtenerDatos(['idcompraestadotipo' => 1]);
+    $comprasEstadoTotales = $comprasEstado->obtenerDatos(['idcompraestadotipo' => 1, 'cefechafin' => '0000-00-00 00:00:00']);
     
     $comprasFiltradas = [];
     
@@ -33,14 +33,18 @@ if($rol == 1 || $rol == 2){
         $comprasItems[] = $compraItem->obtenerDatos(['idcompra' => $compraFiltrada])[0];
     }
     $compraItem = null;
+
+    // verEstructura($comprasItems);
     
     foreach($comprasItems as $compraItem){
         $producto = $productos->obtenerDatos(['idproducto' => $compraItem['idproducto']])[0];
+        // echo $producto['procantstock'];
         $compraItem['cicantstock'] = $producto['procantstock'];
     }
-    unset($compraItem); 
-    
-    echo json_encode($comprasItems);
+    $resultado = [];
+    $resultado[] = $compraItem;
+    // verEstructura($compraItem);
+    echo json_encode($resultado);
 } else{
     echo json_encode("No tiene permisos");
 }
