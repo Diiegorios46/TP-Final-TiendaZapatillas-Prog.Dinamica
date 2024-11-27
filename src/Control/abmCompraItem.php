@@ -211,8 +211,8 @@ class abmCompraItem{
                 $producto = $productos->obtenerDatos(['idproducto' => $compraItem['idproducto']])[0];
                 // echo $producto['procantstock'];
                 $compraItem['cicantstock'] = $producto['procantstock'];
+                $resultado[] = $compraItem;
             }
-            $resultado[] = $compraItem;
         } else{
             echo json_encode("No tiene permisos");
         }
