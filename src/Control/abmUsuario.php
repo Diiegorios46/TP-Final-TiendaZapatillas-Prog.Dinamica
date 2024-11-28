@@ -171,9 +171,10 @@ class abmUsuario{
         $abmCompraItem = new abmCompraItem();
 
         $historial = [];
-
-        foreach($abmCompra->obtenerDatos(['idusuario' => $usuario['idusuario']]) as $compra){
-            $compraEstado = $abmCompraEstado->obtenerDatos(['idcompra' => $compra['idcompra']])[0];
+        $compras = $abmCompra->obtenerDatos(['idusuario' => $usuario['idusuario']]);
+        foreach($compras as $compra){
+            $compraEstados = $abmCompraEstado->obtenerDatos(['idcompra' => $compra['idcompra']]);
+            $compraEstado = end($compraEstados);
             if($compraEstado != null){
                 $compraDatos['estadotipo'] = $abmCompraEstadoTipo->obtenerDatos(['idcompraestadotipo' => $compraEstado['idcompraestadotipo']])[0]['cetdescripcion'];
                 $compraDatos['cefechaini'] = $compraEstado['cefechaini'];
@@ -187,6 +188,7 @@ class abmUsuario{
                 $compraDatos['pronombre'] = $producto['pronombre'];
                 $historial[] = $compraDatos;
             }
+            // verEstructura($compraEstado);
         }
 
         return $historial;
