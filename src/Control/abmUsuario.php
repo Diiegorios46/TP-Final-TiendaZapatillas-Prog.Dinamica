@@ -176,13 +176,17 @@ class abmUsuario{
             $compraEstados = $abmCompraEstado->obtenerDatos(['idcompra' => $compra['idcompra']]);
             $compraEstado = end($compraEstados);
             if($compraEstado != null){
-                $compraDatos['estadotipo'] = $abmCompraEstadoTipo->obtenerDatos(['idcompraestadotipo' => $compraEstado['idcompraestadotipo']])[0]['cetdescripcion'];
+                $compraEstadoTipo = $abmCompraEstadoTipo->obtenerDatos(['idcompraestadotipo' => $compraEstado['idcompraestadotipo']]);
+                $compraEstadoTipo = end($compraEstadoTipo);
+                $compraDatos['estadotipo'] = $compraEstadoTipo['cetdescripcion'];
                 $compraDatos['cefechaini'] = $compraEstado['cefechaini'];
                 $compraDatos['cefechafin'] = $compraEstado['cefechafin'];
                 $compraDatos['idcompra'] = $compra['idcompra'];
-                $compraItems = $abmCompraItem->obtenerDatos(['idcompra' => $compra['idcompra']])[0];
+                $compraItems = $abmCompraItem->obtenerDatos(['idcompra' => $compra['idcompra']]);
+                $compraItems = end($compraItems);
                 $compraDatos['cicantidad'] = $compraItems['cicantidad'];
-                $producto = $abmProducto->obtenerDatos(['idproducto' => $compraItems['idproducto']])[0];
+                $producto = $abmProducto->obtenerDatos(['idproducto' => $compraItems['idproducto']]);
+                $producto = end($producto);
                 $compraDatos['prodetalle'] = $producto['prodetalle'];
                 $compraDatos['proprecio'] = $producto['proprecio'];
                 $compraDatos['pronombre'] = $producto['pronombre'];
