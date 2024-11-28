@@ -166,4 +166,6 @@ class CompraEstado extends BaseDatos
         }
         return $arreglo;
     }
+
+    
 }

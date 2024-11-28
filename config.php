@@ -25,4 +25,5 @@ $INICIO = "Location:http://".$_SERVER['HTTP_HOST']."/$PROYECTO/vista/login/login
 $PRINCIPAL = "Location:http://".$_SERVER['HTTP_HOST']."/$PROYECTO/principal.php";
 $session = new Session();
 $session->setearUnDato( ['nombreDato'=>'ROOT','dato'=>$ROOT]);
+ ///mondongoooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 ?>

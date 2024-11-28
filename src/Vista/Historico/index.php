@@ -120,7 +120,7 @@ include '../estructura/cabeceraSegura.php';
                                         Estado de la compra: 
                                         <span class="badge rounded px-3 py-2 
                                             ${element.idcompraestadotipo === 1 ? 'bg-primary' : 
-                                            element.idcompraestadotipo === 2 ? 'bg-celeste' : 
+                                            element.idcompraestadotipo === 2 ? 'bg-celeste' :
                                             element.idcompraestadotipo === 3 ? 'bg-success text-light' : 
                                             element.idcompraestadotipo === 4 ? 'bg-danger' : 
                                             'bg-secondary'}">

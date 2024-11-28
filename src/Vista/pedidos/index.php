@@ -18,7 +18,6 @@
 
 
 <script>
-
         $('.deposito-menu').html('');
         $('.deposito-title').hide('');
 
@@ -35,7 +34,7 @@
         </div>`);
 
     $.ajax({
-            url: "./actionVerPaquetes.php",
+            url: "./verCompras.php",
             type: 'GET',
             dataType: 'json',
             success: function(result) {
@@ -62,7 +61,7 @@
 
                     result.forEach(function(datos, index) {
                         
-                        if (index % 4 === 0) {
+                        if (index % 1 === 0) {
                             row = $('<div class="row mt-3 mb-3"></div>'); 
                             $('.grid').append(row); 
                             $('.grid').addClass('w-100')
@@ -74,15 +73,13 @@
                             <div class="text-center p-1">Pedido numero: ${datos.idcompraitem}</div>
                             <div class="text-center p-1">Id de la Compra: ${datos.idcompra}</div>
                             <div class="text-center p-1">Id del Producto: ${datos.idproducto}</div>
-                                <div class="text-center p-1"><strong>Cantidad solicitada: ${datos.cicantidad}</strong></div>
-                                <div class="text-center p-1"><strong>Stock: ${datos.cicantstock}</strong></div>
-                                <div class="d-flex flex-row justify-content-center gap">
-                                    <button class="btn btn-success m-1" onclick="evaluar(this, ${datos.idcompra}, 1)">Aceptar</button>
-                                    <button class="btn btn-danger m-1" onclick="evaluar(this, ${datos.idcompra}, 0)">Cancelar</button>
                                 </div>
-                            </div>
-                        </div>`;
 
+                                <div class="d-flex flex-row justify-content-center gap">
+                                    <button class="btn btn-success m-1" onclick="verCompra(${datos.idcompra})">Ver Compra</button>
+                                </div>
+                                
+                        </div>`;
                         
                         row.append(pedido);
                     });
@@ -97,65 +94,100 @@
         });
 
 
-        function evaluar(boton, idcompra, estado) {
+        function verCompra(idcompra) {
+        $.ajax({
+            url: "./actionVerProductosCompra.php",
+            type: 'GET',
+            data: { idcompra: idcompra },
+            dataType: 'json',
+            success: function(result) {
+                console.log(result);
+
+                // Limpiar el contenedor antes de agregar la nueva card
+                let deposito = $('.deposito-menu').html('');
+
+                // Crear la estructura de una única card
+                let card = `
+                    <div class="card mb-3 shadow-lg">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">Detalles de la Compra</h5>
+                            <div id="contenido-compra">
+                                <!-- Aquí se insertarán los detalles de los pedidos -->
+                            </div>
+                            <div class="d-flex justify-content-center gap-2 mt-3">
+                                <button class="btn btn-success" onclick="evaluar(${idcompra}, 1)">Aceptar</button>
+                                <button class="btn btn-danger" onclick="evaluar(${idcompra}, 0)">Cancelar</button>
+                            </div>
+                        </div>
+                    </div>`;
+
+                // Agregar la card al contenedor
+                deposito.append(card);
+
+                // Seleccionar la sección donde se añadirán los pedidos
+                let contenidoCompra = $('#contenido-compra');
+
+                // Recorrer los datos y agregarlos dentro de la card
+                result.forEach(function(datos) {
+                    let detalle = `
+                        <div class="mb-2">
+                            <p class="mb-1"><strong>Pedido número:</strong> ${datos.idcompraitem}</p>
+                            <p class="mb-1"><strong>Id de la Compra:</strong> ${datos.idcompra}</p>
+                            <p class="mb-1"><strong>Id del Producto:</strong> ${datos.idproducto}</p>
+                            <hr>
+                        </div>`;
+                    
+                    // Agregar cada detalle al contenedor dentro de la card
+                    contenidoCompra.append(detalle);
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error('Error en la solicitud AJAX:', error);
+            }
+        });
+    }
+
+        function evaluar(idcompra, estado) {
             $.ajax({
-                
                 url: './actionEvaluar.php',
-                type: 'post',
+                type: 'POST',
                 data: { idcompra: idcompra, estado: estado },
-
                 success: function(response) {
-                    console.log('hola');
-                    console.log(response);
-                    // $('#mensajeOperacion').html(response);
-                    $(boton).closest('.evalua').remove();
+                    console.log('Evaluación procesada:', response);
 
+                    // Enviar correo según el estado
                     $.ajax({
                         url: '../buy/actionMandarCorreo.php',
-                        type: 'post',
-                        data: {estado: estado == 1 ? 'aceptado' : 'rechazado', compra: idcompra},
+                        type: 'POST',
+                        data: { estado: estado == '1' ? 'aceptado' : 'rechazado', compra: idcompra },
                         beforeSend: function() {
-                            $('#mensajeOperacion').addClass('alert alert-info alert-dismissible fade show text-center').html('Espere 5 segundos a que se procese la acción...');
+                            let mensajeOperacion = $('#mensajeOperacion');
+                            mensajeOperacion.addClass('alert alert-info alert-dismissible fade show text-center')
+                                .html('Espere 5 segundos a que se procese la acción...');
+
                             let seconds = 0;
                             let interval = setInterval(function() {
                                 seconds++;
-                                $('#mensajeOperacion').html(`Espere ${5 - seconds} segundos a que se procese la acción...`);
+                                mensajeOperacion.html(`Espere ${5 - seconds} segundos a que se procese la acción...`);
                                 if (seconds >= 5) {
                                     clearInterval(interval);
-                                    $('#mensajeOperacion').removeClass('alert alert-info alert-dismissible fade show text-center').html('');
+                                    mensajeOperacion.removeClass('alert alert-info alert-dismissible fade show text-center')
+                                        .html('');
                                 }
-                            }, 1000);    },
-
-                        success: function(response){
-                            console.log(response);
-
-                            $.ajax({
-                                url: '../buy/actionMandarCorreo.php',
-                                type: 'post',
-                                data: {estado: response, compra: idcompra},
-                                success: function(response){
-                                    console.log(response);
-                                },
-                                error: function(xhr, status, error) {
-                                    console.log('Error: ' + error);
-                                }
-                            })
+                            }, 1000);
                         },
-
+                        success: function(response) {
+                            console.log('Correo enviado:', response);
+                        },
                         error: function(xhr, status, error) {
-                            console.log('Error: ' + error);
+                            console.error('Error al enviar el correo:', error);
                         }
                     });
                 },
                 error: function(xhr, status, error) {
-                    console.log('Error: ' + error);
+                    console.error('Error en la solicitud AJAX:', error);
                 }
             });
-            
         }
-
-        
-
-
 
 </script>

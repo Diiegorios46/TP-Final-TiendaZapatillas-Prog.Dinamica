@@ -53,6 +53,8 @@ class abmCompraItem{
     {
         $objCompraItem = null;
         $param['idcompraitem'] = null;
+        $param['cicantidad'] = $param['cantidad'];
+        // verEstructura($param);
         if (array_key_exists('idcompra', $param) && array_key_exists('idproducto', $param) && array_key_exists('idcompraitem', $param) && array_key_exists('cicantidad', $param)) {
             $objCompraItem = new CompraItem();
             $objCompraItem->setear($param);
@@ -82,7 +84,7 @@ class abmCompraItem{
 
     public function alta($param)
     {
-        $paramp['idcompraitem'] = null;
+        $param['idcompraitem'] = null;
         $resp = false;
         $elObjtCompraItem = $this->cargarObjeto($param);
         if ($elObjtCompraItem != null and $elObjtCompraItem->insertar()) {
@@ -167,8 +169,9 @@ class abmCompraItem{
 
         return $historico;
     }
-    
-    public function verPaquetes(){
+
+
+    public function verProductos(){
         $session = new Session();
         $rol = $session->getRol();
         $resultado = [];

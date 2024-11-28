@@ -5,6 +5,7 @@ class abmCompra
     public function abm($datos) {
         $resp = false;
 
+
         if ($datos['accion'] == 'editar') {
             if ($this->modificacion($datos)) {
                 $resp = true;
@@ -60,17 +61,24 @@ class abmCompra
         $param['cefechaini'] = null;
         $param['idcompraestadotipo'] = 1;
         $param['cefechafin'] = null;
-        
+        $productos = $param['productos'];
         $elObjtArchivoE = $this->cargarObjeto($param);
         if ($elObjtArchivoE != null and $elObjtArchivoE->insertar()) {
+
             $param['idcompra'] = $elObjtArchivoE->getIdcompra();
             $param['accion'] = 'nuevo';
             $objCompraEstado = new abmCompraEstado();
             $objCompraEstado->abm($param);
             $objCompraItem = new abmCompraItem();
-            $objCompraItem->abm($param);
+            foreach ($productos as $producto) {
+                $producto['idcompra'] = $param['idcompra'];
+                $producto['accion'] = 'nuevo';
+                $objCompraItem->abm($producto);
+            }
             $resp = true;
+            // echo 'Compra realizada';
         }
+
         return $resp;
     }
 
@@ -152,16 +160,15 @@ class abmCompra
 
         $productos = $datos['productos'];   
 
-        foreach($productos as $producto){
-            $datos['accion'] = 'nuevo';
-            $datos['idusuario'] = $session->getUsuario()['idusuario'];
-            $datos['cofecha'] = date('Y-m-d H:i:s');
-            $datos['idproducto'] = $producto['idproducto'];
-            $datos['cicantidad'] = $producto['cantidad'];
-            if($abmCompra->abm($datos)){
-                $result = true;
-            }
+        $datos['accion'] = 'nuevo';
+        $datos['idusuario'] = $session->getUsuario()['idusuario'];
+        $datos['cofecha'] = date('Y-m-d H:i:s');
+        if($abmCompra->abm($datos)){
+            $result = true;
         }
+
+
+        return $result;
     }
 
 

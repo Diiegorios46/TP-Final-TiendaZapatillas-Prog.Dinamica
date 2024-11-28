@@ -171,28 +171,42 @@ class abmUsuario{
         $abmCompraItem = new abmCompraItem();
 
         $historial = [];
-        $compras = $abmCompra->obtenerDatos(['idusuario' => $usuario['idusuario']]);
-        foreach($compras as $compra){
-            $compraEstados = $abmCompraEstado->obtenerDatos(['idcompra' => $compra['idcompra']]);
-            $compraEstado = end($compraEstados);
-            if($compraEstado != null){
-                $compraEstadoTipo = $abmCompraEstadoTipo->obtenerDatos(['idcompraestadotipo' => $compraEstado['idcompraestadotipo']]);
-                $compraEstadoTipo = end($compraEstadoTipo);
-                $compraDatos['estadotipo'] = $compraEstadoTipo['cetdescripcion'];
-                $compraDatos['cefechaini'] = $compraEstado['cefechaini'];
-                $compraDatos['cefechafin'] = $compraEstado['cefechafin'];
-                $compraDatos['idcompra'] = $compra['idcompra'];
-                $compraItems = $abmCompraItem->obtenerDatos(['idcompra' => $compra['idcompra']]);
-                $compraItems = end($compraItems);
-                $compraDatos['cicantidad'] = $compraItems['cicantidad'];
-                $producto = $abmProducto->obtenerDatos(['idproducto' => $compraItems['idproducto']]);
-                $producto = end($producto);
-                $compraDatos['prodetalle'] = $producto['prodetalle'];
-                $compraDatos['proprecio'] = $producto['proprecio'];
-                $compraDatos['pronombre'] = $producto['pronombre'];
-                $historial[] = $compraDatos;
-            }
-            // verEstructura($compraEstado);
+
+       
+
+        // verEstructura($historial);
+        // foreach($abmCompra->obtenerDatos(['idusuario' => $usuario['idusuario']]) as $compra){
+        //     $compraEstado = $abmCompraEstado->obtenerDatos(['idcompra' => $compra['idcompra']])[0];
+        //     if($compraEstado != null){
+        //         $compraDatos['estadotipo'] = $abmCompraEstadoTipo->obtenerDatos(['idcompraestadotipo' => $compraEstado['idcompraestadotipo']])[0]['cetdescripcion'];
+        //         $compraDatos['cefechaini'] = $compraEstado['cefechaini'];
+        //         $compraDatos['cefechafin'] = $compraEstado['cefechafin'];
+        //         $compraDatos['idcompra'] = $compra['idcompra'];
+        //         $compraItems = $abmCompraItem->obtenerDatos(['idcompra' => $compra['idcompra']])[0];
+        //         $compraDatos['cicantidad'] = $compraItems['cicantidad'];
+        //         $producto = $abmProducto->obtenerDatos(['idproducto' => $compraItems['idproducto']])[0];
+        //         $compraDatos['prodetalle'] = $producto['prodetalle'];
+        //         $compraDatos['proprecio'] = $producto['proprecio'];
+        //         $compraDatos['pronombre'] = $producto['pronombre'];
+        //         $historial[] = $compraDatos;
+        //     }
+        // }
+
+        $compraDatos = [];
+
+         foreach($abmCompra->obtenerDatos(['idusuario' => $usuario['idusuario']]) as $compra){
+            $compraEstadoFinal = $abmCompraEstado->obtenerDatos(['idcompra' => $compra['idcompra']]);
+            $datosCompra['idcompraestadotipo'] = end($compraEstadoFinal)['idcompraestadotipo'];
+            $tipoEstado = $abmCompraEstadoTipo->obtenerDatos(['idcompraestadotipo' => end($compraEstadoFinal)['idcompraestadotipo']]);
+            $datosCompra['nombreEstado'] = end($tipoEstado)['cetdescripcion'];
+            $datosCompra['cefechaini'] = end($compraEstadoFinal)['cefechaini'];
+            $datosCompra['cefechafin'] = end($compraEstadoFinal)['cefechafin'];
+
+
+
+            $historial[] = $datosCompra;
+
+
         }
 
         return $historial;

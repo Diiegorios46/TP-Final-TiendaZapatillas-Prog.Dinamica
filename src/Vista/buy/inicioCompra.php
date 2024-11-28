@@ -60,35 +60,6 @@ $datos = data_submitted();
               
                 //console.log(total);
                 $('#total').html('$' + total.toFixed(2));
-
-                // Crear el formulario fantasma
-                var form = $('<form>', {
-                    'action': './actionIniciarCompra.php',
-                    'method': 'post',
-                    'style': 'display: none;',
-                    'id': 'formCompra',
-                    'class': 'd-none',
-                    'target': 'hidden_iframe'
-                });
-
-                // Crear un iframe oculto
-                var iframe = $('<iframe>', {
-                    'name': 'hidden_iframe',
-                    'style': 'display: none;'
-                });
-
-                // Agregar los datos al formulario
-                datos.forEach(function(producto) {
-                    form.append($('<input>', {
-                        'type': 'hidden',
-                        'name': 'productos[]',
-                        'value': JSON.stringify(producto)
-                    }));
-                });
-
-                // Agregar el iframe y el formulario al body y enviarlo
-                $('body').append(iframe).append(form);
-                form.submit();
             
             console.log('datos cargados');
             },
@@ -131,21 +102,22 @@ $datos = data_submitted();
                     console.log('enviando datos al servidor');
                 },
                 success: function(response){
-                    $.ajax({
-                        url: './actionMandarCorreo.php',
-                        type: 'post',
-                        data: {estado: 'iniciado', productos: <?php echo json_encode($datos['productos']); ?>},
-                        beforeSend: function(){
-                            console.log('enviando correo');
-                        },
-                        success: function(response){
-                            console.log(response);
-                            $('#mensajeOperacion').addClass('alert alert-success alert-dismissible fade show text-center').html('El pedido se envio exitosamente.');
-                        },
-                        error: function(xhr, status, error) {
-                            console.error('Error en la solicitud AJAX:', status, error);
-                        }
-                    });
+                    console.log(response);
+                    // $.ajax({
+                    //     url: './actionMandarCorreo.php',
+                    //     type: 'post',
+                    //     data: {estado: 'iniciado', productos: <?php echo json_encode($datos['productos']); ?>},
+                    //     beforeSend: function(){
+                    //         console.log('enviando correo');
+                    //     },
+                    //     success: function(response){
+                    //         console.log(response);
+                    //         $('#mensajeOperacion').addClass('alert alert-success alert-dismissible fade show text-center').html('El pedido se envio exitosamente.');
+                    //     },
+                    //     error: function(xhr, status, error) {
+                    //         console.error('Error en la solicitud AJAX:', status, error);
+                    //     }
+                    // });
                 },
                 error: function(xhr, status, error) {
                     console.error('Error en la solicitud AJAX:', status, error);
