@@ -267,7 +267,7 @@ class abmProducto
     }
     
 
-    public function listarDeposito($datos = null) {
+    public function listarDeposito($datos) {
         $productos2 = $this->obtenerDatos(null);
         $productos = [];
 

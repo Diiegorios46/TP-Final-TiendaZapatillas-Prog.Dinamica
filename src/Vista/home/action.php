@@ -5,4 +5,4 @@ include '../../../config.php';
 $abmProductos = new abmProducto();
 $datos = data_submitted();
 
-echo json_encode($abmProductos->listarDeposito());
+echo json_encode($abmProductos->listarDeposito($datos));
