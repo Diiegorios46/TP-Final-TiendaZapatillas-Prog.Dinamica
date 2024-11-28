@@ -324,7 +324,7 @@ class abmCompra
 
             $compraEstadoData['idcompraestadotipo'] = 4;
             $compraEstadoData['cefechaini'] = date('Y-m-d H:i:s');
-            $compraEstadoData['cefechafin'] = date('Y-m-d H:i:s');
+            $compraEstadoData['cefechafin'] = null;
             $compraEstadoData['accion'] = 'nuevo';
 
             if($compraEstado->abm($compraEstadoData)){
