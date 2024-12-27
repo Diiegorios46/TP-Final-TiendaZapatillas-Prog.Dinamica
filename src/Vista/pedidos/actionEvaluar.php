@@ -1,8 +1,10 @@
 <?php
-
 include '../../../config.php';
-// header('Content-Type: application/json');
-$abmProductos = new abmProducto();
-$datos = data_submitted();
+$session->usuarioSinPermiso();
 
-echo json_encode($abmProductos->listarDeposito($datos));
+// header('Content-Type: application/json');
+$datos = data_submitted();
+$abmCompra = new abmCompra();
+
+$abmCompra->evaluarCompra($datos);
+?>

@@ -110,7 +110,6 @@ class CompraItem extends BaseDatos
     {
         $resp = false;
         $base = new BaseDatos();
-        
         $sql = "INSERT INTO compraitem (idproducto, idcompra, cicantidad) VALUES ('{$this->getIdproducto()}',{$this->getIdcompra()},'{$this->getCicantidad()}');";
 
         if ($base->Iniciar()) {

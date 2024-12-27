@@ -107,6 +107,7 @@ class abmUsuarioRol{
     
         public function modificacion($param) {
             $resp = false;
+            verEstructura($param);
             if ($this->seteadosCamposClaves($param)) {
                 $elObjtTabla = $this->cargarObjeto($param);
                 if ($elObjtTabla != null && $elObjtTabla->modificar()) {
@@ -152,7 +153,8 @@ class abmUsuarioRol{
             if (!empty($arreglo)) {
                 foreach ($arreglo as $rol) {
                     $result[] = ["idrol" => $rol->getIdRol(),
-                                 "idusuario" => $rol->getIdUsuario()];
+                        "idusuario" => $rol->getIdUsuario()
+                    ];
                 }
             }
             return $result;

@@ -8,9 +8,10 @@
         if($this->validar()){
             $obj = new abmUsuario();
             $param['idusuario'] = $_SESSION['idusuario'];
-            $resultado = $obj->obtenerDatos($param)[0];
+            $resultadoArray = $obj->obtenerDatos($param);
+            $resultado = !empty($resultadoArray) ? $resultadoArray[0] : null;
             
-            if(count($resultado) > 0){
+            if($resultado != null && count($resultado) > 0){
                 
                 $usuario = $resultado;
             }
@@ -26,11 +27,11 @@
         $arrayDatos['usmail'] = $mail;
         $arrayDatos['uspass'] = $psw;
         $arrayDatos['usdeshabilitado'] ='0000-00-00 00:00:00';
-        $resultado = $obj->buscar($arrayDatos);
+        $resultado = $obj->obtenerDatos($arrayDatos);
         //no va a andar si la base de datos no tiene nada
         if(!empty($resultado) && count($resultado) > 0){
             $usuario = $resultado[0];
-            $_SESSION['idusuario'] = $usuario->getIdUsuario();
+            $_SESSION['idusuario'] = $usuario['idusuario'];
             $boolean = true;
         } else {
             $this->cerrar();
@@ -49,8 +50,9 @@
     //return boolean
     public function validar(){
         $resp = false;
-        if($this->activa() && isset($_SESSION['idusuario']))
+        if($this->activa() && isset($_SESSION['idusuario'])){
             $resp=true;
+        }
         return $resp;
     }
 
@@ -60,7 +62,6 @@
             $obj = new abmUsuarioRol();
             $param['idusuario'] = $_SESSION['idusuario'];
             $resultado = $obj->obtenerDatos($param);
-
             if(count($resultado) > 0){
                 $usuario = $resultado[0];
                 $rol = $usuario['idrol'];
@@ -69,7 +70,21 @@
         
         return $rol;
     }
-   
+
+    public function usuarioSinPermiso(){
+        $rol = $this->getRol();
+        if ($rol != 1 && $rol != 2) {
+            header('Location: ../../Vista/home/index.php');
+            exit();
+        }
+        return true;
+    }
+
+    public function usuarioNoLogeado(){
+        if(!$this->validar()){
+            header('Location: ../../Vista/home/index.php');
+        }
+    }
 
     //activa(). Devuelve true o false si la sesion esta activa o no. 
     public function activa(){

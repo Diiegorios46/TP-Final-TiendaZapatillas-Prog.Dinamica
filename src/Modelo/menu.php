@@ -147,26 +147,6 @@ class Menu extends BaseDatos
         }
         return $resp;
     }
-
-  
-     /* public function estado($param = "")
-    {
-        $resp = false;
-        $base = new BaseDatos();
-        $sql = "UPDATE menu SET medeshabilitado='" . $param . "' WHERE idmenu=" . $this->getIdmenu();
-        
-        if ($base->Iniciar()) {
-            if ($base->Ejecutar($sql)) {
-                $resp = true;
-            } else {
-                $this->setmensajeoperacion("Menu->estado: " . $base->getError());
-            }
-        } else {
-            $this->setmensajeoperacion("Menu->estado: " . $base->getError());
-        }
-        return $resp;
-    } */
-   
   
 
     public function eliminar()

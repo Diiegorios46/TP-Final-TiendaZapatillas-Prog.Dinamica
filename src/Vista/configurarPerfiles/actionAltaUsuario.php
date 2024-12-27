@@ -5,11 +5,11 @@ include '../../../config.php';
 $datos = data_submitted();
 $datos['accion'] = 'nuevo';
 $abmUsuario = new abmUsuario();
+$datos['uspass'] = md5($datos['uspass']);
 //verEstructura($datos);
 try {
     if($abmUsuario->abm($datos)){
-        /// el alta anda perfecto con los datos PERO te loggea automaticamente con la cuenta creaste///
-        echo json_encode('Producto agregado correctamente');
+        echo json_encode('Usuario agregado correctamente');
     } else {
         echo json_encode('Error al agregar el producto');
     }
@@ -17,4 +17,3 @@ try {
     echo json_encode('Error al agregar el el usuario');
 }
 ?>
-

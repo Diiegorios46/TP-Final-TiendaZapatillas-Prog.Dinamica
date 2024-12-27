@@ -110,4 +110,28 @@ class abmCompraEstadoTipo
         $arreglo = $obj->listar($where);
         return $arreglo;
     }
+
+    public function obtenerDatos($param){
+        $where = " true ";
+        if ($param <> NULL) {
+            if (isset($param['idcompraestadotipo']))
+                $where .= " and idcompraestadotipo =" . $param['idcompraestadotipo'];
+            if (isset($param['cetdescripcion']))
+                $where .= " and cetdescripcion =" . $param['cetdescripcion'];
+            if (isset($param['cetdetalle']))
+                $where .= " and cetdetalle ='" . $param['cetdetalle'] . "'";
+        }
+        $obj = new compraestadotipo();
+        $arreglo = $obj->listar($where);
+        $array= [];
+        foreach($arreglo as $compraEstadoTipo){
+            $array[]=[
+                'idcompraestadotipo' => $compraEstadoTipo->getIdcompraestadotipo(),
+                'cetdescripcion' => $compraEstadoTipo->getCetdescripcion(),
+                'cetdetalle' => $compraEstadoTipo->getCetdetalle()
+            ];
+        }
+
+        return $array;
+    }
 }

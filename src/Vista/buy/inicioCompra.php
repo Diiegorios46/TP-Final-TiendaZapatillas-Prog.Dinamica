@@ -12,6 +12,7 @@ $datos = data_submitted();
         <div class="d-flex flex-column justify-content-between  w-80 mr-1">
             <div id="prueba"></div>
         <script>
+            
     $(document).ready(function() {
         $.ajax({
             url: 'action.php',
@@ -21,10 +22,7 @@ $datos = data_submitted();
                 console.log('trayendo datos');
             },
             success: function(response){
-                //console.log('aaa');
                 var datos = <?php echo json_encode($datos['productos']); ?>;
-                //console.log(datos);
-
                 // Crear la tabla
                 var tabla = '<table class="table table-striped text-center fs-3">';
                 tabla += '<thead>';
@@ -62,35 +60,6 @@ $datos = data_submitted();
               
                 //console.log(total);
                 $('#total').html('$' + total.toFixed(2));
-
-                // Crear el formulario fantasma
-                var form = $('<form>', {
-                    'action': './actionIniciarCompra.php',
-                    'method': 'post',
-                    'style': 'display: none;',
-                    'id': 'formCompra',
-                    'class': 'd-none',
-                    'target': 'hidden_iframe'
-                });
-
-                // Crear un iframe oculto
-                var iframe = $('<iframe>', {
-                    'name': 'hidden_iframe',
-                    'style': 'display: none;'
-                });
-
-                // Agregar los datos al formulario
-                datos.forEach(function(producto) {
-                    form.append($('<input>', {
-                        'type': 'hidden',
-                        'name': 'productos[]',
-                        'value': JSON.stringify(producto)
-                    }));
-                });
-
-                // Agregar el iframe y el formulario al body y enviarlo
-                $('body').append(iframe).append(form);
-                form.submit();
             
             console.log('datos cargados');
             },
@@ -134,20 +103,21 @@ $datos = data_submitted();
                 },
                 success: function(response){
                     console.log(response);
-                    $.ajax({
-                        url: './actionMandarCorreo.php',
-                        type: 'get',
-                        beforeSend: function(){
-                            console.log('enviando correo');
-                        },
-                        success: function(response){
-                            console.log(response);
-                            $('#mensajeOperacion').addClass('alert alert-success alert-dismissible fade show text-center').html('Se envio exitosamente.');
-                        },
-                        error: function(xhr, status, error) {
-                            console.error('Error en la solicitud AJAX:', status, error);
-                        }
-                    });
+                    // $.ajax({
+                    //     url: './actionMandarCorreo.php',
+                    //     type: 'post',
+                    //     data: {estado: 'iniciado', productos: <?php echo json_encode($datos['productos']); ?>},
+                    //     beforeSend: function(){
+                    //         console.log('enviando correo');
+                    //     },
+                    //     success: function(response){
+                    //         console.log(response);
+                    //         $('#mensajeOperacion').addClass('alert alert-success alert-dismissible fade show text-center').html('El pedido se envio exitosamente.');
+                    //     },
+                    //     error: function(xhr, status, error) {
+                    //         console.error('Error en la solicitud AJAX:', status, error);
+                    //     }
+                    // });
                 },
                 error: function(xhr, status, error) {
                     console.error('Error en la solicitud AJAX:', status, error);

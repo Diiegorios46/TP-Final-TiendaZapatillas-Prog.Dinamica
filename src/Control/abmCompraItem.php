@@ -53,6 +53,8 @@ class abmCompraItem{
     {
         $objCompraItem = null;
         $param['idcompraitem'] = null;
+        $param['cicantidad'] = $param['cantidad'];
+        // verEstructura($param);
         if (array_key_exists('idcompra', $param) && array_key_exists('idproducto', $param) && array_key_exists('idcompraitem', $param) && array_key_exists('cicantidad', $param)) {
             $objCompraItem = new CompraItem();
             $objCompraItem->setear($param);
@@ -82,7 +84,7 @@ class abmCompraItem{
 
     public function alta($param)
     {
-        $paramp['idcompraitem'] = null;
+        $param['idcompraitem'] = null;
         $resp = false;
         $elObjtCompraItem = $this->cargarObjeto($param);
         if ($elObjtCompraItem != null and $elObjtCompraItem->insertar()) {
@@ -148,6 +150,77 @@ class abmCompraItem{
         $arreglo = $result;
 
         return $arreglo;
+    }
+
+
+    public function generarHistorico($idCompra){
+        $abmCompra = new abmCompra();
+        $abmUsuario = new abmUsuario();
+        $abmProducto = new abmProducto();
+        $abmCompraItem = new abmCompraItem();
+        $abmCompraEstado = new abmCompraEstado();
+        $abmCompraEstadoTipo = new abmCompraEstadoTipo();
+
+        $historico = [];
+
+        $historico['idusuario'] = $abmCompra->obtenerDatos(['idcompra' => $idCompra])[0]['idusuario'];
+        $historico['idcompra'] = $idCompra;
+        
+
+        return $historico;
+    }
+
+
+    public function verProductos(){
+        $session = new Session();
+        $rol = $session->getRol();
+        $resultado = [];
+
+        if($rol == 1 || $rol == 2){
+            header('Content-Type: application/json');
+            
+            $compraItem = new abmCompraItem();
+            $comprasEstado = new abmCompraEstado();
+            $productos = new abmProducto();
+            
+            $comprasItemsTotales = $compraItem->obtenerDatos(null);
+            $idcompras = [];
+            
+            foreach ($comprasItemsTotales as $compra) {
+                $arrayidCompraItem[] = $compra['idcompra'];
+            }
+            
+            $comprasEstadoTotales = $comprasEstado->obtenerDatos(['idcompraestadotipo' => 1, 'cefechafin' => '0000-00-00 00:00:00']);
+            
+            $comprasFiltradas = [];
+            
+            foreach ($arrayidCompraItem as $idCompraItem) {
+                foreach ($comprasEstadoTotales as $compraEstado) {
+                    if ($compraEstado['idcompra'] == $idCompraItem) {
+                        $comprasFiltradas[] = $compraEstado['idcompra'];
+                    }
+                }
+            }
+            
+            $comprasItems = [];
+            foreach ($comprasFiltradas as $compraFiltrada) {
+                $comprasItems[] = $compraItem->obtenerDatos(['idcompra' => $compraFiltrada])[0];
+            }
+            $compraItem = null;
+
+            // verEstructura($comprasItems);
+            
+            foreach($comprasItems as $compraItem){
+                $producto = $productos->obtenerDatos(['idproducto' => $compraItem['idproducto']])[0];
+                // echo $producto['procantstock'];
+                $compraItem['cicantstock'] = $producto['procantstock'];
+                $resultado[] = $compraItem;
+            }
+        } else{
+            echo json_encode("No tiene permisos");
+        }
+
+        return $resultado;
     }
 }
 ?>

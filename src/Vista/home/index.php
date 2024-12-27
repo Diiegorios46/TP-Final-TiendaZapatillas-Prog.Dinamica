@@ -1,5 +1,6 @@
 <?php
     include '../../../config.php';
+
     if($session->validar()){
         $session->cerrar();
         include '../estructura/cabeceraSegura.php';
@@ -7,10 +8,10 @@
         $session->cerrar();
         include '../estructura/cabecera.php';
     }
-    if (isset($_GET['seccion']) && $_GET['seccion'] == 'iniciarCompra'){
-        echo 'inicioCompra';
-    }
-    ?>
+    // if (isset($_GET['seccion']) && $_GET['seccion'] == 'iniciarCompra'){
+    //     echo 'inicioCompra';
+    // }
+?>
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -34,77 +35,107 @@
                         <div class="accordion" id="accordionExample">
                             <div class="accordion-item">
                                 <h2 class="accordion-header">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                        Talles
-                                    </button>
-                                </h2>
-                                <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
-                                        <ul>
-                                            <li><input type="checkbox" name="" id="">30</li>
-                                            <li><input type="checkbox" name="" id="">32</li>
-                                            <li><input type="checkbox" name="" id="">33</li>
-                                            <li><input type="checkbox" name="" id="">34</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                        Categoria
-                                    </button>
-                                </h2>
-                                <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
-                                        <ul>
-                                            <li><input type="checkbox" name="" id="">Hombre</li>
-                                            <li><input type="checkbox" name="" id="">Mujer</li>
-                                            <li><input type="checkbox" name="" id="">Niños</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                        Precio
+                                        Precios de los precios
                                     </button>
                                 </h2>
+                                
                                 <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
-                                        <ul>
-                                            <li><input type="checkbox">$100</li>
-                                            <li><input type="checkbox">$200</li>
-                                            <li><input type="checkbox">$300</li>
+
+                                        <ul class="list-unstyled">
+                                            <li class="d-flex align-items-center mb-2">
+                                                <input type="radio" name="price" id="price0" value="0" class="me-2" onclick="mostrarProductos()" checked>
+                                                <label for="price0" class="mb-0">Todos los productos</label>
+                                            </li>
+                                            <li class="d-flex align-items-center mb-2">
+                                                <input type="radio" name="price" id="price100"value="1" class="me-2" onclick="mostrarProductos()">
+                                                <label for="price100" class="mb-0">Menor a $100</label>
+                                            </li>
+                                            <li class="d-flex align-items-center mb-2">
+                                                <input type="radio" name="price" id="price200"value="2" class="me-2" onclick="mostrarProductos()">
+                                                <label for="price200" class="mb-0">Entre $100 y $200</label>
+                                            </li>
+                                            <li class="d-flex align-items-center mb-2">
+                                                <input type="radio" name="price" id="price300"value="3" class="me-2" onclick="mostrarProductos()">
+                                                <label for="price300" class="mb-0">Mas de $200</label>
+                                            </li>
                                         </ul>
+                                        
                                     </div>
                                 </div>
                             </div>
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        Marcas de las zapatillas
+                                    </button>
+                                </h2>
+                                
+                                <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        <ul class="list-unstyled">
+                                            
+                                        <li class="d-flex align-items-center mb-2">
+                                                <input type="radio" name="priceMarca" id="price0" value="0" class="me-2" onclick="mostrarProductos()" checked>
+                                                <label for="price0" class="mb-0">Todos las marcas</label>
+                                            </li>
+                                            <li class="d-flex align-items-center mb-2">
+                                                <input type="radio" name="priceMarca" id="price100" value="vans" class="me-2"onclick="mostrarProductos()">
+                                                <label for="price100" class="mb-0">Vans</label>
+                                            </li>
+                                            <li class="d-flex align-items-center mb-2">
+                                                <input type="radio" name="priceMarca" id="price200" value="nike" class="me-2"onclick="mostrarProductos()">
+                                                <label for="price200" class="mb-0">Nike</label>
+                                            </li>
+                                            <li class="d-flex align-items-center mb-2">
+                                                <input type="radio" name="priceMarca" id="price300" value="adidas" class="me-2"onclick="mostrarProductos()">
+                                                <label for="price300" class="mb-0">Adidas</label>
+                                            </li>
+                                            <li class="d-flex align-items-center mb-2">
+                                                <input type="radio" name="priceMarca" id="price300" value="topper" class="me-2"onclick="mostrarProductos()">
+                                                <label for="price300" class="mb-0">Topper</label>
+                                            </li>
+
+                                        </ul>
+                                        
+                                    </div>
+                                </div>
                         </div>
                     </div>
                 </div>
                 <div class="w-75 justify-content-center align-content-start">
                     <div class="row mt-4 mb-4" id="prueba">
-                        <!-- Aquí se agregarán las tarjetas dinámicamente -->
+                        <!-- Aquí se agregarán las tarjetas dinámicamente con jquery -->
                     </div>
                 </div>
             </section>
         </main>
-    
+
         <script>
-            $(document).ready(function() {
+                 $(document).ready(function () {
+                     mostrarProductos();
+                 });
+
                 function mostrarProductos() {
                     $.ajax({
                         url: 'action.php',
-                        type: 'GET',
-                        dataType: 'json',
+                        type: 'post',
+                        data: {price: $('input[name="price"]:checked').val(), priceMarca: $('input[name="priceMarca"]:checked').val()},
                         beforeSend: function () {
+                            console.log('Cargando datos...');
                             $('#prueba').html('Cargando...');
                         },
                         success: function (response) {
+                            // console.log('Datos cargados correctamente:', response);
+                            response = JSON.parse(response);
                             $('#prueba').html('');
                             let row;
+
+                            if(response.length === 0) {
+                                $('#prueba').html('<div class="alert alert-warning" role="alert">No hay productos disponibles.</div>');
+                                return;
+                            }
+                            
                             response.forEach((producto, index) => {
                                 if (index % 4 === 0) {
                                     row = $('<div class="row mt-4 mb-4"></div>');
@@ -112,7 +143,7 @@
                                 }
                                 let zapatilla = `
                                     <div class="col-3">
-                                        <div class="card d-flex w-100 h-100 p-3 shadow-sm">
+                                        <div class="card d-flex w-100 h-100 p-3 sombraCard">
                                             <div class="card-img w-100">
                                                 <img src="${producto.proimagen1}" alt="" class="w-100 h-100 img-card">
                                             </div>
@@ -125,7 +156,7 @@
                                                 <span class="data-idproducto">${producto.idproducto}</span>
                                             </div>
                                             <div class="card-button text-center pt-3">
-                                                <button class="btn btn-dark p-2 agregarCarrito" id="myButton" onclick="agregarAlCarrito(this)">Agregar al carrito</button>
+                                                <button class=" p-2 agregarCarrito btn btn-dark" id="myButton" onclick="agregarAlCarrito(this)">Agregar al carrito</button>
                                             </div>
                                         </div>
                                     </div>`;
@@ -138,8 +169,6 @@
                         }
                     });
                 }
-                mostrarProductos();
-            });
         </script>
 
         <script>
@@ -148,56 +177,59 @@
         var modales = document.getElementsByClassName('offcanvas-body');
 
         function sacarDelcarrito(button) {
+            var card = button.closest('.card'); 
+            var nombre = card.querySelector('.nombre-zapatilla').textContent.trim(); 
+            var id = card.querySelector('.hidden')?.textContent.trim(); 
 
-        var card = button.closest('.card');
-        var nombre = card.querySelector('.card-infoZapatillas').textContent.trim();
-        var id = card.querySelector('.hidden').textContent.trim();
+            let productEliminar = carrito.findIndex(producto => 
+                (id && producto.id === id) || producto.nombre === nombre);
 
-        console.log(id);
-        let productEliminar = carrito.findIndex(producto => producto.nombre === nombre);
+            if (productEliminar !== -1) {
+                carrito.splice(productEliminar, 1);
 
-        if (productEliminar !== -1) {
+                let modal = modales[0];
+                modal.innerHTML = ""; 
 
-            carrito.splice(productEliminar, 1);
-            let modal = modales[0]; 
-            modal.innerHTML = "";
+                if (carrito.length > 0) {
+                    carrito.forEach(item => {
+                        modal.innerHTML += `
+                            <div class="border border-dark d-flex flex-row justify-content-around card">
+                                <div class="w-25">
+                                    <img src="${item.img}" alt="" class="w-100 h-100">  
+                                </div>
+                                <div class="card-infoZapatillas d-flex">
+                                    <p class="nombre-zapatilla align-self-center mb-0 fs-6">${item.nombre}</p>
+                                </div>
+                                <div class="d-flex">
+                                    <span class="align-self-center fs-6">${item.precio}</span>
+                                </div>
+                                <div class="d-flex">
+                                    <span class="align-self-center fs-6">${item.cantidad} unidades</span>
+                                </div>
+                                <div class="align-self-center">
+                                    <button type="button" class="btn btn-dark" onclick="sacarDelcarrito(this)">
+                                        <i class="bi bi-x"></i>
+                                    </button>
+                                </div>
+                            </div>`;
 
-                if (carrito.length > 0) { 
-                    carrito.forEach(item => { 
-                    modal.innerHTML += `
-                        <div class="border border-dark d-flex flex-row justify-content-around card">
-                            <div class="w-25">
-                                <img src="${item.img}" alt="" class="w-100 h-100">  
-                            </div>
-                            <div class="card-infoZapatillas d-flex">
-                                <p class="nombre-zapatilla align-self-center mb-0 fs-6">${item.nombre}</p>
-                            </div>
-                            <div class="d-flex">
-                                <span class="align-self-center fs-6">${item.precio}</span>
-                            </div>
-                            <div class="d-flex">
-                                <span class="align-self-center fs-6">${item.cantidad}unidades</span>
-                            </div>
-                            <div class="d-flex">
-                                <span class="align-self-center fs-6">${item.id}unidades</span>
-                            </div>
-                            <div class="align-self-center">
-                                <button type="button" class="btn btn-dark" onclick="sacarDelcarrito(this)">
-                                    <i class="bi bi-x"></i>
-                                </button>
-                            </div>
-                        </div>
+                        modal.innerHTML += `
                         <form method='post' action='../buy/inicioCompra.php' class="card-compra d-flex flex-row w-100 justify-content-center mr-5 mb-2 pr-1">
-                            <button type='submit' name='idproducto' value='' class="btn btn-dark btn-comprar">Pagar</button>
-                        </form>
-                    `; 
-                }); 
-                }else{ 
-                    modal.innerHTML = "<p>El carrito esta vacio</p>"; 
-                } 
-            }else { 
-                    console.log(`Producto no encontrado: ${nombre}`); 
-            } 
+                            ${carrito.map((item, index) => `
+                                <input type='hidden' name='productos[${index}][idproducto]' value='${item.id}'>
+                                <input type='hidden' name='productos[${index}][nombre]' value='${item.nombre}'>
+                                <input type='hidden' name='productos[${index}][precio]' value='${item.precio}'>
+                                <input type='hidden' name='productos[${index}][cantidad]' value='${item.cantidad}'>
+                                <input type='hidden' name='productos[${index}][img]' value='${item.img}'>`).join('')}
+                            <button type='submit' class="btn btn-dark btn-comprar">Pagar</button>
+                        </form>`;
+                    });
+                } else {
+                    modal.innerHTML = "<p>El carrito esta vacio</p>";
+                }
+            } else {
+                console.log(`Producto no encontrado: ${nombre}`);
+            }
         }
 
         function agregarAlCarrito(button) {
@@ -219,6 +251,7 @@
             mandarAlmodal();
         }
 
+
         function verificarMasZapatillas(zapatilla) {
 
             let productoEnCarrito = carrito.find(producto => producto.nombre === zapatilla.nombre);
@@ -231,6 +264,7 @@
 
         function mandarAlmodal() {
             let modales = document.getElementsByClassName('offcanvas-body');
+            
             if (modales.length > 0) {
                 let modal = modales[0];  
                 modal.innerHTML = '';
@@ -265,6 +299,7 @@
                     `;
                 });
 
+
                 modal.innerHTML += `
                 <form method='post' action='../buy/inicioCompra.php' class="card-compra d-flex flex-row w-100 justify-content-center mr-5 mb-2 pr-1">
                     ${carrito.map((item, index) => `
@@ -275,11 +310,9 @@
                         <input type='hidden' name='productos[${index}][img]' value='${item.img}'>
                     `).join('')}
                     <button type='submit' class="btn btn-dark btn-comprar">Pagar</button>
-                </form>
-            `;
+                </form>`;
             }
         }
-
         </script>
         
 </body>

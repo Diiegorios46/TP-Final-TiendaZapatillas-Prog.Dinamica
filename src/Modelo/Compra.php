@@ -54,6 +54,7 @@ class Compra extends BaseDatos
         $this->setIdcompra($param['idcompra']);
         $this->setCofecha($param['cofecha']);
         $this->setIdusuario($param['idusuario']);
+
     }
 
     public function cargar()
@@ -90,9 +91,10 @@ class Compra extends BaseDatos
         $resp = false;
         $base = new BaseDatos();
         $sql = "INSERT INTO compra (cofecha, idusuario) VALUES ('{$this->getCofecha()}',{$this->getIdusuario()});";
-        
+        echo "\n\nSQL: " . $sql."\n\n";
         if ($base->Iniciar()) {
             if ($elid = $base->Ejecutar($sql)) {
+                echo "se ejecuto una consulta en compra";
                 $this->setIdcompra($elid);
                 $resp = true;
             } else {

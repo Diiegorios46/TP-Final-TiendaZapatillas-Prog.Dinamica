@@ -1,13 +1,13 @@
 <?php
 include '../../../config.php';
+header('Content-Type: application/json');
+$datos = data_submitted();
 
-$session = new Session();
+$datos['password'] = md5($datos['password']);
+$mensaje = '0';
 
-$mail = $_POST['usmail'];
-$clave = $_POST['uspass'];
+if($session->iniciar($datos['mail'], $datos['password'])){
+    $mensaje = '1';
+} 
 
-if($session->iniciar($mail, $clave)){
-    header('Location: ../home/index.php');
-} else {
-   header('Location: ../login/index.php?error=1');
-}
+echo json_encode($mensaje);
