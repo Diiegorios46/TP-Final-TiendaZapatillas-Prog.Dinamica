@@ -6,6 +6,7 @@ $datos = data_submitted();
 if(isset($datos['login']) && $datos['login'] == 1){
    echo '<div class="alert alert-success" role="alert">Usuario registrado correctamente.</div>';
 }
+
 ?>
 <main class="container w-32 h-100 mt-5 pt-5 h-100">
     <section class="login-container bg-form rouded-modify shadow">
@@ -31,28 +32,5 @@ if(isset($datos['login']) && $datos['login'] == 1){
         
     </section>
 </main>
-<script>
 
-$(document).ready(function(){
-    $('#login').submit(function(e){
-        e.preventDefault();
-        var datos = $(this).serialize();
-        $.ajax({
-            type: 'POST',
-            url: './action.php',
-            data: datos,
-            success: function(data){
-                if(data == 1){
-                    window.location.href = '../home/index.php';
-                } else {
-                    window.location.href = './index.php?error=1';
-                }
-            },
-            error: function(data){
-                console.log(data);
-            }
-        });
-    });
-});
-
-</script>
+<script src="../Assets/login.js"></script>
