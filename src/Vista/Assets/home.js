@@ -23,7 +23,7 @@ function mostrarProductos() {
             $('#prueba').html('');
             var sourceCard = document.getElementById('template-card-zapatillas').innerHTML;
             var templateCard = Handlebars.compile(sourceCard);
-            let row ;
+                    let row ;
 
             if (response.length === 0) {
                 $('#prueba').html('<div class="alert alert-warning" role="alert">No hay productos disponibles.</div>');

@@ -26,15 +26,15 @@
                 <div class="w-25"><img src="../Assets/imgs/tooper.jpg" alt="" class="w-100 h-100 imagen"></div>
             </div>
         </nav>
-        <main class="container-fluid">
-            <section class="container-fill d-flex flex-row shadow">
-                <div class="w-25 min-vh-100 margin-right-2 shadow mr-2porciento">
+        <main class="container-fluid min-vh-100">
+            <section class="container-fill d-flex flex-row shadow" id="homeSection">
+                <div class="w-25 min-vh-100 margin-right-2 shadow mr-2porciento" id="listaFiltro">
                     <div class="mt-4">
                         <div class="accordion" id="accordionExample">
                             <div class="accordion-item">
                                 <h2 class="accordion-header">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                        Precios de los precios
+                                        Precios Zapatillas
                                     </button>
                                 </h2>
                                 
@@ -65,7 +65,7 @@
                             </div>
                                 <h2 class="accordion-header">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                        Marcas de las zapatillas
+                                        Marcas Zapatillas
                                     </button>
                                 </h2>
                                 
@@ -101,17 +101,20 @@
                         </div>
                     </div>
                 </div>
-                <div class="w-75 justify-content-center align-content-start">
-                    <div class="row mt-4 mb-4" id="prueba">
+
+                <div class="w-75 justify-content-center align-content-start" id="content-all-cards">
+                    <div class="row mt-4" id="prueba">
                         <!-- Aquí se agregarán las tarjetas dinámicamente con jquery -->
                     </div>
                 </div>
+
             </section>
         </main>
         
 
         <script id="template-card-zapatillas" type="text/template">
-            <div class="col-3">
+
+            <div class="col-3 col-6 col-md-3">
                 <div class="card d-flex w-100 h-100 p-3 sombraCard">
                     <div class="card-img w-100">
                         <img src="{{proimagen1}}" alt="" class="w-100 h-100 img-card">

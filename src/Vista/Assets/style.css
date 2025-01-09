@@ -166,10 +166,9 @@ body {
 }
 
 .divIconos {
-
     display: flex;
     justify-content: space-around;
-    width:380px;
+    width:100%;
     
 }
 
@@ -429,15 +428,12 @@ section.container-sm.d-flex.gap {
 
 
 .card-img {
-    width: 100%;
-    height: 250px;
-    overflow: hidden;
+    height: 40%;
 }
 
 .card-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: fill;
+    object-fit: contain;
+    height: 100% !important;
 }
 
 .card-marca,
@@ -445,7 +441,6 @@ section.container-sm.d-flex.gap {
 .card-precioMasDescuento {
     font-size: 1rem;
     color: #555;
-    margin: 10px 0;
     font-weight: bold;
 }
 
@@ -703,4 +698,75 @@ section.container-sm.d-flex.gap {
   max-width: 25%;   
   max-height: 80%;   
   box-sizing: border-box;
+}
+
+/* Límite de altura para el contenedor en móvil */
+@media (max-width: 1200px) {
+    #prueba .col-3 { 
+        width: 50% !important;
+        height: 100%; 
+    }
+    .card-button{
+        margin-top: 20%;
+    }
+    #prueba .row{
+        row-gap: 10%;
+    }
+}
+
+@media (max-width: 768px) {
+    #prueba .row { 
+        max-height: 300px; 
+        row-gap: 10%;
+    }
+
+    #prueba {
+        justify-content: center;
+    }
+    #icono-login-tienda{
+        width: 85%;
+        justify-content: end;
+
+    }
+
+    .accordion-button{
+        padding: 5px;
+        font-size: 0.6rem;
+    }
+
+    .divIconos{
+        justify-content: end;
+    }
+
+    .hoverCabecera span{
+        font-size: 0.8rem;
+    }
+
+    #listaFiltro{
+        width: 100% !important;
+        min-height: 0 !important;
+    }
+    
+    #homeSection {
+        flex-direction: column !important;
+        min-height: 100vh !important;
+        height: 100%;   
+    }
+    #listaFiltro .justify-content-center{
+        height: 100%;
+        width: 100% !important;
+    }
+    #content-all-cards{
+        width: 100% !important;
+        height: 100%;
+        min-height: 100vh !important;
+    }
+}
+
+#prueba .row{
+    max-height: 350px;
+}
+
+#prueba .col-3{
+    height: 100%;
 }

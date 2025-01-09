@@ -62,8 +62,8 @@ include '../estructura/cabeceraSegura.php';
                 <div class="card-subtitle mb-2 text-muted">Inicio: {{cefechaini}}</div>
                 <p class="card-text">Terminó: {{cefechafin}}</p>
                 <p class="card-subtitle mb-2"> Estado de la compra: 
-                    <span class="badge rounded px-3 py-2 {{clasecolor idcompraestadotipo}}">
-                        {{estadocompra idcompraestadotipo}}
+                    <span class="badge rounded px-3 py-2 {{{clasecolor idcompraestadotipo}}}">
+                        {{{estadocompra idcompraestadotipo}}}
                     </span>
                 </p>
             </div>

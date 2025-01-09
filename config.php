@@ -8,7 +8,7 @@ session_start();
 // CONFIGURACION APP//
 /////////////////////////////
 //usa la información del servidor para determinar automáticamente el directorio del proyecto
-$PROYECTO = basename(__DIR__);;
+$PROYECTO = basename(__DIR__);
 
 //variable que almacena el directorio del proyecto
 $ROOT = $_SERVER['DOCUMENT_ROOT']."/$PROYECTO/";

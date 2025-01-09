@@ -33,7 +33,7 @@ $usuario = $session->getUsuario();
                     <a href="../../../../TP-Final-TiendaZapatillas-Prog.Dinamica/index.php"><img src="../Assets/imgs/th.jpg" alt="" class="h-100 w-100 objet-fit rounded"></a>
                 </div>
                
-                <div class="d-flex w-30 gap align-self-center">
+                <div class="d-flex w-30 gap align-self-center" id="icono-login-tienda">
     
                     <div class="w-h">
                         <div class="w-40 offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
