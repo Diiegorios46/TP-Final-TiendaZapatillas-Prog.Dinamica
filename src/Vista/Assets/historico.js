@@ -1,3 +1,13 @@
+function volverMenu(){
+    document.querySelector('.btn-volver-configuracion').addEventListener('click', function() {
+        const url = this.getAttribute('data-url');
+        if (url) {
+            window.location.href = url;
+        } 
+    });
+}
+
+
 $.ajax({
     url: './listarComprasItems.php',
     type: 'GET',
@@ -9,34 +19,46 @@ $.ajax({
         $('.deposito-menu').html('');
         $('.deposito-title').hide('');
 
-        var sourceTitle = document.getElementById("template-title").innerHTML;
+        var sourceTitle = document.getElementById("titleModificarProducto-template").innerHTML;
         var templateTitle = Handlebars.compile(sourceTitle);
-        $('.container-Tittle-volver').html(templateTitle);
+        $('.container-Tittle-volver').html(templateTitle ({titulo : "Historico de compras" }));
         
-        var sourceCard = document.getElementById("template-card").innerHTML
+        var sourceCard = document.getElementById("template-card").innerHTML;
         var templateCard = Handlebars.compile(sourceCard);
 
         let row = $('<div class="row"></div>');  
 
-        data.forEach((element, index) => {
-            let cardHtml = templateCard(element); 
-            row.append(cardHtml);            
-            
-            if ((index + 1) % 3 === 0) {
-                container.append(row);
-                row = $('<div class="row"></div>'); 
-            }
-        });
+        if (data.length === 0) {
+            // Si no hay elementos, mostrar un mensaje indicando que está vacío
+            $("#mensajeOperacion").addClass('alert alert-secondary text-center w-100').html('No hay elementos disponibles.');
+        
+        } else {
+            data.forEach((element, index) => {
+                let cardHtml = templateCard(element); 
+                row.append(cardHtml);            
+                
+                if ((index + 1) % 3 === 0) {
+                    container.append(row);
+                    row = $('<div class="row"></div>'); 
+                }
+            });
 
-        if (data.length % 4 !== 0) {
-            container.append(row);
+            if (data.length % 3 !== 0) {
+                container.append(row);
+            }
         }
 
+        volverMenu();        
         $('#contenido').append(container);
+    },
+    error: function (xhr, status, error) {
+        console.log('Error al cargar los datos:', error);
+        $('#contenido').append('<div class="alert alert-danger text-center w-100">Error al cargar los datos.</div>');
     }
 });
 
-    function traerHistorico(idcompra) {
+
+function traerHistorico(idcompra) {
     $.ajax({
         url: './action.php',
         type: 'POST',
@@ -110,5 +132,3 @@ $.ajax({
         }
     });
 }
-
-

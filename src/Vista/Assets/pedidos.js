@@ -1,10 +1,19 @@
 
+function volverMenu(){
+    document.querySelector('.btn-volver-configuracion').addEventListener('click', function() {
+        const url = this.getAttribute('data-url');
+        if (url) {
+            window.location.href = url;
+        } 
+    });
+}
+
 $('.deposito-menu').html('');
 $('.deposito-title').hide('');
 
 var sourceTitle = document.getElementById('templateMenu').innerHTML;
 var templateTitle = Handlebars.compile(sourceTitle);
-$('.container-Tittle-volver').html(templateTitle);
+$('.container-Tittle-volver').html(templateTitle ({titulo : "Ver paquetes"}));
 
 $.ajax({
     url: "./verCompras.php",
@@ -12,6 +21,7 @@ $.ajax({
     dataType: 'json',
     success: function(result) {
         console.log(result);
+        volverMenu();
 
         if(result == 'No tiene permisos'){
             $('#mensajeOperacion').html('No tiene permisos para ver esta página');
@@ -21,21 +31,20 @@ $.ajax({
 
         if (Array.isArray(result)) {
             let row;
-            let deposito = $('.deposito-menu').html('');
             let grid = $('.grid').html('');
             var source = document.getElementById('templatePedido').innerHTML;
             var template = Handlebars.compile(source);
 
             if ($('.deposito-menu').is(':empty')) {
-                $('.deposito-menu').html('<div class="alert alert-dark alert-dismissible fade show text-center w-100">No hay nada en el depósito.</div>');
+                $('#mensajeOperacion').addClass("alert alert-dark alert-dismissible fade show text-center w-100").html("No hay nada en el depósito");
                 $('.deposito-menu').css('min-height', '0px');
             }
 
 
             result.forEach(function(datos, index) {
                 
-                if (index % 1 === 0) {
-                    row = $('<div class="row mt-3 mb-3"></div>'); 
+                if (index % 4 === 0) {
+                    row = $('<div class="row mt-3 mb-3 justify-content-between" id="container-cards-pedidos"></div>'); 
                     $('.grid').append(row); 
                     $('.grid').addClass('w-100')
                     $('.deposito-menu').html(grid);

@@ -128,6 +128,11 @@ body {
     width: 40% !important;
 }
 
+.w-45{
+    width: 45% !important;
+
+}
+
 .w-10{
     width: 10%;
 }
@@ -181,7 +186,6 @@ body {
 .deposito-menu {
     display: flex;
     flex-direction: column;
-    gap: 20px;
     align-items: center;
 }
 
@@ -212,7 +216,7 @@ button {
 /* Estilos para el botón "Subir un producto" */
 .btn-subir-producto {
     background-color: #3498db;
-    color: white;
+    color: black;
 }
 
 .btn-subir-producto:hover {
@@ -279,6 +283,8 @@ button {
     border: 1px solid #ccc;
     border-radius: 5px;
     transition: border-color 0.3s ease, background-color 0.3s ease;
+    margin: auto;
+    width: 80%;
 }
 
 .form-input:focus,
@@ -359,10 +365,9 @@ button {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    gap: 20px;
-    padding: 20px;
     border-radius: 8px;
     min-height: 700px;
+    gap: 5px;
 }
 
 .deposito-link-agregar,
@@ -395,10 +400,7 @@ button {
 }
 
 
-
-
-
-section.container-sm.d-flex.gap {
+section .container-sm.d-flex.gap {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -411,8 +413,14 @@ section.container-sm.d-flex.gap {
     overflow: hidden;
     width: 100%;
     background-color: #fff;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2) !important;
+    height: 100%;
+    justify-content: space-evenly;
+}
+
+#card-Pedidos{
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2) !important;
 }
 
 .card:hover {
@@ -534,6 +542,10 @@ section.container-sm.d-flex.gap {
     margin-right: 5%;
 }
 
+.mr-10Porciento {
+    margin-right: 10%;
+}
+
 .w-80 {
     width: 80%;
 }
@@ -552,13 +564,9 @@ section.container-sm.d-flex.gap {
 /*NUEVO*/
 
 .formularioMenuConfig {
-    max-width: 800px;
-    padding: 15%;
-    background-color: #6b394f;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-left: 8px;
     width: 100%;
-    border-radius: 24px 0px 0px 24px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Sombra */
 }
 
 .bg-ee9f40 {
@@ -593,14 +601,9 @@ section.container-sm.d-flex.gap {
 }
 
 .formAgregarProducto{
-    padding: 30px;
-    background-color: #f9f9f9;
+    background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.inputForm{
-    border-bottom: 1px solid black;
 }
 
 
@@ -695,7 +698,6 @@ section.container-sm.d-flex.gap {
 }
 .column-diego{
     flex: 0 0 25%;      
-  max-width: 25%;   
   max-height: 80%;   
   box-sizing: border-box;
 }
@@ -704,13 +706,16 @@ section.container-sm.d-flex.gap {
 @media (max-width: 1200px) {
     #prueba .col-3 { 
         width: 50% !important;
-        height: 100%; 
+        height: auto; 
     }
     .card-button{
         margin-top: 20%;
     }
     #prueba .row{
         row-gap: 10%;
+    }
+    .opcionesMenu{
+        width: 70% !important;
     }
 }
 
@@ -763,10 +768,213 @@ section.container-sm.d-flex.gap {
     }
 }
 
-#prueba .row{
-    max-height: 350px;
+@media (max-width: 425px) {
+    .container-buttons-C-A {
+        justify-content : center !important;
+        margin-right : 0 !important
+    }
 }
 
-#prueba .col-3{
-    height: 100%;
+#prueba .row{
+    height: 350px;
+}
+
+
+.opcionesMenu{
+    width: 80%;
+    padding: 3%;
+    background-color: #ffffff;
+    border-radius: 50px;
+    border: 1px solid #fd7e14;
+
+}
+
+.opcionesMenu:hover {
+    background-color: #fd7e14; /* Cambia el fondo a un gris más claro */
+    cursor: pointer; /* Cursor de mano al pasar el ratón */
+}
+
+.opcionesMenu a{
+    text-decoration: none;
+    color: #000000;
+    text-align: center;
+    font-size: larger;
+}
+
+.iconoMenu{
+    width: 10%;
+}
+
+.opcionesMenu div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.text-align{
+    display: flex;
+    align-items: center;
+}
+
+#menuDinamico{
+    display: flex;
+    justify-content: center;
+    height: 600px;
+}
+
+.form-input , .form-label{
+    width: 90%;
+    margin: auto;
+}
+
+.container-configuracionText{
+    font-size: 2rem;
+    margin-left: 10%;
+    margin-right: 10%;
+    display: flex; 
+    justify-content: space-between;
+}
+
+.container-buttons-C-A{
+    /* margin-top: 5%; */
+}
+
+.btn-rojo{
+    background-color: #FF4F4F;
+}
+
+.btn-volver-configuracion{
+    padding: 11px 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: #a8a8a8;
+    display: block;
+}
+
+.error{
+    margin: auto;
+    width: 80%;
+    display: block;
+}
+
+#promarca{
+    width: 80%;
+    margin: auto;
+}
+
+.deposito-menu .grid{
+    height: 500px;
+}
+
+.mediaQueryDosTargetas{
+    padding-bottom: 12px;
+}
+
+@media (max-width: 995px){
+    .mediaQueryDosTargetas{
+        width: 50% !important;
+        height: auto !important;
+        padding-bottom: 12px;
+
+    }
+    #menuDinamico{
+        height: auto ;
+    }
+    .deposito-menu .grid{
+        height: auto;
+    }
+
+    .container-Tittle-volver{
+        margin-bottom: 5%;
+    }
+
+}
+
+@media (max-width: 990px){
+    #menuDinamico .d-flex{
+        padding-bottom: 12px;
+        padding-top: 20px;
+    }
+}
+
+@media (max-width: 780px){
+    .column-diego{
+        flex: 0 0 46%;
+    }
+    .card{
+        width: 100%;
+    }
+}
+
+@media (max-width: 320px){
+    .column-diego{
+        flex: 0 0 100%;
+    }
+
+}
+
+@media (max-width : 426px){
+    .container-configuracionText{
+        flex-direction : row-reverse;
+    }
+    .container-configuracionText span:first-child{
+        font-size: 1.0rem;
+        display: flex;
+        align-items: center;
+    }
+    .btn-volver-configuracion{
+        padding: 10px 10px;
+    }
+}
+
+@media (max-width: 930px){
+    #container-cards-pedidos{
+        justify-content: space-between;
+    }
+
+    #card-Pedidos{
+        width: 45% !important;
+
+    }
+}
+
+
+.formularioUsuarioNuevo{
+    height: 460px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.w-30{
+    width: 30%;
+}
+
+
+.container-img-position{
+    position: relative;
+    left: 0.5%
+}
+
+.h-vh-100{
+    height: 100vh;
+}
+
+.transfor-img{
+    transform: translate(0px, -200px);
+}
+
+.h-88{
+    height: 88% ;
+}
+
+.h-105{
+    height: 105% !important;
+}
+
+.object-fit-fill{
+    object-fit: cover;
 }

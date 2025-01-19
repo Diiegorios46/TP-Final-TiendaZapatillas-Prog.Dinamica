@@ -2,10 +2,9 @@
     include '../estructura/cabeceraSegura.php';
 ?>
 
+<div id='mensajeOperacion'></div>
+
 <div class="container-sm min-vh-100">  
-
-    <div id='mensajeOperacion'></div>
-
     <h1 class="deposito-title pt-4">Menu</h1>
     <div class="container-Tittle-volver mt-5"></div>
 
@@ -16,21 +15,20 @@
 
 </div>
 
-<script id="templateMenu" type="text/template">
-    <div class="container-sm d-flex w-75">
-    <div class="d-flex w-5">   
-            <a href="../menu/index.php" class="d-flex align-content-center">
-            <div class="w-100"><img src="../Assets/imgs/volver.png" alt="" class="h-100 w-100 p-1 rounded-circle"></div> 
-            </a>
+    <script id="templateMenu" type="text/template">           
+    <div class="container-configuracionText mt-5" >
+        <span>{{titulo}}</span>
+        <div class="btn-volver-configuracion" data-url="../menu/index.php">
+            <i class="bi bi-gear w-100 text-dark"></i>
+            <span>Volver</span>
+        </div>
     </div>
-    <div class="w-100 d-flex justify-content-center">
-        <h1>Ver paquetes</h1>
+
     </div>
-</div>
-</script>
+    </script>
 
 <script id="templatePedido" type="text/template">
-    <div class="col-md-3 col-sm-6 mb-3 evalua w-25 shadow p-3">  
+    <div class="col-md-3 col-sm-6 mb-3 evalua w-25 p-3" id="card-Pedidos">  
         <div class="d-flex flex-column ">
         <div class="text-center p-1">Pedido numero: {{idcompraitem}}</div>
         <div class="text-center p-1">Id de la Compra: {{idcompra}}</div>
@@ -69,4 +67,4 @@
 </script>
 
 
-<script src="../Assets/pedidos.js"></script>
+<script src="../Assets/pedidos.js?v=1.1.0"></script>

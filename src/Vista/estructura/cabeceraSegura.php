@@ -28,7 +28,7 @@ $usuario = $session->getUsuario();
 
 <header class="container-fluid m-0 p-0">
         <nav class="container-fluid fs-3 bg-naranja p-4">
-            <div class="container-sm d-flex justify-content-between">
+            <div class="container-sm d-flex justify-content-between p-0">
                 <div class="w100-h55">
                     <a href="../../../../TP-Final-TiendaZapatillas-Prog.Dinamica/index.php"><img src="../Assets/imgs/th.jpg" alt="" class="h-100 w-100 objet-fit rounded"></a>
                 </div>
@@ -60,7 +60,7 @@ $usuario = $session->getUsuario();
                             <a href="../menu/index.php" class="btn-link text-reset hoverCabecera">
                                 <i class="bi bi-gear w-100 text-light"></i>
                             </a>
-
+    
                         
                              <i class="bi bi-cart hoverCabecera text-light w25-h55" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"></i>
 

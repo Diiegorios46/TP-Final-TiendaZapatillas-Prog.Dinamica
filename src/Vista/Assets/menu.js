@@ -14,13 +14,29 @@ $(document).ready(function() {
             $('.deposito-menu').html('');
             
             menu.forEach(descripcion => {
-                $('.deposito-menu').append(`<a href="${descripcion.descripcion}"><button class="btn btn-outline-primary">${descripcion.nombre}</button></a>`);
+                $('.deposito-menu').append(
+                    `<div class="opcionesMenu">
+                        <div>
+                            <a href="${descripcion.descripcion}" class="text-align" >${descripcion.nombre} </a>
+                        </div>
+                    </div>
+                `);
             });
-            $('.deposito-menu').addClass('justify-content-start');
+
+            document.querySelectorAll('.opcionesMenu').forEach(div => {
+                div.addEventListener('click', () => {
+                    const link = div.querySelector('a');
+                    if (link) {
+                        window.location.href = link.href;
+                    }
+                });
+            });
+            
+            $('.deposito-menu').addClass('justify-content-around');
             $('.deposito-menu').addClass('flex-column');
         },
         error: function(xhr, status, error) {
-            console.log('Error al cargar los datos.');
+            console.log('Error al c´argar los datos.');
         }
     });
 });

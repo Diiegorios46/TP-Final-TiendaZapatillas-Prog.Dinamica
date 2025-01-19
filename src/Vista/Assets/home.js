@@ -32,7 +32,7 @@ function mostrarProductos() {
             
             response.forEach((producto, index) => {
                 if (index % 4 === 0) {
-                    row = $('<div class="row mt-4 mb-4"></div>');
+                    row = $('<div class="row mt-4 h-100"></div>');
                     $('#prueba').append(row);
                 }
 

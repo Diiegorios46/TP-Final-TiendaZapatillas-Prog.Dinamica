@@ -4,16 +4,30 @@ if(menu.m == '3'){
         $('.deposito-menu').html('');
         $('.deposito-title').hide('');
     
-        var sourceTitle = document.getElementById('menuDinamico-template').innerHTML;
-        var templateTitle = Handlebars.compile(sourceTitle);
-        
-        $('.container-Tittle-volver').html(templateTitle);
-        
         var source = document.getElementById('formAgregarProducto-template').innerHTML;
         var template = Handlebars.compile(source);
-
-        $('.deposito-menu').html(template);
+        htmlTitle = template({titulo : "Agregar un nuevo producto"}) 
+        $('.deposito-menu').html(htmlTitle);
     
+        document.querySelector('.btn-volver-configuracion').addEventListener('click', function() {
+            const url = this.getAttribute('data-url');
+            if (url) {
+                window.location.href = url;
+            } 
+        });
+
+        function toggleVisibility() {
+            const element = document.querySelector('.btn-volver-configuracion');
+            if (window.innerWidth < 995) { 
+                element.style.display = 'none'; 
+            } else {
+                element.style.display = ''; 
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', toggleVisibility);
+        window.addEventListener('resize', toggleVisibility);
+        
         $('#fm').validate({
             rules: {
                 pronombre: {    
@@ -90,9 +104,17 @@ if(menu.m == '3'){
         $('.deposito-title').hide('');
     
         var sourceTitle = document.getElementById('titleModificarProducto-template').innerHTML;
-        var templateTitle = Handlebars.compile(sourceTitle);
+        var template = Handlebars.compile(sourceTitle);
+        var templateTitle = template({titulo : "Modificar un producto"})
         $('.container-Tittle-volver').html(templateTitle);
     
+        document.querySelector('.btn-volver-configuracion').addEventListener('click', function() {
+            const url = this.getAttribute('data-url');
+            if (url) {
+                window.location.href = url;
+            } 
+        });
+        
         Handlebars.registerHelper('json', function(context) {
             return JSON.stringify(context).replace(/"/g, '&quot;');
         });
@@ -112,7 +134,7 @@ if(menu.m == '3'){
 
                 result.forEach(function(producto ,index) {
                     if (index % 4 === 0) {
-                            row = $('<div class="row mt-4 mb-4"></div>');
+                            row = $('<div class="row h-100"></div>');
                             $('.grid').append(row);
                             $('.deposito-menu').html(grid); 
                     }

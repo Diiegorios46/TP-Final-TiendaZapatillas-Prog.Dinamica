@@ -2,31 +2,34 @@
 include '../estructura/cabeceraSegura.php';
 ?>
 
-<div class="container-Tittle-volver mt-5">
+<div id='mensajeOperacion'></div>
+
+
+<div class="container-sm min-vh-100">
+    
+<div class="container-Tittle-volver mt-5"></div>
+<div id="contenido"></div>
+
 </div>
 
-<div id="contenido">
-</div>
 
 
-<script id="template-title" type="text/x-handlebars-template">
-    <div class="container-sm d-flex w-75">
-        <div class="d-flex w-5">   
-                <a href="../menu/index.php" class="d-flex align-content-center">
-                    <div class="w-100">
-                        <img src="../Assets/imgs/volver.png" alt="" class="h-100 w-100 p-1 rounded-circle"/>
-                    </div> 
-                </a>
-        </div>
-        <div class="w-100 d-flex justify-content-center">
-            <h1>Historico de compras</h1>
-        </div>
-    </div>
-</script>
+<script id="titleModificarProducto-template" type="text/x-handlebars-template">
+           
+           <div class="container-configuracionText mt-5" >
+               <span>{{titulo}}</span>
+               <div class="btn-volver-configuracion" data-url="../menu/index.php">
+                   <i class="bi bi-gear w-100 text-dark"></i>
+                   <span>Volver</span>
+               </div>
+           </div>
+
+       </div>
+   </script>
 
 <script id="template-card" type="text/x-handlebars-template">
-    <div class="col-12 col-md-4 col-lg-3 m-4">
-        <div class="card shadow-lg rounded border" style="width: 18rem;">
+    <div class="col">
+        <div class="card shadow-lg rounded border">
             <div class="card-body">
                 <h5 class="card-title text-dark font-bold">Numero de compra: {{idcompra}}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">ID producto: {{idproducto}}</h6>
@@ -72,4 +75,17 @@ include '../estructura/cabeceraSegura.php';
 </script>
 
 
-<script src="../Assets/historico.js"></script>
+    <script id="titleModificarProducto-template" type="text/x-handlebars-template">
+           
+           <div class="container-configuracionText mt-5" >
+               <span>{{titulo}}</span>
+               <div class="btn-volver-configuracion" data-url="../menu/index.php">
+                   <i class="bi bi-gear w-100 text-dark"></i>
+                   <span>Volver</span>
+               </div>
+           </div>
+
+       </div>
+   </script>
+
+<script src="../Assets/historico.js?v=1.0.0"></script>

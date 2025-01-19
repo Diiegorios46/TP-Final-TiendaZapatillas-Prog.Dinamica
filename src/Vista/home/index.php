@@ -115,7 +115,7 @@
         <script id="template-card-zapatillas" type="text/template">
 
             <div class="col-3 col-6 col-md-3">
-                <div class="card d-flex w-100 h-100 p-3 sombraCard">
+                <div class="card d-flex w-100 h-100 sombraCard p-2">
                     <div class="card-img w-100">
                         <img src="{{proimagen1}}" alt="" class="w-100 h-100 img-card">
                     </div>
@@ -156,7 +156,7 @@
             </div>
         </script>
         
-        <script src="../Assets/home.js?=1.0.0"></script>
+        <script src="../Assets/home.js?=1.1.0"></script>
 </body>
 </html>
 

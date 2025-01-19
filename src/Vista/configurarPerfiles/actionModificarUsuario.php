@@ -1,6 +1,6 @@
 <?php
 include '../../../config.php';
-header('Content-Type: application/json');
+
 $datosNuevosUsuario = data_submitted();
 $abmUsuario = new abmUsuario();
 $abmUsuarioRol = new abmUsuarioRol();
@@ -30,11 +30,11 @@ foreach ($datosNuevosUsuario as $key => $value) {
 $datos['usdeshabilitado'] = $usuarioViejo['usdeshabilitado'];
 $datos['idrol'] = $datosNuevosUsuario['idrol'];
 if ($abmUsuario->abm($datos)) {
-    echo "Usuario modificado correctamente";
+    echo json_encode("Usuario modificado correctamente");
     if($abmUsuarioRol->abm($datos)){
-        echo "Rol del usuario modificado correctamente";
+        echo json_encode("Rol del usuario modificado correctamente");
     } else {
-        echo "Error al modificar el rol del usuario";
+        echo json_encode("Error al modificar el rol del usuario");
     }
 } else {
     echo "Error al modificar el usuario";
