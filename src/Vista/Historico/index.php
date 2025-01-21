@@ -16,7 +16,7 @@ include '../estructura/cabeceraSegura.php';
 
 <script id="titleModificarProducto-template" type="text/x-handlebars-template">
            
-           <div class="container-configuracionText mt-5" >
+           <div class="container-configuracionText mt-5 mb-5" >
                <span>{{titulo}}</span>
                <div class="btn-volver-configuracion" data-url="../menu/index.php">
                    <i class="bi bi-gear w-100 text-dark"></i>
@@ -65,8 +65,8 @@ include '../estructura/cabeceraSegura.php';
                 <div class="card-subtitle mb-2 text-muted">Inicio: {{cefechaini}}</div>
                 <p class="card-text">Terminó: {{cefechafin}}</p>
                 <p class="card-subtitle mb-2"> Estado de la compra: 
-                    <span class="badge rounded px-3 py-2 {{{clasecolor idcompraestadotipo}}}">
-                        {{{estadocompra idcompraestadotipo}}}
+                    <span class="badge rounded px-3 py-2 {{clasecolor idcompraestadotipo}}">
+                        {{estadocompra idcompraestadotipo}}
                     </span>
                 </p>
             </div>
@@ -74,18 +74,4 @@ include '../estructura/cabeceraSegura.php';
     </div>
 </script>
 
-
-    <script id="titleModificarProducto-template" type="text/x-handlebars-template">
-           
-           <div class="container-configuracionText mt-5" >
-               <span>{{titulo}}</span>
-               <div class="btn-volver-configuracion" data-url="../menu/index.php">
-                   <i class="bi bi-gear w-100 text-dark"></i>
-                   <span>Volver</span>
-               </div>
-           </div>
-
-       </div>
-   </script>
-
-<script src="../Assets/historico.js?v=1.0.0"></script>
+<script src="../Assets/historico.js?v=<?php echo time();?>"></script>

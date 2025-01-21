@@ -1,3 +1,5 @@
+
+
 function volverMenu(){
     document.querySelector('.btn-volver-configuracion').addEventListener('click', function() {
         const url = this.getAttribute('data-url');
@@ -7,6 +9,33 @@ function volverMenu(){
     });
 }
 
+Handlebars.registerHelper('estadocompra', function(idcompraestadotipo) {
+    if (idcompraestadotipo === "1") {
+        return 'Iniciada';
+    } else if (idcompraestadotipo === "2") {
+        return 'Aceptada';
+    } else if (idcompraestadotipo === "3") {
+        return 'Enviada';
+    } else if (idcompraestadotipo === "4") {
+        return 'Cancelada';
+    } else {
+        return 'Desconocida';
+    }
+});
+
+Handlebars.registerHelper('clasecolor', function(idcompraestadotipo) {
+    if (idcompraestadotipo === "1") {
+        return 'bg-primary';
+    } else if (idcompraestadotipo === "2") {
+        return 'bg-celeste';
+    } else if (idcompraestadotipo === "3") {
+        return 'bg-success text-light';
+    } else if (idcompraestadotipo === "4") {
+        return 'bg-danger';
+    } else {
+        return 'bg-secondary';
+    }
+});
 
 $.ajax({
     url: './listarComprasItems.php',
@@ -65,6 +94,7 @@ function traerHistorico(idcompra) {
         data: { idcompra: idcompra },
 
         success: function (data) {
+            console.log(data)
             data = JSON.parse(data);
 
             let container = $('<div class="container-sm"></div>');
@@ -73,45 +103,16 @@ function traerHistorico(idcompra) {
             $('.deposito-menu').html('');
             $('.deposito-title').hide('');
 
-            var sourceTitle = document.getElementById("template-InformacionCompras").innerHTML;
+
+            var sourceTitle = document.getElementById("titleModificarProducto-template").innerHTML;
             var templateTitle = Handlebars.compile(sourceTitle);
+            $('.container-Tittle-volver').html(templateTitle ({titulo : "Informacion de las compras" }));
 
-            $('.container-Tittle-volver').html(templateTitle);
-
+            volverMenu();
+            
             let row; 
 
             var sourceCard = document.getElementById("template-CardInformacionCompra").innerHTML
-
-            Handlebars.registerHelper('estadocompra', function(idcompraestadotipo) {
-                switch(idcompraestadotipo) {
-                    case 1:
-                        return 'Iniciada';
-                    case 2:
-                        return 'Aceptada';
-                    case 3:
-                        return 'Enviada';
-                    case 4:
-                        return 'Cancelada';
-                    default:
-                        return 'Desconocida';
-                }
-            });
-        
-            Handlebars.registerHelper('clasecolor', function(idcompraestadotipo) {
-                switch(idcompraestadotipo) {
-                    case 1:
-                        return 'bg-primary';
-                    case 2:
-                        return 'bg-celeste';
-                    case 3:
-                        return 'bg-success text-light';
-                    case 4:
-                        return 'bg-danger';
-                    default:
-                        return 'bg-secondary';
-                }
-            });
-            
             var templateCard = Handlebars.compile(sourceCard);
 
             data.forEach((element, index) => {
