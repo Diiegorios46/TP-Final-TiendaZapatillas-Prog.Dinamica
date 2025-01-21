@@ -144,11 +144,11 @@ if ($session->validar()) {
                 <div class="card-infoZapatillas d-flex">
                     <p class="nombre-zapatilla align-self-center mb-0 fs-6">{{nombre}}</p>
                 </div>
-                <div class="d-flex">
+                <div class="d-flex" >
                     <span class="align-self-center fs-6">{{precio}}</span>
                 </div>
                 <div class="d-flex">
-                    <span class="align-self-center fs-6">{{cantidad}} unidades</span>
+                    <span class="align-self-center fs-6" >{{cantidad}} unidades</span>
                 </div>
                 <div class="align-self-center">
                     <button type="button" class="btn btn-dark" onclick="sacarDelcarrito(this)">
@@ -167,13 +167,13 @@ if ($session->validar()) {
                     <div class="card-infoZapatillas d-flex">
                         <p class="nombre-zapatilla align-self-center mb-0 fs-6">{{nombre}}</p>
                     </div>
-                    <div class="d-flex">
-                        <span class="align-self-center fs-6">${{precio}}</span>
+                    <div class="d-flex" style="width:15%">
+                        <span class="align-self-center fs-6" >${{precio}}</span>
                     </div>
-                    <div class="d-flex">
-                        <span class="align-self-center fs-6">{{cantidad}}</span>
+                    <div class="d-flex" style="width:15%">
+                        <span class="align-self-center fs-6" >{{cantidad}}</span>
                     </div>
-                    <div class="align-self-center">
+                    <div class="align-self-center text-center" style="width:15%">
                         <button type="button" class="btn btn-dark" onclick="sacarDelcarrito(this)">
                             <i class="bi bi-x"></i>
                         </button>

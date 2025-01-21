@@ -36,6 +36,7 @@ Handlebars.registerHelper('usdeshabilitado', function (usdeshabilitado) {
 
 if (menu == 1) {
     let url = './actionlistarDatosUsuario.php';
+
     $.ajax({
         url: url,
         type: 'GET',
@@ -133,6 +134,7 @@ if (menu == 1) {
             console.log('Error: ' + error);
         },
     });
+
 } else if (menu == 5) {
     url = './actionAltaUsuario.php';
 
@@ -197,8 +199,6 @@ if (menu == 1) {
     });
 } else if (menu == 6) {
     //BORRAR UN USUARIO 
-
-    console.log("soy el primero 6")
 
     url = './listarUsuarios.php';
     $('.deposito-title').hide('');
@@ -289,7 +289,6 @@ if (menu == 1) {
 
 } else if (menu == 7) {
     //Inicio del modificar usuario 
-    console.log("soy el primer 7")
     url = './listarUsuarios.php';
 
     $('.deposito-title').hide('');

@@ -2,6 +2,9 @@ $(document).ready(function () {
     mostrarProductos();
 });
 
+
+// Agregar sacar del carrito que lo contabilice
+
 var carrito = [];
 var modales = document.getElementsByClassName('offcanvas-body');
 var contadorProductos = 0;
@@ -92,7 +95,7 @@ function sacarDelcarrito(button) {
 }
 
 
-function sumarUnProductoAlContador(){
+function sumarUnProductoAlContador(condicion){
     contadorProductos++;
     $('.numItems').removeClass('d-none');
     $('.numItems').addClass('d-block');
