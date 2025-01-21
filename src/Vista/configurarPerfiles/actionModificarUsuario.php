@@ -16,6 +16,7 @@ $datos = [];
 $datos['accion'] = 'editar';
 $datos['uspass'] = $usuarioViejo['uspass'];
 
+//elimina el elemento con la clave rodescripcion
 unset($datosNuevosUsuario['rodescripcion']);
 
 foreach ($datosNuevosUsuario as $key => $value) {
@@ -27,8 +28,10 @@ foreach ($datosNuevosUsuario as $key => $value) {
         }
     }
 }
+
 $datos['usdeshabilitado'] = $usuarioViejo['usdeshabilitado'];
 $datos['idrol'] = $datosNuevosUsuario['idrol'];
+
 if ($abmUsuario->abm($datos)) {
     echo json_encode("Usuario modificado correctamente");
     if($abmUsuarioRol->abm($datos)){
@@ -39,4 +42,6 @@ if ($abmUsuario->abm($datos)) {
 } else {
     echo "Error al modificar el usuario";
 }
+
+
 ?>

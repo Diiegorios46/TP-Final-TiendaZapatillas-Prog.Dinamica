@@ -252,6 +252,6 @@ if($session->getRol() != 1){
 
 </script>
 
-<script src="../Assets/confirurarPerfiles.js?v=1.7.7"></script>
+<script src="../Assets/confirurarPerfiles.js?v=<?php echo time() ?>"></script>
 
 
