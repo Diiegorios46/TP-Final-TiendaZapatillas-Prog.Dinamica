@@ -1,7 +1,7 @@
 body {
     padding: 0;
     margin: 0;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: Sans-serif;
 }
 
 #btnDeposito>button {
@@ -367,7 +367,6 @@ button {
     justify-content: center;
     border-radius: 8px;
     min-height: 700px;
-    gap: 5px;
 }
 
 .deposito-link-agregar,
@@ -798,7 +797,7 @@ section .container-sm.d-flex.gap {
     text-decoration: none;
     color: #000000;
     text-align: center;
-    font-size: larger;
+    font-size: large;
 }
 
 .iconoMenu{
@@ -964,7 +963,7 @@ section .container-sm.d-flex.gap {
 }
 
 .transfor-img{
-    transform: translate(0px, -200px);
+    transform: translate(0px, -127px);
 }
 
 .h-88{

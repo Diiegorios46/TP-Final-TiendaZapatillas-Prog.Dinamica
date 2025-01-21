@@ -6,26 +6,26 @@
 
 <div class="container-sm min-vh-100">  
     <h1 class="deposito-title pt-4">Menu</h1>
-    <div class="container-Tittle-volver mt-5"></div>
+    <div class="container-Tittle-volver mt-5 mb-5"></div>
 
     <div class="deposito-menu" id="menuDinamico">
         <!--viene el codigo de jquery-->
     </div>
-    <div class="grid"></div>
+    <div class="grid">
+        <!-- codigo jquery -->
+    </div>
 
 </div>
 
-    <script id="templateMenu" type="text/template">           
-    <div class="container-configuracionText mt-5" >
+<script id="templateMenu" type="text/template">           
+    <div class="container-configuracionText mt-3" >
         <span>{{titulo}}</span>
         <div class="btn-volver-configuracion" data-url="../menu/index.php">
             <i class="bi bi-gear w-100 text-dark"></i>
             <span>Volver</span>
         </div>
     </div>
-
-    </div>
-    </script>
+</script>
 
 <script id="templatePedido" type="text/template">
     <div class="col-md-3 col-sm-6 mb-3 evalua w-25 p-3" id="card-Pedidos">  
@@ -50,8 +50,8 @@
                 <!-- Aquí se insertarán los detalles de los pedidos -->
             </div>
             <div class="d-flex justify-content-center gap-2 mt-3">
-                <button class="btn btn-success" onclick="evaluar({{idcompra}}, 1)">Aceptar</button>
-                <button class="btn btn-danger" onclick="evaluar({{idcompra}}, 0)">Cancelar</button>
+                <button class="btn btn-success" onclick="evaluar({{idcompraParm}}, 1)">Aceptar</button>
+                <button class="btn btn-danger" onclick="evaluar({{idcompraParm}}, 0)">Cancelar</button>
             </div>
         </div>
     </div>
@@ -67,4 +67,4 @@
 </script>
 
 
-<script src="../Assets/pedidos.js?v=1.1.0"></script>
+<script src="../Assets/pedidos.js?v=<?php echo time();?>"></script>
