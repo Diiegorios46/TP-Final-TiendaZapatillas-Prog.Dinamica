@@ -60,9 +60,14 @@ $usuario = $session->getUsuario();
                             <a href="../menu/index.php" class="btn-link text-reset hoverCabecera">
                                 <i class="bi bi-gear w-100 text-light"></i>
                             </a>
-    
-                        
-                             <i class="bi bi-cart hoverCabecera text-light w25-h55" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"></i>
+
+                            <div class="position-relative">
+                                <i class="bi bi-cart hoverCabecera text-light w25-h55" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"></i>
+                                <span class="bg-dark text-white text-center fs-5 w-100 rounded-circle position-absolute bottom-0 end-0 translate-middle d-none numItems" 
+                                style="margin-bottom: 10px; margin-right: -31px;">1</span>
+                            </div>
+
+
 
 
                             <i class="bi bi-person-circle dropdown-toggle icono-persona hoverCabecera text-light" id="dropdownMenuButton"  data-bs-toggle="dropdown" aria-expanded="false"> 
