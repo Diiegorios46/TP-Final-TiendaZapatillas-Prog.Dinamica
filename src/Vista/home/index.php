@@ -133,9 +133,7 @@ if ($session->validar()) {
                 <span class="data-idproducto">{{idproducto}}</span>
             </div>
             <div class="card-button text-center pt-3">
-                <button class="p-2 agregarCarrito btn btn-dark" onclick="agregarAlCarrito(this)">
-                    Agregar al carrito
-                </button>
+            <button class="p-2 agregarCarrito btn btn-dark" id="myButton" onclick="agregarAlCarrito(this)">Agregar al carrito</button>
             </div>
         </div>
     </div>
