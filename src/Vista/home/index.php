@@ -115,26 +115,32 @@ if ($session->validar()) {
 
 
     <script id="template-card-zapatillas" type="text/template">
-
-        <div class="col-3 col-6 col-md-3">
-                <div class="card d-flex w-100 h-100 sombraCard p-2">
-                    <div class="card-img w-100">
-                        <img src="{{proimagen1}}" alt="" class="w-100 h-100 img-card">
-                    </div>
-                    <div class="card-marca">{{promarca}}</div>
-                    <div class="card-infoZapatillas data-nombre">{{pronombre}}</div>
-                    <div class="card-precioMasDescuento">
-                        <strong>$</strong><span class="data-precio">{{proprecio}}</span><strong>USD</strong>
-                    </div>
-                    <div class="hidden">
-                        <span class="data-idproducto">{{idproducto}}</span>
-                    </div>
-                    <div class="card-button text-center pt-3">
-                        <button class="p-2 agregarCarrito btn btn-dark" id="myButton" onclick="agregarAlCarrito(this)">Agregar al carrito</button>
-                    </div>
-                </div>
+    <div class="col-3 col-6 col-md-3">
+        <div class="card d-flex sombraCard p-2 h-auto">
+            <div class="card-img">
+                <img src="{{proimagen1}}" alt="" class="w-100 h-auto img-card">
             </div>
-        </script>
+            <div class="card-marca">
+                {{promarca}}
+            </div>
+            <div class="card-infoZapatillas data-nombre">
+                {{pronombre}}
+            </div>
+            <div class="card-precioMasDescuento">
+                <strong>$</strong><span class="data-precio">{{proprecio}}</span><strong>USD</strong>
+            </div>
+            <div class="hidden">
+                <span class="data-idproducto">{{idproducto}}</span>
+            </div>
+            <div class="card-button text-center pt-3">
+                <button class="p-2 agregarCarrito btn btn-dark" onclick="agregarAlCarrito(this)">
+                    Agregar al carrito
+                </button>
+            </div>
+        </div>
+    </div>
+    </script>
+
 
     <script id="template-carrito" type="text/template">
         <div class="border border-dark d-flex flex-row justify-content-around card">

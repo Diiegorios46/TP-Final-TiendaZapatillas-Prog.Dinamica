@@ -199,21 +199,20 @@ if (menu == 1) {
     });
 } else if (menu == 6) {
     //BORRAR UN USUARIO 
-
-    url = './listarUsuarios.php';
     $('.deposito-title').hide('');
-    $('.container-Tittle-volver').html(`
-                <div class="container-sm d-flex w-75">
-                    <div class="d-flex w-5">   
-                         <a href="../menu/index.php" class="d-flex align-content-center">
-                            <div class="w-100"><img src="../Assets/imgs/volver.png" alt="" class="h-100 w-100 p-1 rounded-circle"></div> 
-                         </a>
-                    </div>
-                    <div class="w-100 d-flex justify-content-center">
-                        <h1>Borrar un usuario</h1>
-                    </div>
-                </div>`);
 
+    let sourceTitle = document.getElementById('titleModificarProducto-template').innerHTML;
+    let templateTitle = Handlebars.compile(sourceTitle);
+    $('.container-Tittle-volver').html(templateTitle({ titulo: 'Borrar un usuario' }));
+
+    document.querySelector('.btn-volver-configuracion').addEventListener('click', function () {
+        const url = this.getAttribute('data-url');
+        if (url) {
+            window.location.href = url;
+        }
+    });
+    
+    url = './listarUsuarios.php';
     $.ajax({
         url: url,
         type: 'GET',

@@ -36,7 +36,7 @@ function mostrarProductos() {
             
             response.forEach((producto, index) => {
                 if (index % 4 === 0) {
-                    row = $('<div class="row mt-4 h-100"></div>');
+                    row = $('<div class="row mt-4"></div>');
                     $('#prueba').append(row);
                 }
 
@@ -53,22 +53,27 @@ function mostrarProductos() {
     });
 }
 
+
+
+
 function sacarDelcarrito(button) {
     var card = button.closest('.card');
     var nombre = card.querySelector('.nombre-zapatilla').textContent.trim();
     var id = card.querySelector('.hidden')?.textContent.trim();
+    let modal = modales[0];
+    modal.innerHTML = "";
 
-    let productEliminar = carrito.findIndex(producto =>
+    let IndiceProductoEliminar = carrito.findIndex(producto =>
         (id && producto.id === id) || producto.nombre === nombre);
 
-    if (productEliminar !== -1) {
-        carrito.splice(productEliminar, 1);
+    if (IndiceProductoEliminar !== -1) {
+        carrito.splice(IndiceProductoEliminar, 1);
 
-        let modal = modales[0];
-        modal.innerHTML = "";
+        borrarContadorProductos();
 
         var sourceCard = document.getElementById('template-carrito').innerHTML;
         var templateCard = Handlebars.compile(sourceCard);
+
 
         if (carrito.length > 0) {
             carrito.forEach(item => {
@@ -95,12 +100,21 @@ function sacarDelcarrito(button) {
 }
 
 
-function sumarUnProductoAlContador(condicion){
+function sumarUnProductoAlContador(){
     contadorProductos++;
     $('.numItems').removeClass('d-none');
     $('.numItems').addClass('d-block');
     $('.numItems').html(contadorProductos);
-    
+}
+
+
+function borrarContadorProductos(){
+    if(carrito.length > 0){
+        $('.numItems').html(contadorProductos--);
+    }else{
+        $('.numItems').addClass('d-none');
+        contadorProductos = carrito.length;
+    }
 }
 
 function agregarAlCarrito(button) {

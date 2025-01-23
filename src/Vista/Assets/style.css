@@ -414,7 +414,6 @@ section .container-sm.d-flex.gap {
     background-color: #fff;
     transition: transform 0.3s ease;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2) !important;
-    height: 100%;
     justify-content: space-evenly;
 }
 
@@ -694,10 +693,6 @@ section .container-sm.d-flex.gap {
 
 /* Límite de altura para el contenedor en móvil */
 @media (max-width: 1200px) {
-    #prueba .col-3 { 
-        width: 50% !important;
-        height: auto; 
-    }
     .card-button{
         margin-top: 20%;
     }
