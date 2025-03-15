@@ -187,7 +187,8 @@ class BaseDatos extends PDO {
    
    private function EjecutarSelect($sql){
        $cant = -1;
-       $resultado=parent::query($sql);
+       $resultado = parent::query($sql);
+
        if(!$resultado){
            $this->analizarDebug();
        }else {

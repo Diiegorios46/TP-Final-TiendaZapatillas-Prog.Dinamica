@@ -22,34 +22,39 @@ function mostrarProductos() {
             $('#prueba').html('Cargando...');
         },
         success: function (response) {
-
-            response = JSON.parse(response);
+            console.log("Respuesta en bruto de PHP:", response);
+        
+            try {
+                response = JSON.parse(response);
+                console.log("JSON Parseado:", response);
+            } catch (e) {
+                console.error("Error al parsear JSON:", e, "Respuesta recibida:", response);
+                return;
+            }
+        
+            console.log("Esto viene de la base de datos:", response);
+        
             $('#prueba').html('');
             var sourceCard = document.getElementById('template-card-zapatillas').innerHTML;
             var templateCard = Handlebars.compile(sourceCard);
-                    let row ;
-
+            let row;
+        
             if (response.length === 0) {
                 $('#prueba').html('<div class="alert alert-warning" role="alert">No hay productos disponibles.</div>');
                 return;
             }
-            
+        
             response.forEach((producto, index) => {
                 if (index % 4 === 0) {
                     row = $('<div class="row mt-4"></div>');
                     $('#prueba').append(row);
                 }
-
+        
                 let zapatilla = templateCard(producto);
                 row.append(zapatilla);
             });
-
-        },
-
-        error: function (xhr, status, error) {
-            console.error('Error en la solicitud AJAX:', status, error);
-            $('#prueba').html('Error al cargar los datos.');
         }
+        
     });
 }
 
@@ -118,6 +123,7 @@ function borrarContadorProductos(){
 }
 
 function agregarAlCarrito(button) {
+
     var card = button.closest('.card');
     var nombreZapatilla = card.querySelector('.card-infoZapatillas').textContent;
     var precioZapatilla = card.querySelector('.data-precio').textContent;
@@ -140,6 +146,7 @@ function agregarAlCarrito(button) {
 
 function verificarMasZapatillas(zapatilla) {
     let productoEnCarrito = carrito.find(producto => producto.nombre === zapatilla.nombre);
+
     if (productoEnCarrito) {
         productoEnCarrito.cantidad++;
     } else {

@@ -175,6 +175,7 @@ class abmProducto
 
      public function obtenerDatos($param){
         $where = " true ";
+
         if ($param <> NULL) {
             if (isset($param['idproducto']))
                 $where .= " and idproducto = " . $param['idproducto'];
@@ -182,10 +183,12 @@ class abmProducto
                 $where .= " and prodetalle = '" . $param['prodetalle'] . "'";
             if (isset($param['proprecio']))
                 $where .= " and proprecio = " . $param['proprecio'];
-        } 
+        }
+
         $obj = new Producto();
         
         $arreglo = $obj->listar($where);
+        
         $result = [];
         
         if (!empty($arreglo)) {
@@ -201,6 +204,7 @@ class abmProducto
                 ];
             }
         }
+
         return $result;
     }
 
@@ -268,8 +272,12 @@ class abmProducto
     
 
     public function listarDeposito($datos) {
+
         $productos2 = $this->obtenerDatos(null);
+        
         $productos = [];
+        $productosFiltros2 = [];
+
 
         if ($productos2 != null) {
             foreach ($productos2 as $producto) {

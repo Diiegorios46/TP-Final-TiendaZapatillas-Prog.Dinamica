@@ -1,0 +1,4 @@
+¿No podes insertar un producto ?
+mysql tiene un maximo de peso de las imagenes , si supera ese limite no las sube , por ende no aparece nada en el home
+
+->La logica del ajax esta todo en el js , por ende en los index vas a encontrar solo la UI  
