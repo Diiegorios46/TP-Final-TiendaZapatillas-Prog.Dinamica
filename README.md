@@ -67,11 +67,9 @@ Todos los formularios están validados con jQuery Validator, asegurando que los 
 ![image](https://github.com/user-attachments/assets/c39230c1-8048-402e-a447-115eddee08a0)
 
 🧑‍💻 Autores
-[[] - Desarrollo Full Stack](https://github.com/Diiegorios46)
-https://github.com/Balenbv
-https://github.com/juancruzgw
-
-
+<p>https://github.com/Diiegorios46</p>
+<p>https://github.com/Balenbv</p>
+<p>https://github.com/juancruzgw</p>
 
 ```plaintext
 src/
