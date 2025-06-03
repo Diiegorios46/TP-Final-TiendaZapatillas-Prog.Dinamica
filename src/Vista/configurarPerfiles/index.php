@@ -71,7 +71,7 @@ if($session->getRol() != 1){
 
     <!--plantilla opcion : agregar un usuario nuevo -->
     <script id="template-formulario-crear" type="text/x-handlebars-template">
-        <div class="container w-80">
+        <div class="container w-100">
         <form id="formulario" novalidate method="post" class="bg-light p-4 border-button-dark rounded shadow formularioUsuarioNuevo">
             <div class="form-group">
                 <label for="nombre" class="form-label">Nombre</label>

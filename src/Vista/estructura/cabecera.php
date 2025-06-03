@@ -26,11 +26,11 @@ include '../../../config.php';
 
 <header class="container-fluid m-0 p-0">
         <nav class="container-fluid fs-3 bg-naranja p-4">
-            <div class="container-sm d-flex justify-content-between">
+            <div class="container-full d-flex justify-content-between">
                 <div class="w100-h55">
                     <a href="../../../../TP-Final-TiendaZapatillas-Prog.Dinamica/index.php"><img src="../Assets/imgs/th.jpg" alt="" class="h-100 w-100 objet-fit rounded"></a>
                 </div>
-                <div class="d-flex w-10 gap" id="icono-login-tienda">
+                <div class="d-flex w-10 gap justify-content-end" id="icono-login-tienda">
 
                     <div class="dropdown">
                         <i class="bi bi-person-circle dropdown-toggle icono-persona text-light" id="dropdownMenuButton"style="font-size: 2rem;" data-bs-toggle="dropdown" aria-expanded="false"></i>

@@ -28,12 +28,12 @@ $usuario = $session->getUsuario();
 
 <header class="container-fluid m-0 p-0">
         <nav class="container-fluid fs-3 bg-naranja p-4">
-            <div class="container-sm d-flex justify-content-between p-0">
+            <div class="container-full d-flex justify-content-between p-0">
                 <div class="w100-h55">
                     <a href="../../../../TP-Final-TiendaZapatillas-Prog.Dinamica/index.php"><img src="../Assets/imgs/th.jpg" alt="" class="h-100 w-100 objet-fit rounded"></a>
                 </div>
                
-                <div class="d-flex w-30 gap align-self-center" id="icono-login-tienda">
+                <div class="d-flex w-30 gap align-self-center justify-content-end" id="icono-login-tienda">
     
                     <div class="w-h">
                         <div class="w-40 offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
