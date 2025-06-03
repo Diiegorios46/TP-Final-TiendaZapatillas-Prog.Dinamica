@@ -814,8 +814,8 @@ section .container-sm.d-flex.gap {
 
 .container-configuracionText{
     font-size: 2rem;
-    margin-left: 5%;
-    margin-right: 10%;
+    margin-left: 2%;
+    margin-right: 2%;
     display: flex; 
     justify-content: space-between;
 }
@@ -843,7 +843,7 @@ section .container-sm.d-flex.gap {
 }
 
 #promarca{
-    width: 90%;
+    width: 95%;
     margin: auto;
 }
 
